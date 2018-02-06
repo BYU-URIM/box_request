@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package dslVersion="1.0.0.0" 
+        Id="cf40899f-309e-4c98-a972-313c6afd8782" 
+        solutionId="cf40899f-309e-4c98-a972-313c6afd8782" 
+        xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel" 
+        name="Record_Request_App"
+        sharePointProductVersion="15.0">
+  <features>
+        <featureReference itemId="28daebc9-da05-4654-8963-4c727120a13a" />
+  </features>
+</package>
