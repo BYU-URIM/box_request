@@ -3,6 +3,7 @@ import { mockdata } from "../res/mockdata";
 import { mockuser } from "../res/mockuser";
 import { Greeting } from "./Greeting";
 import { DepList } from "./UserDep";
+import { GetDepartment } from "./getdepartment";
 
 // app content refers to everything in the app below the header
 export class App extends React.Component {
@@ -10,6 +11,8 @@ export class App extends React.Component {
   state = {
     uName: mockuser.name,
     departmentid: mockuser.departments,
+    user: mockuser,
+    data: mockdata,
   };
 
   render() {
@@ -27,6 +30,12 @@ export class App extends React.Component {
           items={this.state.departmentid}
         />
 
+        <GetDepartment
+          mockuser={this.state.user}
+          mockdata={this.state.data}
+        />
+
+        
       </div>
     );
     

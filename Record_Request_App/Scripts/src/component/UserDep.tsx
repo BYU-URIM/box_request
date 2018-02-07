@@ -8,9 +8,6 @@ export function DepList (props) {
                 {props.items.map((x, i) => {
                     return (
                         <li key={i}>
-
-                            
-
                             {x}
                         </li>
                     );
