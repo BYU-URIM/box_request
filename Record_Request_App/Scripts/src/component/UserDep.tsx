@@ -1,13 +1,16 @@
 import * as React from 'react';
+import { mockdata } from '../res/mockdata';
 
-export function UDep (props) {
-    
+export function DepList (props) {
     return (
         <div>
             <ul>
                 {props.items.map((x, i) => {
                     return (
-                        <li>
+                        <li key={i}>
+
+                            
+
                             {x}
                         </li>
                     );

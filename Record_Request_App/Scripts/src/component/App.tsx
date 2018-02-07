@@ -2,7 +2,7 @@ import * as React from "react";
 import { mockdata } from "../res/mockdata";
 import { mockuser } from "../res/mockuser";
 import { Greeting } from "./Greeting";
-import { UDep } from "./UserDep";
+import { DepList } from "./UserDep";
 
 // app content refers to everything in the app below the header
 export class App extends React.Component {
@@ -23,7 +23,7 @@ export class App extends React.Component {
 
         <h1>Select one of your available deparments:</h1>
 
-        <UDep
+        <DepList
           items={this.state.departmentid}
         />
 
