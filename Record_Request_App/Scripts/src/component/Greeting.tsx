@@ -11,7 +11,6 @@ export function Greeting (props:iGreeting) {
 
             <h2> Welcome, {props.name}</h2>
 
-            {console.log(props.departmentid)}
         
         </div>
 

@@ -1,0 +1,55 @@
+I have an array of objects with attributes defining the department name and department id
+mockdata[x].DepartmentId
+mockdata[x].DepartmentName
+
+
+I also have an object with an array of department ids.
+mockuser.departments[x]
+
+IF mockdata[x].DepartmentId = mockuser.departments[x]
+
+return mockdata[x].DepartmentName
+
+
+for(var u = 0; u < mockdata.length; u++) {
+    if(mockdata[u].DepartmentId === x) {
+        var yellow = mockdata[u].DepartmentName
+   }
+}
+
+
+SAVE BEFORE I BREAK IT
+import * as React from 'react';
+
+export function GetDepartment (props) {
+
+    var arr = []
+
+    for(var i = 0; i < props.mockuser.departments.length; i++)
+    {
+        for(var u = 0; u < props.mockdata.length; u++)
+        {
+            if(props.mockdata[u].DepartmentId === props.mockuser.departments[i]) {
+                var str = props.mockdata[u].DepartmentName
+                arr.push(str)
+            }
+        }
+    }
+
+
+    return(
+        <div>
+            <ul>
+                {deps.map((x, i) => {
+                    return (
+                        <li key={i}>
+                            {x}
+                        </li>
+                    );
+                })}
+            </ul>
+        </div>
+    )
+}
+
+When I think of academic or business writing, I have never considered that it should follow the same structure as a story arc.  To me, rising conflict was something that dealt with characters in a story, that lead to some climax.  Stories are engaging and interesting; they are structured to subtly and professionally persuade the reader to want more.  As I read this section, I thought to myself, why wouldn't I write like this in my professional and academic life?  Nobody wants to read dry literature, purposeless emails, or bland business letters.  Boring topics are dull and difficult to read only as long as they're presented in a boring manner.  Stories give life and meaning, and anything I write can do the same. 

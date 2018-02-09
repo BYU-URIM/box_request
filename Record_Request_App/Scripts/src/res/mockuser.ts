@@ -1,4 +1,4 @@
-export const mockuser =     {
+export const mockUser =     {
     name: "Greg Anderson",
     email: "email@gmail.com",
     username: "greggy",

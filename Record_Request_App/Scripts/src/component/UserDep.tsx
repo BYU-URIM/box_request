@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { mockdata } from '../res/mockdata';
+import { mockData } from '../res/mockdata';
 
 export function DepList (props) {
     return (

@@ -1,6 +1,6 @@
 import * as React from "react";
-import { mockdata } from "../res/mockdata";
-import { mockuser } from "../res/mockuser";
+import { mockData } from "../res/mockdata";
+import { mockUser } from "../res/mockuser";
 import { Greeting } from "./Greeting";
 import { DepList } from "./UserDep";
 import { GetDepartment } from "./getdepartment";
@@ -9,10 +9,10 @@ import { GetDepartment } from "./getdepartment";
 export class App extends React.Component {
 
   state = {
-    uName: mockuser.name,
-    departmentid: mockuser.departments,
-    user: mockuser,
-    data: mockdata,
+    uName: mockUser.name,
+    departmentid: mockUser.departments,
+    user: mockUser,
+    data: mockData,
   };
 
   render() {
@@ -31,8 +31,8 @@ export class App extends React.Component {
         />
 
         <GetDepartment
-          mockuser={this.state.user}
-          mockdata={this.state.data}
+          mockUser={this.state.user}
+          mockData={this.state.data}
         />
 
         
