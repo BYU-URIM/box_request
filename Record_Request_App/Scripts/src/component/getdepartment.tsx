@@ -16,13 +16,16 @@ export function GetDepartment (props) {
         }
     })
 
-
-    
-    console.log(departmentObj);
-
+    // becomes the array of the names of departments the user has access to
     const deps = []
-    console.log()
 
+    departmentObj.forEach(outer => {
+        if(userDepartments.find(inner => inner === outer.id)) {
+            deps.push(outer.name)
+        }
+    })
+
+    // return the HTML list of the department names associated with the user
     return(
         <div>
             <ul>
