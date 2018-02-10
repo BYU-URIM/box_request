@@ -1,7 +1,13 @@
 import * as React from 'react';
 
-const clg = (v) => console.log(v)
-export function GetDepartment (props) {
+export interface iUserDeps {
+    mockUser
+    mockData
+}
+
+// const clg = (v) => console.log(v) -- for future use
+
+export function GetDepartment (props:iUserDeps) {
 
     const userDepartments = props.mockUser.departments 
     const departmentInfo = props.mockData

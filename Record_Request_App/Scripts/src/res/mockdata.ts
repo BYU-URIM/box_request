@@ -1,4 +1,13 @@
-export const mockData = [
+export interface iMockDataObj {
+  BoxId: number,
+  DepartmentId: number,
+  DepartmentName: string,
+  DateSubmitted: string,
+}
+
+export interface iMockDataArrObj extends Array<iMockDataObj> { }
+
+export const mockData: iMockDataArrObj = [
   {
     BoxId: 1,
     DepartmentId: 5555,

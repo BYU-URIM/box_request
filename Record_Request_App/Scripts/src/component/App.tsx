@@ -2,7 +2,6 @@ import * as React from "react";
 import { mockData } from "../res/mockdata";
 import { mockUser } from "../res/mockuser";
 import { Greeting } from "./Greeting";
-import { DepList } from "./UserDep";
 import { GetDepartment } from "./getdepartment";
 
 // app content refers to everything in the app below the header
@@ -25,10 +24,6 @@ export class App extends React.Component {
         />
 
         <h1>Select one of your available deparments:</h1>
-
-        <DepList
-          items={this.state.departmentid}
-        />
 
         <GetDepartment
           mockUser={this.state.user}
