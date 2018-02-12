@@ -23,8 +23,6 @@ export class App extends React.Component {
           departmentid={this.state.departmentid}
         />
 
-        <h1>Select one of your available deparments:</h1>
-
         <GetDepartment
           mockUser={this.state.user}
           mockData={this.state.data}
