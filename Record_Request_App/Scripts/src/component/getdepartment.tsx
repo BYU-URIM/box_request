@@ -53,7 +53,7 @@ export function GetDepartment (props:iUserDeps) {
                 <fieldset>
                     {/* <select onChange ={(e)=>changeDep(e)}> */}
                     <select onChange={props.changeSelectedDep}>
-                        <option value={0}>Departments</option>
+                        <option selected disabled>Departments</option>
                         {deps.map((x, i) => {
                             return (
                                 <option key={i} value={depsid[i]}>
