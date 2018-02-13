@@ -12,6 +12,13 @@ export class App extends React.Component {
     departmentid: mockUser.departments,
     user: mockUser,
     data: mockData,
+    selectedDep: 0,
+  };
+
+  changeSelectedDep = e => {
+    this.setState({
+      selectedDep: e.target.value
+    });
   };
 
   render() {
@@ -26,7 +33,10 @@ export class App extends React.Component {
         <GetDepartment
           mockUser={this.state.user}
           mockData={this.state.data}
+          changeSelectedDep={this.changeSelectedDep}
         />
+
+        {JSON.stringify(this.state.selectedDep)}
 
         
       </div>

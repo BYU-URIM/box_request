@@ -3,12 +3,14 @@ import * as React from 'react';
 export interface iUserDeps {
     mockUser
     mockData
+    changeSelectedDep
 }
 
 // const clg = (v) => console.log(v) -- for future use
 
 export function GetDepartment (props:iUserDeps) {
     const deps = []
+    const depsid = []
 
     const changeDep = (e) => {
         console.log('e: ' + e.target.value )
@@ -32,9 +34,14 @@ export function GetDepartment (props:iUserDeps) {
 
     departmentObj.forEach(outer => {
         if(userDepartments.find(inner => inner === outer.id)) {
-            deps.push(outer.name)
+            deps.push(outer.name);
+            depsid.push(outer.id);
         }
     })
+
+    
+
+    console.log(departmentObj)
 
     // return the HTML list of the department names associated with the user
     return(
@@ -44,11 +51,12 @@ export function GetDepartment (props:iUserDeps) {
                 <h1>Select one of your available departments:</h1>
 
                 <fieldset>
-                    <select onChange ={(e)=>changeDep(e)}>
-                        <option>Departments</option>
+                    {/* <select onChange ={(e)=>changeDep(e)}> */}
+                    <select onChange={props.changeSelectedDep}>
+                        <option value={0}>Departments</option>
                         {deps.map((x, i) => {
                             return (
-                                <option key={i} value={i}>
+                                <option key={i} value={depsid[i]}>
                                     {x}
                                 </option>
                             );
@@ -56,6 +64,17 @@ export function GetDepartment (props:iUserDeps) {
                     </select>
                 </fieldset>
             </form>
+
+            <ul>
+                {depsid.map((x, i) => {
+                    return(
+                        <li key={i}>
+                        {x}
+                        </li>
+                    )
+                })}
+            </ul>
+
         </div>
     )
 }
