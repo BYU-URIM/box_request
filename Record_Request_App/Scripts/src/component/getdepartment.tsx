@@ -64,17 +64,6 @@ export function GetDepartment (props:iUserDeps) {
                     </select>
                 </fieldset>
             </form>
-
-            <ul>
-                {depsid.map((x, i) => {
-                    return(
-                        <li key={i}>
-                        {x}
-                        </li>
-                    )
-                })}
-            </ul>
-
         </div>
     )
 }
