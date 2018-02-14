@@ -36,7 +36,12 @@ export class App extends React.Component {
           changeSelectedDep={this.changeSelectedDep}
         />
 
-        {JSON.stringify(this.state.selectedDep)}
+        {/* <GetBox
+          mockData={this.state.data}
+          depId={this.state.selectedDep}
+        /> */}
+
+        {/* {JSON.stringify(this.state.selectedDep)} */}
 
         
       </div>

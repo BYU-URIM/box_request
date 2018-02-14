@@ -38,10 +38,8 @@ export function GetDepartment (props:iUserDeps) {
             depsid.push(outer.id);
         }
     })
-
     
-
-    console.log(departmentObj)
+    console.log(depsid)
 
     // return the HTML list of the department names associated with the user
     return(
@@ -51,16 +49,26 @@ export function GetDepartment (props:iUserDeps) {
                 <h1>Select one of your available departments:</h1>
 
                 <fieldset>
-                    {/* <select onChange ={(e)=>changeDep(e)}> */}
-                    <select onChange={props.changeSelectedDep}>
-                        <option selected disabled>Departments</option>
+
+                    <select onChange={props.changeSelectedDep} defaultValue="">
+
+                        <option 
+                            value=""
+                            selected disabled>
+                                Departments
+                        </option>
+
                         {deps.map((x, i) => {
                             return (
-                                <option key={i} value={depsid[i]}>
+                                <option 
+                                    key={i} 
+                                    value={depsid[i]}>
                                     {x}
                                 </option>
                             );
                         })}
+
+                        
                     </select>
                 </fieldset>
             </form>
