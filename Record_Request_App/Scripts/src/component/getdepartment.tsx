@@ -46,6 +46,7 @@ export function GetDepartment (props:iUserDeps) {
         <div>
 
             <form action = ''>
+        
                 <h1>Select one of your available departments:</h1>
 
                 <fieldset>
@@ -67,11 +68,12 @@ export function GetDepartment (props:iUserDeps) {
                                 </option>
                             );
                         })}
-
-                        
                     </select>
+
                 </fieldset>
+            
             </form>
+        
         </div>
     )
 }
