@@ -3,6 +3,7 @@ import { mockData } from "../res/mockdata";
 import { mockUser } from "../res/mockuser";
 import { Greeting } from "./Greeting";
 import { GetDepartment } from "./getdepartment";
+import { GetBoxes } from "./getBoxes";
 
 // app content refers to everything in the app below the header
 export class App extends React.Component {
@@ -36,12 +37,13 @@ export class App extends React.Component {
           changeSelectedDep={this.changeSelectedDep}
         />
 
-        {/* <GetBox
+        <GetBoxes
           mockData={this.state.data}
-          depId={this.state.selectedDep}
-        /> */}
+          Dep={this.state.selectedDep}
+        />
+        
 
-        {/* {JSON.stringify(this.state.selectedDep)} */}
+        {JSON.stringify(this.state.selectedDep)}
 
         
       </div>

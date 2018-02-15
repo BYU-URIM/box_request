@@ -39,7 +39,7 @@ export function GetDepartment (props:iUserDeps) {
         }
     })
     
-    console.log(depsid)
+    // console.log(depsid)
 
     // return the HTML list of the department names associated with the user
     return(
