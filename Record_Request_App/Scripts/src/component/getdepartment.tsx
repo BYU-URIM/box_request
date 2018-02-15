@@ -55,6 +55,7 @@ export function GetDepartment (props:iUserDeps) {
                                 </option>
                             );
                         })}
+                        
                     </select>
 
                 </fieldset>
