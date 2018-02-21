@@ -4,7 +4,6 @@ import { mockUser } from "../res/mockuser";
 import { Greeting } from "./Greeting";
 import { GetDepartment } from "./getdepartment";
 import { GetBoxes } from "./getBoxes";
-
 // app content refers to everything in the app below the header
 export class App extends React.Component {
 
@@ -16,9 +15,9 @@ export class App extends React.Component {
     selectedDep: 0,
   };
 
-  changeSelectedDep = e => {
+  changeSelectedDep = (val:number) => {
     this.setState({
-      selectedDep: e.target.value
+      selectedDep: val
     });
   };
 
@@ -44,6 +43,7 @@ export class App extends React.Component {
         
 
         {JSON.stringify(this.state.selectedDep)}
+
 
         
       </div>

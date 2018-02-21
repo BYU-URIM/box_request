@@ -39,6 +39,7 @@ export function GetBoxes (props: iBoxes) {
                             <Checkbox
                                 key={i}
                                 label={x}
+                                onChange={(ev, checked)=>console.log(checked)}
                             />
                     );
                 })}

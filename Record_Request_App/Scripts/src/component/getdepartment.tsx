@@ -1,9 +1,10 @@
 import * as React from 'react';
+import { Dropdown, IDropdown, DropdownMenuItemType, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 
 export interface iUserDeps {
     mockUser
     mockData
-    changeSelectedDep
+    changeSelectedDep(val:number)
 }
 
 export function GetDepartment (props:iUserDeps) {
@@ -36,29 +37,17 @@ export function GetDepartment (props:iUserDeps) {
         
                 <h1>Select one of your available departments:</h1>
 
-                <fieldset>
-
-                    <select onChange={props.changeSelectedDep} defaultValue="0">
-
-                        <option 
-                            value="0"
-                            disabled>
-                                Departments
-                        </option>
-
-                        {deps.map((x, i) => {
-                            return (
-                                <option 
-                                    key={i} 
-                                    value={depsid[i]}>
-                                    {x}
-                                </option>
-                            );
-                        })}
-                        
-                    </select>
-
-                </fieldset>
+                <Dropdown
+                    placeHolder='Departments'
+                    label='Select one of your available departments:'
+                    options={
+                        deps.map((x, i) => { return ( 
+                            {key: depsid[i], text: x, value:"not a value"}
+                    )})
+                    }
+                    onChanged={(x)=> props.changeSelectedDep(Number(x.key))
+                    }
+                />
             
             </form>
         
@@ -66,8 +55,3 @@ export function GetDepartment (props:iUserDeps) {
     )
 }
 
-
-// const changeDep = (e) => {
-//     console.log('e: ' + e.target.value )
-//     console.log(deps[e.target.value])
-// }  I think I can remove this function because it is now passed as props to this component
