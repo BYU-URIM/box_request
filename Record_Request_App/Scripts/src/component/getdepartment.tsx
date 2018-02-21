@@ -38,11 +38,11 @@ export function GetDepartment (props:iUserDeps) {
 
                 <fieldset>
 
-                    <select onChange={props.changeSelectedDep} defaultValue="">
+                    <select onChange={props.changeSelectedDep} defaultValue="0">
 
                         <option 
-                            value=""
-                            selected disabled>
+                            value="0"
+                            disabled>
                                 Departments
                         </option>
 
