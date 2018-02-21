@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "core-decorators": "^0.20.0",
-    "office-ui-fabric-react": "^5.34.0",
+    "office-ui-fabric-react": "^5.53.0",
     "react": "16.2",
     "react-dom": "^16.1.1",
     "react-router": "^4.2.0",

@@ -1,4 +1,13 @@
 import * as React from 'react';
+import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
+import {
+    Checkbox,
+    ICheckboxStyles,
+    ICheckboxProps
+  } from 'office-ui-fabric-react/lib/Checkbox';
+  import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
+
+initializeIcons()
 
 export interface iBoxes {
     mockData
@@ -27,12 +36,16 @@ export function GetBoxes (props: iBoxes) {
             <ul>
                 {depBoxList.map((x, i) => {
                     return(
-                        <li key={i}>
-                            Box: {x}
-                        </li>
+                            <Checkbox
+                                key={i}
+                                label={x}
+                            />
                     );
                 })}
             </ul>
+
+            <PrimaryButton>Request</PrimaryButton>
+
         </div>
     )
 }
