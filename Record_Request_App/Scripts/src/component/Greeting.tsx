@@ -1,5 +1,11 @@
 import * as React from 'react';
 
+const headingStyle = {
+    display: "flex",
+    justifyContent: "flex-end",
+    padding: "15"
+  } as React.CSSProperties
+
 export interface iGreeting {
     name: string
     departmentid: number[]
@@ -7,7 +13,7 @@ export interface iGreeting {
 
 export function Greeting (props:iGreeting) {
     return (
-        <div className="greeting_card">
+        <div style={headingStyle}>
 
             <h2> Welcome, {props.name}</h2>
 

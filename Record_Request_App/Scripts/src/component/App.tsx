@@ -4,7 +4,20 @@ import { mockUser } from "../res/mockuser";
 import { Greeting } from "./Greeting";
 import { GetDepartment } from "./getdepartment";
 import { GetBoxes } from "./getBoxes";
-// app content refers to everything in the app below the header
+import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
+
+const bodyStyle = {
+  display: "block",
+  justifyContent: "flex-start"
+} as React.CSSProperties
+
+const center = {
+  display: "flex",
+  justifyContent: "center",
+  marginLeft: "25%",
+  marginRight: "25%",
+} as React.CSSProperties
+
 export class App extends React.Component {
 
   state = {
@@ -23,7 +36,7 @@ export class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={bodyStyle}>
 
         <Greeting 
           name={this.state.uName}
@@ -40,7 +53,8 @@ export class App extends React.Component {
           mockData={this.state.data}
           Dep={this.state.selectedDep}
         />
-        
+
+        <span style={center}><PrimaryButton>Request</PrimaryButton></span>
 
         {JSON.stringify(this.state.selectedDep)}
 

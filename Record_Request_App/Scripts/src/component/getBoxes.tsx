@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import {
     Checkbox,
     ICheckboxStyles,
@@ -7,13 +6,29 @@ import {
   } from 'office-ui-fabric-react/lib/Checkbox';
   import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
 
+// Styling
+const bodyStyle = {
+    display: "block",
+    justifyContent: "center",
+    marginRight: "29%",
+    marginLeft: "29%",
+} as React.CSSProperties
+
+const boxItem = {
+    padding: "2",
+    listStyleType: "none",
+}
+
+// Enables microsoft ui icons to appear
 initializeIcons()
 
+// Interface for iBoxes
 export interface iBoxes {
     mockData
     Dep
 }
 
+// console.log shortcut
 const clg = (v) => console.log(v)
 
 export function GetBoxes (props: iBoxes) {
@@ -32,21 +47,21 @@ export function GetBoxes (props: iBoxes) {
     {clg(depBoxList)}
 
     return(
-        <div>
+        <div style={bodyStyle}>
+            <h3> Box ID: </h3>
             <ul>
                 {depBoxList.map((x, i) => {
                     return(
+                        <li style={boxItem}>
                             <Checkbox
                                 key={i}
                                 label={x}
                                 onChange={(ev, checked)=>console.log(checked)}
                             />
+                        </li>
                     );
                 })}
             </ul>
-
-            <PrimaryButton>Request</PrimaryButton>
-
         </div>
     )
 }
