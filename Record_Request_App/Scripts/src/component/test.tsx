@@ -2,7 +2,7 @@ import * as React from 'react';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
 import { DetailsList } from 'office-ui-fabric-react/lib/DetailsList';
-  import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
+import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
 
 // Styling
 const bodyStyle = {

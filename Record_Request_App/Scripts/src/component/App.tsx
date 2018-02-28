@@ -5,6 +5,7 @@ import { Greeting } from "./Greeting";
 import { GetDepartment } from "./getdepartment";
 import { GetBoxes } from "./getBoxes";
 import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
+import { Multilist } from './test'
 
 const bodyStyle = {
   display: "block",
@@ -49,12 +50,12 @@ export class App extends React.Component {
           changeSelectedDep={this.changeSelectedDep}
         />
 
-        <GetBoxes
+        <span style={center}><PrimaryButton>Request</PrimaryButton></span>
+
+        <Multilist
           mockData={this.state.data}
           Dep={this.state.selectedDep}
         />
-
-        <span style={center}><PrimaryButton>Request</PrimaryButton></span>
 
         {JSON.stringify(this.state.selectedDep)}
 
