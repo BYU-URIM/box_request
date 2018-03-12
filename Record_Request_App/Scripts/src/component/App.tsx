@@ -58,9 +58,7 @@ export class App extends React.Component {
         />
 
         {JSON.stringify(this.state.selectedDep)}
-
-
-        
+      
       </div>
     );
     

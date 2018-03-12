@@ -30,7 +30,7 @@ export interface iUserDeps {
         }
     })
 
-    // iteratoes through each object of name and id, compares the id with the user departments, applies a department name with the users dep ID
+    // iterates through each object of name and id, compares the id with the user departments, applies a department name with the users dep ID
     departmentObj.forEach(outer => {
         if(userDepartments.find(inner => inner === outer.id)) {
             deps.push(outer.name);
