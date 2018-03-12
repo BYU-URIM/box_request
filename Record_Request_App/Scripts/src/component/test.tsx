@@ -93,37 +93,26 @@ export function Multilist (props: iList) {
     //     FolderGroupId: y.BoxId, 
     //     FolderId: y.FolderId  })})    
 
+    
+    // variable that compares all boxes with the selected box
+    let depAndBoxId = boxList.filter(x => { if(x.DepartmentId === departmentId ) return x})
+    
+    // variable that grabs the boxId of currently selected department, used for comparison purposes
+    let selectedBoxId = depAndBoxId.map(x => { return x.BoxId })
+    
+    needsToChangeFirst(selectedBoxId[0])
+    
     boxList.forEach(x => { 
         if(x.DepartmentId == departmentId) 
         {groups.push(
             {
                 key: x.BoxId,
                 name: `Box ${x.BoxId}`,
-                count: _folders.length,
+                count: folders.length,
             }
         )}
     })
-
-window["stuff"]= {
-    Folders: test,
-    boxList: boxList}
-
-// {clg(folders)}
-// {clg(boxList)}
-
-// variable that compares all boxes with the selected box
-let depAndBoxId = boxList.filter(x => { if(x.DepartmentId === departmentId ) return x})
-
-// variable that grabs the boxId of currently selected department, used for comparison purposes
-let selectedBoxId = depAndBoxId.map(x => { return x.BoxId })
-
-
-// {clg(selectedBoxId)}
-// {clg(depAndBoxId)}
-// {clg(needsToChangeFirst(selectedBoxId[0]))}
-
-needsToChangeFirst(selectedBoxId[0])
-
+    
 {clg(folders)}
 {clg(_folders)}
 
@@ -133,7 +122,7 @@ needsToChangeFirst(selectedBoxId[0])
                 text='Add a folder'
             />
             <DetailsList
-                items={ _folders }
+                items={ folders }
                 groups={ groups }
                 columns= { _columns }
                 ariaLabelForSelectAllCheckbox='Toggle selection for all items'
