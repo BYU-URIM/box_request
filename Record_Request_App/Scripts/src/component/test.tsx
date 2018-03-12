@@ -36,29 +36,6 @@ export function Multilist (props: iList) {
     const depBoxList = []
     const groups=[]
     const folders = []
-    const test = []
-    const _folders = [
-        {
-            GroupFolderId: 2,
-            FolderName: 'Folder1'
-        },
-        {
-            key: 4,
-            name: 'Folder2'
-        },
-        {
-            key: 5,
-            name: 'Folder3'
-        },
-        {
-            key: 1,
-            name: 'Folder4'
-        },
-        {
-            key: 9,
-            name: 'Folder5'
-        }
-    ]
     const _columns = [
         {
             key: 'mList1',
@@ -76,24 +53,28 @@ export function Multilist (props: iList) {
             
             // variable that grabs the whole object based on if its BoxId is equal to the selected BoxId
             let boxParentObject = data.filter(x =>  x.BoxId === selectedBox)  //selectedBoxId[0])
-              
+
             folders.push({key: boxParentObject[0].BoxId, name: `Folder ${boxParentObject[0].FolderId}`})        
+            {clg(folders)}
+            {clg(boxParentObject)}
     
+            // We need to address line 57 (folders.push) so that it can take in numbers dynamically and create a list
         } 
     }
 
     // create an array of department ids and box ids
     data.forEach(y => { boxList.push({ DepartmentId: y.DepartmentId, BoxId: y.BoxId })})
-    
+
     // create a list of boxes within each department
     boxList.forEach(x => { if(x.DepartmentId == departmentId) {depBoxList.push(x.BoxId)}})
-        
-    // variable that compares all boxes with the selected box
+    {clg(depBoxList)}
+    // compares all boxes with the selected box
     let depAndBoxId = boxList.filter(x => { if(x.DepartmentId === departmentId ) return x})
+    {clg(depAndBoxId)}
     
-    // variable that grabs the boxId of currently selected department, used for comparison purposes
+    // grabs the boxId of currently selected department, used for comparison purposes
     let selectedBoxId = depAndBoxId.map(x => { return x.BoxId })
-    
+    {clg(selectedBoxId)}
     needsToChangeFirst(selectedBoxId[0])
     
     boxList.forEach(x => { 
@@ -107,8 +88,6 @@ export function Multilist (props: iList) {
         )}
     })
 
-{clg(folders)}
-{clg(_folders)}
 
     return(
         <Fabric className='bodyStyle'>

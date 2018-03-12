@@ -3,7 +3,7 @@ export interface iMockDataObj {
   DepartmentId: number,
   DepartmentName: string,
   DateSubmitted: string,
-  FolderId: any
+  FolderId?: any
 }
 
 export interface iMockDataArrObj extends Array<iMockDataObj> { }
@@ -14,7 +14,7 @@ export const mockData: iMockDataArrObj = [
   DepartmentId: 5555,
   DepartmentName: "Office of Administration",
   DateSubmitted: "8/9/2017",
-  FolderId: "613"
+  FolderId: ["613", "2"]
 }, {
   BoxId: 2,
   DepartmentId: 5556,
@@ -26,33 +26,31 @@ export const mockData: iMockDataArrObj = [
   DepartmentId: 5557,
   DepartmentName: "Department of Healthcare and Registration",
   DateSubmitted: "2/27/2016",
-  FolderId: ""
-}]
-// }, {
-//   BoxId: 4,
-//   DepartmentId: 5558,
-//   DepartmentName: "Department of Business",
-//   DateSubmitted: "4/21/2015",
-//   FolderId: "00234"
-// }, {
-//   BoxId: 5,
-//   DepartmentId: 5559,
-//   DepartmentName: "Department of Science",
-//   DateSubmitted: "1/4/2015",
-//   FolderId: "1295"
-// }, {
-//   BoxId: 6,
-//   DepartmentId: 5560,
-//   DepartmentName: "Department of Spanish",
-//   DateSubmitted: "10/17/2016",
-//   FolderId: "9"
-// }, {
-//   BoxId: 7,
-//   DepartmentId: 5555,
-//   DepartmentName: "Office of IT",
-//   DateSubmitted: "3/10/2016",
-//   FolderId: "39"
-// }, {
+}, {
+  BoxId: 4,
+  DepartmentId: 5558,
+  DepartmentName: "Department of Business",
+  DateSubmitted: "4/21/2015",
+  FolderId: "00234"
+}, {
+  BoxId: 5,
+  DepartmentId: 5559,
+  DepartmentName: "Department of Science",
+  DateSubmitted: "1/4/2015",
+  FolderId: "1295"
+}, {
+  BoxId: 6,
+  DepartmentId: 5560,
+  DepartmentName: "Department of Spanish",
+  DateSubmitted: "10/17/2016",
+  FolderId: "9"
+}, {
+  BoxId: 7,
+  DepartmentId: 5555,
+  DepartmentName: "Office of IT",
+  DateSubmitted: "3/10/2016",
+  FolderId: "39"
+}] //{
 //   BoxId: 8,
 //   DepartmentId: 5556,
 //   DepartmentName: "BYU Police Department",
