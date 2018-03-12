@@ -46,27 +46,29 @@ export function Multilist (props: iList) {
         }
     ];
     
-    // function  waits for depAndBoxId and selectedBoxId to have values. Creates an array with folders within the box.
+    // function 
     function boxSetup (box) {
             
         box["folderStartIndex"] = folders.length
-        box["folderCount"] = box.FolderId.length
-        folders = folders.concat(box.FolderId.map((id, index) => (
-            {key: index, name: `Folder ${id}`}
-        )))
+        if (box.FolderId == null) {
+            box["folderCount"] = 0
+        }
+        else {
+            box["folderCount"] = box.FolderId.length
+            folders = folders.concat(box.FolderId.map((id, index) => (
+                {key: index, name: `Folder ${id}`}
+            )))
+        }
 
     }
-
-    const myarray: number[] = []
-    const otherarray: Array<number> = []
-
-    
 
     // create a list of boxes within each department
     data.forEach(x => { if(x.DepartmentId == departmentId) {depBoxList.push(x)}})
     
+    // call the boxSetup function on each box in the department list (of boxes)
     depBoxList.forEach(box => boxSetup(box))
     
+    // Use the boxes in the department list to create groups that satisfy the detailed list required parameters
     depBoxList.forEach(x => { 
         groups.push(
             {
@@ -77,7 +79,6 @@ export function Multilist (props: iList) {
             }
         )
     })
-
 
     return(
         <Fabric className='bodyStyle'>
