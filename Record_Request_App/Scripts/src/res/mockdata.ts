@@ -14,61 +14,63 @@ export const mockData: iMockDataArrObj = [
   DepartmentId: 5555,
   DepartmentName: "Office of Administration",
   DateSubmitted: "8/9/2017",
-  FolderId: ["613", "2"]
+  FolderId: ["613", "2", "14"]
 }, {
   BoxId: 2,
   DepartmentId: 5556,
   DepartmentName: "BYU Police Department",
   DateSubmitted: "2/21/2015",
-  FolderId: "1", 
+  FolderId: ["1", "765"], 
 }, {
   BoxId: 3,
   DepartmentId: 5557,
   DepartmentName: "Department of Healthcare and Registration",
   DateSubmitted: "2/27/2016",
-}, {
+  FolderId: ["32", "42"]
+},
+{
   BoxId: 4,
   DepartmentId: 5558,
   DepartmentName: "Department of Business",
   DateSubmitted: "4/21/2015",
-  FolderId: "00234"
+  FolderId: ["00234", "24"]
 }, {
   BoxId: 5,
   DepartmentId: 5559,
   DepartmentName: "Department of Science",
   DateSubmitted: "1/4/2015",
-  FolderId: "1295"
+  FolderId: ["1295", "2341"]
 }, {
   BoxId: 6,
   DepartmentId: 5560,
   DepartmentName: "Department of Spanish",
   DateSubmitted: "10/17/2016",
-  FolderId: "9"
+  FolderId: ["9", "234"]
 }, {
   BoxId: 7,
   DepartmentId: 5555,
   DepartmentName: "Office of IT",
   DateSubmitted: "3/10/2016",
-  FolderId: "39"
+  FolderId: ["39", "28474"]
+}, {
+  BoxId: 8,
+  DepartmentId: 5556,
+  DepartmentName: "BYU Police Department",
+  DateSubmitted: "8/8/2016",
+  FolderId: ["19677", "328457"]
+}, {
+  BoxId: 9,
+  DepartmentId: 5557,
+  DepartmentName: "Department of Healthcare and Registration",
+  DateSubmitted: "6/17/2016",
+  FolderId: ["0", "0484"]
+}, {
+  BoxId: 10,
+  DepartmentId: 5558,
+  DepartmentName: "Department of Business",
+  DateSubmitted: "12/12/2016",
+  FolderId: ["2797", "94875"]
 }] //{
-//   BoxId: 8,
-//   DepartmentId: 5556,
-//   DepartmentName: "BYU Police Department",
-//   DateSubmitted: "8/8/2016",
-//   FolderId: "19677"
-// }, {
-//   BoxId: 9,
-//   DepartmentId: 5557,
-//   DepartmentName: "Department of Healthcare and Registration",
-//   DateSubmitted: "6/17/2016",
-//   FolderId: "0"
-// }, {
-//   BoxId: 10,
-//   DepartmentId: 5558,
-//   DepartmentName: "Department of Business",
-//   DateSubmitted: "12/12/2016",
-//   FolderId: "2797"
-// }, {
 //   BoxId: 11,
 //   DepartmentId: 5559,
 //   DepartmentName: "Department of Science",

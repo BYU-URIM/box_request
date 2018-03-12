@@ -51,11 +51,15 @@ export class App extends React.Component {
         />
 
         <span style={center}><PrimaryButton>Request</PrimaryButton></span>
+        
+        {
+          this.state.selectedDep &&
+          <Multilist
+            mockData={this.state.data}
+            Dep={this.state.selectedDep}
+          />
+        }
 
-        <Multilist
-          mockData={this.state.data}
-          Dep={this.state.selectedDep}
-        />
 
         {JSON.stringify(this.state.selectedDep)}
       
