@@ -15,7 +15,7 @@ export function Greeting (props:iGreeting) {
     return (
         <div style={headingStyle}>
 
-            <h2> Welcome, {props.name}</h2>
+            <h2 className="ms-font-l"> Welcome, {props.name}</h2>
 
         
         </div>

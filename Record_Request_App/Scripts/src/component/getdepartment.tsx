@@ -44,7 +44,7 @@ export interface iUserDeps {
 
             <form action = ''>
         
-                <h1>Select one of your available departments:</h1>
+                <h1 className="ms-font-xxl">Select one of your available departments:</h1>
 
                 <Dropdown
                     placeHolder='Departments'
