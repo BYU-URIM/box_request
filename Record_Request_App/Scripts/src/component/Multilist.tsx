@@ -31,12 +31,18 @@ const clg = (v) => console.log(v)
 
 export function Multilist (props: iList) {
     const data = props.mockData
+                                            // id of the currently selected department
     const departmentId = props.Dep
+                                            // List of boxes within the department
     const depBoxList = []
+                                            // Details List parameter requires a certain layout, that's what "groups" is
     const groups=[]
+                                            // folders within a single box
     let folders = []
+                                            // Display the name of the currently selected department
     let depName = ""
     
+    // filter method that provides the correct selected department name
     data.filter(x => {if(departmentId == x.DepartmentId) depName = x.DepartmentName})
 
     const _columns = [
@@ -50,7 +56,8 @@ export function Multilist (props: iList) {
         }
     ];
     
-    // function 
+    // function: takes in a box, checks for and establishes the # of folders it has, gets the folder id's and prints it out as an item
+    // underneath its parent box.
     function boxSetup (box) {
             
         box["folderStartIndex"] = folders.length
@@ -97,6 +104,8 @@ export function Multilist (props: iList) {
                 groupProps={{
                     showEmptyGroups: true
                 }}
+                // Somehow, I need to collapse this.  
+                // compact attribute?
                 
             />
         </Fabric>
