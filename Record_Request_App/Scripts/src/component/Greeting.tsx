@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { FontClassNames } from '@uifabric/styling';
 
 const headingStyle = {
     display: "flex",
@@ -15,7 +16,7 @@ export function Greeting (props:iGreeting) {
     return (
         <div style={headingStyle}>
 
-            <h2 className="ms-font-l"> Welcome, {props.name}</h2>
+            <h2 className={"ms-font-l"}> Welcome, {props.name}</h2>
 
         
         </div>
