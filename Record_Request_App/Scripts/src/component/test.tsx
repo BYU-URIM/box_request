@@ -35,10 +35,14 @@ export function Multilist (props: iList) {
     const depBoxList = []
     const groups=[]
     let folders = []
+    let depName = ""
+    
+    data.filter(x => {if(departmentId == x.DepartmentId) depName = x.DepartmentName})
+
     const _columns = [
         {
             key: 'mList1',
-            name: 'Department Record Boxes',
+            name: `${depName} Record Boxes`,
             fieldName: 'name',
             minWidth: 100,
             maxWidth: 200,
@@ -59,7 +63,6 @@ export function Multilist (props: iList) {
                 {key: index, name: `Folder ${id}`}
             )))
         }
-
     }
 
     // create a list of boxes within each department
@@ -94,6 +97,7 @@ export function Multilist (props: iList) {
                 groupProps={{
                     showEmptyGroups: true
                 }}
+                
             />
         </Fabric>
     )
