@@ -41,11 +41,6 @@ export function GetBoxes (props: iBoxes) {
 
     boxList.forEach(x => { if(x.DepartmentId == departmentId) {depBoxList.push(x.BoxId)}})
 
-
-    {clg(boxList)}
-    {clg(departmentId)}
-    {clg(depBoxList)}
-
     return(
         <div style={bodyStyle}>
             <h3> Box ID: </h3>

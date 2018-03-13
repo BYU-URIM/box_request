@@ -5,7 +5,7 @@ import { Greeting } from "./Greeting";
 import { GetDepartment } from "./getdepartment";
 import { GetBoxes } from "./getBoxes";
 import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
-import { Multilist } from './test'
+import { Multilist } from './boxFolderList'
 
 const bodyStyle = {
   display: "block",
@@ -61,9 +61,6 @@ export class App extends React.Component {
             Dep={this.state.selectedDep}
           />
         }
-
-
-        {JSON.stringify(this.state.selectedDep)}
       
       </div>
     );
