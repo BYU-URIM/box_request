@@ -54,7 +54,7 @@ export class App extends React.Component {
         {/* Conditional Rendering.  Multilist won't render until selectedDep != 0 */}
         
         {
-          this.state.selectedDep &&
+          !!this.state.selectedDep &&
           <Multilist
             mockData={this.state.data}
             Dep={this.state.selectedDep}
