@@ -3,9 +3,8 @@ import { mockData } from "../res/mockdata";
 import { mockUser } from "../res/mockuser";
 import { Greeting } from "./Greeting";
 import { GetDepartment } from "./getdepartment";
-import { GetBoxes } from "./getBoxes";
 import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
-import { Multilist } from './boxFolderList'
+import { Multilist } from './Multilist'
 
 const bodyStyle = {
   display: "block",
