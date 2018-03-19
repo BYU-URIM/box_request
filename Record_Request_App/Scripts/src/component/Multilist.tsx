@@ -93,9 +93,6 @@ export function Multilist (props: iList) {
 
     return(
         <Fabric className='bodyStyle'>
-            <DefaultButton
-                text='Add a folder'
-            />
             <DetailsList className="is-collapsed expandIsCollapsed_de312bf4"
                 items={ folders }
                 groups={ groups }
