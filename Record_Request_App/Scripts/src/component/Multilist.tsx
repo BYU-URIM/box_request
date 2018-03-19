@@ -3,6 +3,7 @@ import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
 import { DetailsList } from 'office-ui-fabric-react/lib/DetailsList';
 import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
+import { PrimaryButton } from 'office-ui-fabric-react/lib/components/Button';
 
 // Styling
 const bodyStyle = {
@@ -12,10 +13,10 @@ const bodyStyle = {
     marginLeft: "29%",
 } as React.CSSProperties
 
-const boxItem = {
-    padding: "2",
-    listStyleType: "none",
-}
+const folderLink = {
+    color: "#0078d7"
+    
+} as React.CSSProperties
 
 // Enables microsoft ui icons to appear
 initializeIcons()
@@ -95,15 +96,20 @@ export function Multilist (props: iList) {
             <DefaultButton
                 text='Add a folder'
             />
-            <DetailsList
+            <DetailsList className="is-collapsed expandIsCollapsed_de312bf4"
                 items={ folders }
                 groups={ groups }
                 columns= { _columns }
                 ariaLabelForSelectAllCheckbox='Toggle selection for all items'
                 ariaLabelForSelectionColumn='Toggle selection'
                 groupProps={{
-                    showEmptyGroups: true
+                    showEmptyGroups: true,
+                    onRenderHeader: (props, defaultRender)=> (<div className="ms-FocusZone groupHeaderContainer_de312bf4">
+                        {defaultRender(props)} <span style={folderLink} className="ms-fontSize-mPlus ms-fontWeight-light">+ Add Folder</span>
+                        </div>)
+
                 }}
+                
                 // Somehow, I need to collapse this.  
                 // compact attribute?
                 
