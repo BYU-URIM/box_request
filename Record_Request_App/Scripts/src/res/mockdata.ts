@@ -14,12 +14,12 @@ export const mockData: iMockDataArrObj = [{
   DepartmentName: "Office of Administration",
   DateSubmitted: "17/03/2014",
   FolderId: [
-    426,
-    79,
-    481,
-    742,
-    360,
-    485
+    "John Hampton",
+    "Larry Wilson",
+    "Emma Thurlgood",
+    "April Clark",
+    "Sammi Woodson",
+    "Gary Taylock"
   ]
 }, {
   BoxId: 2,

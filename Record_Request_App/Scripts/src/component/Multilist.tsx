@@ -63,14 +63,17 @@ export function Multilist (props: iList) {
             
         box["folderStartIndex"] = folders.length
         if (box.FolderId == null) {
-            box["folderCount"] = 0
+            box["folderCount"] = 1
+            
         }
         else {
-            box["folderCount"] = box.FolderId.length
+            box["folderCount"] = box.FolderId.length + 1
             folders = folders.concat(box.FolderId.map((id, index) => (
-                {key: index, name: `Folder ${id}`}
+                {key: index, name: `Folder: ${id}`}
             )))
+
         }
+        folders.push({key: 'add', name: "+ Add Folder"})
     }
 
     // create a list of boxes within each department
@@ -93,7 +96,7 @@ export function Multilist (props: iList) {
 
     return(
         <Fabric className='bodyStyle'>
-            <DetailsList className="is-collapsed expandIsCollapsed_de312bf4"
+            <DetailsList className="is_Collapsed"
                 items={ folders }
                 groups={ groups }
                 columns= { _columns }
@@ -102,8 +105,8 @@ export function Multilist (props: iList) {
                 groupProps={{
                     showEmptyGroups: true,
                     onRenderHeader: (props, defaultRender)=> (<div className="ms-FocusZone groupHeaderContainer_de312bf4">
-                        {defaultRender(props)} <span style={folderLink} className="ms-fontSize-mPlus ms-fontWeight-light">+ Add Folder</span>
-                        </div>)
+                        {defaultRender(props)} <span style={folderLink} className="ms-fontSize-mPlus ms-fontWeight-light">Select Box</span>
+                        </div>),
 
                 }}
                 
