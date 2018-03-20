@@ -8,6 +8,8 @@ I am placing a Box folder called “URIM Requestor” and sharing it with ya’l
 
 User requests a box
 
+![Delivery Request](Downloads/image002.jpg)
+
 Request goes into:
 
 * Delivery Requests is the layout being used, which refers to the DeliveryRequestsLog table
