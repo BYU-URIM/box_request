@@ -89,14 +89,15 @@ export function Multilist (props: iList) {
                 key: x.BoxId,
                 name: `Box ${x.BoxId}`,
                 count: x.folderCount,
-                startIndex: x.folderStartIndex
+                startIndex: x.folderStartIndex,
             }
         )
     })
-
+    clg(folders)
+    
     return(
         <Fabric className='bodyStyle'>
-            <DetailsList className="is_Collapsed"
+            <DetailsList className='is_Collapsed'
                 items={ folders }
                 groups={ groups }
                 columns= { _columns }
@@ -107,11 +108,14 @@ export function Multilist (props: iList) {
                     onRenderHeader: (props, defaultRender)=> (<div className="ms-FocusZone groupHeaderContainer_de312bf4">
                         {defaultRender(props)} <span style={folderLink} className="ms-fontSize-mPlus ms-fontWeight-light">Select Box</span>
                         </div>),
-
                 }}
                 
                 // Somehow, I need to collapse this.  
                 // compact attribute?
+
+                // create folder
+
+                // selecting a box cannot select its folders
                 
             />
         </Fabric>
