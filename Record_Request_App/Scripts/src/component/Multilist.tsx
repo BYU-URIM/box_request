@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
-import { DetailsList } from 'office-ui-fabric-react/lib/DetailsList';
+import { DetailsList, CheckboxVisibility, SelectionMode } from 'office-ui-fabric-react/lib/DetailsList';
 import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
 import { PrimaryButton } from 'office-ui-fabric-react/lib/components/Button';
 
@@ -97,17 +97,25 @@ export function Multilist (props: iList) {
     
     return(
         <Fabric className='bodyStyle'>
-            <DetailsList className='is_Collapsed'
+            <DetailsList
                 items={ folders }
                 groups={ groups }
                 columns= { _columns }
                 ariaLabelForSelectAllCheckbox='Toggle selection for all items'
                 ariaLabelForSelectionColumn='Toggle selection'
+                checkboxVisibility = { CheckboxVisibility.hidden }
+                // selectionMode = { SelectionMode.single }
                 groupProps={{
                     showEmptyGroups: true,
                     onRenderHeader: (props, defaultRender)=> (<div className="ms-FocusZone groupHeaderContainer_de312bf4">
                         {defaultRender(props)} <span style={folderLink} className="ms-fontSize-mPlus ms-fontWeight-light">Select Box</span>
                         </div>),
+
+                    
+                }}
+
+                listProps={{
+                    
                 }}
                 
                 // Somehow, I need to collapse this.  

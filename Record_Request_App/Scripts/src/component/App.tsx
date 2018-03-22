@@ -1,6 +1,7 @@
 import * as React from "react";
 import { mockData } from "../res/mockdata";
 import { mockUser } from "../res/mockuser";
+import { boxData } from "../res/boxdata";
 import { Greeting } from "./Greeting";
 import { GetDepartment } from "./getdepartment";
 import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
