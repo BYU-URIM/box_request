@@ -5,7 +5,8 @@ import { boxData } from "../res/boxdata";
 import { Greeting } from "./Greeting";
 import { GetDepartment } from "./getdepartment";
 import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
-import { Multilist } from './Multilist'
+import { Multilist } from './Multilist';
+import { BoxList } from './BoxList';
 
 const bodyStyle = {
   display: "block",
@@ -27,6 +28,8 @@ export class App extends React.Component {
     user: mockUser,
     data: mockData,
     selectedDep: 0,
+    boxData: boxData,
+    list: [],
   };
 
   changeSelectedDep = (val:number) => {
@@ -34,6 +37,8 @@ export class App extends React.Component {
       selectedDep: val
     });
   };
+
+
 
   render() {
     return (
@@ -56,9 +61,9 @@ export class App extends React.Component {
         
         {
           !!this.state.selectedDep &&
-          <Multilist
-            mockData={this.state.data}
-            Dep={this.state.selectedDep}
+          <BoxList
+            boxData={this.state.boxData}
+            currentDep={this.state.selectedDep}
           />
         }
       
