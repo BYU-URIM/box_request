@@ -26,7 +26,7 @@ export class App extends React.Component {
     uName: mockUser.name,
     departmentid: mockUser.departments,
     user: mockUser,
-    data: mockData,
+    data: boxData,
     selectedDep: 0,
     boxData: boxData,
     list: [],

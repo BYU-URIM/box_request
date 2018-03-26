@@ -25,8 +25,8 @@ export interface iUserDeps {
 
     // iterate through json department object and pull out unique departments
     departmentInfo.forEach(outer => {
-        if(!departmentObj.find(inner => inner.id === outer.DepartmentId)) {
-            departmentObj.push({name: outer.DepartmentName, id: outer.DepartmentId})
+        if(!departmentObj.find(inner => inner.id === outer.DepId)) {
+            departmentObj.push({name: outer.DepartmentName, id: outer.DepId})
         }
     })
 
