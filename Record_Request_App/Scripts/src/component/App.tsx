@@ -23,7 +23,7 @@ const center = {
 export class App extends React.Component {
 
   state = {
-    uName: mockUser.name,
+    uName: boxData,
     departmentid: mockUser.departments,
     user: mockUser,
     data: mockData,

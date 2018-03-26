@@ -8,7 +8,7 @@ const headingStyle = {
   } as React.CSSProperties
 
 export interface iGreeting {
-    name: string
+    name: {}[]
     departmentid: number[]
 }
 
