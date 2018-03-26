@@ -25,8 +25,7 @@ const squeezeTable = {
 } as React.CSSProperties
 
 const Links = {
-  color: "#0078d7"
-  
+  color: '#0078d7'
 } as React.CSSProperties
 
 export interface iBoxList {
@@ -42,7 +41,7 @@ const _columns: IColumn[] = [
     name: 'Box Number',
     fieldName: 'boxNumber',
     minWidth: 100,
-    maxWidth: 250,
+    maxWidth: 290,
     isResizable: true,
     ariaLabel: 'Operations for name'
   },
@@ -51,7 +50,7 @@ const _columns: IColumn[] = [
     name: '',
     fieldName: 'checkoutBox',
     minWidth: 100,
-    maxWidth: 250,
+    maxWidth: 290,
     isResizable: true,
     ariaLabel: 'Operations for checkoutBox'
   },
@@ -60,26 +59,37 @@ const _columns: IColumn[] = [
     name: '',
     fieldName: 'viewFolders',
     minWidth: 100,
-    maxWidth: 250,
+    maxWidth: 290,
     isResizable: true,
     ariaLabel: 'Operations for viewFolders'
   }
 ]
 
 export function BoxList(props: iBoxList) {
-  console.log(props.boxData.filter((x, i) => x.DepId == props.currentDep))
+  // Grab just the BoxIdBarCodes, turn them into a string so I can add a "B" onto it
+  // This is how it is stored in the ROC, (as an int with a function adding on a B), so this is why it's done this way
+  // Also checks to make sure we are grabbing boxes within the selected department
+
   const bIdList = props.boxData
     .filter((x, i) => x.DepId == props.currentDep)
     .map((x, i) => ({
       key: i,
-      boxNumber: <p className="ms-fontSize-mPlus ms-fontWeight-light">{'B' + x.BoxIdBarCode.toString()}</p>,
-      checkoutBox: <p style={Links} className="ms-fontSize-mPlus ms-fontWeight-light">+ Add Box</p>,
-      viewFolders: <p style={Links} className="ms-fontSize-mPlus ms-fontWeight-light">View Folders</p>
+      boxNumber: (
+        <p className="ms-fontSize-mPlus ms-fontWeight-light">
+          {'B' + x.BoxIdBarCode.toString()}
+        </p>
+      ),
+      checkoutBox: (
+        <p style={Links} className="ms-fontSize-mPlus ms-fontWeight-light">
+          + Add Box
+        </p>
+      ),
+      viewFolders: (
+        <p style={Links} className="ms-fontSize-mPlus ms-fontWeight-light">
+          View Folders
+        </p>
+      )
     }))
-
-  // Grab just the BoxIdBarCodes, turn them into a string so I can add a "B" onto it
-  // This is how it is stored in the ROC, (as an int with a function adding on a B), so this is why it's done this way
-  // Also checks to make sure we are grabbing boxes within the selected department
 
   return (
     <div style={squeezeTable}>
