@@ -7,7 +7,7 @@ export interface iBoxDataObj {
   
   export interface iBoxDataArrObj extends Array<iBoxDataObj> { }
   
-  export const boxData: iBoxDataArrObj = [{
+  export const boxData = [{
     "BoxIdBarCode": 323617,
     "Location": "7957050050",
     "DepId": 5555,
