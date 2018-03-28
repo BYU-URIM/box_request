@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { autobind } from '../../../Utilities';
 import { Modal } from 'office-ui-fabric-react/lib/Modal';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import './Modal.Basic.Example.scss';
+import { autobind } from '@uifabric/utilities';
 
 export class FolderModal extends React.Component<{}, {
   showModal: boolean;
