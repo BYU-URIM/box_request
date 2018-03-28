@@ -30,7 +30,6 @@ const Links = {
 
 export interface iBoxList {
   boxData
-  currentDep
 }
 
 const _items: {}[] = []
@@ -41,7 +40,7 @@ const _columns: IColumn[] = [
     name: 'Box Number',
     fieldName: 'boxNumber',
     minWidth: 100,
-    maxWidth: 290,
+    maxWidth: 275,
     isResizable: true,
     ariaLabel: 'Operations for name'
   },
@@ -50,7 +49,7 @@ const _columns: IColumn[] = [
     name: '',
     fieldName: 'checkoutBox',
     minWidth: 100,
-    maxWidth: 290,
+    maxWidth: 275,
     isResizable: true,
     ariaLabel: 'Operations for checkoutBox'
   },
@@ -59,48 +58,45 @@ const _columns: IColumn[] = [
     name: '',
     fieldName: 'viewFolders',
     minWidth: 100,
-    maxWidth: 290,
+    maxWidth: 275,
     isResizable: true,
     ariaLabel: 'Operations for viewFolders'
   }
 ]
 
+// --------------------------------------------------------------------------
+
 export function BoxList(props: iBoxList) {
   // Grab just the BoxIdBarCodes, turn them into a string so I can add a "B" onto it
   // This is how it is stored in the ROC, (as an int with a function adding on a B), so this is why it's done this way
   // Also checks to make sure we are grabbing boxes within the selected department
-
-  const bIdList = props.boxData
-    .filter((x, i) => x.DepId == props.currentDep)
-    .map((x, i) => ({
-      key: i,
-      boxNumber: (
-        <p className="ms-fontSize-mPlus ms-fontWeight-light">
-          {'B' + x.BoxIdBarCode.toString()}
-        </p>
-      ),
-      checkoutBox: (
-        <p style={Links} className="ms-fontSize-mPlus ms-fontWeight-light">
-          + Add Box
-        </p>
-      ),
-      viewFolders: (
-        <p style={Links} className="ms-fontSize-mPlus ms-fontWeight-light">
-          View Folders
-        </p>
-      )
-    }))
+  console.log(props)
+  const bIdList = props.boxData.map((x, i) => ({
+    key: i,
+    boxNumber: (
+      <p className="ms-fontSize-mPlus ms-fontWeight-light">
+        {'B' + x.BoxIdBarCode.toString()}
+      </p>
+    ),
+    checkoutBox: (
+      <p style={Links} className="ms-fontSize-mPlus ms-fontWeight-light">
+        + Add Box to Checkout
+      </p>
+    ),
+    viewFolders: (
+      <p style={Links} className="ms-fontSize-mPlus ms-fontWeight-light">
+        View Folders
+      </p>
+    )
+  }))
 
   return (
-    <div style={squeezeTable}>
-      <TextField label="Filter by BoxId:" />
-      <DetailsList
-        items={bIdList}
-        columns={_columns}
-        setKey="set"
-        layoutMode={DetailsListLayoutMode.fixedColumns}
-        checkboxVisibility={CheckboxVisibility.hidden}
-      />
-    </div>
+    <DetailsList
+      items={bIdList}
+      columns={_columns}
+      setKey="set"
+      layoutMode={DetailsListLayoutMode.fixedColumns}
+      checkboxVisibility={CheckboxVisibility.hidden}
+    />
   )
 }
