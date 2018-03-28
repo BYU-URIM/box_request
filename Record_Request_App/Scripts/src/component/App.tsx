@@ -20,26 +20,21 @@ const center = {
   marginRight: '25%'
 } as React.CSSProperties
 
-const _items: any[] = []
-
 export class App extends React.Component {
   state = {
     uName: mockUser.name,
     departmentid: mockUser.departments,
     user: mockUser,
-    data: boxData,
     selectedDep: 0,
     boxData: boxData,
     filteredData: [],
-    _items: '',
-
   }
 
   // function used to change the selected department via the dropdown menu
   changeSelectedDep = (val: number) => {
     this.setState({
       selectedDep: val,
-      filteredData: this.state.boxData.filter((x, i) => x.DepId === val),
+      filteredData: this.state.boxData.filter((x, i) => x.DepId === val)
     })
   }
 
@@ -64,18 +59,14 @@ export class App extends React.Component {
         />
 
         <span style={center}>
-          <PrimaryButton>Request</PrimaryButton>
+          <PrimaryButton disabled={true} text="Submit Request" />
         </span>
-
-
 
         {/* Conditional Rendering.  BoxList won't render until selectedDep != 0 */}
 
         {!!this.state.selectedDep && (
           <div style={center}>
-            <BoxList
-              boxData={(this.state.filteredData)}
-            />
+            <BoxList boxData={this.state.filteredData} />
           </div>
         )}
       </div>
