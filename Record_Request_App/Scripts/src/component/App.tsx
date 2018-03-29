@@ -7,17 +7,47 @@ import { PrimaryButton } from 'office-ui-fabric-react/lib/Button'
 import { BoxList } from './BoxList'
 import { FolderModal } from './FolderModal'
 import { RequestCart } from './RequestCart'
+import { initializeIcons } from 'office-ui-fabric-react/lib/Icons'
 
-const bodyStyle = {
-  display: 'block',
-  justifyContent: 'flex-start'
+export interface IBoxData {
+  BoxIdBarCode: number
+  DepId: number
+  DepartmentName: string
+  Location: string
+}
+// Enables microsoft ui icons to appear
+initializeIcons()
+
+const getDepStyle = {
+  marginLeft: '30%',
+  marginRight: '30%',
+  textAlign: 'center'
 } as React.CSSProperties
 
-const center = {
+const wrapper = {
+  display: 'inline-flex',
+  width: '100%',
+  height: 'auto'
+} as React.CSSProperties
+
+const rightSection = {
+  margin: '0',
+  padding: '10px',
   display: 'flex',
-  justifyContent: 'center',
-  marginLeft: '25%',
-  marginRight: '25%'
+  flexDirection: 'row',
+  alignItems: 'flex-start',
+  justifyContent: 'flex-start',
+  width: '50%'
+} as React.CSSProperties
+
+const leftSection = {
+  margin: '0',
+  padding: '10px',
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'flex-start',
+  justifyContent: 'flex-start',
+  width: '50%'
 } as React.CSSProperties
 
 export class App extends React.Component {
@@ -28,6 +58,8 @@ export class App extends React.Component {
     selectedDep: 0,
     boxData: boxData,
     filteredData: [],
+    selectedItems: [],
+    disabledStatus: true
   }
 
   // function used to change the selected department via the dropdown menu
@@ -35,6 +67,30 @@ export class App extends React.Component {
     this.setState({
       selectedDep: val,
       filteredData: this.state.boxData.filter((x, i) => x.DepId === val)
+    })
+  }
+
+  addItemToCheckout = (a) => {
+    let newList = this.state.selectedItems
+    // newList.push(this.state.filteredData[a]);
+    newList.push(a)
+    this.setState({
+      selectedItems: newList
+    })
+  }
+
+  removeItemFromCheckout = (r) => {
+    let newList = this.state.selectedItems
+    newList.splice(r, 1)
+    this.setState({
+      selectedItems: newList
+    })
+  }
+
+  removeAllItemsFromCheckout = () => {
+    let newList = []
+    this.setState({
+      selectedItems: newList
     })
   }
 
@@ -46,27 +102,44 @@ export class App extends React.Component {
   render() {
     window['appState'] = this.state
     return (
-      <div style={bodyStyle}>
+      <div>
         <Greeting
           name={this.state.uName}
           departmentid={this.state.departmentid}
         />
 
-        <GetDepartment
-          mockUser={this.state.user}
-          mockData={this.state.boxData}
-          changeSelectedDep={this.changeSelectedDep}
-        />
+        <div style={getDepStyle}>
+          <GetDepartment
+            mockUser={this.state.user}
+            mockData={this.state.boxData}
+            changeSelectedDep={this.changeSelectedDep}
+          />
+          <PrimaryButton
+            disabled={!(this.state.selectedItems.length > 0)}
+            text="Submit Request"
+          />
+        </div>
 
-        <span style={center}>
-          <PrimaryButton disabled={true} text="Submit Request" />
-        </span>
-
-        {/* Conditional Rendering.  BoxList won't render until selectedDep != 0 */}
+        {/* Conditional Rendering.  BoxList and RequestCart won't render until selectedDep != 0 */}
 
         {!!this.state.selectedDep && (
-          <div style={center}>
-            <BoxList boxData={this.state.filteredData} />
+          <div style={wrapper}>
+            <div style={leftSection}>
+              <BoxList
+                boxData={this.state.filteredData}
+                addBox={(a) => this.addItemToCheckout(a)}
+              />
+              {console.log(this.state.selectedItems)}
+            </div>
+            {
+              <div style={rightSection}>
+                <RequestCart
+                  selectedItems={this.state.selectedItems}
+                  items={this.state.filteredData}
+                  removeItemFromCheckout={(r) => this.removeItemFromCheckout(r)}
+                />
+              </div>
+            }
           </div>
         )}
       </div>
