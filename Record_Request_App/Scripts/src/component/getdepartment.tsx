@@ -6,13 +6,6 @@ import {
   IDropdownOption
 } from 'office-ui-fabric-react/lib/Dropdown'
 
-const bodyStyle = {
-  display: 'flex',
-  justifyContent: 'center',
-  marginLeft: '25%',
-  marginRight: '25%'
-} as React.CSSProperties
-
 export interface iUserDeps {
   mockUser
   mockData
@@ -43,20 +36,16 @@ export function GetDepartment(props: iUserDeps) {
 
   // return the HTML dropdown menu of the department names associated with the user
   return (
-    <div style={bodyStyle}>
-      <form action="">
-        <h1 className="ms-font-xxl">
-          Select one of your available departments:
-        </h1>
+    <form action="">
+      <h1 className="ms-font-xxl">Select one of your available departments:</h1>
 
-        <Dropdown
-          placeHolder="Departments"
-          options={deps.map((x, i) => {
-            return { key: depsid[i], text: x, value: 'not a value' }
-          })}
-          onChanged={(x) => props.changeSelectedDep(Number(x.key))}
-        />
-      </form>
-    </div>
+      <Dropdown
+        placeHolder="Departments"
+        options={deps.map((x, i) => {
+          return { key: depsid[i], text: x, value: 'not a value' }
+        })}
+        onChanged={(x) => props.changeSelectedDep(Number(x.key))}
+      />
+    </form>
   )
 }
