@@ -13,16 +13,7 @@ import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 import { initializeIcons } from 'office-ui-fabric-react/lib/Icons'
 
-// Enables microsoft ui icons to appear
-initializeIcons()
-
 // Styling
-
-const squeezeTable = {
-  marginTop: '2.5%',
-  marginLeft: '25%',
-  marginRight: '25%'
-} as React.CSSProperties
 
 const Links = {
   color: '#0078d7'
@@ -30,6 +21,7 @@ const Links = {
 
 export interface iBoxList {
   boxData
+  addBox
 }
 
 const _items: {}[] = []
@@ -79,7 +71,11 @@ export function BoxList(props: iBoxList) {
       </p>
     ),
     checkoutBox: (
-      <p style={Links} className="ms-fontSize-mPlus ms-fontWeight-light">
+      <p
+        style={Links}
+        className="ms-fontSize-mPlus ms-fontWeight-light"
+        onClick={() => props.addBox(i)}
+      >
         + Add Box to Checkout
       </p>
     ),
