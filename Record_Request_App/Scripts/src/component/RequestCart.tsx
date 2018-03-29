@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 import * as React from 'react'
 /* tslint:enable:no-unused-variable */
-import { TextField } from 'office-ui-fabric-react/lib/TextField'
+import { TextField, Icon } from 'office-ui-fabric-react'
 import {
   DetailsList,
   DetailsListLayoutMode,
@@ -11,26 +11,18 @@ import {
 } from 'office-ui-fabric-react/lib/DetailsList'
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
-import { initializeIcons } from 'office-ui-fabric-react/lib/Icons'
-
-// Enables microsoft ui icons to appear
-initializeIcons()
+import { IBoxData } from './App'
 
 // Styling
-
-const squeezeList = {
-  marginTop: '2.5%',
-  marginLeft: '77.5%',
-  marginRight: '2.5%'
-} as React.CSSProperties
 
 const Links = {
   color: '#0078d7'
 } as React.CSSProperties
 
-export interface iRequestCart {
-  boxData
-  currentDep
+export interface IRequestCart {
+  selectedItems: Array<number>
+  items: Array<IBoxData>
+  removeItemFromCheckout(itemRef: number): void
 }
 
 const _items: {}[] = []
@@ -38,39 +30,60 @@ const _items: {}[] = []
 const _columns: IColumn[] = [
   {
     key: 'column1',
-    name: 'Items',
+    name: 'Request Cart',
     fieldName: 'pendingItemRequests',
     minWidth: 100,
     maxWidth: 200,
     isResizable: true,
     ariaLabel: 'Operations for pendingItemRequests'
   },
+  {
+    key: 'column2',
+    name: 'Type',
+    fieldName: 'type',
+    minWidth: 100,
+    maxWidth: 200,
+    isResizable: true,
+    ariaLabel: 'Operations for type'
+  },
+  {
+    key: 'column3',
+    name: '',
+    fieldName: 'removeItem',
+    minWidth: 100,
+    maxWidth: 200,
+    isResizable: true,
+    ariaLabel: 'Operations for removeItem'
+  }
 ]
-
-const listedRequestItems = []
 
 // --------------------------------------------------------------------------
 
-export function RequestCart(props: iRequestCart) {
-  // Grab just the BoxIdBarCodes, turn them into a string so I can add a "B" onto it
-  // This is how it is stored in the ROC, (as an int with a function adding on a B), so this is why it's done this way
-  // Also checks to make sure we are grabbing boxes within the selected department
-
-  const itemList = props.boxData
-    .filter((x, i) => x.DepId == props.currentDep)
-    .map((x, i) => ({
-      key: i,
-      boxNumber: (
-        <p className="ms-fontSize-mPlus ms-fontWeight-light">
-          { listedRequestItems } <span><i className="ms-Icon--alert2"></i></span>
-        </p>
-      ),
-    }))
+export function RequestCart(props: IRequestCart) {
+  const checkoutList = props.selectedItems.map((itemRef, index) => ({
+    key: itemRef,
+    pendingItemRequests: (
+      <p className="ms-fontSize-mPlus ms-fontWeight-light">
+        {`B${props.items[itemRef].BoxIdBarCode}`}
+      </p>
+    ),
+    type: <p className="ms-fontSize-mPlus ms-fontWeight-light">Box</p>,
+    removeItem: (
+      <p onClick={() => props.removeItemFromCheckout(index)}>
+        <i
+          className="ms-Icon ms-Icon--Cancel"
+          style={Links}
+          aria-hidden="true"
+        />
+        {console.log(itemRef)}
+      </p>
+    )
+  }))
 
   return (
-    <div style={squeezeList}>
+    <div>
       <DetailsList
-        items={itemList}
+        items={checkoutList}
         columns={_columns}
         setKey="set"
         layoutMode={DetailsListLayoutMode.fixedColumns}
