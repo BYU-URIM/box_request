@@ -73,7 +73,7 @@ export function BoxList(props: iBoxList) {
       <p
         style={Links}
         className="ms-fontSize-mPlus ms-fontWeight-light"
-        onClick={() => props.addBox(i)}
+        onClick={() => props.addBox({ key: i, boxNumber: x.BoxIdBarCode })}
       >
         + Add Box to Checkout
       </p>

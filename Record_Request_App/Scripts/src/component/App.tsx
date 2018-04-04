@@ -15,6 +15,11 @@ export interface IBoxData {
   DepartmentName: string
   Location: string
 }
+
+export interface ISelectedItems {
+  key: number
+  boxNumber: number
+}
 // Enables microsoft ui icons to appear
 initializeIcons()
 
@@ -70,27 +75,16 @@ export class App extends React.Component {
     })
   }
 
-  // addItemToCheckout = (e) => {
-  //   let newList = this.state.selectedItems
-  //   newList.push(e)
-  //   this.setState({
-  //     selectedItems: newList
-  //   })
-  // }
-
+  // Only allow one of one box to move onto the RequestCart
   addItemToCheckout = (e) => {
     let newList = this.state.selectedItems
 
-    // Only allow one of one box to move onto the RequestCart
-    if(this.state.selectedItems.includes(e) && this.state.selectedItems.length > 0)
+    if(this.state.selectedItems.map(x=>x.boxNumber).includes(e.boxNumber) && this.state.selectedItems.length > 0)
     {
-      console.log("naughty, naughty.  You're trying to add the same box.")
+      // don't allow a box to be listed twice
     }
     else {
-    newList.push(e)
-    {console.log(e)}
-    {console.log(this.state.selectedItems)}
-
+      newList.push(e)
     this.setState({
       selectedItems: newList
     })}

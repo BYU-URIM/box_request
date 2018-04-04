@@ -11,7 +11,7 @@ import {
 } from 'office-ui-fabric-react/lib/DetailsList'
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
-import { IBoxData } from './App'
+import { IBoxData, ISelectedItems } from './App'
 
 // Styling
 
@@ -20,7 +20,7 @@ const Links = {
 } as React.CSSProperties
 
 export interface IRequestCart {
-  selectedItems: Array<number>
+  selectedItems: Array<ISelectedItems>
   items: Array<IBoxData>
   removeItemFromCheckout(itemRef: number): void
 }
@@ -61,10 +61,10 @@ const _columns: IColumn[] = [
 
 export function RequestCart(props: IRequestCart) {
   const checkoutList = props.selectedItems.map((itemRef, index) => ({
-    key: itemRef,
+    key: `${index}`,
     pendingItemRequests: (
       <p className="ms-fontSize-mPlus ms-fontWeight-light">
-        {`B${props.items[itemRef].BoxIdBarCode}`}
+        {`B${itemRef.boxNumber}`}
       </p>
     ),
     type: <p className="ms-fontSize-mPlus ms-fontWeight-light">Box</p>,
@@ -75,7 +75,6 @@ export function RequestCart(props: IRequestCart) {
           style={Links}
           aria-hidden="true"
         />
-        {console.log(itemRef)}
       </p>
     )
   }))
