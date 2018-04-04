@@ -11,7 +11,6 @@ import {
 } from 'office-ui-fabric-react/lib/DetailsList'
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
-import { initializeIcons } from 'office-ui-fabric-react/lib/Icons'
 
 // Styling
 

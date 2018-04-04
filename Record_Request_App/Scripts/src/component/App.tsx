@@ -70,13 +70,30 @@ export class App extends React.Component {
     })
   }
 
-  addItemToCheckout = (a) => {
+  // addItemToCheckout = (e) => {
+  //   let newList = this.state.selectedItems
+  //   newList.push(e)
+  //   this.setState({
+  //     selectedItems: newList
+  //   })
+  // }
+
+  addItemToCheckout = (e) => {
     let newList = this.state.selectedItems
-    // newList.push(this.state.filteredData[a]);
-    newList.push(a)
+
+    // Only allow one of one box to move onto the RequestCart
+    if(this.state.selectedItems.includes(e) && this.state.selectedItems.length > 0)
+    {
+      console.log("naughty, naughty.  You're trying to add the same box.")
+    }
+    else {
+    newList.push(e)
+    {console.log(e)}
+    {console.log(this.state.selectedItems)}
+
     this.setState({
       selectedItems: newList
-    })
+    })}
   }
 
   removeItemFromCheckout = (r) => {
@@ -129,7 +146,6 @@ export class App extends React.Component {
                 boxData={this.state.filteredData}
                 addBox={(a) => this.addItemToCheckout(a)}
               />
-              {console.log(this.state.selectedItems)}
             </div>
             {
               <div style={rightSection}>
