@@ -65,7 +65,9 @@ export class App extends React.Component {
     filteredData: [],
     selectedItems: [],
     disabledStatus: true,
-    showModal: false
+    showModal: false,
+    selectedBox: boxData[1],
+    selectedFolders: [],
   }
 
   // function used to change the selected department via the dropdown menu
@@ -108,9 +110,18 @@ export class App extends React.Component {
     })
   }
 
-  _showModal = (): void => {
-    this.setState({ showModal: true })
+  // THIS FUNCTION STILL NEEDS WORK
+  _showModal = (i) => {
+    let pickedBox = this.state.filteredData[i]
+    this.setState({ 
+      showModal: true,
+      selectedBox: this.state.filteredData[i]
+    })
+    console.log(pickedBox.BoxIdBarCode)
+    console.log(pickedBox)
+    console.log(this.state.selectedBox)
   }
+  // ------------------------------
 
   _closeModal = (): void => {
     this.setState({ showModal: false })
@@ -146,18 +157,20 @@ export class App extends React.Component {
 
         {!!this.state.selectedDep && (
           <div style={wrapper}>
-            <div style={leftSection}>
+            <div>
               <BoxList
                 boxData={this.state.filteredData}
                 addBox={(e) => this.addItemToCheckout(e)}
-                openModal={this._showModal}
+                openModal={(i) => this._showModal(i)}
               />
             </div>
-            <div>
+            <div style={leftSection}>
               <FolderModal
                 showModal={this.state.showModal}
-                openModal={this._showModal}
+                openModal={(i) => this._showModal(i)}
                 closeModal={this._closeModal}
+                filteredData={this.state.filteredData}
+                selectedBox={this.state.selectedBox}
               />
             </div>
             {

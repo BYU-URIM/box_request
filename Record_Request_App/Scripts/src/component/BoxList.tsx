@@ -22,7 +22,7 @@ const Links = {
 export interface IBoxList {
   boxData: Array<IBoxData>
   addBox(x): void 
-  openModal(): void
+  openModal(i: number): void
 }
 
 const _items: {}[] = []
@@ -81,7 +81,7 @@ export function BoxList(props: IBoxList) {
       </p>
     ),
     viewFolders: (
-      <p style={Links} className="ms-fontSize-mPlus ms-fontWeight-light" onClick={props.openModal}>
+      <p style={Links} className="ms-fontSize-mPlus ms-fontWeight-light" onClick={() => props.openModal(i)}>
         View Folders
       </p>
     )
