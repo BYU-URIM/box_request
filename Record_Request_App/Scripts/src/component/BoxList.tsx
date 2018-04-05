@@ -11,6 +11,7 @@ import {
 } from 'office-ui-fabric-react/lib/DetailsList'
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
+import { IBoxData } from './App'
 
 // Styling
 
@@ -18,9 +19,10 @@ const Links = {
   color: '#0078d7'
 } as React.CSSProperties
 
-export interface iBoxList {
-  boxData
-  addBox
+export interface IBoxList {
+  boxData: Array<IBoxData>
+  addBox(x): void 
+  openModal(): void
 }
 
 const _items: {}[] = []
@@ -57,7 +59,7 @@ const _columns: IColumn[] = [
 
 // --------------------------------------------------------------------------
 
-export function BoxList(props: iBoxList) {
+export function BoxList(props: IBoxList) {
   // Grab just the BoxIdBarCodes, turn them into a string so I can add a "B" onto it
   // This is how it is stored in the ROC, (as an int with a function adding on a B), so this is why it's done this way
   // Also checks to make sure we are grabbing boxes within the selected department
@@ -79,7 +81,7 @@ export function BoxList(props: iBoxList) {
       </p>
     ),
     viewFolders: (
-      <p style={Links} className="ms-fontSize-mPlus ms-fontWeight-light">
+      <p style={Links} className="ms-fontSize-mPlus ms-fontWeight-light" onClick={props.openModal}>
         View Folders
       </p>
     )

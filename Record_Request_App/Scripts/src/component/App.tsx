@@ -3,7 +3,7 @@ import { mockUser } from '../res/mockuser'
 import { boxData } from '../res/boxdata'
 import { Greeting } from './Greeting'
 import { GetDepartment } from './getdepartment'
-import { PrimaryButton } from 'office-ui-fabric-react/lib/Button'
+import { PrimaryButton } from 'office-ui-fabric-react/'
 import { BoxList } from './BoxList'
 import { FolderModal } from './FolderModal'
 import { RequestCart } from './RequestCart'
@@ -64,7 +64,8 @@ export class App extends React.Component {
     boxData: boxData,
     filteredData: [],
     selectedItems: [],
-    disabledStatus: true
+    disabledStatus: true,
+    showModal: false
   }
 
   // function used to change the selected department via the dropdown menu
@@ -79,15 +80,17 @@ export class App extends React.Component {
   addItemToCheckout = (e) => {
     let newList = this.state.selectedItems
 
-    if(this.state.selectedItems.map(x=>x.boxNumber).includes(e.boxNumber) && this.state.selectedItems.length > 0)
-    {
+    if (
+      this.state.selectedItems.map((x) => x.boxNumber).includes(e.boxNumber) &&
+      this.state.selectedItems.length > 0
+    ) {
       // don't allow a box to be listed twice
-    }
-    else {
+    } else {
       newList.push(e)
-    this.setState({
-      selectedItems: newList
-    })}
+      this.setState({
+        selectedItems: newList
+      })
+    }
   }
 
   removeItemFromCheckout = (r) => {
@@ -103,6 +106,14 @@ export class App extends React.Component {
     this.setState({
       selectedItems: newList
     })
+  }
+
+  _showModal = (): void => {
+    this.setState({ showModal: true })
+  }
+
+  _closeModal = (): void => {
+    this.setState({ showModal: false })
   }
 
   // filter boxData to get the boxes within in the currently selected department
@@ -138,7 +149,15 @@ export class App extends React.Component {
             <div style={leftSection}>
               <BoxList
                 boxData={this.state.filteredData}
-                addBox={(a) => this.addItemToCheckout(a)}
+                addBox={(e) => this.addItemToCheckout(e)}
+                openModal={this._showModal}
+              />
+            </div>
+            <div>
+              <FolderModal
+                showModal={this.state.showModal}
+                openModal={this._showModal}
+                closeModal={this._closeModal}
               />
             </div>
             {
