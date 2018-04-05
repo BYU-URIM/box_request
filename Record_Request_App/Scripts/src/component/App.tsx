@@ -1,6 +1,4 @@
 import * as React from 'react'
-import { mockUser } from '../res/mockuser'
-import { boxData } from '../res/boxdata'
 import { Greeting } from './Greeting'
 import { GetDepartment } from './getdepartment'
 import { PrimaryButton } from 'office-ui-fabric-react/'
@@ -55,28 +53,28 @@ const leftSection = {
   width: '50%'
 } as React.CSSProperties
 
-export class App extends React.Component {
+export class App extends React.Component<{user, boxData}>{
+  boxData = this.props.boxData
   state = {
-    uName: mockUser.name,
-    departmentid: mockUser.departments,
-    user: mockUser,
-    selectedDep: 0,
-    boxData: boxData,
-    filteredData: [],
+    // uName: mockUser.name,
+    // departmentid: mockUser.departments,
+    // user: mockUser,
+    // boxData: boxData,
+    // filteredData: [],
     selectedItems: [],
-    disabledStatus: true,
-    showModal: false,
-    selectedBox: boxData[1],
     selectedFolders: [],
+    selectedDep: 0,
+    selectedBox: undefined,
   }
 
   // function used to change the selected department via the dropdown menu
   changeSelectedDep = (val: number) => {
     this.setState({
       selectedDep: val,
-      filteredData: this.state.boxData.filter((x, i) => x.DepId === val)
+      // filteredData: this.boxData.filter((x, i) => x.DepId === val)
     })
   }
+  getSelectedBox = () => this.boxData[1]
 
   // Only allow one of one box to move onto the RequestCart
   addItemToCheckout = (e) => {
@@ -112,23 +110,19 @@ export class App extends React.Component {
 
   // THIS FUNCTION STILL NEEDS WORK
   _showModal = (i) => {
-    let pickedBox = this.state.filteredData[i]
     this.setState({ 
-      showModal: true,
-      selectedBox: this.state.filteredData[i]
+      selectedBox: this.getFilteredData()[i]
     })
-    console.log(pickedBox.BoxIdBarCode)
-    console.log(pickedBox)
     console.log(this.state.selectedBox)
   }
   // ------------------------------
 
   _closeModal = (): void => {
-    this.setState({ showModal: false })
+    this.setState({ selectedBox: undefined })
   }
 
   // filter boxData to get the boxes within in the currently selected department
-  getFilteredData = this.state.boxData.filter(
+  getFilteredData =()=> this.boxData.filter(
     (x, i) => x.DepId === this.state.selectedDep
   )
 
@@ -137,14 +131,14 @@ export class App extends React.Component {
     return (
       <div>
         <Greeting
-          name={this.state.uName}
-          departmentid={this.state.departmentid}
+          name={this.props.user.name}
+          departmentid={this.props.user.departments}
         />
 
         <div style={getDepStyle}>
           <GetDepartment
-            mockUser={this.state.user}
-            mockData={this.state.boxData}
+            mockUser={this.props.user}
+            mockData={this.boxData}
             changeSelectedDep={this.changeSelectedDep}
           />
           <PrimaryButton
@@ -159,25 +153,28 @@ export class App extends React.Component {
           <div style={wrapper}>
             <div>
               <BoxList
-                boxData={this.state.filteredData}
+                boxData={this.getFilteredData()}
                 addBox={(e) => this.addItemToCheckout(e)}
                 openModal={(i) => this._showModal(i)}
               />
             </div>
             <div style={leftSection}>
+            {
+              this.state.selectedBox &&
               <FolderModal
-                showModal={this.state.showModal}
-                openModal={(i) => this._showModal(i)}
-                closeModal={this._closeModal}
-                filteredData={this.state.filteredData}
-                selectedBox={this.state.selectedBox}
+              showModal={true}
+              openModal={(i) => this._showModal(i)}
+              closeModal={this._closeModal}
+              filteredData={this.getFilteredData()()}
+              selectedBox={this.state.selectedBox}
               />
+            }
             </div>
             {
               <div style={rightSection}>
                 <RequestCart
                   selectedItems={this.state.selectedItems}
-                  items={this.state.filteredData}
+                  items={this.getFilteredData()}
                   removeItemFromCheckout={(r) => this.removeItemFromCheckout(r)}
                 />
               </div>
