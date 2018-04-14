@@ -40,34 +40,42 @@
   version "16.0.36"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.0.36.tgz#ceb5639013bdb92a94147883052e69bb2c22c69b"
 
-"@uifabric/icons@>=5.4.2 <6.0.0":
-  version "5.4.2"
-  resolved "https://registry.yarnpkg.com/@uifabric/icons/-/icons-5.4.2.tgz#ed21b69ac467139cc5dfbec55ba75a560ea5bf62"
+"@types/strip-bom@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@types/strip-bom/-/strip-bom-3.0.0.tgz#14a8ec3956c2e81edb7520790aecf21c290aebd2"
+
+"@types/strip-json-comments@0.0.30":
+  version "0.0.30"
+  resolved "https://registry.yarnpkg.com/@types/strip-json-comments/-/strip-json-comments-0.0.30.tgz#9aa30c04db212a9a0649d6ae6fd50accc40748a1"
+
+"@uifabric/icons@>=5.7.0 <6.0.0":
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/@uifabric/icons/-/icons-5.7.0.tgz#b15e783d7485963d269fdac44ffea32b59484670"
   dependencies:
-    "@uifabric/styling" ">=5.16.0 <6.0.0"
+    "@uifabric/styling" ">=5.21.0 <6.0.0"
     tslib "^1.7.1"
 
-"@uifabric/merge-styles@>=5.11.0 <6.0.0", "@uifabric/merge-styles@>=5.11.1 <6.0.0":
-  version "5.11.1"
-  resolved "https://registry.yarnpkg.com/@uifabric/merge-styles/-/merge-styles-5.11.1.tgz#ac67596a0d5bc5b4d5c6bf48cc208f4d16951807"
+"@uifabric/merge-styles@>=5.14.0 <6.0.0":
+  version "5.14.0"
+  resolved "https://registry.yarnpkg.com/@uifabric/merge-styles/-/merge-styles-5.14.0.tgz#a11e27a89d4eed53528a56e43d165325e088de4e"
   dependencies:
     tslib "^1.7.1"
 
-"@uifabric/styling@>=5.16.0 <6.0.0", "@uifabric/styling@>=5.17.0 <6.0.0":
-  version "5.17.0"
-  resolved "https://registry.yarnpkg.com/@uifabric/styling/-/styling-5.17.0.tgz#c2a8f03ad6d38e2133b386e4e140536d780e26e2"
+"@uifabric/styling@>=5.21.0 <6.0.0", "@uifabric/styling@>=5.22.0 <6.0.0":
+  version "5.22.0"
+  resolved "https://registry.yarnpkg.com/@uifabric/styling/-/styling-5.22.0.tgz#f19621f78ec117c50aef6215d96cd164efac8397"
   dependencies:
     "@microsoft/load-themed-styles" "^1.7.13"
-    "@uifabric/merge-styles" ">=5.11.0 <6.0.0"
-    "@uifabric/utilities" ">=5.7.1 <6.0.0"
+    "@uifabric/merge-styles" ">=5.14.0 <6.0.0"
+    "@uifabric/utilities" ">=5.23.0 <6.0.0"
     tslib "^1.7.1"
 
-"@uifabric/utilities@>=5.10.0 <6.0.0", "@uifabric/utilities@>=5.7.1 <6.0.0":
-  version "5.10.0"
-  resolved "https://registry.yarnpkg.com/@uifabric/utilities/-/utilities-5.10.0.tgz#2bf4407916334555ecaed6e1201b8a047bfca5ef"
+"@uifabric/utilities@>=5.23.0 <6.0.0":
+  version "5.23.0"
+  resolved "https://registry.yarnpkg.com/@uifabric/utilities/-/utilities-5.23.0.tgz#4e0b0bd06efeb694841c89f4b6bdb3afa906dc53"
   dependencies:
     "@microsoft/load-themed-styles" "^1.7.13"
-    "@uifabric/merge-styles" ">=5.11.0 <6.0.0"
+    "@uifabric/merge-styles" ">=5.14.0 <6.0.0"
     prop-types "^15.5.10"
     tslib "^1.7.1"
 
@@ -231,6 +239,10 @@ array-unique@^0.2.1:
 array-unique@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/array-unique/-/array-unique-0.3.2.tgz#a894b75d4bc4f6cd679ef3244a9fd8f46ae2d428"
+
+arrify@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/arrify/-/arrify-1.0.1.tgz#898508da2226f380df904728456849c1501a4b0d"
 
 asap@~2.0.3:
   version "2.0.6"
@@ -911,6 +923,10 @@ detect-libc@^1.0.2:
 detect-node@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/detect-node/-/detect-node-2.0.3.tgz#a2033c09cc8e158d37748fbde7507832bd6ce127"
+
+diff@^3.1.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/diff/-/diff-3.5.0.tgz#800c0dd1e0a8bfbc95835c202ad220fe317e5a12"
 
 diff@^3.2.0:
   version "3.4.0"
@@ -1604,6 +1620,12 @@ hoist-non-react-statics@^2.3.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.3.1.tgz#343db84c6018c650778898240135a1420ee22ce0"
 
+homedir-polyfill@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/homedir-polyfill/-/homedir-polyfill-1.0.1.tgz#4c2bbc8a758998feebf5ed68580f76d46768b4bc"
+  dependencies:
+    parse-passwd "^1.0.0"
+
 hosted-git-info@^2.1.4:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.5.0.tgz#6d60e34b3abbc8313062c3b798ef8d901a07af3c"
@@ -2152,6 +2174,10 @@ lru-cache@^4.0.1:
     pseudomap "^1.0.2"
     yallist "^2.1.2"
 
+make-error@^1.1.1:
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/make-error/-/make-error-1.3.4.tgz#19978ed575f9e9545d2ff8c13e33b5d18a67d535"
+
 map-cache@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/map-cache/-/map-cache-0.2.2.tgz#c32abd0bd6525d9b051645bb4f26ac5dc98a0dbf"
@@ -2495,15 +2521,15 @@ obuf@^1.0.0, obuf@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/obuf/-/obuf-1.1.1.tgz#104124b6c602c6796881a042541d36db43a5264e"
 
-office-ui-fabric-react@^5.34.0:
-  version "5.47.0"
-  resolved "https://registry.yarnpkg.com/office-ui-fabric-react/-/office-ui-fabric-react-5.47.0.tgz#80ef6ca8d75bf1e18a6d8f70ac2cc542a04bed64"
+office-ui-fabric-react@^5.53.0:
+  version "5.79.0"
+  resolved "https://registry.yarnpkg.com/office-ui-fabric-react/-/office-ui-fabric-react-5.79.0.tgz#38a7d16a20f85ce248cdffe25d07f5432ef64f1e"
   dependencies:
     "@microsoft/load-themed-styles" "^1.7.13"
-    "@uifabric/icons" ">=5.4.2 <6.0.0"
-    "@uifabric/merge-styles" ">=5.11.1 <6.0.0"
-    "@uifabric/styling" ">=5.17.0 <6.0.0"
-    "@uifabric/utilities" ">=5.10.0 <6.0.0"
+    "@uifabric/icons" ">=5.7.0 <6.0.0"
+    "@uifabric/merge-styles" ">=5.14.0 <6.0.0"
+    "@uifabric/styling" ">=5.22.0 <6.0.0"
+    "@uifabric/utilities" ">=5.23.0 <6.0.0"
     prop-types "^15.5.10"
     tslib "^1.7.1"
 
@@ -2620,6 +2646,10 @@ parse-json@^2.2.0:
   resolved "https://registry.yarnpkg.com/parse-json/-/parse-json-2.2.0.tgz#f480f40434ef80741f8469099f8dea18f55a4dc9"
   dependencies:
     error-ex "^1.2.0"
+
+parse-passwd@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/parse-passwd/-/parse-passwd-1.0.0.tgz#6d5b934a456993b23d37f40a382d6f1666a8e5c6"
 
 parseurl@~1.3.2:
   version "1.3.2"
@@ -3268,6 +3298,12 @@ source-map-resolve@^0.5.0:
     source-map-url "^0.4.0"
     urix "^0.1.0"
 
+source-map-support@^0.5.0:
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.4.tgz#54456efa89caa9270af7cd624cc2f123e51fbae8"
+  dependencies:
+    source-map "^0.6.0"
+
 source-map-url@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/source-map-url/-/source-map-url-0.4.0.tgz#3e935d7ddd73631b97659956d55128e87b5084a3"
@@ -3276,7 +3312,7 @@ source-map@^0.5.3, source-map@^0.5.6, source-map@~0.5.1:
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
 
-source-map@~0.6.1:
+source-map@^0.6.0, source-map@~0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
 
@@ -3430,7 +3466,7 @@ strip-indent@^1.0.1:
   dependencies:
     get-stdin "^4.0.1"
 
-strip-json-comments@~2.0.1:
+strip-json-comments@^2.0.0, strip-json-comments@~2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
 
@@ -3533,6 +3569,30 @@ ts-loader@^3.1.1:
     loader-utils "^1.0.2"
     micromatch "^3.1.4"
     semver "^5.0.1"
+
+ts-node@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-4.1.0.tgz#36d9529c7b90bb993306c408cd07f7743de20712"
+  dependencies:
+    arrify "^1.0.0"
+    chalk "^2.3.0"
+    diff "^3.1.0"
+    make-error "^1.1.1"
+    minimist "^1.2.0"
+    mkdirp "^0.5.1"
+    source-map-support "^0.5.0"
+    tsconfig "^7.0.0"
+    v8flags "^3.0.0"
+    yn "^2.0.0"
+
+tsconfig@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/tsconfig/-/tsconfig-7.0.0.tgz#84538875a4dc216e5c4a5432b3a4dec3d54e91b7"
+  dependencies:
+    "@types/strip-bom" "^3.0.0"
+    "@types/strip-json-comments" "0.0.30"
+    strip-bom "^3.0.0"
+    strip-json-comments "^2.0.0"
 
 tslib@^1.7.1, tslib@^1.8.0, tslib@^1.8.1:
   version "1.9.0"
@@ -3689,6 +3749,12 @@ utils-merge@1.0.1:
 uuid@^3.0.0, uuid@^3.0.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.2.1.tgz#12c528bb9d58d0b9265d9a2f6f0fe8be17ff1f14"
+
+v8flags@^3.0.0:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/v8flags/-/v8flags-3.0.2.tgz#ad6a78a20a6b23d03a8debc11211e3cc23149477"
+  dependencies:
+    homedir-polyfill "^1.0.1"
 
 validate-npm-package-license@^3.0.1:
   version "3.0.1"
@@ -3937,3 +4003,7 @@ yargs@~3.10.0:
     cliui "^2.1.0"
     decamelize "^1.0.0"
     window-size "0.1.0"
+
+yn@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/yn/-/yn-2.0.0.tgz#e5adabc8acf408f6385fc76495684c88e6af689a"
