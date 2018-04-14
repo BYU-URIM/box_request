@@ -10,13 +10,13 @@ import {
   CheckboxVisibility
 } from 'office-ui-fabric-react/lib/DetailsList'
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection'
-import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 import { IBoxData } from './App'
 
 // Styling
 
 const Links = {
-  color: '#0078d7'
+  color: '#0078d7',
+  cursor: 'pointer',
 } as React.CSSProperties
 
 export interface IBoxList {
