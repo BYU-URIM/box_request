@@ -14,6 +14,13 @@ export interface IBoxData {
   Location: string
 }
 
+export interface IFolderData {
+  FolderIdBarCode: number
+  FolderName: string
+  Parent_Box: number
+  Folder_Description: string
+}
+
 export interface ISelectedItems {
   key: number
   boxNumber: number
@@ -53,8 +60,9 @@ const leftSection = {
   width: '50%'
 } as React.CSSProperties
 
-export class App extends React.Component<{user, boxData}>{
+export class App extends React.Component<{ user; boxData; folderData }> {
   boxData = this.props.boxData
+  folderData = this.props.folderData
   state = {
     // uName: mockUser.name,
     // departmentid: mockUser.departments,
@@ -64,17 +72,16 @@ export class App extends React.Component<{user, boxData}>{
     selectedItems: [],
     selectedFolders: [],
     selectedDep: 0,
-    selectedBox: undefined,
+    selectedBox: undefined
   }
 
   // function used to change the selected department via the dropdown menu
   changeSelectedDep = (val: number) => {
     this.setState({
-      selectedDep: val,
+      selectedDep: val
       // filteredData: this.boxData.filter((x, i) => x.DepId === val)
     })
   }
-  getSelectedBox = () => this.boxData[1]
 
   // Only allow one of one box to move onto the RequestCart
   addItemToCheckout = (e) => {
@@ -108,12 +115,12 @@ export class App extends React.Component<{user, boxData}>{
     })
   }
 
-  // THIS FUNCTION STILL NEEDS WORK
   _showModal = (i) => {
-    this.setState({ 
+    this.setState({
       selectedBox: this.getFilteredData()[i]
     })
-    console.log(this.state.selectedBox)
+    console.log(this.folderData.filter((x,i)=> x.Parent_Box===520868))
+    console.log(this.getFilteredData()[i])
   }
   // ------------------------------
 
@@ -122,9 +129,13 @@ export class App extends React.Component<{user, boxData}>{
   }
 
   // filter boxData to get the boxes within in the currently selected department
-  getFilteredData =()=> this.boxData.filter(
-    (x, i) => x.DepId === this.state.selectedDep
-  )
+  getFilteredData = () =>
+    this.boxData.filter((x, i) => x.DepId === this.state.selectedDep)
+
+  getFilteredFolders = () =>
+    this.folderData.filter(
+      (x, i) => x.Parent_Box === this.state.selectedBox.BoxIdBarCode
+    )
 
   render() {
     window['appState'] = this.state
@@ -159,16 +170,16 @@ export class App extends React.Component<{user, boxData}>{
               />
             </div>
             <div style={leftSection}>
-            {
-              this.state.selectedBox &&
-              <FolderModal
-              showModal={true}
-              openModal={(i) => this._showModal(i)}
-              closeModal={this._closeModal}
-              filteredData={this.getFilteredData()()}
-              selectedBox={this.state.selectedBox}
-              />
-            }
+              {this.state.selectedBox && (
+                <FolderModal
+                  showModal={true}
+                  openModal={(i) => this._showModal(i)}
+                  closeModal={this._closeModal}
+                  filteredData={this.getFilteredFolders()}
+                  selectedBox={this.state.selectedBox}
+                  addFolder={(e) => this.addItemToCheckout(e)}
+                />
+              )}
             </div>
             {
               <div style={rightSection}>
@@ -185,3 +196,5 @@ export class App extends React.Component<{user, boxData}>{
     )
   }
 }
+
+// Question for Tyler.  Can I pass a child element boxData?
