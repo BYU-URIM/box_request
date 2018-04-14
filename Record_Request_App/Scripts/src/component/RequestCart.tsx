@@ -16,7 +16,8 @@ import { IBoxData, ISelectedItems } from './App'
 // Styling
 
 const Links = {
-  color: '#0078d7'
+  color: '#0078d7',
+  cursor: 'pointer',
 } as React.CSSProperties
 
 export interface IRequestCart {
