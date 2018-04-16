@@ -64,9 +64,10 @@ export function RequestCart(props: IRequestCart) {
   const checkoutList = props.selectedItems.map((itemRef, index) => ({
     key: `${index}`,
     pendingItemRequests: (
+      !!itemRef.boxNumber ? (
       <p className="ms-fontSize-mPlus ms-fontWeight-light">
         {`B${itemRef.boxNumber}`}
-      </p>
+      </p>) : (<p className="ms-fontSize-mPlus ms-fontWeight-light">{itemRef.folderName}</p>)
     ),
     type: <p className="ms-fontSize-mPlus ms-fontWeight-light">Box</p>,
     removeItem: (
