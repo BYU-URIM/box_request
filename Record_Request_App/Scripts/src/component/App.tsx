@@ -6,6 +6,7 @@ import { BoxList } from './BoxList'
 import { FolderModal } from './FolderModal'
 import { RequestCart } from './RequestCart'
 import { initializeIcons } from 'office-ui-fabric-react/lib/Icons'
+import { BoxFolderToggle } from './BoxFolderToggle'
 
 export interface IBoxData {
   BoxIdBarCode: number
@@ -23,7 +24,8 @@ export interface IFolderData {
 
 export interface ISelectedItems {
   key: number
-  boxNumber: number
+  boxNumber?: number
+  folderName?: string
 }
 // Enables microsoft ui icons to appear
 initializeIcons()
@@ -64,22 +66,16 @@ export class App extends React.Component<{ user; boxData; folderData }> {
   boxData = this.props.boxData
   folderData = this.props.folderData
   state = {
-    // uName: mockUser.name,
-    // departmentid: mockUser.departments,
-    // user: mockUser,
-    // boxData: boxData,
-    // filteredData: [],
     selectedItems: [],
-    selectedFolders: [],
     selectedDep: 0,
-    selectedBox: undefined
+    selectedBox: undefined,
+    isChecked: true,
   }
 
   // function used to change the selected department via the dropdown menu
   changeSelectedDep = (val: number) => {
     this.setState({
       selectedDep: val
-      // filteredData: this.boxData.filter((x, i) => x.DepId === val)
     })
   }
 
@@ -100,6 +96,40 @@ export class App extends React.Component<{ user; boxData; folderData }> {
     }
   }
 
+//   if (this.state.isChecked) {
+//     if (
+//       this.state.selectedItems.map((x) => x.boxNumber === undefined) ||
+//       this.state.selectedItems
+//         .map((x) => x.boxNumber)
+//         .includes(e.boxNumber) 
+//     ) {
+//       // don't allow a box to be listed twice
+//     }
+//     else {
+//       newList.push(e)
+//       this.setState({
+//         selectedItems: newList
+//       })
+//     }}
+//   else {
+//     if (
+//       this.state.selectedItems.map((x) => x.boxNumber == undefined) &&
+//       this.state.selectedItems
+//         .map((x) => x.folderName)
+//         .includes(e.folderName) &&
+//       this.state.selectedItems.length > 0
+//     ) {
+//       // don't allow a folder to be listed twice
+//     }
+//     else {
+//       newList.push(e)
+//       this.setState({
+//         selectedItems: newList
+//       })
+//     }
+//   }
+// }
+
   removeItemFromCheckout = (r) => {
     let newList = this.state.selectedItems
     newList.splice(r, 1)
@@ -119,10 +149,7 @@ export class App extends React.Component<{ user; boxData; folderData }> {
     this.setState({
       selectedBox: this.getFilteredData()[i]
     })
-    console.log(this.folderData.filter((x,i)=> x.Parent_Box===520868))
-    console.log(this.getFilteredData()[i])
   }
-  // ------------------------------
 
   _closeModal = (): void => {
     this.setState({ selectedBox: undefined })
@@ -136,6 +163,26 @@ export class App extends React.Component<{ user; boxData; folderData }> {
     this.folderData.filter(
       (x, i) => x.Parent_Box === this.state.selectedBox.BoxIdBarCode
     )
+
+  // changes the state of the toggled button, there is probably a built in way to do with fabric ui toggle component
+  // if toggled while items are in the cart, it empties the cart
+  makeToggle = () => {
+    if(this.state.selectedItems.length > 0) {
+      console.log(this.state.selectedItems.length)
+      this.removeAllItemsFromCheckout()
+    }
+    if(this.state.isChecked) {
+      this.setState({
+        isChecked: false
+      })
+    }
+    else {
+      this.setState({
+        isChecked: true
+      })
+
+    }
+  }
 
   render() {
     window['appState'] = this.state
@@ -151,6 +198,10 @@ export class App extends React.Component<{ user; boxData; folderData }> {
             mockUser={this.props.user}
             mockData={this.boxData}
             changeSelectedDep={this.changeSelectedDep}
+          />
+          <BoxFolderToggle
+            isChecked={this.state.isChecked}
+            makeToggle={this.makeToggle}
           />
           <PrimaryButton
             disabled={!(this.state.selectedItems.length > 0)}
@@ -184,7 +235,12 @@ export class App extends React.Component<{ user; boxData; folderData }> {
             {
               <div style={rightSection}>
                 <RequestCart
-                  selectedItems={this.state.selectedItems}
+                  selectedItems={!!this.state.isChecked ? this.state.selectedItems.map((item)=>`${item.boxNumber}`) : 
+                  this.state.selectedItems.map((item)=>`${item.folderName}'s Folder`)}
+                    
+                  //   this.state.selectedItems.map(
+                  //   (item) => item.folderName || `B${item.boxNumber}`
+                  // )}
                   items={this.getFilteredData()}
                   removeItemFromCheckout={(r) => this.removeItemFromCheckout(r)}
                 />
@@ -196,5 +252,3 @@ export class App extends React.Component<{ user; boxData; folderData }> {
     )
   }
 }
-
-// Question for Tyler.  Can I pass a child element boxData?
