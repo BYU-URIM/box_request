@@ -17,11 +17,11 @@ import { IBoxData, ISelectedItems } from './App'
 
 const Links = {
   color: '#0078d7',
-  cursor: 'pointer',
+  cursor: 'pointer'
 } as React.CSSProperties
 
 export interface IRequestCart {
-  selectedItems: Array<ISelectedItems>
+  selectedItems: Array<string>
   items: Array<IBoxData>
   removeItemFromCheckout(itemRef: number): void
 }
@@ -64,10 +64,7 @@ export function RequestCart(props: IRequestCart) {
   const checkoutList = props.selectedItems.map((itemRef, index) => ({
     key: `${index}`,
     pendingItemRequests: (
-      !!itemRef.boxNumber ? (
-      <p className="ms-fontSize-mPlus ms-fontWeight-light">
-        {`B${itemRef.boxNumber}`}
-      </p>) : (<p className="ms-fontSize-mPlus ms-fontWeight-light">{itemRef.folderName}</p>)
+      <p className="ms-fontSize-mPlus ms-fontWeight-light">{itemRef}</p>
     ),
     type: <p className="ms-fontSize-mPlus ms-fontWeight-light">Box</p>,
     removeItem: (
