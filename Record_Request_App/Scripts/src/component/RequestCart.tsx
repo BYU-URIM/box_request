@@ -22,11 +22,9 @@ const Links = {
 
 export interface IRequestCart {
   selectedItems: Array<string>
-  items: Array<IBoxData>
+  type: string
   removeItemFromCheckout(itemRef: number): void
 }
-
-const _items: {}[] = []
 
 const _columns: IColumn[] = [
   {
@@ -66,7 +64,7 @@ export function RequestCart(props: IRequestCart) {
     pendingItemRequests: (
       <p className="ms-fontSize-mPlus ms-fontWeight-light">{itemRef}</p>
     ),
-    type: <p className="ms-fontSize-mPlus ms-fontWeight-light">Box</p>,
+    type: <p className="ms-fontSize-mPlus ms-fontWeight-light">{props.type}</p>,
     removeItem: (
       <p onClick={() => props.removeItemFromCheckout(index)}>
         <i
