@@ -79,17 +79,16 @@ export class App extends React.Component<{ user; boxData; folderData }> {
     })
   }
 
-  // Only allow one of one box to move onto the RequestCart
-
-  // if check to boxes, only allow boxes to be added.  if that box already exists, don't add it again
   addItemToCheckout = (e) => {
     let newList = this.state.selectedItems
 
+    // check to see if the clicked-on item is a box or folder
     switch (e.hasOwnProperty('boxNumber')) {
       case true:
+      // check status of box/folder toggle
         if (this.state.isChecked) {
           if (newList.map((x) => x.boxNumber).includes(e.boxNumber)) {
-            console.log('tried to add the same box')
+            // checks for and doesn't allow duplicate items
           } else {
             newList.push(e)
           }
@@ -100,10 +99,10 @@ export class App extends React.Component<{ user; boxData; folderData }> {
         break
 
       case false:
-        console.log('No folders allowed here')
+      // check if folders are checked
         if (!this.state.isChecked) {
           if (newList.map((x) => x.folderName).includes(e.folderName)) {
-            console.log('Tried to add the same folder.')
+            // checks for and doesn't allow duplicate items
           } else {
             newList.push(e)
           }
