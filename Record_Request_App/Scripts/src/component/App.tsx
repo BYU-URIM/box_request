@@ -69,7 +69,7 @@ export class App extends React.Component<{ user; boxData; folderData }> {
     selectedItems: [],
     selectedDep: 0,
     selectedBox: undefined,
-    isChecked: true,
+    isChecked: true
   }
 
   // function used to change the selected department via the dropdown menu
@@ -80,55 +80,53 @@ export class App extends React.Component<{ user; boxData; folderData }> {
   }
 
   // Only allow one of one box to move onto the RequestCart
+
+  // if check to boxes, only allow boxes to be added.  if that box already exists, don't add it again
   addItemToCheckout = (e) => {
     let newList = this.state.selectedItems
 
-    if (
-      this.state.selectedItems.map((x) => x.boxNumber).includes(e.boxNumber) &&
-      this.state.selectedItems.length > 0
-    ) {
-      // don't allow a box to be listed twice
-    } else {
-      newList.push(e)
-      this.setState({
-        selectedItems: newList
-      })
+    switch (e.hasOwnProperty('boxNumber')) {
+      case true:
+        if (this.state.isChecked) {
+          if (newList.map((x) => x.boxNumber).includes(e.boxNumber)) {
+            console.log('tried to add the same box')
+          } else {
+            newList.push(e)
+          }
+          this.setState({
+            selectedItems: newList
+          })
+        }
+        break
+
+      case false:
+        console.log('No folders allowed here')
+        if (!this.state.isChecked) {
+          if (newList.map((x) => x.folderName).includes(e.folderName)) {
+            console.log('Tried to add the same folder.')
+          } else {
+            newList.push(e)
+          }
+          this.setState({
+            selectedItems: newList
+          })
+        }
+        break
     }
   }
 
-//   if (this.state.isChecked) {
-//     if (
-//       this.state.selectedItems.map((x) => x.boxNumber === undefined) ||
-//       this.state.selectedItems
-//         .map((x) => x.boxNumber)
-//         .includes(e.boxNumber) 
-//     ) {
-//       // don't allow a box to be listed twice
-//     }
-//     else {
-//       newList.push(e)
-//       this.setState({
-//         selectedItems: newList
-//       })
-//     }}
-//   else {
-//     if (
-//       this.state.selectedItems.map((x) => x.boxNumber == undefined) &&
-//       this.state.selectedItems
-//         .map((x) => x.folderName)
-//         .includes(e.folderName) &&
-//       this.state.selectedItems.length > 0
-//     ) {
-//       // don't allow a folder to be listed twice
-//     }
-//     else {
-//       newList.push(e)
-//       this.setState({
-//         selectedItems: newList
-//       })
-//     }
-//   }
-// }
+  //   if (
+  //     this.state.selectedItems.map((x) => x.boxNumber).includes(e.boxNumber) &&
+  //     this.state.selectedItems.length > 0
+  //   ) {
+  //     // don't allow a box to be listed twice
+  //   } else {
+  //     newList.push(e)
+  //     this.setState({
+  //       selectedItems: newList
+  //     })
+  //   }
+  // }
 
   removeItemFromCheckout = (r) => {
     let newList = this.state.selectedItems
@@ -167,20 +165,18 @@ export class App extends React.Component<{ user; boxData; folderData }> {
   // changes the state of the toggled button, there is probably a built in way to do with fabric ui toggle component
   // if toggled while items are in the cart, it empties the cart
   makeToggle = () => {
-    if(this.state.selectedItems.length > 0) {
+    if (this.state.selectedItems.length > 0) {
       console.log(this.state.selectedItems.length)
       this.removeAllItemsFromCheckout()
     }
-    if(this.state.isChecked) {
+    if (this.state.isChecked) {
       this.setState({
         isChecked: false
       })
-    }
-    else {
+    } else {
       this.setState({
         isChecked: true
       })
-
     }
   }
 
@@ -235,9 +231,15 @@ export class App extends React.Component<{ user; boxData; folderData }> {
             {
               <div style={rightSection}>
                 <RequestCart
-                  selectedItems={!!this.state.isChecked ? this.state.selectedItems.map((item)=>`${item.boxNumber}`) : 
-                  this.state.selectedItems.map((item)=>`${item.folderName}'s Folder`)}
-                    
+                  selectedItems={
+                    !!this.state.isChecked
+                      ? this.state.selectedItems.map(
+                          (item) => `${item.boxNumber}`
+                        )
+                      : this.state.selectedItems.map(
+                          (item) => `${item.folderName}'s Folder`
+                        )
+                  }
                   //   this.state.selectedItems.map(
                   //   (item) => item.folderName || `B${item.boxNumber}`
                   // )}
