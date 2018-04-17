@@ -96,7 +96,7 @@ export class App extends React.Component<{ user; boxData; folderData }> {
             selectedItems: newList
           })
         }
-        break
+        break;
 
       case false:
       // check if folders are checked
@@ -110,22 +110,9 @@ export class App extends React.Component<{ user; boxData; folderData }> {
             selectedItems: newList
           })
         }
-        break
+        break;
     }
   }
-
-  //   if (
-  //     this.state.selectedItems.map((x) => x.boxNumber).includes(e.boxNumber) &&
-  //     this.state.selectedItems.length > 0
-  //   ) {
-  //     // don't allow a box to be listed twice
-  //   } else {
-  //     newList.push(e)
-  //     this.setState({
-  //       selectedItems: newList
-  //     })
-  //   }
-  // }
 
   removeItemFromCheckout = (r) => {
     let newList = this.state.selectedItems
@@ -233,16 +220,15 @@ export class App extends React.Component<{ user; boxData; folderData }> {
                   selectedItems={
                     !!this.state.isChecked
                       ? this.state.selectedItems.map(
-                          (item) => `${item.boxNumber}`
+                          (item) => `B${item.boxNumber}`
                         )
                       : this.state.selectedItems.map(
                           (item) => `${item.folderName}'s Folder`
                         )
                   }
-                  //   this.state.selectedItems.map(
-                  //   (item) => item.folderName || `B${item.boxNumber}`
-                  // )}
-                  items={this.getFilteredData()}
+                  type={
+                    this.state.isChecked ? 'Box' : 'Folder'
+                  }
                   removeItemFromCheckout={(r) => this.removeItemFromCheckout(r)}
                 />
               </div>
