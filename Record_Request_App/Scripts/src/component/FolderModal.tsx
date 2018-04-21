@@ -9,12 +9,13 @@ import {
   IColumn,
   CheckboxVisibility
 } from 'office-ui-fabric-react/lib/DetailsList'
+import { CreateFolderModal } from './CreateFolderModal'
 
 // Styling
 
 const Links = {
   color: '#0078d7',
-  cursor: 'pointer',
+  cursor: 'pointer'
 } as React.CSSProperties
 
 export interface IFolderModal {
@@ -23,8 +24,10 @@ export interface IFolderModal {
   closeModal(): void
   filteredData: Array<IFolderData>
   selectedBox?: IBoxData
-  addFolder(x): void 
- 
+  addFolder(x): void
+  createNewFolder(x):void
+  toggleCreateModal():void
+  showCreateModal: boolean
 }
 
 const _columns: IColumn[] = [
@@ -60,13 +63,10 @@ const _columns: IColumn[] = [
 // ----------------------------------------------
 
 export function FolderModal(props: IFolderModal) {
-
   const folderIdList = props.filteredData.map((x, i) => ({
     key: i,
     folderName: (
-      <p className="ms-fontSize-mPlus ms-fontWeight-light">
-        {x.FolderName}
-      </p>
+      <p className="ms-fontSize-mPlus ms-fontWeight-light">{x.FolderName}</p>
     ),
     checkoutFolder: (
       <p
@@ -78,13 +78,14 @@ export function FolderModal(props: IFolderModal) {
       </p>
     ),
     createFolder: (
-      <p style={Links} className="ms-fontSize-mPlus ms-fontWeight-light">
+      <p style={Links} 
+         className="ms-fontSize-mPlus ms-fontWeight-light"
+         onClick={props.toggleCreateModal}
+         >
         Create Folder
       </p>
     )
   }))
-
-  console.log(props.filteredData)
 
   return (
     <div>
@@ -99,12 +100,18 @@ export function FolderModal(props: IFolderModal) {
           Box B{props.selectedBox.BoxIdBarCode}
         </div>
         <div className="ms-modalExample-body">
-        <DetailsList
-          items={folderIdList}
-          columns={_columns}
-          setKey="set"
-          layoutMode={DetailsListLayoutMode.fixedColumns}
-          checkboxVisibility={CheckboxVisibility.hidden}
+          <DetailsList
+            items={folderIdList}
+            columns={_columns}
+            setKey="set"
+            layoutMode={DetailsListLayoutMode.fixedColumns}
+            checkboxVisibility={CheckboxVisibility.hidden}
+          />
+          <CreateFolderModal 
+            showModal={props.showCreateModal}
+            closeModal={props.toggleCreateModal}
+            selectedBox={props.selectedBox.BoxIdBarCode}
+            createNewFolder={(x)=>props.createNewFolder(x)}
           />
         </div>
       </Modal>
