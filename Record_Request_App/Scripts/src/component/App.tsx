@@ -1,12 +1,13 @@
 import * as React from 'react'
 import { Greeting } from './Greeting'
 import { GetDepartment } from './getdepartment'
-import { PrimaryButton } from 'office-ui-fabric-react/'
+import { PrimaryButton, ThemeSettingName } from 'office-ui-fabric-react/'
 import { BoxList } from './BoxList'
 import { FolderModal } from './FolderModal'
 import { RequestCart } from './RequestCart'
 import { initializeIcons } from 'office-ui-fabric-react/lib/Icons'
 import { BoxFolderToggle } from './BoxFolderToggle'
+import { CreateFolderModal } from './CreateFolderModal'
 
 export interface IBoxData {
   BoxIdBarCode: number
@@ -69,7 +70,8 @@ export class App extends React.Component<{ user; boxData; folderData }> {
     selectedItems: [],
     selectedDep: 0,
     selectedBox: undefined,
-    isChecked: true
+    isChecked: true,
+    createFolderModalShown: false,
   }
 
   // function used to change the selected department via the dropdown menu
@@ -129,14 +131,27 @@ export class App extends React.Component<{ user; boxData; folderData }> {
     })
   }
 
-  _showModal = (i) => {
+  _showFolderModal = (i) => {
     this.setState({
       selectedBox: this.getFilteredData()[i]
     })
   }
 
-  _closeModal = (): void => {
+  _closeFolderModal = (): void => {
     this.setState({ selectedBox: undefined })
+  }
+
+  _toggleCreateModal = () => {
+    if (this.state.createFolderModalShown) {
+      this.setState({
+        createFolderModalShown: false
+      })
+    }
+    else {
+      this.setState({
+        createFolderModalShown: true
+      })
+    }
   }
 
   // filter boxData to get the boxes within in the currently selected department
@@ -148,11 +163,22 @@ export class App extends React.Component<{ user; boxData; folderData }> {
       (x, i) => x.Parent_Box === this.state.selectedBox.BoxIdBarCode
     )
 
+    // add one to the largest folder number
+  createNewFolder = (x) => {
+    this.folderData.push({
+      FolderIdBarCode: Math.max.apply(Math, this.folderData.forEach(element => {
+        element.FolderIdBarCode
+      }))+1,
+      FolderName: x.FolderName,
+      Parent_Box: x.ParentBox,
+      Folder_Description: x.FolderDescription,
+    })
+  }
+
   // changes the state of the toggled button, there is probably a built in way to do with fabric ui toggle component
   // if toggled while items are in the cart, it empties the cart
   makeToggle = () => {
     if (this.state.selectedItems.length > 0) {
-      console.log(this.state.selectedItems.length)
       this.removeAllItemsFromCheckout()
     }
     if (this.state.isChecked) {
@@ -199,20 +225,24 @@ export class App extends React.Component<{ user; boxData; folderData }> {
               <BoxList
                 boxData={this.getFilteredData()}
                 addBox={(e) => this.addItemToCheckout(e)}
-                openModal={(i) => this._showModal(i)}
+                openModal={(i) => this._showFolderModal(i)}
               />
             </div>
             <div style={leftSection}>
               {this.state.selectedBox && (
                 <FolderModal
                   showModal={true}
-                  openModal={(i) => this._showModal(i)}
-                  closeModal={this._closeModal}
+                  openModal={(i) => this._showFolderModal(i)}
+                  closeModal={this._closeFolderModal}
                   filteredData={this.getFilteredFolders()}
                   selectedBox={this.state.selectedBox}
                   addFolder={(e) => this.addItemToCheckout(e)}
+                  createNewFolder={(x) => this.createNewFolder(x)}
+                  toggleCreateModal={this._toggleCreateModal}
+                  showCreateModal={this.state.createFolderModalShown}
                 />
               )}
+
             </div>
             {
               <div style={rightSection}>
