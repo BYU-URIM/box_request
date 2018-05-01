@@ -3,8 +3,9 @@ import { Toggle } from 'office-ui-fabric-react';
 
 export interface IBoxFolderToggle {
     isChecked: boolean
-    makeToggle(): void 
-  }
+    openWarning(): void
+}
+// makeToggle(): void 
 
 export function BoxFolderToggle(props: IBoxFolderToggle) {
     return (
@@ -18,7 +19,8 @@ export function BoxFolderToggle(props: IBoxFolderToggle) {
             offText='Folders'
             onFocus={ () => console.log('onFocus called') }
             onBlur={ () => console.log('onBlur called') }
-            onChanged={props.makeToggle}
+            onChanged={props.openWarning}
+            // onChanged={props.makeToggle}
         />
         </div>
     )
