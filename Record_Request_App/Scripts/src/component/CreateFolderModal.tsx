@@ -4,12 +4,18 @@ import { DefaultButton } from 'office-ui-fabric-react/lib/Button'
 import { IBoxData, IFolderData } from './App'
 import { TextField } from 'office-ui-fabric-react'
 import { PrimaryButton } from 'office-ui-fabric-react'
+import { folderData } from '../res/folderdata'
 
 export interface ICreateFolderModal {
   showModal: boolean
   selectedBox?: number
   createNewFolder(x): void
   closeModal(): void
+  updateName(e): void
+  updateDescription(e): void
+  newDescriptionInput: string
+  newNameInput: string
+
 }
 
 // ----------------------------------------------
@@ -33,11 +39,18 @@ export function CreateFolderModal(props: ICreateFolderModal) {
           label="Folder Name"
           required={true}
           placeholder="i.e. Jarod"
+          value={props.newNameInput}
+          onChanged={props.updateName}
         />
-        <TextField label="Folder Description" placeholder="Describe your folder" />
-        <PrimaryButton
-            text="Create Folder"
+        <TextField
+          label="Folder Description"
+          placeholder="Describe your folder"
+          required={true}
+          multiline={true}
+          value={props.newDescriptionInput}
+          onChanged={props.updateDescription}
         />
+        <PrimaryButton text="Create Folder" onClick={props.createNewFolder}/>
       </Modal>
     </div>
   )
