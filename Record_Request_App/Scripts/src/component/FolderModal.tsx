@@ -25,9 +25,13 @@ export interface IFolderModal {
   filteredData: Array<IFolderData>
   selectedBox?: IBoxData
   addFolder(x): void
-  createNewFolder(x):void
-  toggleCreateModal():void
+  createNewFolder(x): void
+  toggleCreateModal(): void
   showCreateModal: boolean
+  updateFolderName(e): void
+  newNameInput: string
+  updateFolderDescription(e): void
+  newDescriptionInput: string
 }
 
 const _columns: IColumn[] = [
@@ -78,10 +82,11 @@ export function FolderModal(props: IFolderModal) {
       </p>
     ),
     createFolder: (
-      <p style={Links} 
-         className="ms-fontSize-mPlus ms-fontWeight-light"
-         onClick={props.toggleCreateModal}
-         >
+      <p
+        style={Links}
+        className="ms-fontSize-mPlus ms-fontWeight-light"
+        onClick={props.toggleCreateModal}
+      >
         Create Folder
       </p>
     )
@@ -107,11 +112,15 @@ export function FolderModal(props: IFolderModal) {
             layoutMode={DetailsListLayoutMode.fixedColumns}
             checkboxVisibility={CheckboxVisibility.hidden}
           />
-          <CreateFolderModal 
+          <CreateFolderModal
             showModal={props.showCreateModal}
             closeModal={props.toggleCreateModal}
             selectedBox={props.selectedBox.BoxIdBarCode}
-            createNewFolder={(x)=>props.createNewFolder(x)}
+            createNewFolder={(x) => props.createNewFolder(x)}
+            updateName={(e) => props.updateFolderName(e)}
+            newNameInput = {props.newNameInput}
+            updateDescription = {(e) => props.updateFolderDescription(e)}
+            newDescriptionInput = {props.newDescriptionInput}
           />
         </div>
       </Modal>
