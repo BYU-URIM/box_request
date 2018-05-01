@@ -8,6 +8,7 @@ import { RequestCart } from './RequestCart'
 import { initializeIcons } from 'office-ui-fabric-react/lib/Icons'
 import { BoxFolderToggle } from './BoxFolderToggle'
 import { CreateFolderModal } from './CreateFolderModal'
+import { WarningModal } from './WarningModal';
 
 export interface IBoxData {
   BoxIdBarCode: number
@@ -73,7 +74,8 @@ export class App extends React.Component<{ user; boxData; folderData }> {
     isChecked: true,
     createFolderModalShown: false,
     newFolderNameInput: '',
-    newFolderDescriptionInput: ''
+    newFolderDescriptionInput: '',
+    warningModalShown: false,
   }
 
   // function used to change the selected department via the dropdown menu
@@ -207,6 +209,9 @@ export class App extends React.Component<{ user; boxData; folderData }> {
   makeToggle = () => {
     if (this.state.selectedItems.length > 0) {
       this.removeAllItemsFromCheckout()
+      this.setState({
+        warningModalShown: false
+      })
     }
     if (this.state.isChecked) {
       this.setState({
@@ -217,6 +222,17 @@ export class App extends React.Component<{ user; boxData; folderData }> {
         isChecked: true
       })
     }
+  }
+
+  // user validation, prevents user from accidentally removing all items from cart
+  openWarning = () => {
+    console.log((this.state.selectedItems.length === 0) ? this.makeToggle() : this.setState ({warningModalShown: true}))
+  }
+
+  closeWarning = () => {
+    this.setState ({
+      warningModalShown: false
+    })
   }
 
   render() {
@@ -236,11 +252,17 @@ export class App extends React.Component<{ user; boxData; folderData }> {
           />
           <BoxFolderToggle
             isChecked={this.state.isChecked}
-            makeToggle={this.makeToggle}
+            // makeToggle={this.makeToggle}
+            openWarning={this.openWarning}
           />
           <PrimaryButton
             disabled={!(this.state.selectedItems.length > 0)}
             text="Submit Request"
+          />
+          <WarningModal
+            shown={this.state.warningModalShown}
+            close={this.closeWarning}
+            continue={this.makeToggle}
           />
         </div>
 
