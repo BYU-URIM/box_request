@@ -19,7 +19,7 @@ export interface IBoxData {
 export interface IFolderData {
   FolderIdBarCode: number
   FolderName: string
-  Parent_Box: number
+  BoxID: number
   Folder_Description: string
 }
 
@@ -161,7 +161,7 @@ export class App extends React.Component<{ user; boxData; folderData }> {
 
   getFilteredFolders = () =>
     this.folderData.filter(
-      (x, i) => x.Parent_Box === this.state.selectedBox.BoxIdBarCode
+      (x, i) => x.BoxID === this.state.selectedBox.BoxIdBarCode
     )
 
   // These two functions work with the text fields in CreateFolderModal.  They let the user type in a folder name and description.
@@ -189,7 +189,7 @@ export class App extends React.Component<{ user; boxData; folderData }> {
               : previousLargestNumber
           }, 0) + 1,
       // parent box depends on which box they selected
-      Parent_Box: this.state.selectedBox.BoxIdBarCode,
+      BoxID: this.state.selectedBox.BoxIdBarCode,
       // comes from the values entered by user from text fields
       FolderName: this.state.newFolderNameInput,
       Folder_Description: this.state.newFolderDescriptionInput
