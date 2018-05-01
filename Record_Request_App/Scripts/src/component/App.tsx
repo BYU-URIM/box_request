@@ -72,6 +72,8 @@ export class App extends React.Component<{ user; boxData; folderData }> {
     selectedBox: undefined,
     isChecked: true,
     createFolderModalShown: false,
+    newFolderNameInput: '',
+    newFolderDescriptionInput: ''
   }
 
   // function used to change the selected department via the dropdown menu
@@ -87,7 +89,7 @@ export class App extends React.Component<{ user; boxData; folderData }> {
     // check to see if the clicked-on item is a box or folder
     switch (e.hasOwnProperty('boxNumber')) {
       case true:
-      // check status of box/folder toggle
+        // check status of box/folder toggle
         if (this.state.isChecked) {
           if (newList.map((x) => x.boxNumber).includes(e.boxNumber)) {
             // checks for and doesn't allow duplicate items
@@ -98,10 +100,10 @@ export class App extends React.Component<{ user; boxData; folderData }> {
             selectedItems: newList
           })
         }
-        break;
+        break
 
       case false:
-      // check if folders are checked
+        // check if folders are checked
         if (!this.state.isChecked) {
           if (newList.map((x) => x.folderName).includes(e.folderName)) {
             // checks for and doesn't allow duplicate items
@@ -112,7 +114,7 @@ export class App extends React.Component<{ user; boxData; folderData }> {
             selectedItems: newList
           })
         }
-        break;
+        break
     }
   }
 
@@ -146,8 +148,7 @@ export class App extends React.Component<{ user; boxData; folderData }> {
       this.setState({
         createFolderModalShown: false
       })
-    }
-    else {
+    } else {
       this.setState({
         createFolderModalShown: true
       })
@@ -163,15 +164,41 @@ export class App extends React.Component<{ user; boxData; folderData }> {
       (x, i) => x.Parent_Box === this.state.selectedBox.BoxIdBarCode
     )
 
-    // add one to the largest folder number
-  createNewFolder = (x) => {
+  // These two functions work with the text fields in CreateFolderModal.  They let the user type in a folder name and description.
+  updateFolderName = (value) => {
+    this.setState({
+      newFolderNameInput: value
+    })
+  }
+
+  updateFolderDescription = (value) => {
+    this.setState({
+      newFolderDescriptionInput: value
+    })
+  }
+
+  createNewFolder = (e) => {
     this.folderData.push({
-      FolderIdBarCode: Math.max.apply(Math, this.folderData.forEach(element => {
-        element.FolderIdBarCode
-      }))+1,
-      FolderName: x.FolderName,
-      Parent_Box: x.ParentBox,
-      Folder_Description: x.FolderDescription,
+      // create a folder with an id 1 greater than the largest folder id
+      FolderIdBarCode:
+        this.folderData
+          .map((subArray) => subArray.FolderIdBarCode)
+          .reduce((previousLargestNumber, currentLargestNumber) => {
+            return currentLargestNumber > previousLargestNumber
+              ? currentLargestNumber
+              : previousLargestNumber
+          }, 0) + 1,
+      // parent box depends on which box they selected
+      Parent_Box: this.state.selectedBox.BoxIdBarCode,
+      // comes from the values entered by user from text fields
+      FolderName: this.state.newFolderNameInput,
+      Folder_Description: this.state.newFolderDescriptionInput
+    })
+    // closes the modal and resets the data so user cannot easily make the same folder twice
+    this.setState({
+      createFolderModalShown: false,
+      newFolderNameInput: '',
+      newFolderDescriptionInput: ''
     })
   }
 
@@ -238,11 +265,16 @@ export class App extends React.Component<{ user; boxData; folderData }> {
                   selectedBox={this.state.selectedBox}
                   addFolder={(e) => this.addItemToCheckout(e)}
                   createNewFolder={(x) => this.createNewFolder(x)}
+                  updateFolderName={(e) => this.updateFolderName(e)}
+                  updateFolderDescription={(e) =>
+                    this.updateFolderDescription(e)
+                  }
+                  newDescriptionInput={this.state.newFolderDescriptionInput}
+                  newNameInput={this.state.newFolderNameInput}
                   toggleCreateModal={this._toggleCreateModal}
                   showCreateModal={this.state.createFolderModalShown}
                 />
               )}
-
             </div>
             {
               <div style={rightSection}>
@@ -256,9 +288,7 @@ export class App extends React.Component<{ user; boxData; folderData }> {
                           (item) => `${item.folderName}'s Folder`
                         )
                   }
-                  type={
-                    this.state.isChecked ? 'Box' : 'Folder'
-                  }
+                  type={this.state.isChecked ? 'Box' : 'Folder'}
                   removeItemFromCheckout={(r) => this.removeItemFromCheckout(r)}
                 />
               </div>
