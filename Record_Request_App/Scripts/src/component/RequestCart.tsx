@@ -11,7 +11,7 @@ import {
 } from 'office-ui-fabric-react/lib/DetailsList'
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
-import { IBoxData, ISelectedItems } from './App'
+import { IBoxData } from './App'
 
 // Styling
 

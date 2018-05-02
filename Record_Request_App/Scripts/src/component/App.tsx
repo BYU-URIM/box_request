@@ -8,7 +8,8 @@ import { RequestCart } from './RequestCart'
 import { initializeIcons } from 'office-ui-fabric-react/lib/Icons'
 import { BoxFolderToggle } from './BoxFolderToggle'
 import { CreateFolderModal } from './CreateFolderModal'
-import { WarningModal } from './WarningModal';
+import { WarningModal } from './WarningModal'
+import { SubmitModal } from './SubmitModal'
 
 export interface IBoxData {
   BoxIdBarCode: number
@@ -24,10 +25,29 @@ export interface IFolderData {
   Folder_Description: string
 }
 
-export interface ISelectedItems {
+export interface IFolderAndBox {
   key: number
+  BoxIdBarCode?: number
+  Location?: string
+  DepId?: number
+  DepartmentName?: string
+  FolderIdBarCode?: number
+  FolderName?: string
+  BoxID?: number
+  Folder_Description?: string
+}
+
+export interface IRequestObject {
   boxNumber?: number
-  folderName?: string
+  requestingDepartment: number
+  parentBox?: number
+  location: string
+  requestType: string
+  deliveryPriority: string
+  requestStatus: string
+  deliveryInstructions: string
+  type: string
+  folderNumber?: string
 }
 // Enables microsoft ui icons to appear
 initializeIcons()
@@ -76,6 +96,7 @@ export class App extends React.Component<{ user; boxData; folderData }> {
     newFolderNameInput: '',
     newFolderDescriptionInput: '',
     warningModalShown: false,
+    submitModalShown: false
   }
 
   // function used to change the selected department via the dropdown menu
@@ -145,6 +166,18 @@ export class App extends React.Component<{ user; boxData; folderData }> {
     this.setState({ selectedBox: undefined })
   }
 
+  _showSubmitModal = (): void => {
+    this.setState({
+      submitModalShown: true
+    })
+  }
+
+  _closeSubmitModal = (): void => {
+    this.setState({
+      submitModalShown: false
+    })
+  }
+
   _toggleCreateModal = () => {
     if (this.state.createFolderModalShown) {
       this.setState({
@@ -155,6 +188,26 @@ export class App extends React.Component<{ user; boxData; folderData }> {
         createFolderModalShown: true
       })
     }
+  }
+
+  // user validation, prevents user from accidentally removing all items from cart
+  openWarning = () => {
+    console.log(
+      this.state.selectedItems.length === 0
+        ? this.makeToggle()
+        : this.setState({ warningModalShown: true })
+    )
+  }
+
+  closeWarning = () => {
+    this.setState({
+      warningModalShown: false
+    })
+  }
+
+  submitCheckType = () => {
+    this.state.isChecked ? 'box' : 'folder'
+    console.log(this.state.isChecked ? 'box' : 'folder')
   }
 
   // filter boxData to get the boxes within in the currently selected department
@@ -224,15 +277,41 @@ export class App extends React.Component<{ user; boxData; folderData }> {
     }
   }
 
-  // user validation, prevents user from accidentally removing all items from cart
-  openWarning = () => {
-    console.log((this.state.selectedItems.length === 0) ? this.makeToggle() : this.setState ({warningModalShown: true}))
-  }
-
-  closeWarning = () => {
-    this.setState ({
-      warningModalShown: false
-    })
+  submitRequest = (selectedItems: Array<IFolderAndBox>) => {
+    let request
+    !!this.state.isChecked
+      ? (request = {
+          type: 'Boxes',
+          boxNumber: selectedItems.map((x) => {
+            x.BoxIdBarCode
+          }),
+          requestingDepartment: selectedItems.map((x) => {
+            x.DepId
+          }),
+          parentBox: '',
+          location: selectedItems.map((x) => {
+            x.Location
+          }),
+          requestType: '',
+          deliveryPriority: '',
+          requestStatus: 'New',
+          deliveryInstructions: ''
+        })
+      : (request = {
+          type: 'Folders',
+          folderNumber: selectedItems.map((x) => {
+            x.FolderIdBarCode
+          }),
+          requestingDepartment: '', // coming soon
+          parentBox: selectedItems.map((x) => {
+            x.BoxID
+          }),
+          location: '', // coming soon
+          requestType: '',
+          deliveryPriority: '',
+          requestStatus: 'New',
+          deliveryInstructions: ''
+        })
   }
 
   render() {
@@ -258,11 +337,19 @@ export class App extends React.Component<{ user; boxData; folderData }> {
           <PrimaryButton
             disabled={!(this.state.selectedItems.length > 0)}
             text="Submit Request"
+            onClick={this._showSubmitModal}
           />
           <WarningModal
             shown={this.state.warningModalShown}
             close={this.closeWarning}
             continue={this.makeToggle}
+          />
+          <SubmitModal
+            shown={this.state.submitModalShown}
+            close={this._closeSubmitModal}
+            requestType={this.state.isChecked}
+            submit={this.submitRequest}
+            selectedItems={this.state.selectedItems}
           />
         </div>
 
