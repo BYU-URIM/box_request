@@ -13,9 +13,16 @@ import { IFolderData, IBoxData } from '../models/MockData';
 
 // Styling
 
+const shiftDown = {
+  paddingTop: '.0%',
+}
 const Links = {
   color: '#0078d7',
   cursor: 'pointer'
+} as React.CSSProperties
+
+const Center = {
+  textAlign: 'center',
 } as React.CSSProperties
 
 export interface IFolderViewProps {
@@ -26,7 +33,6 @@ export interface IFolderViewProps {
   addFolder(x): void
   createNewFolder(x): void
   toggleCreateModal(): void
-  // showCreateModal: boolean
   updateFolderName(e): void
   newNameInput: string
   updateFolderDescription(e): void
@@ -92,9 +98,9 @@ export function FolderView(props: IFolderViewProps) {
   }))
 
   return (
-    <div>
+    <div style={shiftDown}>
         <div className="ms-modalExample-header">
-          Box B{props.selectedBox.BoxIdBarCode}
+          <h2 style={Center}>Folders in Box B{props.selectedBox.BoxIdBarCode}</h2>
         </div>
         <div className="ms-modalExample-body">
           <DetailsList
