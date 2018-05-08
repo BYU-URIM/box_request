@@ -16,6 +16,10 @@ import { IFolderAndBox } from '../models/App';
 
 // Styling
 
+const shiftDown = {
+  paddingTop: '11.65%'
+}
+
 const Links = {
   color: '#0078d7',
   cursor: 'pointer'
@@ -32,8 +36,8 @@ const _columns: IColumn[] = [
     key: 'column1',
     name: 'Request Cart',
     fieldName: 'pendingItemRequests',
-    minWidth: 100,
-    maxWidth: 200,
+    minWidth: 70,
+    maxWidth: 120,
     isResizable: true,
     ariaLabel: 'Operations for pendingItemRequests'
   },
@@ -41,8 +45,8 @@ const _columns: IColumn[] = [
     key: 'column2',
     name: 'Type',
     fieldName: 'type',
-    minWidth: 100,
-    maxWidth: 200,
+    minWidth: 40,
+    maxWidth: 70,
     isResizable: true,
     ariaLabel: 'Operations for type'
   },
@@ -50,8 +54,8 @@ const _columns: IColumn[] = [
     key: 'column3',
     name: '',
     fieldName: 'removeItem',
-    minWidth: 100,
-    maxWidth: 200,
+    minWidth: 40,
+    maxWidth: 100,
     isResizable: true,
     ariaLabel: 'Operations for removeItem'
   }
@@ -60,14 +64,13 @@ const _columns: IColumn[] = [
 // --------------------------------------------------------------------------
 
 export function RequestCart(props: IRequestCartProps) {
-  console.log(props)
   const checkoutList = Array.from(props.selectedItems.values()).map((itemRef: IFolderAndBox, index) => ({
     key: `${index}`,
     pendingItemRequests: (
-      <p className="ms-fontSize-mPlus ms-fontWeight-light">{itemRef.BoxIdBarCode}</p> 
+      <p className="ms-fontSize-mPlus ms-fontWeight-light">{ itemRef.hasOwnProperty('BoxIdBarCode') ? `B${itemRef.BoxIdBarCode}` : `${itemRef.FolderName}'s Folder`}  </p> 
     ),
     type: <p className="ms-fontSize-mPlus ms-fontWeight-light">{
-      itemRef.BoxIdBarCode ? 'box' : 'folder'
+      itemRef.BoxIdBarCode ? 'Box' : 'Folder'
     }</p>,
     removeItem: (
       <p onClick={() => props.removeItemFromCheckout(itemRef.BoxIdBarCode | itemRef.FolderIdBarCode)}>
@@ -81,7 +84,7 @@ export function RequestCart(props: IRequestCartProps) {
   }))
 
   return (
-    <div>
+    <div style={shiftDown}>
       <DetailsList
         items={checkoutList}
         columns={_columns}
