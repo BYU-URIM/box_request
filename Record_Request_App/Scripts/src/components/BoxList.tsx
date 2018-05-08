@@ -14,6 +14,11 @@ import { IBoxData } from '../models/MockData'
 
 // Styling
 
+const shiftDown = {
+  paddingTop: '18.35%',
+  width: '400px',
+}
+
 const Links = {
   color: '#0078d7',
   cursor: 'pointer'
@@ -22,7 +27,7 @@ const Links = {
 export interface IBoxList {
   boxData: Array<IBoxData>
   addBox(x): void
-  openModal(i: number): void
+  openModal(i: IBoxData): void
 }
 
 const _items: {}[] = []
@@ -93,7 +98,7 @@ export function BoxList(props: IBoxList) {
       <p
         style={Links}
         className="ms-fontSize-mPlus ms-fontWeight-light"
-        onClick={() => props.openModal(i)}
+        onClick={() => props.openModal(props.boxData[i])}
       >
         View Folders
       </p>
@@ -101,7 +106,7 @@ export function BoxList(props: IBoxList) {
   }))
 
   return (
-    <div style={{width: "400px"}}>
+    <div style={shiftDown}>
       <DetailsList
         items={bIdList}
         columns={_columns}
