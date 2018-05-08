@@ -5,7 +5,6 @@ import { IFolderAndBox, ModalTypes, IBoxData } from '../models/'
 import {
   AppStyles,
   DepartmentDropdown,
-  BoxFolderToggle,
   WarningModal,
   SubmitModal,
   CreateFolderModal,

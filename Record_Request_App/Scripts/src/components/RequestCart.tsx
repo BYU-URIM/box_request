@@ -17,7 +17,7 @@ import { IFolderAndBox } from '../models/App';
 // Styling
 
 const shiftDown = {
-  paddingTop: '11.65%'
+  paddingTop: '10.8%'
 }
 
 const Links = {
