@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { PrimaryButton, ThemeSettingName } from 'office-ui-fabric-react/'
 import { initializeIcons } from 'office-ui-fabric-react/lib/Icons'
-import { IFolderAndBox, ModalTypes } from '../models/'
+import { IFolderAndBox, ModalTypes, IBoxData } from '../models/'
 import {
   AppStyles,
   DepartmentDropdown,
@@ -18,7 +18,7 @@ import {
 interface IAppState {
   selectedItems: Map<number, IFolderAndBox>
   selectedDep: number
-  selectedBox: number | undefined
+  selectedBox: IBoxData | undefined
   isChecked: boolean
   newFolderNameInput: string
   newFolderDescriptionInput: string
@@ -176,10 +176,7 @@ export class App extends React.Component<
             mockData={this.boxData}
             changeSelectedDep={this.changeSelectedDep}
           />
-          <BoxFolderToggle
-            isChecked={this.state.isChecked}
-            openWarning={() => this.toggleModal(ModalTypes.warning)}
-          />
+
           <PrimaryButton
             disabled={!(this.state.selectedItems.size > 0)}
             text="Submit Request"
@@ -220,10 +217,10 @@ export class App extends React.Component<
               <BoxList
                 boxData={this.getFilteredData()}
                 addBox={(e) => this.addItemToCheckout(e)}
-                openModal={(i: number) => {
+                openModal={(i: IBoxData) => {
                   console.log(i)
                   this.setState({
-                    selectedBox: this.boxData[i]
+                    selectedBox: i
                   })
                 }}
               />
