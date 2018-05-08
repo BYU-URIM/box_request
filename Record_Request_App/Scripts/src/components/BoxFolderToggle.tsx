@@ -17,8 +17,6 @@ export function BoxFolderToggle(props: IBoxFolderToggle) {
             offAriaLabel='This toggle is unchecked. Press to check.'
             onText='Boxes'
             offText='Folders'
-            onFocus={ () => console.log('onFocus called') }
-            onBlur={ () => console.log('onBlur called') }
             onChanged={props.openWarning}
             // onChanged={props.makeToggle}
         />
