@@ -19,10 +19,10 @@ export interface IFolderAndBox {
 
 export interface IRequestObject {
   type: string
-  boxNumber?: number
-  requestingDepartment: number
-  parentBox?: number
-  location: string
+  boxNumber?: void[]
+  requestingDepartment: void[]
+  parentBox?: ''
+  location: void[]
   requestType: string
   deliveryPriority: string
   requestStatus: string
