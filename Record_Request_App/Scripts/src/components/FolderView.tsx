@@ -44,8 +44,8 @@ const _columns: IColumn[] = [
     key: 'column1',
     name: 'Folder Name',
     fieldName: 'folderName',
-    minWidth: 100,
-    maxWidth: 275,
+    minWidth: 80,
+    maxWidth: 120,
     isResizable: true,
     ariaLabel: 'Operations for name'
   },
@@ -53,8 +53,8 @@ const _columns: IColumn[] = [
     key: 'column2',
     name: '',
     fieldName: 'checkoutFolder',
-    minWidth: 100,
-    maxWidth: 275,
+    minWidth: 60,
+    maxWidth: 170,
     isResizable: true,
     ariaLabel: 'Operations for checkoutFolder'
   },
@@ -62,8 +62,8 @@ const _columns: IColumn[] = [
     key: 'column3',
     name: '',
     fieldName: 'createFolder',
-    minWidth: 100,
-    maxWidth: 275,
+    minWidth: 40,
+    maxWidth: 120,
     isResizable: true,
     ariaLabel: 'Operations for createFolder'
   }
@@ -75,7 +75,7 @@ export function FolderView(props: IFolderViewProps) {
   const folderIdList = props.filteredData.map((x, i) => ({
     key: i,
     folderName: (
-      <p className="ms-fontSize-mPlus ms-fontWeight-light">{x.FolderName}</p>
+      <p className="ms-fontSize-mPlus ms-fontWeight-light">{x.FolderName}'s Folder</p>
     ),
     checkoutFolder: (
       <p
