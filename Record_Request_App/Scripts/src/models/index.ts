@@ -1,2 +1,2 @@
-export {ModalTypes, IFolderAndBox } from "./App"
+export {ModalTypes, IFolderAndBox, IRequestObject } from "./App"
 export { IFolderData, IBoxData } from "./MockData"
