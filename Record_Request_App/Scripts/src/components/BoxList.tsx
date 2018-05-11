@@ -16,7 +16,7 @@ import { IBoxData } from '../models/MockData'
 
 const shiftDown = {
   paddingTop: '18.35%',
-  width: '400px',
+  width: '290px',
 }
 
 const Links = {
@@ -51,15 +51,6 @@ const _columns: IColumn[] = [
     isResizable: true,
     ariaLabel: 'Operations for checkoutBox'
   },
-  {
-    key: 'column3',
-    name: '',
-    fieldName: 'viewFolders',
-    minWidth: 40,
-    maxWidth: 100,
-    isResizable: true,
-    ariaLabel: 'Operations for viewFolders'
-  }
 ]
 
 // --------------------------------------------------------------------------
@@ -93,16 +84,6 @@ export function BoxList(props: IBoxList) {
         + Add Box to Checkout
       </p>
     ),
-
-    viewFolders: (
-      <p
-        style={Links}
-        className="ms-fontSize-mPlus ms-fontWeight-light"
-        onClick={() => props.openModal(props.boxData[i])}
-      >
-        View Folders
-      </p>
-    )
   }))
 
   return (
@@ -113,7 +94,16 @@ export function BoxList(props: IBoxList) {
         setKey="set"
         layoutMode={DetailsListLayoutMode.fixedColumns}
         checkboxVisibility={CheckboxVisibility.hidden}
-        compact
+        onRenderRow={(_props, defaultRender) => (
+          <div
+            key={_props.item.key}
+            onClick={()=> {
+              props.openModal(props.boxData[_props.item.key])
+            }}
+          >
+            {defaultRender(_props)}
+          </div>
+        )}
       />
     </div>
   )
