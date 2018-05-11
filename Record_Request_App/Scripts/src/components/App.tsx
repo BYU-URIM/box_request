@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { PrimaryButton, ThemeSettingName } from 'office-ui-fabric-react/'
 import { initializeIcons } from 'office-ui-fabric-react/lib/Icons'
-import { IFolderAndBox, ModalTypes, IBoxData } from '../models/'
+import { IFolderAndBox, ModalTypes, IBoxData, IRequestObject } from '../models/'
 import {
   AppStyles,
   DepartmentDropdown,
@@ -13,6 +13,7 @@ import {
   RequestCart,
   Greeting
 } from '.'
+import { ISubmitModal } from './SubmitModal';
 
 interface IAppState {
   selectedItems: Map<number, IFolderAndBox>
@@ -22,6 +23,10 @@ interface IAppState {
   newFolderNameInput: string
   newFolderDescriptionInput: string
   modal: ModalTypes
+  request: Map<number, IRequestObject>
+  deliveryInstructions: string
+  requestTypeToggle: boolean
+  deliveryPriorityToggle: boolean
 }
 
 // Enables microsoft ui icons to appear
@@ -40,7 +45,12 @@ export class App extends React.Component<
     isChecked: true,
     newFolderNameInput: '',
     newFolderDescriptionInput: '',
-    modal: undefined
+    modal: undefined,
+    request: new Map(),
+    requestTypeToggle: false,
+    deliveryPriorityToggle: false,
+    deliveryInstructions: ''
+
   }
 
   // function used to change the selected department via the dropdown menu
@@ -83,6 +93,10 @@ export class App extends React.Component<
       (x, i) => x.BoxID === this.state.selectedBox.BoxIdBarCode
     )
 
+  getParentBoxInfo = (boxId: number) => {
+    return this.boxData.filter((x) => x.BoxIdBarCode === boxId)[0]
+  }
+
   // These two functions work with the text fields in CreateFolderModal.  They let the user type in a folder name and description.
   updateFolderName = (value) => {
     this.setState({
@@ -98,7 +112,6 @@ export class App extends React.Component<
 
   createNewFolder = (e) => {
     this.folderData.push({
-      // create a folder with an id 1 greater than the largest folder id
       // parent box depends on which box they selected
       BoxID: this.state.selectedBox.BoxIdBarCode,
       // comes from the values entered by user from text fields
@@ -113,51 +126,72 @@ export class App extends React.Component<
     })
   }
 
-  // changes the state of the toggled button, there is probably a built in way to do with fabric ui toggle component
-  // if toggled while items are in the cart, it empties the cart
-  makeToggle = () => {
+  updateDeliveryInstructions = (value) => {
     this.setState({
-      modal: ModalTypes.none,
-      isChecked: !this.state.isChecked,
-      selectedItems: new Map()
+      deliveryInstructions: value
     })
   }
 
-  submitRequest = (selectedItems: Array<IFolderAndBox>) => {
-    // let request: Array<IRequestObject>
-    // !!this.state.isChecked
-    //   ? (request = request.push({
-    //       type: 'Boxes',
-    //       boxNumber: selectedItems.map((x) => {
-    //         x.BoxIdBarCode
-    //       }),
-    //       requestingDepartment: selectedItems.map((x) => {
-    //         x.DepId
-    //       }),
-    //       parentBox: '',
-    //       location: selectedItems.map((x) => {
-    //         x.Location
-    //       }),
-    //       requestType: '',
-    //       deliveryPriority: '',
-    //       requestStatus: 'New',
-    //       deliveryInstructions: ''
-    //     }))
-    //   : (request = {
-    //       type: 'Folders',
-    //       folderNumber: selectedItems.map((x) => {
-    //         x.FolderIdBarCode
-    //       }),
-    //       requestingDepartment: '', // coming soon
-    //       parentBox: selectedItems.map((x) => {
-    //         x.BoxID
-    //       }),
-    //       location: '', // coming soon
-    //       requestType: '',
-    //       deliveryPriority: '',
-    //       requestStatus: 'New',
-    //       deliveryInstructions: ''
-    //     })
+  updateRequestType = () => {
+    console.log(!!(this.state.requestTypeToggle))
+    this.setState({
+      requestTypeToggle: !this.state.requestTypeToggle
+    })
+  }
+
+  updateDeliveryPriority = () => {
+    console.log(!!(this.state.deliveryPriorityToggle))
+    this.setState({
+      deliveryPriorityToggle: !this.state.deliveryPriorityToggle
+    })
+  }
+
+  // This function creates the final request objects with the data necessary to communicate with the rock.
+  addValues = (key: number, setVals: Map<number, IFolderAndBox>) => {
+
+    let additionalVals = setVals.get(key)
+    if (additionalVals.BoxIdBarCode === undefined) { 
+      additionalVals['type'] = 'Folder'
+      additionalVals['folderNumber'] = additionalVals.FolderIdBarCode
+      additionalVals['parentBox'] = additionalVals.BoxID
+      additionalVals['requestingDepartment'] = this.getParentBoxInfo(additionalVals.BoxID).DepId
+      additionalVals['location'] = this.getParentBoxInfo(additionalVals.BoxID).Location  
+    }
+    else {
+      additionalVals['type'] = 'Box'
+      additionalVals['boxNumber'] = additionalVals.BoxIdBarCode
+      additionalVals['requestingDepartment'] = additionalVals.DepId
+      additionalVals['location'] = additionalVals.Location 
+    }
+    delete additionalVals.key
+    additionalVals['requestType'] = (this.state.requestTypeToggle ? 'Permament' : 'Temporary')
+    additionalVals['deliveryPriority'] = (this.state.deliveryPriorityToggle) ? 'Urgent' : 'Standard'
+    additionalVals['requestStatus'] = 'New'
+    additionalVals['deliveryInstructions'] = this.state.deliveryInstructions
+    
+    return additionalVals
+
+  }
+
+  submitRequest = (items: Map<number, IFolderAndBox>) => {
+    let newRequest = new Map()  // make a new map
+      let iterator1 = items.keys() // create a list of all the different keys in selectedItems map
+      for (let i = 0; i < items.size; i++) {  // loop through as many times as there are items in selectedItems map
+        let mrKey = iterator1.next().value // start with the first key and move on to the next key when loop iterates next
+        newRequest.set(i, this.addValues(mrKey, items)) // set the values of new map to the modified values from addVal function
+      }  
+    this.setState({
+      request: newRequest
+    })
+    this.state.selectedItems.clear()
+    this.toggleModal(ModalTypes.none)
+    console.log(this.state.request)
+    }
+
+  finalRequest = (newRequest) => {
+    this.setState({
+      request: newRequest
+    })
   }
 
   render() {
@@ -181,18 +215,16 @@ export class App extends React.Component<
             text="Submit Request"
             onClick={() => this.toggleModal(ModalTypes.submit)}
           />
-          {this.state.modal === ModalTypes.warning && (
-            <WarningModal
-              close={() => this.toggleModal(ModalTypes.none)}
-              continue={this.makeToggle}
-            />
-          )}
+
           {this.state.modal === ModalTypes.submit && (
             <SubmitModal
               close={() => this.toggleModal(ModalTypes.none)}
-              requestType={this.state.isChecked}
-              submit={this.submitRequest}
+              updateInstructions={(e) => this.updateDeliveryInstructions(e)}
+              priority={this.updateDeliveryPriority}
+              requestType={this.updateRequestType}
+              submit={(e) => this.submitRequest(e)}
               selectedItems={this.state.selectedItems}
+              deliveryInstructions={this.state.deliveryInstructions}
             />
           )}
           {this.state.modal === ModalTypes.create && (
@@ -217,7 +249,6 @@ export class App extends React.Component<
                 boxData={this.getFilteredData()}
                 addBox={(e) => this.addItemToCheckout(e)}
                 openModal={(i: IBoxData) => {
-                  console.log(i)
                   this.setState({
                     selectedBox: i
                   })
