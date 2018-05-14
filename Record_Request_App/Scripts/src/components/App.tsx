@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { PrimaryButton, ThemeSettingName } from 'office-ui-fabric-react/'
-import { initializeIcons } from 'office-ui-fabric-react/lib/Icons'
+import { initializeIcons } from '@uifabric/icons'
 import { IFolderAndBox, ModalTypes, IBoxData, IRequestObject } from '../models/'
 import {
   AppStyles,
@@ -13,7 +13,7 @@ import {
   RequestCart,
   Greeting
 } from '.'
-import { ISubmitModal } from './SubmitModal';
+import { ISubmitModal } from './SubmitModal'
 
 interface IAppState {
   selectedItems: Map<number, IFolderAndBox>
@@ -50,7 +50,6 @@ export class App extends React.Component<
     requestTypeToggle: false,
     deliveryPriorityToggle: false,
     deliveryInstructions: ''
-
   }
 
   // function used to change the selected department via the dropdown menu
@@ -111,20 +110,23 @@ export class App extends React.Component<
   }
 
   createNewFolder = (e) => {
-    if (this.state.newFolderNameInput.length > 0 && this.state.newFolderDescriptionInput.length > 0) {
-    this.folderData.push({
-      // parent box depends on which box they selected
-      BoxID: this.state.selectedBox.BoxIdBarCode,
-      // comes from the values entered by user from text fields
-      FolderName: this.state.newFolderNameInput,
-      Folder_Description: this.state.newFolderDescriptionInput
-    })
-    // closes the modal and resets the data so user cannot easily make the same folder twice
-    this.setState({
-      modal: ModalTypes.none,
-      newFolderNameInput: '',
-      newFolderDescriptionInput: ''
-    })
+    if (
+      this.state.newFolderNameInput.length > 0 &&
+      this.state.newFolderDescriptionInput.length > 0
+    ) {
+      this.folderData.push({
+        // parent box depends on which box they selected
+        BoxID: this.state.selectedBox.BoxIdBarCode,
+        // comes from the values entered by user from text fields
+        FolderName: this.state.newFolderNameInput,
+        Folder_Description: this.state.newFolderDescriptionInput
+      })
+      // closes the modal and resets the data so user cannot easily make the same folder twice
+      this.setState({
+        modal: ModalTypes.none,
+        newFolderNameInput: '',
+        newFolderDescriptionInput: ''
+      })
     }
   }
 
@@ -135,14 +137,14 @@ export class App extends React.Component<
   }
 
   updateRequestType = () => {
-    console.log(!!(this.state.requestTypeToggle))
+    console.log(!!this.state.requestTypeToggle)
     this.setState({
       requestTypeToggle: !this.state.requestTypeToggle
     })
   }
 
   updateDeliveryPriority = () => {
-    console.log(!!(this.state.deliveryPriorityToggle))
+    console.log(!!this.state.deliveryPriorityToggle)
     this.setState({
       deliveryPriorityToggle: !this.state.deliveryPriorityToggle
     })
@@ -150,45 +152,51 @@ export class App extends React.Component<
 
   // This function creates the final request objects with the data necessary to communicate with the rock.
   addValues = (key: number, setVals: Map<number, IFolderAndBox>) => {
-
     let additionalVals = setVals.get(key)
-    if (additionalVals.BoxIdBarCode === undefined) { 
+    if (additionalVals.BoxIdBarCode === undefined) {
       additionalVals['type'] = 'Folder'
       additionalVals['folderNumber'] = additionalVals.FolderIdBarCode
       additionalVals['parentBox'] = additionalVals.BoxID
-      additionalVals['requestingDepartment'] = this.getParentBoxInfo(additionalVals.BoxID).DepId
-      additionalVals['location'] = this.getParentBoxInfo(additionalVals.BoxID).Location  
-    }
-    else {
+      additionalVals['requestingDepartment'] = this.getParentBoxInfo(
+        additionalVals.BoxID
+      ).DepId
+      additionalVals['location'] = this.getParentBoxInfo(
+        additionalVals.BoxID
+      ).Location
+    } else {
       additionalVals['type'] = 'Box'
       additionalVals['boxNumber'] = additionalVals.BoxIdBarCode
       additionalVals['requestingDepartment'] = additionalVals.DepId
-      additionalVals['location'] = additionalVals.Location 
+      additionalVals['location'] = additionalVals.Location
     }
     delete additionalVals.key
-    additionalVals['requestType'] = (this.state.requestTypeToggle ? 'Permament' : 'Temporary')
-    additionalVals['deliveryPriority'] = (this.state.deliveryPriorityToggle) ? 'Urgent' : 'Standard'
+    additionalVals['requestType'] = this.state.requestTypeToggle
+      ? 'Permament'
+      : 'Temporary'
+    additionalVals['deliveryPriority'] = this.state.deliveryPriorityToggle
+      ? 'Urgent'
+      : 'Standard'
     additionalVals['requestStatus'] = 'New'
     additionalVals['deliveryInstructions'] = this.state.deliveryInstructions
-    
-    return additionalVals
 
+    return additionalVals
   }
 
   submitRequest = (items: Map<number, IFolderAndBox>) => {
-    let newRequest = new Map()  // make a new map
-      let iterator1 = items.keys() // create a list of all the different keys in selectedItems map
-      for (let i = 0; i < items.size; i++) {  // loop through as many times as there are items in selectedItems map
-        let mrKey = iterator1.next().value // start with the first key and move on to the next key when loop iterates next
-        newRequest.set(i, this.addValues(mrKey, items)) // set the values of new map to the modified values from addVal function
-      }  
+    let newRequest = new Map() // make a new map
+    let iterator1 = items.keys() // create a list of all the different keys in selectedItems map
+    for (let i = 0; i < items.size; i++) {
+      // loop through as many times as there are items in selectedItems map
+      let mrKey = iterator1.next().value // start with the first key and move on to the next key when loop iterates next
+      newRequest.set(i, this.addValues(mrKey, items)) // set the values of new map to the modified values from addVal function
+    }
     this.setState({
       request: newRequest
     })
     this.state.selectedItems.clear()
     this.toggleModal(ModalTypes.none)
     console.log(this.state.request)
-    }
+  }
 
   finalRequest = (newRequest) => {
     this.setState({
@@ -210,12 +218,6 @@ export class App extends React.Component<
             mockUser={this.props.user}
             mockData={this.boxData}
             changeSelectedDep={this.changeSelectedDep}
-          />
-
-          <PrimaryButton
-            disabled={!(this.state.selectedItems.size > 0)}
-            text="Submit Request"
-            onClick={() => this.toggleModal(ModalTypes.submit)}
           />
 
           {this.state.modal === ModalTypes.submit && (
@@ -282,6 +284,7 @@ export class App extends React.Component<
                   selectedItems={this.state.selectedItems}
                   type={this.state.isChecked ? 'Box' : 'Folder'}
                   removeItemFromCheckout={(r) => this.removeItemFromCheckout(r)}
+                  toggleModal={this.toggleModal}
                 />
               </div>
             }
