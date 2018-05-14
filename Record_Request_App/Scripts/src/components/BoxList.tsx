@@ -14,11 +14,7 @@ import { IBoxData } from '../models/MockData'
 
 // Styling
 
-const shiftDown = {
-  // paddingTop: '18.35%',
-  // width: '290px',
-  // paddingLeft: '75%'
-}
+
 
 const Links = {
   color: '#0078d7',
@@ -88,7 +84,6 @@ export function BoxList(props: IBoxList) {
   }))
 
   return (
-    <div style={shiftDown}>
       <DetailsList
         items={bIdList}
         columns={_columns}
@@ -106,6 +101,5 @@ export function BoxList(props: IBoxList) {
           </div>
         )}
       />
-    </div>
   )
 }
