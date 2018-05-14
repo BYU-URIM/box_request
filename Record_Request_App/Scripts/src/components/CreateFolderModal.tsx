@@ -5,6 +5,7 @@ import { IFolderData, IBoxData } from '../models/MockData';
 import { TextField } from 'office-ui-fabric-react'
 import { PrimaryButton } from 'office-ui-fabric-react'
 import { folderData } from '../res/folderdata'
+import { AppStyles } from '../components'
 
 export interface ICreateFolderModal {
   selectedBox?: number
@@ -27,20 +28,21 @@ export function CreateFolderModal(props: ICreateFolderModal) {
         onDismiss={props.closeModal}
         isBlocking={false}
         isDarkOverlay={false}
-        containerClassName="ms-modalExample-container"
       >
+      <div style={AppStyles.createModal}>
+        <p style={AppStyles.center}> Create Folder </p> <br />
         <TextField
           label="Parent Box"
           disabled={true}
           value={`B${props.selectedBox.toString()}`}
-        />
+        /> <br/>
         <TextField
           label="Folder Name"
           required={true}
           placeholder="i.e. Jarod"
           value={props.newNameInput}
           onChanged={props.updateName}
-        />
+        /> <br />
         <TextField
           label="Folder Description"
           placeholder="Describe your folder"
@@ -48,8 +50,12 @@ export function CreateFolderModal(props: ICreateFolderModal) {
           multiline={true}
           value={props.newDescriptionInput}
           onChanged={props.updateDescription}
-        />
-        <PrimaryButton text="Create Folder" onClick={props.createNewFolder}/>
+        /> <br />
+
+        <div style={AppStyles.center}>
+          <PrimaryButton text="Create Folder" onClick={props.createNewFolder}/>
+        </div>
+      </div>
       </Modal>
     </div>
   )

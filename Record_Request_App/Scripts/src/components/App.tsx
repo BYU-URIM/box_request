@@ -111,6 +111,7 @@ export class App extends React.Component<
   }
 
   createNewFolder = (e) => {
+    if (this.state.newFolderNameInput.length > 0 && this.state.newFolderDescriptionInput.length > 0) {
     this.folderData.push({
       // parent box depends on which box they selected
       BoxID: this.state.selectedBox.BoxIdBarCode,
@@ -124,6 +125,7 @@ export class App extends React.Component<
       newFolderNameInput: '',
       newFolderDescriptionInput: ''
     })
+    }
   }
 
   updateDeliveryInstructions = (value) => {

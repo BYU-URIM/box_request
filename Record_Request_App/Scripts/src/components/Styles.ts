@@ -36,5 +36,21 @@ export const AppStyles = {
       alignItems: 'flex-start',
       justifyContent: 'flex-start',
       paddingTop: '3.85%',
-    } as React.CSSProperties
+    } as React.CSSProperties,
+
+    createModal: {
+      paddingLeft: '50px',
+      paddingRight: '50px',
+      paddingBottom: '10px',
+      paddingTop: '10px',
+    } as React.CSSProperties,
+    
+    center: {
+      textAlign: 'center',
+    } as React.CSSProperties,
+
+    breakApart: {
+      marginRight: '5px',
+    } as React.CSSProperties,
   }
+

@@ -5,6 +5,7 @@ import { IFolderData, IBoxData } from '../models/MockData'
 import { TextField } from 'office-ui-fabric-react'
 import { Toggle } from 'office-ui-fabric-react'
 import { IFolderAndBox } from '../models/App'
+import { AppStyles } from './Styles';
 
 export interface ISubmitModal {
   close(): void
@@ -27,10 +28,11 @@ export function SubmitModal(props: ISubmitModal) {
         isDarkOverlay={false}
         containerClassName="ms-modalExample-container"
       >
-        <div className="ms-modalExample-header">
+      <div>
+        <div style={AppStyles.createModal}>
+        <div className="ms-modalExample-header" style={AppStyles.center}>
           <h1>Item Request</h1>
         </div>
-        <div>
           <Toggle
             label="Request Type"
             onAriaLabel="This toggle is checked. Press to uncheck."
@@ -53,15 +55,18 @@ export function SubmitModal(props: ISubmitModal) {
             label="Delivery Instructions"
             value={props.deliveryInstructions}
             onChanged={props.updateInstructions}
-          />
-        </div>
-        <div>
+          /> <br />
+        <div style={AppStyles.center}>
           <PrimaryButton
             text="Submit"
             onClick={(x) => props.submit(props.selectedItems)}
-          />
+            style={AppStyles.breakApart}
+            />
           <PrimaryButton text="Cancel" onClick={props.close} />
+          <br />
         </div>
+            </div>
+      </div>
       </Modal>
     </div>
   )
