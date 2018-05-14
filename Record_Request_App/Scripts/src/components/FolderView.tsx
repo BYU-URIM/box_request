@@ -11,12 +11,12 @@ import {
 import { CreateFolderModal } from './CreateFolderModal'
 import { IFolderData, IBoxData } from '../models/MockData';
 
-// Styling
+const Scroller = {
+  overflowY: 'auto',
+  height: '600px',
+  marginTop: '5.8%',
+} as React.CSSProperties
 
-const shiftDown = {
-  // paddingTop: '8.5%',
-  // paddingLeft: '20%'
-}
 const Links = {
   color: '#0078d7',
   cursor: 'pointer'
@@ -99,11 +99,11 @@ export function FolderView(props: IFolderViewProps) {
   }))
 
   return (
-    <div style={shiftDown}>
+    <div>
         <div className="ms-modalExample-header">
-          <h2 style={Center}>Folders in Box B{props.selectedBox.BoxIdBarCode}</h2>
+          <h2 style={Center} className="ms-font-xl">Folders in Box B{props.selectedBox.BoxIdBarCode}</h2>
         </div>
-        <div className="ms-modalExample-body" >
+        <div className="ms-modalExample-body" style={Scroller}>
           <DetailsList
             items={folderIdList}
             columns={_columns}
