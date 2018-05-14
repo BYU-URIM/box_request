@@ -14,7 +14,7 @@ import { IFolderData, IBoxData } from '../models/MockData';
 const Scroller = {
   overflowY: 'auto',
   height: '600px',
-  marginTop: '5.8%',
+  marginTop: '6.18%',
 } as React.CSSProperties
 
 const Links = {

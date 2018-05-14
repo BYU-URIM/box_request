@@ -31,7 +31,7 @@ export function SubmitModal(props: ISubmitModal) {
       <div>
         <div style={AppStyles.createModal}>
         <div className="ms-modalExample-header" style={AppStyles.center}>
-          <h1>Item Request</h1>
+          <h1 className="ms-font-xl">Item Request</h1>
         </div>
           <Toggle
             label="Request Type"

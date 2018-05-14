@@ -18,9 +18,11 @@ export interface ICreateFolderModal {
 
 }
 
+
 // ----------------------------------------------
 
 export function CreateFolderModal(props: ICreateFolderModal) {
+  
   return (
     <div>
       <Modal
@@ -30,7 +32,7 @@ export function CreateFolderModal(props: ICreateFolderModal) {
         isDarkOverlay={false}
       >
       <div style={AppStyles.createModal}>
-        <h1 style={AppStyles.center}> Create Folder </h1> <br />
+        <h1 style={AppStyles.center} className="ms-font-xl"> Create Folder </h1>
         <TextField
           label="Parent Box"
           disabled={true}
@@ -43,6 +45,14 @@ export function CreateFolderModal(props: ICreateFolderModal) {
           value={props.newNameInput}
           onChanged={props.updateName}
         /> <br />
+        <TextField 
+          label="Folder Name"
+          required={true}
+          placeholder='i.e. Jarod'
+          value={props.newNameInput}
+          onChanged={props.updateName}
+          errorMessage='Hey Dummy'
+        />
         <TextField
           label="Folder Description"
           placeholder="Describe your folder"
