@@ -30,7 +30,7 @@ export function CreateFolderModal(props: ICreateFolderModal) {
         isDarkOverlay={false}
       >
       <div style={AppStyles.createModal}>
-        <p style={AppStyles.center}> Create Folder </p> <br />
+        <h1 style={AppStyles.center}> Create Folder </h1> <br />
         <TextField
           label="Parent Box"
           disabled={true}
