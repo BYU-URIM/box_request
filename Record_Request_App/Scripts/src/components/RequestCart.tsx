@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 import * as React from 'react'
 /* tslint:enable:no-unused-variable */
-import { TextField, Icon } from 'office-ui-fabric-react'
+import { TextField, Icon, PrimaryButton } from 'office-ui-fabric-react'
 import {
   DetailsList,
   DetailsListLayoutMode,
@@ -11,14 +11,9 @@ import {
 } from 'office-ui-fabric-react/lib/DetailsList'
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
-import { IBoxData } from '../models/MockData';
-import { IFolderAndBox } from '../models/App';
-
-// Styling
-
-const shiftDown = {
-  // paddingTop: '19%'
-}
+import { IBoxData } from '../models/MockData'
+import { IFolderAndBox, ModalTypes } from '../models/App'
+import { AppStyles } from './Styles';
 
 const Links = {
   color: '#0078d7',
@@ -29,6 +24,7 @@ export interface IRequestCartProps {
   selectedItems: Map<number, IFolderAndBox>
   type: string
   removeItemFromCheckout(itemRef: number): void
+  toggleModal(x): void
 }
 
 const _columns: IColumn[] = [
@@ -64,27 +60,41 @@ const _columns: IColumn[] = [
 // --------------------------------------------------------------------------
 
 export function RequestCart(props: IRequestCartProps) {
-  const checkoutList = Array.from(props.selectedItems.values()).map((itemRef: IFolderAndBox, index) => ({
-    key: `${index}`,
-    pendingItemRequests: (
-      <p className="ms-fontSize-mPlus ms-fontWeight-light">{ itemRef.hasOwnProperty('BoxIdBarCode') ? `B${itemRef.BoxIdBarCode}` : `${itemRef.FolderName}'s Folder`}  </p> 
-    ),
-    type: <p className="ms-fontSize-mPlus ms-fontWeight-light">{
-      itemRef.BoxIdBarCode ? 'Box' : 'Folder'
-    }</p>,
-    removeItem: (
-      <p onClick={() => props.removeItemFromCheckout(itemRef.BoxIdBarCode | itemRef.FolderIdBarCode)}>
-        <i
-          className="ms-Icon ms-Icon--Cancel"
-          style={Links}
-          aria-hidden="true"
-        />
-      </p>
-    ), 
-  }))
+  const checkoutList = Array.from(props.selectedItems.values()).map(
+    (itemRef: IFolderAndBox, index) => ({
+      key: `${index}`,
+      pendingItemRequests: (
+        <p className="ms-fontSize-mPlus ms-fontWeight-light">
+          {itemRef.hasOwnProperty('BoxIdBarCode')
+            ? `B${itemRef.BoxIdBarCode}`
+            : `${itemRef.FolderName}'s Folder`}{' '}
+        </p>
+      ),
+      type: (
+        <p className="ms-fontSize-mPlus ms-fontWeight-light">
+          {itemRef.BoxIdBarCode ? 'Box' : 'Folder'}
+        </p>
+      ),
+      removeItem: (
+        <p
+          onClick={() =>
+            props.removeItemFromCheckout(
+              itemRef.BoxIdBarCode | itemRef.FolderIdBarCode
+            )
+          }
+        >
+          <i
+            className="ms-Icon ms-Icon--Cancel"
+            style={Links}
+            aria-hidden="true"
+          />
+        </p>
+      )
+    })
+  )
 
   return (
-    <div style={shiftDown}>
+    <div>
       <DetailsList
         items={checkoutList}
         columns={_columns}
@@ -92,6 +102,13 @@ export function RequestCart(props: IRequestCartProps) {
         layoutMode={DetailsListLayoutMode.fixedColumns}
         checkboxVisibility={CheckboxVisibility.hidden}
       />
+      <div style={AppStyles.center}>
+      <PrimaryButton
+        disabled={!(props.selectedItems.size > 0)}
+        text="Submit Request"
+        onClick={() => props.toggleModal(ModalTypes.submit)}
+      />
+      </div>
     </div>
   )
 }
