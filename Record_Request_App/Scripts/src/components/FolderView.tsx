@@ -14,7 +14,8 @@ import { IFolderData, IBoxData } from '../models/MockData';
 // Styling
 
 const shiftDown = {
-  paddingTop: '.0%',
+  // paddingTop: '8.5%',
+  // paddingLeft: '20%'
 }
 const Links = {
   color: '#0078d7',
@@ -102,7 +103,7 @@ export function FolderView(props: IFolderViewProps) {
         <div className="ms-modalExample-header">
           <h2 style={Center}>Folders in Box B{props.selectedBox.BoxIdBarCode}</h2>
         </div>
-        <div className="ms-modalExample-body">
+        <div className="ms-modalExample-body" >
           <DetailsList
             items={folderIdList}
             columns={_columns}

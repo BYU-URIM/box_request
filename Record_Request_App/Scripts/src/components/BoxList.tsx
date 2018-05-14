@@ -15,8 +15,9 @@ import { IBoxData } from '../models/MockData'
 // Styling
 
 const shiftDown = {
-  paddingTop: '18.35%',
-  width: '290px',
+  // paddingTop: '18.35%',
+  // width: '290px',
+  // paddingLeft: '75%'
 }
 
 const Links = {

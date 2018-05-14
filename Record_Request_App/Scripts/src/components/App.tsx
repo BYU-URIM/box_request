@@ -244,7 +244,7 @@ export class App extends React.Component<
 
         {!!this.state.selectedDep && (
           <div style={AppStyles.wrapper}>
-            <div>
+            <div style={AppStyles.leftSection}>
               <BoxList
                 boxData={this.getFilteredData()}
                 addBox={(e) => this.addItemToCheckout(e)}
@@ -255,7 +255,7 @@ export class App extends React.Component<
                 }}
               />
             </div>
-            <div style={AppStyles.leftSection}>
+            <div style={AppStyles.centerSection}>
               {this.state.selectedBox !== undefined && (
                 <FolderView
                   openModal={(i) => this.toggleModal(ModalTypes.create)}

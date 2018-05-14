@@ -17,7 +17,7 @@ import { IFolderAndBox } from '../models/App';
 // Styling
 
 const shiftDown = {
-  paddingTop: '10.8%'
+  // paddingTop: '19%'
 }
 
 const Links = {
@@ -55,7 +55,7 @@ const _columns: IColumn[] = [
     name: '',
     fieldName: 'removeItem',
     minWidth: 40,
-    maxWidth: 100,
+    maxWidth: 40,
     isResizable: true,
     ariaLabel: 'Operations for removeItem'
   }

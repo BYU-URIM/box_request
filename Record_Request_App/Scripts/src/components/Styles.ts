@@ -11,22 +11,30 @@ export const AppStyles = {
     } as React.CSSProperties,
   
     rightSection: {
-      margin: '0px',
+      marginRight: '22.46%',
       padding: '10px',
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'flex-start',
       justifyContent: 'flex-start',
-      width: '50%'
+      paddingTop: '3.85%',
+    } as React.CSSProperties,
+
+    centerSection: {
+      padding:'10px',
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      justifyContent: 'flex-start',
     } as React.CSSProperties,
   
     leftSection: {
-      margin: '0px',
+      marginLeft: '22.46%',
       padding: '10px',
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'flex-start',
       justifyContent: 'flex-start',
-      width: '50%'
+      paddingTop: '3.85%',
     } as React.CSSProperties
   }
