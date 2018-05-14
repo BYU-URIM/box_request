@@ -11,13 +11,17 @@ export const AppStyles = {
     } as React.CSSProperties,
   
     rightSection: {
-      marginRight: '22.46%',
+      marginRight: '21.86%',
       padding: '10px',
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'flex-start',
       justifyContent: 'flex-start',
-      paddingTop: '3.85%',
+      marginTop: '3.85%',
+      width: '288px',
+      overflowY: 'auto',
+      height: '600px',
+      overflowX: 'hidden',
     } as React.CSSProperties,
 
     centerSection: {
@@ -26,16 +30,20 @@ export const AppStyles = {
       flexDirection: 'row',
       alignItems: 'flex-start',
       justifyContent: 'flex-start',
+      width: '488px',
     } as React.CSSProperties,
   
     leftSection: {
-      marginLeft: '22.46%',
+      marginLeft: '21.86%',
       padding: '10px',
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'flex-start',
       justifyContent: 'flex-start',
-      paddingTop: '3.85%',
+      marginTop: '3.85%',
+      width: '265px',
+      overflowY: 'scroll',
+      height: '600px',
     } as React.CSSProperties,
 
     createModal: {
@@ -47,6 +55,7 @@ export const AppStyles = {
     
     center: {
       textAlign: 'center',
+      paddingTop: '10px',
     } as React.CSSProperties,
 
     breakApart: {
