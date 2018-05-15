@@ -45,14 +45,7 @@ export function CreateFolderModal(props: ICreateFolderModal) {
           value={props.newNameInput}
           onChanged={props.updateName}
         /> <br />
-        <TextField 
-          label="Folder Name"
-          required={true}
-          placeholder='i.e. Jarod'
-          value={props.newNameInput}
-          onChanged={props.updateName}
-          errorMessage='Hey Dummy'
-        />
+
         <TextField
           label="Folder Description"
           placeholder="Describe your folder"

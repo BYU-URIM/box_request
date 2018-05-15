@@ -260,6 +260,11 @@ export class App extends React.Component<
               />
             </div>
             <div style={AppStyles.centerSection}>
+              {this.state.selectedBox === undefined && (
+                <div style={AppStyles.selectBoxStyle} className="ms-font-xl">
+                <p>Click on a box to view its folders</p>
+                </div>
+              )}
               {this.state.selectedBox !== undefined && (
                 <FolderView
                   openModal={(i) => this.toggleModal(ModalTypes.create)}
@@ -278,7 +283,7 @@ export class App extends React.Component<
                 />
               )}
             </div>
-            {
+            { this.state.selectedItems.size > 0 && (
               <div style={AppStyles.rightSection}>
                 <RequestCart
                   selectedItems={this.state.selectedItems}
@@ -287,7 +292,7 @@ export class App extends React.Component<
                   toggleModal={this.toggleModal}
                 />
               </div>
-            }
+            )}
           </div>
         )}
       </div>

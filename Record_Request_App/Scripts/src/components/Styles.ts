@@ -62,5 +62,12 @@ export const AppStyles = {
 
   breakApart: {
     marginRight: '5px'
-  } as React.CSSProperties
+  } as React.CSSProperties,
+
+  selectBoxStyle: {
+    textAlign: 'center',
+    paddingTop: '23%',
+    margin: '0 auto',
+  } as React.CSSProperties,
 }
+
