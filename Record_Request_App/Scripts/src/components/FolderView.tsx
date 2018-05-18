@@ -32,12 +32,7 @@ export interface IFolderViewProps {
   filteredData: Array<IFolderData>
   selectedBox?: IBoxData
   addFolder(x): void
-  createNewFolder(x): void
   toggleCreateModal(): void
-  updateFolderName(e): void
-  newNameInput: string
-  updateFolderDescription(e): void
-  newDescriptionInput: string
 }
 
 const _columns: IColumn[] = [

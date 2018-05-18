@@ -20,8 +20,6 @@ interface IAppState {
   selectedDep: number
   selectedBox: IBoxData | undefined
   isChecked: boolean
-  newFolderNameInput: string
-  newFolderDescriptionInput: string
   modal: ModalTypes
   request: Map<number, IRequestObject>
   deliveryInstructions: string
@@ -43,19 +41,30 @@ export class App extends React.Component<
     selectedDep: 0,
     selectedBox: undefined,
     isChecked: true,
-    newFolderNameInput: '',
-    newFolderDescriptionInput: '',
     modal: undefined,
     request: new Map(),
     requestTypeToggle: false,
     deliveryPriorityToggle: false,
-    deliveryInstructions: ''
+    deliveryInstructions: '',
   }
 
   // function used to change the selected department via the dropdown menu
   changeSelectedDep = (val: number) => {
     this.setState({
       selectedDep: val
+    })
+  }
+
+  onFolderCreateSubmit = ({ formData }) => {
+    this.folderData.push({
+      BoxID: formData.parentBox,
+      FolderName: formData.folderName,
+      Folder_Description: formData.folderDescription,
+      //FolderIdBarCode: formData.FolderIdBarCode
+    })
+    console.log(this.folderData)
+    this.setState({
+      modal: ModalTypes.none
     })
   }
 
@@ -94,40 +103,6 @@ export class App extends React.Component<
 
   getParentBoxInfo = (boxId: number) => {
     return this.boxData.filter((x) => x.BoxIdBarCode === boxId)[0]
-  }
-
-  // These two functions work with the text fields in CreateFolderModal.  They let the user type in a folder name and description.
-  updateFolderName = (value) => {
-    this.setState({
-      newFolderNameInput: value
-    })
-  }
-
-  updateFolderDescription = (value) => {
-    this.setState({
-      newFolderDescriptionInput: value
-    })
-  }
-
-  createNewFolder = (e) => {
-    if (
-      this.state.newFolderNameInput.length > 0 &&
-      this.state.newFolderDescriptionInput.length > 0
-    ) {
-      this.folderData.push({
-        // parent box depends on which box they selected
-        BoxID: this.state.selectedBox.BoxIdBarCode,
-        // comes from the values entered by user from text fields
-        FolderName: this.state.newFolderNameInput,
-        Folder_Description: this.state.newFolderDescriptionInput
-      })
-      // closes the modal and resets the data so user cannot easily make the same folder twice
-      this.setState({
-        modal: ModalTypes.none,
-        newFolderNameInput: '',
-        newFolderDescriptionInput: ''
-      })
-    }
   }
 
   updateDeliveryInstructions = (value) => {
@@ -235,11 +210,7 @@ export class App extends React.Component<
             <CreateFolderModal
               closeModal={() => this.toggleModal(ModalTypes.none)}
               selectedBox={this.state.selectedBox.BoxIdBarCode}
-              createNewFolder={(x) => this.createNewFolder(x)}
-              updateName={(e) => this.updateFolderName(e)}
-              newNameInput={this.state.newFolderNameInput}
-              updateDescription={(e) => this.updateFolderDescription(e)}
-              newDescriptionInput={this.state.newFolderDescriptionInput}
+              onSubmit={(formData) => this.onFolderCreateSubmit(formData)}
             />
           )}
         </div>
@@ -272,13 +243,6 @@ export class App extends React.Component<
                   filteredData={this.getFilteredFolders()}
                   selectedBox={this.state.selectedBox}
                   addFolder={(e) => this.addItemToCheckout(e)}
-                  createNewFolder={(x) => this.createNewFolder(x)}
-                  updateFolderName={(e) => this.updateFolderName(e)}
-                  updateFolderDescription={(e) =>
-                    this.updateFolderDescription(e)
-                  }
-                  newDescriptionInput={this.state.newFolderDescriptionInput}
-                  newNameInput={this.state.newFolderNameInput}
                   toggleCreateModal={() => this.toggleModal(ModalTypes.create)}
                 />
               )}
