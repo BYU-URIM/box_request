@@ -9,12 +9,12 @@ import {
   CheckboxVisibility
 } from 'office-ui-fabric-react/lib/DetailsList'
 import { CreateFolderModal } from './CreateFolderModal'
-import { IFolderData, IBoxData } from '../models/MockData';
+import { IFolderData, IBoxData } from '../models/MockData'
 
 const Scroller = {
   overflowY: 'auto',
   height: '600px',
-  marginTop: '6.18%',
+  marginTop: '6.18%'
 } as React.CSSProperties
 
 const Links = {
@@ -23,7 +23,7 @@ const Links = {
 } as React.CSSProperties
 
 const Center = {
-  textAlign: 'center',
+  textAlign: 'center'
 } as React.CSSProperties
 
 export interface IFolderViewProps {
@@ -71,13 +71,23 @@ export function FolderView(props: IFolderViewProps) {
   const folderIdList = props.filteredData.map((x, i) => ({
     key: i,
     folderName: (
-      <p className="ms-fontSize-mPlus ms-fontWeight-light">{x.FolderName}'s Folder</p>
+      <p className="ms-fontSize-mPlus ms-fontWeight-light">
+        {x.FolderName}'s Folder
+      </p>
     ),
     checkoutFolder: (
       <p
         style={Links}
         className="ms-fontSize-mPlus ms-fontWeight-light"
-        onClick={() => props.addFolder({ key: i, FolderName: x.FolderName, FolderIdBarCode: x.FolderIdBarCode, BoxID: x.BoxID, Folder_Description: x.Folder_Description })}
+        onClick={() =>
+          props.addFolder({
+            key: i,
+            FolderName: x.FolderName,
+            FolderIdBarCode: x.FolderIdBarCode,
+            BoxID: x.BoxID,
+            Folder_Description: x.Folder_Description
+          })
+        }
       >
         + Add Folder to Checkout
       </p>
@@ -95,19 +105,20 @@ export function FolderView(props: IFolderViewProps) {
 
   return (
     <div>
-        <div className="ms-modalExample-header">
-          <h2 style={Center} className="ms-font-xl">Folders in Box B{props.selectedBox.BoxIdBarCode}</h2>
-        </div>
-        <div className="ms-modalExample-body" style={Scroller}>
-          <DetailsList
-            items={folderIdList}
-            columns={_columns}
-            setKey="set"
-            layoutMode={DetailsListLayoutMode.fixedColumns}
-            checkboxVisibility={CheckboxVisibility.hidden}
-          />
-
-        </div>
+      <div className="ms-modalExample-header">
+        <h2 style={Center} className="ms-font-xl">
+          Folders in Box B{props.selectedBox.BoxIdBarCode}
+        </h2>
+      </div>
+      <div className="ms-modalExample-body" style={Scroller}>
+        <DetailsList
+          items={folderIdList}
+          columns={_columns}
+          setKey="set"
+          layoutMode={DetailsListLayoutMode.fixedColumns}
+          checkboxVisibility={CheckboxVisibility.hidden}
+        />
+      </div>
     </div>
   )
 }

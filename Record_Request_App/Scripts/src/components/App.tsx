@@ -45,7 +45,7 @@ export class App extends React.Component<
     request: new Map(),
     requestTypeToggle: false,
     deliveryPriorityToggle: false,
-    deliveryInstructions: '',
+    deliveryInstructions: ''
   }
 
   // function used to change the selected department via the dropdown menu
@@ -59,7 +59,7 @@ export class App extends React.Component<
     this.folderData.push({
       BoxID: formData.parentBox,
       FolderName: formData.folderName,
-      Folder_Description: formData.folderDescription,
+      Folder_Description: formData.folderDescription
       //FolderIdBarCode: formData.FolderIdBarCode
     })
     console.log(this.folderData)
@@ -233,7 +233,7 @@ export class App extends React.Component<
             <div style={AppStyles.centerSection}>
               {this.state.selectedBox === undefined && (
                 <div style={AppStyles.selectBoxStyle} className="ms-font-xl">
-                <p>Click on a box to view its folders</p>
+                  <p>Click on a box to view its folders</p>
                 </div>
               )}
               {this.state.selectedBox !== undefined && (
@@ -247,7 +247,7 @@ export class App extends React.Component<
                 />
               )}
             </div>
-            { this.state.selectedItems.size > 0 && (
+            {this.state.selectedItems.size > 0 && (
               <div style={AppStyles.rightSection}>
                 <RequestCart
                   selectedItems={this.state.selectedItems}
