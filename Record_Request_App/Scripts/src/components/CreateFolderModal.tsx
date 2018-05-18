@@ -18,29 +18,74 @@ export interface ICreateFolderModal {
 
 export function CreateFolderModal(props: ICreateFolderModal) {
   const schema = {
-    description: `Create a new folder in Box B${props.selectedBox}`,
     type: 'object',
-    required: ['folderName', 'folderDescription'],
+    // required: ['folderName', 'folderDescription'],
     properties: {
       parentBox: {
         type: 'number',
         title: 'Parent Box',
         default: props.selectedBox
       },
-      folderName: { type: 'string', title: 'Folder Name' },
+      folderName: { type: 'string', title: 'Folder Name', value: '' },
       folderDescription: { type: 'string', title: 'Folder Description' }
     }
   }
+  // const uiSchema = {
+  //   folderName: {
+  //     'ui:placeholder': 'i.e. Jaron'
+  //   },
+  //   folderDescription: {
+  //     'ui:widget': 'textarea',
+  //     'ui:placeholder': 'Describe your folder'
+  //   },
+  //   parentBox: {
+  //     'ui:disabled': `B${props.selectedBox}`
+  //   }
+  // }
   const uiSchema = {
+    parentBox: {
+      'ui:widget': (props) => {
+        return (
+          <div style={AppStyles.formSpace}>
+            <TextField
+              type="text"
+              value={props.value}
+              required={true}
+              disabled={true}
+            />
+          </div>
+        )
+      }
+    },
     folderName: {
-      'ui:placeholder': 'i.e. Jaron'
+      'ui:widget': (props) => {
+        return (
+          <div style={AppStyles.formSpace}>
+            <TextField
+              type="text"
+              value={props.value}
+              placeholder={'i.e. Jaron'}
+              required={true}
+              onChanged={(event) => props.onChange(event.currentTarget.value)}
+            />
+          </div>
+        )
+      }
     },
     folderDescription: {
-      'ui:widget': 'textarea',
-      'ui:placeholder': 'Describe your folder'
-    },
-    parentBox: {
-      'ui:disabled': `B${props.selectedBox}`
+      'ui:widget': (props) => {
+        return (
+          <div style={AppStyles.formSpace}>
+            <TextField
+              type="text"
+              value={props.value}
+              placeholder={'Describe your folder'}
+              required={true}
+              multiline={true}
+            />
+          </div>
+        )
+      }
     }
   }
 

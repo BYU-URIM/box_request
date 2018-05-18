@@ -69,5 +69,9 @@ export const AppStyles = {
     paddingTop: '23%',
     margin: '0 auto',
   } as React.CSSProperties,
+  formSpace: {
+    // paddingTop: '15px',
+    // paddingBottom: '15px',
+  }
 }
 

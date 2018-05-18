@@ -62,7 +62,7 @@ export class App extends React.Component<
       Folder_Description: formData.folderDescription
       //FolderIdBarCode: formData.FolderIdBarCode
     })
-    console.log(this.folderData)
+    console.log(formData)
     this.setState({
       modal: ModalTypes.none
     })
