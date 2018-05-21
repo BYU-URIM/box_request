@@ -14,6 +14,7 @@ import {
   Greeting
 } from '.'
 import { ISubmitModal } from './SubmitModal'
+import { WarningBar } from './WarningBar';
 
 interface IAppState {
   selectedItems: Map<number, IFolderAndBox>
@@ -25,6 +26,7 @@ interface IAppState {
   deliveryInstructions: string
   requestTypeToggle: boolean
   deliveryPriorityToggle: boolean
+  boxOrFolderDecision: boolean
 }
 
 // Enables microsoft ui icons to appear
@@ -45,7 +47,9 @@ export class App extends React.Component<
     request: new Map(),
     requestTypeToggle: false,
     deliveryPriorityToggle: false,
-    deliveryInstructions: ''
+    deliveryInstructions: '',
+    confirmShown: false,
+    boxOrFolderDecision: false,
   }
 
   // function used to change the selected department via the dropdown menu
@@ -59,22 +63,42 @@ export class App extends React.Component<
     this.folderData.push({
       BoxID: formData.parentBox,
       FolderName: formData.folderName,
-      Folder_Description: formData.folderDescription
-      //FolderIdBarCode: formData.FolderIdBarCode
+      Folder_Description: formData.folderDescription,
+      FolderIdBarCode: this.folderData.length + 1
     })
-    console.log(formData)
+    console.log(formData) 
     this.setState({
       modal: ModalTypes.none
     })
   }
 
-  addItemToCheckout = (e: IFolderAndBox) =>
-    this.setState({
-      selectedItems: this.state.selectedItems.set(
-        e.BoxIdBarCode | e.FolderIdBarCode,
-        e
-      )
-    })
+  onFolderAndParent = () => {
+    this.state.selectedItems 
+  }
+
+  addItemToCheckout = (e: IFolderAndBox) => {
+    var iterator = this.state.selectedItems.values()
+    if (this.state.selectedItems.has(e.BoxID)) {
+      window.alert(`Can't add a folder when its parent box is already added.\n Hint: Remove the box from cart and add the folder.`)
+    }
+    else if (this.state.selectedItems.has(e.BoxIdBarCode)) {
+      for(let i = 0; i < this.state.selectedItems.size; i++) {
+        let x = (iterator.next().value)
+        if (e.BoxIdBarCode === x.BoxID) {
+          window.alert(`Folder "${x.FolderName}" was replaced with Box "B${e.BoxIdBarCode}" because the folder belongs in that box.\n\n Hint: To request only the folder, remove the box from your cart and add the folder again without adding the box.`)
+          this.state.selectedItems.delete(x.BoxID)
+          this.state.selectedItems.set(e.BoxIdBarCode, e)
+        }
+      }
+    }
+    else {
+      this.setState({
+        selectedItems: this.state.selectedItems.set(
+          e.BoxIdBarCode | e.BoxID,
+          e
+        )
+      })}
+    }
 
   removeItemFromCheckout = (r: number) => {
     const newMap = this.state.selectedItems
@@ -183,6 +207,7 @@ export class App extends React.Component<
     window['appState'] = this.state
     return (
       <div>
+        <WarningBar />
         <Greeting
           name={this.props.user.name}
           departmentid={this.props.user.departments}
