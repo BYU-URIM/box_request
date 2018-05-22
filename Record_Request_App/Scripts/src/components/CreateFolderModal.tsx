@@ -32,10 +32,11 @@ export function CreateFolderModal(props: ICreateFolderModal) {
   }
   const uiSchema = {
     folderName: {
-      'ui:placeholder': 'i.e. Jaron'
+      'ui:placeholder': 'i.e. Jaron',
+      'ui:widget': 'TextField'
     },
     folderDescription: {
-      'ui:widget': 'textarea',
+      'ui:widget': 'TextField',
       'ui:placeholder': 'Describe your folder'
     },
     parentBox: {
