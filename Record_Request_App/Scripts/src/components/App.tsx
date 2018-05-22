@@ -14,7 +14,6 @@ import {
   Greeting
 } from '.'
 import { ISubmitModal } from './SubmitModal'
-import { WarningBar } from './WarningBar';
 
 interface IAppState {
   selectedItems: Map<number, IFolderAndBox>
@@ -26,7 +25,6 @@ interface IAppState {
   deliveryInstructions: string
   requestTypeToggle: boolean
   deliveryPriorityToggle: boolean
-  boxOrFolderDecision: boolean
 }
 
 // Enables microsoft ui icons to appear
@@ -48,8 +46,6 @@ export class App extends React.Component<
     requestTypeToggle: false,
     deliveryPriorityToggle: false,
     deliveryInstructions: '',
-    confirmShown: false,
-    boxOrFolderDecision: false,
   }
 
   // function used to change the selected department via the dropdown menu
@@ -207,7 +203,6 @@ export class App extends React.Component<
     window['appState'] = this.state
     return (
       <div>
-        <WarningBar />
         <Greeting
           name={this.props.user.name}
           departmentid={this.props.user.departments}
@@ -269,6 +264,7 @@ export class App extends React.Component<
                   selectedBox={this.state.selectedBox}
                   addFolder={(e) => this.addItemToCheckout(e)}
                   toggleCreateModal={() => this.toggleModal(ModalTypes.create)}
+                  
                 />
               )}
             </div>
