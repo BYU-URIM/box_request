@@ -14,6 +14,25 @@ export interface ICreateFolderModal {
   onSubmit(formData): void
 }
 
+const MyTextField = (props: any) => {
+  console.log(props)
+
+  return (
+    <TextField
+      type='text'
+      value={props.value}
+      onChanged={(event: any) => props.onChange(event)}
+      multiline={props.schema.multiline}
+      errorMessage={
+        props.schema.rawErrors && props.schema.rawErrors.length > 0
+          ? props.schema.rawErrors[0]
+          : undefined
+      }
+      // errorMessage={ 'error' }
+    />
+  )
+}
+const DisabledLabel = (props: any) => <h2>{props.value}</h2>
 // ----------------------------------------------
 
 export function CreateFolderModal(props: ICreateFolderModal) {
@@ -24,74 +43,38 @@ export function CreateFolderModal(props: ICreateFolderModal) {
       parentBox: {
         type: 'number',
         title: 'Parent Box',
-        default: props.selectedBox
+        default: props.selectedBox,
       },
-      folderName: { type: 'string', title: 'Folder Name', value: '' },
-      folderDescription: { type: 'string', title: 'Folder Description' }
-    }
+      folderName: {
+        type: 'string',
+        title: 'Folder Name',
+        multiline: false,
+      },
+      folderDescription: {
+        type: 'string',
+        title: 'Folder Description',
+        multiline: true,
+      },
+    },
   }
   const uiSchema = {
     folderName: {
       'ui:placeholder': 'i.e. Jaron',
-      'ui:widget': 'TextField'
+      'ui:widget': 'textField',
     },
     folderDescription: {
-      'ui:widget': 'TextField',
-      'ui:placeholder': 'Describe your folder'
+      'ui:placeholder': 'Describe your folder',
+      'ui:widget': 'textField',
     },
     parentBox: {
-      'ui:disabled': `B${props.selectedBox}`
-    }
+      'ui:disabled': true,
+      'ui:widget': 'disabledLabel',
+    },
   }
-  // const uiSchema = {
-  //   parentBox: {
-  //     'ui:widget': (props) => {
-  //       return (
-  //         <div style={AppStyles.formSpace}>
-  //           <TextField
-  //             type="text"
-  //             value={props.value}
-  //             required={true}
-  //             disabled={true}
-  //           />
-  //         </div>
-  //       )
-  //     }
-  //   },
-  //   folderName: {
-  //     'ui:widget': (props) => {
-  //       return (
-  //         <div style={AppStyles.formSpace}>
-  //           <TextField
-  //             type="text"
-  //             value={props.value}
-  //             placeholder={'i.e. Jaron'}
-  //             required={true}
-  //             onChanged={(event) => props.onChange(event.currentTarget.value)}
-  //           />
-  //         </div>
-  //       )
-  //     }
-  //   },
-  //   folderDescription: {
-  //     'ui:widget': (props) => {
-  //       return (
-  //         <div style={AppStyles.formSpace}>
-  //           <TextField
-  //             type="text"
-  //             value={props.value}
-  //             placeholder={'Describe your folder'}
-  //             required={true}
-  //             multiline={true}
-  //           />
-  //         </div>
-  //       )
-  //     }
-  //   }
-  // }
-
-  const log = (type) => console.log.bind(console, type)
-
+  const widgets = {
+    textField: MyTextField,
+    disabledLabel: DisabledLabel,
+  }
   return (
     <div>
       <Modal
@@ -101,7 +84,7 @@ export function CreateFolderModal(props: ICreateFolderModal) {
         isDarkOverlay={false}
       >
         <div style={AppStyles.createModal}>
-          <h1 style={AppStyles.center} className="ms-font-xl">
+          <h1 style={AppStyles.center} className='ms-font-xl'>
             {' '}
             Create Folder{' '}
           </h1>
@@ -110,12 +93,11 @@ export function CreateFolderModal(props: ICreateFolderModal) {
             <Form
               schema={schema}
               uiSchema={uiSchema}
-              onChange={log('changed')}
               onSubmit={props.onSubmit}
-              onError={log('errors')}
+              widgets={widgets}
             >
               <div style={AppStyles.center}>
-                <PrimaryButton text="Create Folder" type="submit"/>
+                <PrimaryButton text='Create Folder' type='submit' />
               </div>
             </Form>
           </div>
