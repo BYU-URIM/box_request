@@ -2,7 +2,7 @@ export enum ModalTypes {
   warning = 'warning',
   submit = 'submit',
   create = 'create',
-  none = 'none'
+  none = 'none',
 }
 
 export interface IFolderAndBox {

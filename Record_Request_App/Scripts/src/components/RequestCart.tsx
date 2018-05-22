@@ -7,17 +7,17 @@ import {
   DetailsListLayoutMode,
   Selection,
   IColumn,
-  CheckboxVisibility
+  CheckboxVisibility,
 } from 'office-ui-fabric-react/lib/DetailsList'
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 import { IBoxData } from '../models/MockData'
 import { IFolderAndBox, ModalTypes } from '../models/App'
-import { AppStyles } from './Styles';
+import { AppStyles } from './Styles'
 
 const Links = {
   color: '#0078d7',
-  cursor: 'pointer'
+  cursor: 'pointer',
 } as React.CSSProperties
 
 export interface IRequestCartProps {
@@ -27,7 +27,7 @@ export interface IRequestCartProps {
   toggleModal(x): void
 }
 
-const _columns: IColumn[] = [
+const columns: IColumn[] = [
   {
     key: 'column1',
     name: 'Request Cart',
@@ -35,7 +35,7 @@ const _columns: IColumn[] = [
     minWidth: 70,
     maxWidth: 120,
     isResizable: true,
-    ariaLabel: 'Operations for pendingItemRequests'
+    ariaLabel: 'Operations for pendingItemRequests',
   },
   {
     key: 'column2',
@@ -44,7 +44,7 @@ const _columns: IColumn[] = [
     minWidth: 40,
     maxWidth: 70,
     isResizable: true,
-    ariaLabel: 'Operations for type'
+    ariaLabel: 'Operations for type',
   },
   {
     key: 'column3',
@@ -53,8 +53,8 @@ const _columns: IColumn[] = [
     minWidth: 40,
     maxWidth: 40,
     isResizable: true,
-    ariaLabel: 'Operations for removeItem'
-  }
+    ariaLabel: 'Operations for removeItem',
+  },
 ]
 
 // --------------------------------------------------------------------------
@@ -64,14 +64,14 @@ export function RequestCart(props: IRequestCartProps) {
     (itemRef: IFolderAndBox, index) => ({
       key: `${index}`,
       pendingItemRequests: (
-        <p className="ms-fontSize-mPlus ms-fontWeight-light">
+        <p className='ms-fontSize-mPlus ms-fontWeight-light'>
           {itemRef.hasOwnProperty('BoxIdBarCode')
             ? `B${itemRef.BoxIdBarCode}`
             : `${itemRef.FolderName}'s Folder`}{' '}
         </p>
       ),
       type: (
-        <p className="ms-fontSize-mPlus ms-fontWeight-light">
+        <p className='ms-fontSize-mPlus ms-fontWeight-light'>
           {itemRef.BoxIdBarCode ? 'Box' : 'Folder'}
         </p>
       ),
@@ -84,12 +84,12 @@ export function RequestCart(props: IRequestCartProps) {
           }
         >
           <i
-            className="ms-Icon ms-Icon--Cancel"
+            className='ms-Icon ms-Icon--Cancel'
             style={Links}
-            aria-hidden="true"
+            aria-hidden='true'
           />
         </p>
-      )
+      ),
     })
   )
 
@@ -97,17 +97,17 @@ export function RequestCart(props: IRequestCartProps) {
     <div>
       <DetailsList
         items={checkoutList}
-        columns={_columns}
-        setKey="set"
+        columns={columns}
+        setKey='set'
         layoutMode={DetailsListLayoutMode.fixedColumns}
         checkboxVisibility={CheckboxVisibility.hidden}
       />
       <div style={AppStyles.center}>
-      <PrimaryButton
-        disabled={!(props.selectedItems.size > 0)}
-        text="Submit Request"
-        onClick={() => props.toggleModal(ModalTypes.submit)}
-      />
+        <PrimaryButton
+          disabled={!(props.selectedItems.size > 0)}
+          text='Submit Request'
+          onClick={() => props.toggleModal(ModalTypes.submit)}
+        />
       </div>
     </div>
   )

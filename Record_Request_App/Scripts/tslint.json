@@ -6,8 +6,9 @@
     ],
     "jsRules": {},
     "rules": {
-        "quotemark": [true, "double"],
-        "semicolon": [true, "always"],
+        "quotemark": [true, "single"],
+        "no-bitwise": false,
+        "semicolon": [true, "never"],
         "ordered-imports": false,
         "arrow-parens": false,
         "space-before-function-paren": false,
