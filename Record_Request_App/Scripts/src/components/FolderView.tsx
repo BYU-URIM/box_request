@@ -10,6 +10,7 @@ import {
 } from 'office-ui-fabric-react/lib/DetailsList'
 import { CreateFolderModal } from './CreateFolderModal'
 import { IFolderData, IBoxData } from '../models/MockData'
+import { AppStyles } from './Styles'
 
 const Scroller = {
   overflowY: 'auto',
@@ -76,21 +77,21 @@ export function FolderView(props: IFolderViewProps) {
       </p>
     ),
     checkoutFolder: (
-      <p
-        style={Links}
+      <button
+        onClick={() => props.addFolder({
+          key: i,
+          FolderName: x.FolderName,
+          FolderIdBarCode: x.FolderIdBarCode,
+          BoxID: x.BoxID,
+          Folder_Description: x.Folder_Description
+        })
+      }
+        style={AppStyles.checkOutButton}
         className="ms-fontSize-mPlus ms-fontWeight-light"
-        onClick={() =>
-          props.addFolder({
-            key: i,
-            FolderName: x.FolderName,
-            FolderIdBarCode: x.FolderIdBarCode,
-            BoxID: x.BoxID,
-            Folder_Description: x.Folder_Description
-          })
-        }
-      >
-        + Add Folder to Checkout
-      </p>
+    >
+          + Add Folder to Checkout
+      </button>
+
     ),
     createFolder: (
       <p
