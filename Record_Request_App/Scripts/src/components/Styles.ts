@@ -44,8 +44,7 @@ export const AppStyles = {
     marginTop: '3.85%',
     width: '275px',
     overflowY: 'scroll',
-    height: '600px',
-    
+    height: '600px'
   } as React.CSSProperties,
 
   createModal: {
@@ -67,11 +66,22 @@ export const AppStyles = {
   selectBoxStyle: {
     textAlign: 'center',
     paddingTop: '23%',
-    margin: '0 auto',
+    margin: '0 auto'
   } as React.CSSProperties,
   formSpace: {
     // paddingTop: '15px',
     // paddingBottom: '15px',
-  }
-}
+  },
 
+  checkOutButton: {
+    border: '0px',
+    backgroundColor: 'transparent',
+    outline: 'none',
+    color: 'rgb(0, 120, 215)',
+    padding: '0',
+    paddingTop: '15px',
+    fontSize: '15px',
+    cursor: 'pointer',
+  
+  } as React.CSSProperties,
+}
