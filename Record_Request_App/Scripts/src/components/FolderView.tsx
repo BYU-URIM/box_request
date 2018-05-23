@@ -88,16 +88,27 @@ export function FolderView(props: IFolderViewProps) {
             Folder_Description: x.Folder_Description,
           })
         }
-        style={{...AppStyles.checkOutButton, color: props.boxInCart(x.BoxID) ? 'gray' : 'blue', cursor: props.boxInCart(x.BoxID) ? 'not-allowed' : 'pointer' }}
+        // tslint:disable-next-line:max-line-length
+        style={{
+          ...AppStyles.checkOutButton,
+          color:
+            props.boxInCart(x.BoxID) || props.boxInCart(x.FolderIdBarCode)
+              ? 'gray'
+              : '#0078d7',
+          cursor:
+            props.boxInCart(x.BoxID) || props.boxInCart(x.FolderIdBarCode)
+              ? 'not-allowed'
+              : 'pointer',
+        }}
         className='ms-fontSize-mPlus ms-fontWeight-light'
         disabled={props.boxInCart(x.BoxID)}
       >
         + Add Folder to Checkout
-        </button>
+      </button>
     ),
     createFolder: (
       <p
-        style={Links}
+        style={AppStyles.links}
         className='ms-fontSize-mPlus ms-fontWeight-light'
         onClick={props.toggleCreateModal}
       >
