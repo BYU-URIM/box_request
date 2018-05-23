@@ -83,4 +83,9 @@ export const AppStyles = {
     fontSize: '15px',
     cursor: 'pointer',
   } as React.CSSProperties,
+
+  links: {
+    color: '#0078d7',
+    cursor: 'pointer',
+  } as React.CSSProperties
 }
