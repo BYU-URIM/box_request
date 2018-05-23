@@ -12,17 +12,6 @@ import { CreateFolderModal } from './CreateFolderModal'
 import { IFolderData, IBoxData } from '../models/MockData'
 import { AppStyles } from './Styles'
 
-const Scroller = {
-  overflowY: 'auto',
-  height: '600px',
-  marginTop: '6.18%',
-} as React.CSSProperties
-
-const Links = {
-  color: '#0078d7',
-  cursor: 'pointer',
-} as React.CSSProperties
-
 const Center = {
   textAlign: 'center',
 } as React.CSSProperties
@@ -120,11 +109,11 @@ export function FolderView(props: IFolderViewProps) {
   return (
     <div>
       <div className='ms-modalExample-header'>
-        <h2 style={Center} className='ms-font-xl'>
+        <h2 style={{...AppStyles.center, marginTop: '6.5px' }} className='ms-font-xl'>
           Folders in Box B{props.selectedBox.BoxIdBarCode}
         </h2>
       </div>
-      <div className='ms-modalExample-body' style={Scroller}>
+      <div className='ms-modalExample-body' style={AppStyles.scroller}>
         <DetailsList
           items={folderIdList}
           columns={columns}
