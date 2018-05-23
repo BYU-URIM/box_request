@@ -87,5 +87,16 @@ export const AppStyles = {
   links: {
     color: '#0078d7',
     cursor: 'pointer',
-  } as React.CSSProperties
+  } as React.CSSProperties,
+  
+  scroller: {
+    overflowY: 'auto',
+    height: '600px',
+    marginTop: '6.18%',
+  } as React.CSSProperties,
+
+  error: {
+    listStyle: 'none',
+    color: 'red',
+  }
 }
