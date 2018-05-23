@@ -34,8 +34,8 @@ export class App extends React.Component<
   { user; boxData; folderData },
   IAppState
 > {
+  // checks if box is in the cart.  if adding parent box of selected folders, remove folders and add parent box
   boxInCart(boxNum: number): boolean {
-    // return this.state.selectedItems.has(boxNum)
     if(this.state.selectedItems.has(boxNum)) { 
       const x = this.state.selectedItems.values()
       for(let i = 0; i < this.state.selectedItems.size; i++) {
