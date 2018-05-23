@@ -79,7 +79,7 @@ export function RequestCart(props: IRequestCartProps) {
         <p
           onClick={() =>
             props.removeItemFromCheckout(
-              itemRef.BoxIdBarCode | itemRef.FolderIdBarCode
+              itemRef.FolderIdBarCode | itemRef.BoxIdBarCode
             )
           }
         >
