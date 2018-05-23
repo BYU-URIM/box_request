@@ -35,7 +35,19 @@ export class App extends React.Component<
   IAppState
 > {
   boxInCart(boxNum: number): boolean {
-    return this.state.selectedItems.has(boxNum)
+    // return this.state.selectedItems.has(boxNum)
+    if(this.state.selectedItems.has(boxNum)) { 
+      const x = this.state.selectedItems.values()
+      for(let i = 0; i < this.state.selectedItems.size; i++) {
+        const y = x.next().value
+        if(y.BoxID === boxNum) {
+          this.state.selectedItems.delete(y.FolderIdBarCode)
+        }
+      }
+      return true
+    } else {
+      return false
+    }
   }
   boxData = this.props.boxData
   folderData = this.props.folderData
