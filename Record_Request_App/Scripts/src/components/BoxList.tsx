@@ -1,6 +1,5 @@
 import * as React from 'react'
-import { TextField
- } from 'office-ui-fabric-react/lib/TextField'
+import { TextField } from 'office-ui-fabric-react/lib/TextField'
 import {
   DetailsList,
   DetailsListLayoutMode,
@@ -10,20 +9,13 @@ import {
 } from 'office-ui-fabric-react/lib/DetailsList'
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection'
 import { IBoxData } from '../models/MockData'
-
-// Styling
-
-const Links = {
-  color: '#0078d7',
-  cursor: 'pointer',
-} as React.CSSProperties
+import { AppStyles } from './Styles'
 
 export interface IBoxListProps {
   boxData: Array<IBoxData>
   addBox(x): void
   openModal(i: IBoxData): void
   boxInCart(boxNumber: number): boolean
-
 }
 
 // const _items: {}[] = []
@@ -65,7 +57,10 @@ export function BoxList(props: IBoxListProps) {
     ),
     checkoutBox: (
       <p
-        style={{...Links, color: props.boxInCart(x.BoxIdBarCode) ? 'grey' : 'blue' }}
+        style={{
+          ...AppStyles.links,
+          color: props.boxInCart(x.BoxIdBarCode) ? 'grey' : '#0078d7', cursor: props.boxInCart(x.BoxIdBarCode) ? 'not-allowed' : 'pointer' 
+        }}
         className='ms-fontSize-mPlus ms-fontWeight-light'
         onClick={() =>
           props.addBox({
