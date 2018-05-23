@@ -78,7 +78,7 @@ export const AppStyles = {
     backgroundColor: 'transparent',
     outline: 'none',
     color: 'rgb(0, 120, 215)',
-    padding: '0',
+    padding: '0px',
     paddingTop: '15px',
     fontSize: '15px',
     cursor: 'pointer',

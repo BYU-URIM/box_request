@@ -4,7 +4,7 @@ import { FontClassNames } from '@uifabric/styling'
 const headingStyle = {
   display: 'flex',
   justifyContent: 'flex-end',
-  padding: '15',
+  padding: '15px',
 } as React.CSSProperties
 
 export interface IGreeting {
