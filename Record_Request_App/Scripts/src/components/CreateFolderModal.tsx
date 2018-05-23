@@ -23,12 +23,12 @@ const MyTextField = (props: any) => {
       value={props.value}
       onChanged={(event: any) => props.onChange(event)}
       multiline={props.schema.multiline}
+      required={true}
       errorMessage={
         props.schema.rawErrors && props.schema.rawErrors.length > 0
           ? props.schema.rawErrors[0]
           : undefined
       }
-      // errorMessage={ 'error' }
     />
   )
 }
@@ -36,6 +36,16 @@ const DisabledLabel = (props: any) => <h2>{props.value}</h2>
 // ----------------------------------------------
 
 export function CreateFolderModal(props: ICreateFolderModal) {
+
+  function transformErrors(errors) {
+    return errors.map(error => {
+      if (error.name === 'pattern') {
+        error.message = 'Only letters are allowed'
+      }
+      return error
+    })
+  }
+
   const schema = {
     type: 'object',
     required: ['folderName', 'folderDescription'],
@@ -49,11 +59,13 @@ export function CreateFolderModal(props: ICreateFolderModal) {
         type: 'string',
         title: 'Folder Name',
         multiline: false,
+        pattern: '^[A-Za-z]+$',
       },
       folderDescription: {
         type: 'string',
         title: 'Folder Description',
         multiline: true,
+        pattern: '^[A-Za-z]+$',
       },
     },
   }
@@ -95,6 +107,8 @@ export function CreateFolderModal(props: ICreateFolderModal) {
               uiSchema={uiSchema}
               onSubmit={props.onSubmit}
               widgets={widgets}
+              transformErrors={transformErrors}
+              showErrorList={false}
             >
               <div style={AppStyles.center}>
                 <PrimaryButton text='Create Folder' type='submit' />
