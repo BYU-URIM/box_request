@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { PrimaryButton, ThemeSettingName } from 'office-ui-fabric-react/'
+import { PrimaryButton, ThemeSettingName } from 'office-ui-fabric-react'
 import { initializeIcons } from '@uifabric/icons'
 import { IFolderAndBox, ModalTypes, IBoxData, IRequestObject } from '../models/'
 import {
@@ -34,6 +34,9 @@ export class App extends React.Component<
   { user; boxData; folderData },
   IAppState
 > {
+  boxInCart(boxNum: number): boolean {
+    return this.state.selectedItems.has(boxNum)
+  }
   boxData = this.props.boxData
   folderData = this.props.folderData
   state = {
@@ -69,35 +72,16 @@ export class App extends React.Component<
   }
 
   addItemToCheckout = (e: IFolderAndBox) => {
-    const iterator = this.state.selectedItems.values()
-    if (this.state.selectedItems.has(e.BoxID)) {
-      window.alert(
-        `Can't add a folder when its parent box is already added.\n Hint: Remove the box from cart and add the folder.`
-      )
-    } else if (this.state.selectedItems.has(e.BoxIdBarCode)) {
-      for (let i = 0; i < this.state.selectedItems.size; i++) {
-        const x = iterator.next().value
-        if (e.BoxIdBarCode === x.BoxID) {
-          window.alert(
-            `Folder "${x.FolderName}" was replaced with Box "B${
-              e.BoxIdBarCode
-            }" because the folder belongs in that box.\n\n Hint: To request only the folder, remove the box from your cart and add the folder again without adding the box.`
-          )
-          this.state.selectedItems.delete(x.BoxID)
-          this.state.selectedItems.set(e.BoxIdBarCode, e)
-        }
-      }
-    } else {
-      this.setState({
-        selectedItems: this.state.selectedItems.set(
-          e.BoxIdBarCode | e.BoxID,
-          e
-        ),
-      })
-    }
+    this.setState({
+      selectedItems: this.state.selectedItems.set(
+        e.BoxIdBarCode | e.FolderIdBarCode,
+        e
+      ),
+    })
   }
 
   removeItemFromCheckout = (r: number) => {
+    console.log(r)
     const newMap = this.state.selectedItems
     newMap.delete(r)
     this.setState({
@@ -249,11 +233,12 @@ export class App extends React.Component<
                     selectedBox: i,
                   })
                 }}
+                boxInCart={(boxNum: number) => this.boxInCart(boxNum)}
               />
             </div>
             <div style={AppStyles.centerSection}>
               {this.state.selectedBox === undefined && (
-                <div style={AppStyles.selectBoxStyle} className='ms-font-xl'>
+                <div style={AppStyles.selectBoxStyle} className={'ms-font-xl'}>
                   <p>Click on a box to view its folders</p>
                 </div>
               )}
@@ -265,6 +250,7 @@ export class App extends React.Component<
                   selectedBox={this.state.selectedBox}
                   addFolder={e => this.addItemToCheckout(e)}
                   toggleCreateModal={() => this.toggleModal(ModalTypes.create)}
+                  boxInCart={(boxNum: number) => this.boxInCart(boxNum)}
                 />
               )}
             </div>

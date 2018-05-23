@@ -1,7 +1,6 @@
-/* tslint:disable:no-unused-variable */
 import * as React from 'react'
-/* tslint:enable:no-unused-variable */
-import { TextField } from 'office-ui-fabric-react/lib/TextField'
+import { TextField
+ } from 'office-ui-fabric-react/lib/TextField'
 import {
   DetailsList,
   DetailsListLayoutMode,
@@ -19,10 +18,12 @@ const Links = {
   cursor: 'pointer',
 } as React.CSSProperties
 
-export interface IBoxList {
+export interface IBoxListProps {
   boxData: Array<IBoxData>
   addBox(x): void
   openModal(i: IBoxData): void
+  boxInCart(boxNumber: number): boolean
+
 }
 
 // const _items: {}[] = []
@@ -50,7 +51,7 @@ const columns: IColumn[] = [
 
 // --------------------------------------------------------------------------
 
-export function BoxList(props: IBoxList) {
+export function BoxList(props: IBoxListProps) {
   // Grab just the BoxIdBarCodes, turn them into a string so I can add a "B" onto it
   // This is how it is stored in the ROC, (as an int with a function adding on a B), so this is why it's done this way
   // Also checks to make sure we are grabbing boxes within the selected department
@@ -64,7 +65,7 @@ export function BoxList(props: IBoxList) {
     ),
     checkoutBox: (
       <p
-        style={Links}
+        style={{...Links, color: props.boxInCart(x.BoxIdBarCode) ? 'grey' : 'blue' }}
         className='ms-fontSize-mPlus ms-fontWeight-light'
         onClick={() =>
           props.addBox({

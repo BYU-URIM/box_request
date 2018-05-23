@@ -34,6 +34,7 @@ export interface IFolderViewProps {
   selectedBox?: IBoxData
   addFolder(x): void
   toggleCreateModal(): void
+  boxInCart(boxNumber: number): boolean
 }
 
 const columns: IColumn[] = [
@@ -87,11 +88,12 @@ export function FolderView(props: IFolderViewProps) {
             Folder_Description: x.Folder_Description,
           })
         }
-        style={AppStyles.checkOutButton}
+        style={{...AppStyles.checkOutButton, color: props.boxInCart(x.BoxID) ? 'gray' : 'blue', cursor: props.boxInCart(x.BoxID) ? 'not-allowed' : 'pointer' }}
         className='ms-fontSize-mPlus ms-fontWeight-light'
+        disabled={props.boxInCart(x.BoxID)}
       >
         + Add Folder to Checkout
-      </button>
+        </button>
     ),
     createFolder: (
       <p
