@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev:local":
-      "webpack-dev-server --env.NODE_ENV=local --inline --content-base dist",
+    "dev:local": "webpack-dev-server --env.NODE_ENV=local --inline --content-base dist",
     "dev:sharepoint": "webpack --watch --env.NODE_ENV=sharepoint",
     "build": "webpack --env.NODE_ENV=sharepoint",
     "build:production": "webpack --env.Node_ENV=sharepoint --optimize-minimize"
@@ -26,9 +25,9 @@
     "webpack-dev-server": "^2.11.2"
   },
   "dependencies": {
-    "@uifabric/icons": "^5.7.1",
+    "@uifabric/icons": "^5.8.0",
     "core-decorators": "^0.20.0",
-    "office-ui-fabric-react": "^5.102.0",
+    "office-ui-fabric-react": "^5.111.0",
     "react": "16.2",
     "react-dom": "^16.3.2",
     "react-jsonschema-form": "^1.0.3",
