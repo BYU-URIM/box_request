@@ -25,6 +25,10 @@ interface IAppState {
   deliveryInstructions: string
   requestTypeToggle: boolean
   deliveryPriorityToggle: boolean
+  createFolderName: string
+  createFolderDescription: string
+  folderNameError: string
+  folderDescriptionError: string
 }
 
 // Enables microsoft ui icons to appear
@@ -61,6 +65,10 @@ export class App extends React.Component<
     requestTypeToggle: false,
     deliveryPriorityToggle: false,
     deliveryInstructions: '',
+    createFolderName: '',
+    createFolderDescription: '',
+    folderNameError: '',
+    folderDescriptionError: '',
   }
 
   // function used to change the selected department via the dropdown menu

@@ -15,8 +15,7 @@ export interface ICreateFolderModal {
 }
 
 const MyTextField = (props: any) => {
-  console.log(props)
-
+  console.log(props.value)
   return (
     <TextField
       type='text'
@@ -24,15 +23,20 @@ const MyTextField = (props: any) => {
       onChanged={(event: any) => props.onChange(event)}
       multiline={props.schema.multiline}
       required={true}
-      errorMessage={
-        props.schema.rawErrors && props.schema.rawErrors.length > 0
-          ? props.schema.rawErrors[0]
-          : undefined
-      }
+      errorMessage={ props.value === undefined ? '' : props.value.length < 50 ? '' : `The length of the input value should be less than 50, actual is ${props.value.length}.`  }
+      // onGetErrorMessage={ this.getErrorMessage }
     />
+
   )
 }
 const DisabledLabel = (props: any) => <h2>{props.value}</h2>
+
+// const tooLongTooShortError = (props:any) => ( props.value === undefined ? '' : props.value.length < 50 ? '' : `The length of the input value should be less than 50, 
+// actual is ${props.value.length}.` )
+
+// const getErrorMessage(value: string): string {
+//   return value.length < 3 ? '' : `The length of the input value should be less than 3, actual is ${value.length}.`
+// }
 // ----------------------------------------------
 
 export function CreateFolderModal(props: ICreateFolderModal) {
@@ -81,6 +85,7 @@ export function CreateFolderModal(props: ICreateFolderModal) {
     parentBox: {
       'ui:disabled': true,
       'ui:widget': 'disabledLabel',
+      
     },
   }
   const widgets = {
@@ -120,3 +125,4 @@ export function CreateFolderModal(props: ICreateFolderModal) {
     </div>
   )
 }
+
