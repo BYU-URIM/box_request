@@ -25,10 +25,8 @@ interface IAppState {
   deliveryInstructions: string
   requestTypeToggle: boolean
   deliveryPriorityToggle: boolean
-  createFolderName: string
-  createFolderDescription: string
+  folderNameVal: string
   folderNameError: string
-  folderDescriptionError: string
 }
 
 // Enables microsoft ui icons to appear
@@ -65,10 +63,8 @@ export class App extends React.Component<
     requestTypeToggle: false,
     deliveryPriorityToggle: false,
     deliveryInstructions: '',
-    createFolderName: '',
-    createFolderDescription: '',
+    folderNameVal: '',
     folderNameError: '',
-    folderDescriptionError: '',
   }
 
   // function used to change the selected department via the dropdown menu
@@ -89,6 +85,27 @@ export class App extends React.Component<
     this.setState({
       modal: ModalTypes.none,
     })
+  }
+
+  onNameChange = value => {
+    this.onNameError(value)
+    this.setState({
+      folderNameVal: value
+    })
+
+  }
+
+  onNameError = value => {
+    if (value.length > 50) {
+      this.setState({
+        folderNameError: `Length should be less than 50, actual is ${value.length}.`
+      })
+    }
+    else {
+      this.setState({
+        folderNameError: ''
+      })
+    }
   }
 
   addItemToCheckout = (e: IFolderAndBox) => {
@@ -235,7 +252,9 @@ export class App extends React.Component<
             <CreateFolderModal
               closeModal={() => this.toggleModal(ModalTypes.none)}
               selectedBox={this.state.selectedBox.BoxIdBarCode}
-              onSubmit={formData => this.onFolderCreateSubmit(formData)}
+              folderNameError={this.state.folderNameError}
+              folderNameVal={this.state.folderNameVal}              
+              onNameChange={(value) => this.onNameChange(value)}
             />
           )}
         </div>
