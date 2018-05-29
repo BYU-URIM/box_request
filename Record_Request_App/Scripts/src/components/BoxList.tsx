@@ -59,7 +59,8 @@ export function BoxList(props: IBoxListProps) {
       <p
         style={{
           ...AppStyles.links,
-          color: props.boxInCart(x.BoxIdBarCode) ? 'grey' : '#0078d7', cursor: props.boxInCart(x.BoxIdBarCode) ? 'not-allowed' : 'pointer' 
+          color: props.boxInCart(x.BoxIdBarCode) ? 'grey' : '#0078d7',
+          cursor: props.boxInCart(x.BoxIdBarCode) ? 'not-allowed' : 'pointer',
         }}
         className='ms-fontSize-mPlus ms-fontWeight-light'
         onClick={() =>
@@ -81,19 +82,44 @@ export function BoxList(props: IBoxListProps) {
     <DetailsList
       items={bIdList}
       columns={columns}
-      setKey='set'
       layoutMode={DetailsListLayoutMode.fixedColumns}
       checkboxVisibility={CheckboxVisibility.hidden}
-      onRenderRow={(rowProps, defaultRender) => (
-        <div
-          key={rowProps.item.key}
-          onClick={() => {
-            props.openModal(props.boxData[rowProps.item.key])
-          }}
-        >
-          {defaultRender(rowProps)}
-        </div>
-      )}
+      compact={true}
+      // Go deep to shorten cell height; work with children to apply gray out if box is selected
+      onRenderItemColumn={(item, index, column) =>
+        column.key === 'column1' ? (
+          <div
+            style={AppStyles.test}
+            onClick={() => props.openModal(props.boxData[item.key])}
+          >
+            {item.boxNumber.props.children}
+            {console.log(item)}
+          </div>
+        ) : (
+          <div
+            onClick={() => {
+              item.checkoutBox.props.onClick()
+            }}
+            style={{
+              ...AppStyles.links,
+              ...AppStyles.test,
+              color: props.boxInCart(
+                Number(item.boxNumber.props.children.slice(1))
+              )
+                ? 'grey'
+                : '#0078d7',
+              cursor: props.boxInCart(
+                Number(item.boxNumber.props.children.slice(1))
+              )
+                ? 'not-allowed'
+                : 'pointer',
+            }}
+            className='ms-fontSize-mPlus ms-fontWeight-light'
+          >
+            {item.checkoutBox.props.children}
+          </div>
+        )
+      }
     />
   )
 }

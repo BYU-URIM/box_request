@@ -98,5 +98,16 @@ export const AppStyles = {
   error: {
     listStyle: 'none',
     color: 'red',
-  }
+  } as React.CSSProperties,
+
+  test: {
+    fontSize: '15px',
+    paddingTop: '5px',
+    paddingBottom: '5px',
+  } as React.CSSProperties,
+
+  row: {
+    borderBottom: '1px solid #f4f4f4',
+  } as React.CSSProperties,
+
 }

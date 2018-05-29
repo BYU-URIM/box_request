@@ -37,26 +37,26 @@ export function CreateFolderModal(props: ICreateFolderModal) {
         isDarkOverlay={false}
       >
         <div style={AppStyles.createModal}>
-          <h1 style={AppStyles.center} className="ms-font-xl">
+          <h1 style={AppStyles.center} className='ms-font-xl'>
             {' '}
             Create Folder{' '}
           </h1>
 
           <div style={{...AppStyles.center, width: '225px'}}>
             <TextField
-              type="text"
-              label="Folder Name"
-              description="Warning: You cannot change this later."
+              type='text'
+              label='Folder Name'
+              description='Warning: You cannot change this later.'
               value={props.folderNameVal}
               onChanged={props.onNameChange}
               required={true}
-              placeholder="i.e. Jared"
+              placeholder='i.e. Jared'
               errorMessage={props.folderNameError}
             />
 
             <br />
             <PrimaryButton
-              text="Create Folder"
+              text='Create Folder'
               disabled={buttonDisabler(
                 props.folderNameVal,
                 props.folderNameError
