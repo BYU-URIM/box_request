@@ -51,7 +51,7 @@ export function BoxList(props: IBoxListProps) {
   const bIdList = props.boxData.map((x, i) => ({
     key: i,
     boxNumber: (
-      <p className='ms-fontSize-mPlus ms-fontWeight-light'>
+      <p>
         {`B${x.BoxIdBarCode}`}
       </p>
     ),
