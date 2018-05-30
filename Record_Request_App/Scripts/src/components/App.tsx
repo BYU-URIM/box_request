@@ -74,16 +74,17 @@ export class App extends React.Component<
     })
   }
 
-  onFolderCreateSubmit = ({ formData }) => {
+  onFolderCreateSubmit = ({ box }) => {
     this.folderData.push({
-      BoxID: formData.parentBox,
-      FolderName: formData.folderName,
-      Folder_Description: formData.folderDescription,
+      BoxID: this.state.selectedBox.BoxIdBarCode,
+      FolderName: this.state.folderNameVal,
+      Folder_Description: '',
       FolderIdBarCode: this.folderData.length + 1,
     })
-    console.log(formData)
+    console.log(this.folderData)
     this.setState({
       modal: ModalTypes.none,
+      folderNameVal: '',
     })
   }
 
@@ -100,7 +101,12 @@ export class App extends React.Component<
       this.setState({
         folderNameError: `Length should be less than 50, actual is ${value.length}.`
       })
+    } else if (this.getFilteredFolders().map(x => x.FolderName).find(element => element === value)) {
+      this.setState({
+        folderNameError: 'A folder already exists with that name in this box.'
+      })
     }
+    
     else {
       this.setState({
         folderNameError: ''
@@ -114,7 +120,7 @@ export class App extends React.Component<
         e.BoxIdBarCode | e.FolderIdBarCode,
         e
       ),
-    })
+    }), console.log(e)
   }
 
   removeItemFromCheckout = (r: number) => {
@@ -255,6 +261,7 @@ export class App extends React.Component<
               folderNameError={this.state.folderNameError}
               folderNameVal={this.state.folderNameVal}              
               onNameChange={(value) => this.onNameChange(value)}
+              submitFolder={(box)=> this.onFolderCreateSubmit(box)}
             />
           )}
         </div>
