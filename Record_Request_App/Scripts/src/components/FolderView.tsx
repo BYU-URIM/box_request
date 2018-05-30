@@ -98,10 +98,11 @@ export function FolderView(props: IFolderViewProps) {
           layoutMode={DetailsListLayoutMode.fixedColumns}
           checkboxVisibility={CheckboxVisibility.hidden}
           onRenderItemColumn={(item, index, column) =>
-            column.key === 'column1' ? (
+            <div style={AppStyles.test}
+            className='ms-fontSize-mPlus ms-fontWeight-light'>
+            {column.key === 'column1' ? (
               <div
-                style={AppStyles.test}
-                className='ms-fontSize-mPlus ms-fontWeight-light'
+                
               >
                 {`${item.folderName.props.children.FolderName}'s Folder`}
               </div>
@@ -109,7 +110,6 @@ export function FolderView(props: IFolderViewProps) {
               <div
                 onClick={(() => item.checkoutFolder.props.onClick())}
                 style={{
-                  ...AppStyles.test,
                   color:
                     props.boxInCart(item.folderName.props.children.BoxID) ||
                     props.boxInCart(
@@ -125,19 +125,20 @@ export function FolderView(props: IFolderViewProps) {
                       ? 'not-allowed'
                       : 'pointer',
                 }}
-                className='ms-fontSize-mPlus ms-fontWeight-light'
+
               >
                 {item.checkoutFolder.props.children}
               </div>
             ) : (
               <div
                 onClick={() => item.createFolder.props.onClick()}
-                style={{ ...AppStyles.links, ...AppStyles.test }}
-                className='ms-fontSize-mPlus ms-fontWeight-light'
+                style={AppStyles.links}
+
               >
                 {item.createFolder.props.children}
               </div>
-            )
+            )}
+            </div>
           }
         />
       </div>

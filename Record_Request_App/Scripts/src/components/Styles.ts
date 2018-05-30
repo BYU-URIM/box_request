@@ -104,6 +104,7 @@ export const AppStyles = {
     fontSize: '15px',
     paddingTop: '5px',
     paddingBottom: '5px',
+    color: 'black',
   } as React.CSSProperties,
 
   row: {

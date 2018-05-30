@@ -15,11 +15,6 @@ import { IBoxData } from '../models/MockData'
 import { IFolderAndBox, ModalTypes } from '../models/App'
 import { AppStyles } from './Styles'
 
-const Links = {
-  color: '#0078d7',
-  cursor: 'pointer',
-} as React.CSSProperties
-
 export interface IRequestCartProps {
   selectedItems: Map<number, IFolderAndBox>
   type: string
@@ -64,14 +59,14 @@ export function RequestCart(props: IRequestCartProps) {
     (itemRef: IFolderAndBox, index) => ({
       key: `${index}`,
       pendingItemRequests: (
-        <p className='ms-fontSize-mPlus ms-fontWeight-light'>
+        <p>
           {itemRef.hasOwnProperty('BoxIdBarCode')
             ? `B${itemRef.BoxIdBarCode}`
             : `${itemRef.FolderName}'s Folder`}{' '}
         </p>
       ),
       type: (
-        <p className='ms-fontSize-mPlus ms-fontWeight-light'>
+        <p>
           {itemRef.BoxIdBarCode ? 'Box' : 'Folder'}
         </p>
       ),
@@ -85,7 +80,7 @@ export function RequestCart(props: IRequestCartProps) {
         >
           <i
             className='ms-Icon ms-Icon--Cancel'
-            style={Links}
+            style={AppStyles.links}
             aria-hidden='true'
           />
         </p>
@@ -99,8 +94,26 @@ export function RequestCart(props: IRequestCartProps) {
         items={checkoutList}
         columns={columns}
         setKey='set'
+        compact={true}
         layoutMode={DetailsListLayoutMode.fixedColumns}
         checkboxVisibility={CheckboxVisibility.hidden}
+        onRenderItemColumn = {(item, index, column) => 
+          column.key === 'column1' ? (
+            <div className='ms-fontSize-mPlus ms-fontWeight-light' style={AppStyles.test}>
+              {item.pendingItemRequests.props.children[0]}
+            </div>
+          ) : column.key === 'column2' ? (
+            <div className='ms-fontSize-mPlus ms-fontWeight-light' style={AppStyles.test}>
+              {item.type.props.children}
+            </div>
+          ) : (
+            <div style={AppStyles.test} onClick={() => item.removeItem.props.onClick()}>
+              {item.removeItem.props.children}
+              
+            </div>
+          )
+
+        }
       />
       <div style={AppStyles.center}>
         <PrimaryButton

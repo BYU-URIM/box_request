@@ -80,12 +80,13 @@ export function BoxList(props: IBoxListProps) {
       checkboxVisibility={CheckboxVisibility.hidden}
       compact={true}
       // Go deep to shorten cell height; work with children to apply gray out if box is selected
+
       onRenderItemColumn={(item, index, column) =>
-        column.key === 'column1' ? (
-          <div
-            style={AppStyles.test}
-            onClick={() => props.openModal(props.boxData[item.key])}
-          >
+        <div className='ms-fontSize-mPlus ms-fontWeight-light' style={AppStyles.test} onClick={() => props.openModal(props.boxData[item.key])}
+
+        >
+        {column.key === 'column1' ? (
+          <div>
             {item.boxNumber.props.children}
           </div>
         ) : (
@@ -95,7 +96,6 @@ export function BoxList(props: IBoxListProps) {
             }}
             style={{
               ...AppStyles.links,
-              ...AppStyles.test,
               color: props.boxInCart(
                 Number(item.boxNumber.props.children.slice(1))
               )
@@ -107,11 +107,11 @@ export function BoxList(props: IBoxListProps) {
                 ? 'not-allowed'
                 : 'pointer',
             }}
-            className='ms-fontSize-mPlus ms-fontWeight-light'
           >
             {item.checkoutBox.props.children}
           </div>
-        )
+        )}
+        </div>
       }
     />
   )
