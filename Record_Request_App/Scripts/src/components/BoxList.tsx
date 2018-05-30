@@ -52,17 +52,11 @@ export function BoxList(props: IBoxListProps) {
     key: i,
     boxNumber: (
       <p className='ms-fontSize-mPlus ms-fontWeight-light'>
-        {'B' + x.BoxIdBarCode.toString()}
+        {`B${x.BoxIdBarCode}`}
       </p>
     ),
     checkoutBox: (
       <p
-        style={{
-          ...AppStyles.links,
-          color: props.boxInCart(x.BoxIdBarCode) ? 'grey' : '#0078d7',
-          cursor: props.boxInCart(x.BoxIdBarCode) ? 'not-allowed' : 'pointer',
-        }}
-        className='ms-fontSize-mPlus ms-fontWeight-light'
         onClick={() =>
           props.addBox({
             key: i,
@@ -93,7 +87,6 @@ export function BoxList(props: IBoxListProps) {
             onClick={() => props.openModal(props.boxData[item.key])}
           >
             {item.boxNumber.props.children}
-            {console.log(item)}
           </div>
         ) : (
           <div
