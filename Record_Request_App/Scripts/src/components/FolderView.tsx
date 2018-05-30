@@ -61,11 +61,7 @@ const columns: IColumn[] = [
 export function FolderView(props: IFolderViewProps) {
   const folderIdList = props.filteredData.map((x, i) => ({
     key: i,
-    folderName: (
-      <p className='ms-fontSize-mPlus ms-fontWeight-light'>
-        {x.FolderName}'s Folder
-      </p>
-    ),
+    folderName: <p>{x}</p>,
     checkoutFolder: (
       <button
         onClick={() =>
@@ -77,39 +73,20 @@ export function FolderView(props: IFolderViewProps) {
             Folder_Description: x.Folder_Description,
           })
         }
-        // tslint:disable-next-line:max-line-length
-        style={{
-          ...AppStyles.checkOutButton,
-          color:
-            props.boxInCart(x.BoxID) || props.boxInCart(x.FolderIdBarCode)
-              ? 'gray'
-              : '#0078d7',
-          cursor:
-            props.boxInCart(x.BoxID) || props.boxInCart(x.FolderIdBarCode)
-              ? 'not-allowed'
-              : 'pointer',
-        }}
-        className='ms-fontSize-mPlus ms-fontWeight-light'
-        disabled={props.boxInCart(x.BoxID)}
       >
         + Add Folder to Checkout
       </button>
     ),
-    createFolder: (
-      <p
-        style={AppStyles.links}
-        className='ms-fontSize-mPlus ms-fontWeight-light'
-        onClick={props.toggleCreateModal}
-      >
-        Create Folder
-      </p>
-    ),
+    createFolder: <p onClick={props.toggleCreateModal}>Create Folder</p>,
   }))
 
   return (
     <div>
       <div className='ms-modalExample-header'>
-        <h2 style={{...AppStyles.center, marginTop: '6.5px' }} className='ms-font-xl'>
+        <h2
+          style={{ ...AppStyles.center, marginTop: '6.5px' }}
+          className='ms-font-xl'
+        >
           Folders in Box B{props.selectedBox.BoxIdBarCode}
         </h2>
       </div>
@@ -117,9 +94,50 @@ export function FolderView(props: IFolderViewProps) {
         <DetailsList
           items={folderIdList}
           columns={columns}
-          setKey='set'
+          compact={true}
           layoutMode={DetailsListLayoutMode.fixedColumns}
           checkboxVisibility={CheckboxVisibility.hidden}
+          onRenderItemColumn={(item, index, column) =>
+            column.key === 'column1' ? (
+              <div
+                style={AppStyles.test}
+                className='ms-fontSize-mPlus ms-fontWeight-light'
+              >
+                {`${item.folderName.props.children.FolderName}'s Folder`}
+              </div>
+            ) : column.key === 'column2' ? (
+              <div
+                style={{
+                  ...AppStyles.test,
+                  color:
+                    props.boxInCart(item.folderName.props.children.BoxID) ||
+                    props.boxInCart(
+                      item.folderName.props.children.FolderIdBarCode
+                    )
+                      ? 'gray'
+                      : '#0078d7',
+                  cursor:
+                    props.boxInCart(item.folderName.props.children.BoxID) ||
+                    props.boxInCart(
+                      item.folderName.props.children.FolderIdBarCode
+                    )
+                      ? 'not-allowed'
+                      : 'pointer',
+                }}
+                className='ms-fontSize-mPlus ms-fontWeight-light'
+              >
+                {item.checkoutFolder.props.children}
+              </div>
+            ) : (
+              <div
+                onClick={() => item.createFolder.props.onClick()}
+                style={{ ...AppStyles.links, ...AppStyles.test }}
+                className='ms-fontSize-mPlus ms-fontWeight-light'
+              >
+                {item.createFolder.props.children}
+              </div>
+            )
+          }
         />
       </div>
     </div>
