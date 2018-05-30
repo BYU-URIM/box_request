@@ -63,7 +63,7 @@ export function FolderView(props: IFolderViewProps) {
     key: i,
     folderName: <p>{x}</p>,
     checkoutFolder: (
-      <div
+      <button
         onClick={() =>
           props.addFolder({
             key: i,
@@ -75,7 +75,7 @@ export function FolderView(props: IFolderViewProps) {
         }
       >
         + Add Folder to Checkout
-      </div>
+      </button>
     ),
     createFolder: <p onClick={props.toggleCreateModal}>Create Folder</p>,
   }))
@@ -107,6 +107,7 @@ export function FolderView(props: IFolderViewProps) {
               </div>
             ) : column.key === 'column2' ? (
               <div
+                onClick={(() => item.checkoutFolder.props.onClick())}
                 style={{
                   ...AppStyles.test,
                   color:

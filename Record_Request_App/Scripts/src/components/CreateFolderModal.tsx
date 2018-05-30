@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Modal } from 'office-ui-fabric-react/lib/Modal'
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button'
 import { IFolderData, IBoxData } from '../models/MockData'
-import { TextField } from 'office-ui-fabric-react'
+import { TextField, Label } from 'office-ui-fabric-react'
 import { PrimaryButton } from 'office-ui-fabric-react'
 import { folderData } from '../res/folderdata'
 import { AppStyles } from '../components'
@@ -10,7 +10,7 @@ import { AppStyles } from '../components'
 export interface ICreateFolderModal {
   selectedBox?: number
   closeModal(): void
-  // onSubmit(formData): void
+  submitFolder(box): void
   folderNameVal: string
   folderNameError: string
   onNameChange(value): void
@@ -43,6 +43,10 @@ export function CreateFolderModal(props: ICreateFolderModal) {
           </h1>
 
           <div style={{...AppStyles.center, width: '225px'}}>
+            <Label>
+              {`Box B${props.selectedBox}`}
+            </Label>
+            <br />
             <TextField
               type='text'
               label='Folder Name'
@@ -57,6 +61,7 @@ export function CreateFolderModal(props: ICreateFolderModal) {
             <br />
             <PrimaryButton
               text='Create Folder'
+              onClick={(box) => props.submitFolder(props.selectedBox)}
               disabled={buttonDisabler(
                 props.folderNameVal,
                 props.folderNameError
