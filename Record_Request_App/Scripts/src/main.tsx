@@ -5,10 +5,16 @@ import { App } from './components/App'
 import { mockUser } from './res/mockuser'
 import { boxData } from './res/boxdata'
 import { folderData } from './res/folderdata'
+import { DataService } from './services/DataService'
 
 const root = document.getElementById('root')
 
 ReactDom.render(
-  <App user={mockUser} boxData={boxData} folderData={folderData} />,
+  <App
+    dataService={new DataService()}
+    user={mockUser}
+    boxData={boxData}
+    folderData={folderData}
+  />,
   root
 )

@@ -1,7 +1,13 @@
 import * as React from 'react'
 import { PrimaryButton, ThemeSettingName } from 'office-ui-fabric-react'
 import { initializeIcons } from '@uifabric/icons'
-import { IFolderAndBox, ModalTypes, IBoxData, IRequestObject, CheckoutTypes } from '../models/'
+import {
+  IFolderAndBox,
+  ModalTypes,
+  IBoxData,
+  IRequestObject,
+  CheckoutTypes,
+} from '../models/'
 import {
   AppStyles,
   DepartmentDropdown,
@@ -14,6 +20,7 @@ import {
   Greeting,
 } from '.'
 import { ISubmitModal } from './SubmitModal'
+import { DataService } from '../services/DataService'
 
 interface IAppState {
   selectedItems: Map<number, IFolderAndBox>
@@ -27,17 +34,19 @@ interface IAppState {
   deliveryPriorityToggle: boolean
   folderNameVal: string
   folderNameError: string
+  fmsData
 }
 
 // Enables microsoft ui icons to appear
 initializeIcons()
 
 export class App extends React.Component<
-  { user; boxData; folderData },
+  { user; boxData; folderData; dataService: DataService },
   IAppState
 > {
   // checks if box is in the cart.  if adding parent box of selected folders, remove folders and add parent box
   boxData = this.props.boxData
+  fmsData = async () => await this.props.dataService.getAll()
   folderData = this.props.folderData
   state = {
     selectedItems: new Map(),
@@ -51,15 +60,22 @@ export class App extends React.Component<
     deliveryInstructions: '',
     folderNameVal: '',
     folderNameError: '',
-  } 
-
+    fmsData: undefined,
+  }
+  init = async () => {
+    const data = await this.props.dataService.getAll()
+    this.setState({ fmsData: data })
+  }
+  async componentWillMount() {
+    await this.init()
+  }
   // checks if this box has folders carted; if so, remove the folders and add the box
   boxInCart(boxNum: number): boolean {
-    if(this.state.selectedItems.has(boxNum)) { 
+    if (this.state.selectedItems.has(boxNum)) {
       const x = this.state.selectedItems.values()
-      for(let i = 0; i < this.state.selectedItems.size; i++) {
+      for (let i = 0; i < this.state.selectedItems.size; i++) {
         const y = x.next().value
-        if(y.BoxID === boxNum) {
+        if (y.BoxID === boxNum) {
           this.state.selectedItems.delete(y.FolderIdBarCode)
         }
       }
@@ -73,7 +89,7 @@ export class App extends React.Component<
   onAllFoldersAdded = (boxNum: number): boolean => {
     const folders = this.getFilteredFolders()
     let allFoldersAdded = false
-    for( const i of folders) {
+    for (const i of folders) {
       if (!this.state.selectedItems.has(i.FolderIdBarCode)) {
         allFoldersAdded = false
         break
@@ -81,7 +97,7 @@ export class App extends React.Component<
       allFoldersAdded = this.state.selectedItems.has(i.FolderIdBarCode)
     }
     if (allFoldersAdded) {
-      for( const i of folders) {
+      for (const i of folders) {
         this.state.selectedItems.delete(i.FolderIdBarCode)
         this.state.selectedItems.set(boxNum, this.state.selectedBox)
       }
@@ -89,7 +105,6 @@ export class App extends React.Component<
 
     return allFoldersAdded
   }
-
 
   // function used to change the selected department via the dropdown menu
   changeSelectedDep = (val: number) => {
@@ -105,10 +120,10 @@ export class App extends React.Component<
   // tslint:disable-next-line:max-line-length
   //   checkoutStatus === CheckoutTypes.none ? console.log('+ Add Box to Checkout') : checkoutStatus === CheckoutTypes.depPossession ? console.log('Box In Your Possession') : checkoutStatus === CheckoutTypes.notAvailable ? console.log('Item Currently Unavailable') : console.log('brilliant, you broke it...')
 
-  //   depBoxList.map(box => box.Location.forEach(location => (location.charAt(0) === 'L' ? console.log(true) : console.log(false)))) 
+  //   depBoxList.map(box => box.Location.forEach(location => (location.charAt(0) === 'L' ? console.log(true) : console.log(false))))
 
   // }
-  
+
   onFolderCreateSubmit = ({ box }) => {
     this.folderData.push({
       BoxID: this.state.selectedBox.BoxIdBarCode,
@@ -125,25 +140,28 @@ export class App extends React.Component<
   onNameChange = value => {
     this.onNameError(value)
     this.setState({
-      folderNameVal: value
+      folderNameVal: value,
     })
-
   }
 
   onNameError = value => {
     if (value.length > 50) {
       this.setState({
-        folderNameError: `Length should be less than 50, actual is ${value.length}.`
+        folderNameError: `Length should be less than 50, actual is ${
+          value.length
+        }.`,
       })
-    } else if (this.getFilteredFolders().map(x => x.FolderName).find(element => element === value)) {
+    } else if (
+      this.getFilteredFolders()
+        .map(x => x.FolderName)
+        .find(element => element === value)
+    ) {
       this.setState({
-        folderNameError: 'A folder already exists with that name in this box.'
+        folderNameError: 'A folder already exists with that name in this box.',
       })
-    }
-    
-    else {
+    } else {
       this.setState({
-        folderNameError: ''
+        folderNameError: '',
       })
     }
   }
@@ -153,7 +171,7 @@ export class App extends React.Component<
       selectedItems: this.state.selectedItems.set(
         e.BoxIdBarCode | e.FolderIdBarCode,
         e
-      )
+      ),
     })
     this.onAllFoldersAdded(this.state.selectedBox.BoxIdBarCode)
   }
@@ -172,12 +190,11 @@ export class App extends React.Component<
     })
   }
 
-
   toggleModal = (modalName: ModalTypes) => this.setState({ modal: modalName })
 
   // filter boxData to get the boxes within in the currently selected department
   getFilteredData = () =>
-    this.boxData.filter((x, i) => x.DepId === this.state.selectedDep)  
+    this.boxData.filter((x, i) => x.DepId === this.state.selectedDep)
 
   getFilteredFolders = () =>
     this.folderData.filter(
@@ -260,6 +277,9 @@ export class App extends React.Component<
   }
 
   render() {
+    // this.fmsData().then(console.log)
+    // console.log(this.fmsData())
+
     window['appState'] = this.state
     window['boxes'] = this.getFilteredData()
     return (
@@ -292,9 +312,9 @@ export class App extends React.Component<
               closeModal={() => this.toggleModal(ModalTypes.none)}
               selectedBox={this.state.selectedBox.BoxIdBarCode}
               folderNameError={this.state.folderNameError}
-              folderNameVal={this.state.folderNameVal}              
-              onNameChange={(value) => this.onNameChange(value)}
-              submitFolder={(box)=> this.onFolderCreateSubmit(box)}
+              folderNameVal={this.state.folderNameVal}
+              onNameChange={value => this.onNameChange(value)}
+              submitFolder={box => this.onFolderCreateSubmit(box)}
             />
           )}
         </div>
