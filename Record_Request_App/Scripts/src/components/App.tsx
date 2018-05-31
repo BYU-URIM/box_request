@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { PrimaryButton, ThemeSettingName } from 'office-ui-fabric-react'
 import { initializeIcons } from '@uifabric/icons'
-import { IFolderAndBox, ModalTypes, IBoxData, IRequestObject } from '../models/'
+import { IFolderAndBox, ModalTypes, IBoxData, IRequestObject, CheckoutTypes } from '../models/'
 import {
   AppStyles,
   DepartmentDropdown,
@@ -53,6 +53,7 @@ export class App extends React.Component<
     folderNameError: '',
   } 
 
+  // checks if this box has folders carted; if so, remove the folders and add the box
   boxInCart(boxNum: number): boolean {
     if(this.state.selectedItems.has(boxNum)) { 
       const x = this.state.selectedItems.values()
@@ -68,6 +69,7 @@ export class App extends React.Component<
     }
   }
 
+  // function that removes all carted folders and adds their parent box if all folders were carted
   onAllFoldersAdded = (boxNum: number): boolean => {
     const folders = this.getFilteredFolders()
     let allFoldersAdded = false
@@ -96,6 +98,17 @@ export class App extends React.Component<
     })
   }
 
+  // determineCheckoutType =() => {
+  //   const depBoxList = this.getFilteredData()
+  //   let checkoutStatus: CheckoutTypes = CheckoutTypes.none
+  //   // tslint:disable-next-line:max-line-length
+  // tslint:disable-next-line:max-line-length
+  //   checkoutStatus === CheckoutTypes.none ? console.log('+ Add Box to Checkout') : checkoutStatus === CheckoutTypes.depPossession ? console.log('Box In Your Possession') : checkoutStatus === CheckoutTypes.notAvailable ? console.log('Item Currently Unavailable') : console.log('brilliant, you broke it...')
+
+  //   depBoxList.map(box => box.Location.forEach(location => (location.charAt(0) === 'L' ? console.log(true) : console.log(false)))) 
+
+  // }
+  
   onFolderCreateSubmit = ({ box }) => {
     this.folderData.push({
       BoxID: this.state.selectedBox.BoxIdBarCode,
@@ -164,7 +177,7 @@ export class App extends React.Component<
 
   // filter boxData to get the boxes within in the currently selected department
   getFilteredData = () =>
-    this.boxData.filter((x, i) => x.DepId === this.state.selectedDep)
+    this.boxData.filter((x, i) => x.DepId === this.state.selectedDep)  
 
   getFilteredFolders = () =>
     this.folderData.filter(
@@ -248,6 +261,7 @@ export class App extends React.Component<
 
   render() {
     window['appState'] = this.state
+    window['boxes'] = this.getFilteredData()
     return (
       <div>
         <Greeting
