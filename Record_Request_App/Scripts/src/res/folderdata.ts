@@ -1,13 +1,13 @@
-export interface iFolderDataObj {
+export interface IFolderDataObj {
   FolderIdBarCode: number
   FolderName: string
   BoxID: number
   Folder_Description: string
 }
 
-export interface iFolderDataArrObj extends Array<iFolderDataObj> {}
+export interface IFolderDataArrObj extends Array<IFolderDataObj> {}
 
-export const folderData: iFolderDataArrObj = [
+export const folderData: IFolderDataArrObj = [
   {
     FolderIdBarCode: 537020,
     FolderName: 'Traver',
