@@ -5,6 +5,12 @@ export enum ModalTypes {
   none = 'none',
 }
 
+export enum CheckoutTypes {
+  none = 'none',
+  notAvailable = 'not available',
+  depPossession = 'in requesting department\'s possession'
+}
+
 export interface IFolderAndBox {
   key: number
   BoxIdBarCode?: number
