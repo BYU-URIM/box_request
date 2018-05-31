@@ -75,6 +75,35 @@ export const folderData: IFolderDataArrObj = [
     Location: '978267',
   },
   {
+    FolderIdBarCode: 658978,
+    FolderName: 'Frank',
+    BoxID: 978267,
+    Folder_Description: 'Other specified diabetes mellitus with hypoglycemia',
+    Location: '978267',
+  },
+  {
+    FolderIdBarCode: 321789,
+    FolderName: 'Project 007',
+    BoxID: 978267,
+    Folder_Description: 'Other specified diabetes mellitus with hypoglycemia',
+    Location: '978267',
+  },
+  {
+    FolderIdBarCode: 996584,
+    FolderName: 'Abrahm',
+    BoxID: 978267,
+    Folder_Description: 'Other specified diabetes mellitus with hypoglycemia',
+    Location: '978267',
+  },
+  {
+    FolderIdBarCode: 454545,
+    FolderName: 'Chew-Chew',
+    BoxID: 978267,
+    Folder_Description: 'Other specified diabetes mellitus with hypoglycemia',
+    Location: '978267',
+  },
+  
+  {
     FolderIdBarCode: 129584,
     FolderName: 'Pete',
     BoxID: 740127,
