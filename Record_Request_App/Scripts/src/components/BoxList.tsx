@@ -82,7 +82,7 @@ export function BoxList(props: IBoxListProps) {
       // Go deep to shorten cell height; work with children to apply gray out if box is selected
 
       onRenderItemColumn={(item, index, column) =>
-        <div className='ms-fontSize-mPlus ms-fontWeight-light' style={AppStyles.test} onClick={() => props.openModal(props.boxData[item.key])}
+        <div className='ms-fontSize-mPlus ms-fontWeight-light' style={{...AppStyles.test, cursor: 'pointer'}} onClick={() => props.openModal(props.boxData[item.key])}
 
         >
         {column.key === 'column1' ? (
@@ -97,8 +97,8 @@ export function BoxList(props: IBoxListProps) {
             style={{
               ...AppStyles.links,
               color: props.boxInCart(
-                Number(item.boxNumber.props.children.slice(1))
-              )
+                Number(item.boxNumber.props.children.slice(1)) 
+              ) 
                 ? 'grey'
                 : '#0078d7',
               cursor: props.boxInCart(

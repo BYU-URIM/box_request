@@ -37,20 +37,6 @@ export class App extends React.Component<
   IAppState
 > {
   // checks if box is in the cart.  if adding parent box of selected folders, remove folders and add parent box
-  boxInCart(boxNum: number): boolean {
-    if(this.state.selectedItems.has(boxNum)) { 
-      const x = this.state.selectedItems.values()
-      for(let i = 0; i < this.state.selectedItems.size; i++) {
-        const y = x.next().value
-        if(y.BoxID === boxNum) {
-          this.state.selectedItems.delete(y.FolderIdBarCode)
-        }
-      }
-      return true
-    } else {
-      return false
-    }
-  }
   boxData = this.props.boxData
   folderData = this.props.folderData
   state = {
@@ -65,7 +51,43 @@ export class App extends React.Component<
     deliveryInstructions: '',
     folderNameVal: '',
     folderNameError: '',
+  } 
+
+  boxInCart(boxNum: number): boolean {
+    if(this.state.selectedItems.has(boxNum)) { 
+      const x = this.state.selectedItems.values()
+      for(let i = 0; i < this.state.selectedItems.size; i++) {
+        const y = x.next().value
+        if(y.BoxID === boxNum) {
+          this.state.selectedItems.delete(y.FolderIdBarCode)
+        }
+      }
+      return true
+    } else {
+      return false
+    }
   }
+
+  onAllFoldersAdded = (boxNum: number): boolean => {
+    const folders = this.getFilteredFolders()
+    let allFoldersAdded = false
+    for( const i of folders) {
+      if (!this.state.selectedItems.has(i.FolderIdBarCode)) {
+        allFoldersAdded = false
+        break
+      }
+      allFoldersAdded = this.state.selectedItems.has(i.FolderIdBarCode)
+    }
+    if (allFoldersAdded) {
+      for( const i of folders) {
+        this.state.selectedItems.delete(i.FolderIdBarCode)
+        this.state.selectedItems.set(boxNum, this.state.selectedBox)
+      }
+    }
+
+    return allFoldersAdded
+  }
+
 
   // function used to change the selected department via the dropdown menu
   changeSelectedDep = (val: number) => {
@@ -81,7 +103,6 @@ export class App extends React.Component<
       Folder_Description: '',
       FolderIdBarCode: this.folderData.length + 1,
     })
-    console.log(this.folderData)
     this.setState({
       modal: ModalTypes.none,
       folderNameVal: '',
@@ -119,12 +140,12 @@ export class App extends React.Component<
       selectedItems: this.state.selectedItems.set(
         e.BoxIdBarCode | e.FolderIdBarCode,
         e
-      ),
-    }), console.log(e)
+      )
+    })
+    this.onAllFoldersAdded(this.state.selectedBox.BoxIdBarCode)
   }
 
   removeItemFromCheckout = (r: number) => {
-    console.log(r)
     const newMap = this.state.selectedItems
     newMap.delete(r)
     this.setState({
@@ -137,6 +158,7 @@ export class App extends React.Component<
       selectedItems: new Map(),
     })
   }
+
 
   toggleModal = (modalName: ModalTypes) => this.setState({ modal: modalName })
 
@@ -160,14 +182,12 @@ export class App extends React.Component<
   }
 
   updateRequestType = () => {
-    console.log(!!this.state.requestTypeToggle)
     this.setState({
       requestTypeToggle: !this.state.requestTypeToggle,
     })
   }
 
   updateDeliveryPriority = () => {
-    console.log(!!this.state.deliveryPriorityToggle)
     this.setState({
       deliveryPriorityToggle: !this.state.deliveryPriorityToggle,
     })
@@ -218,7 +238,6 @@ export class App extends React.Component<
     })
     this.state.selectedItems.clear()
     this.toggleModal(ModalTypes.none)
-    console.log(this.state.request)
   }
 
   finalRequest = newRequest => {
