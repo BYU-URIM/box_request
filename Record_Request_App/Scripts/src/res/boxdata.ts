@@ -14,12 +14,12 @@ export interface IBoxDataObj {
     "DepartmentName": "Department of Aerophysics"
   }, {
     "BoxIdBarCode": 485072,
-    "Location": "L4852302189",
+    "Location": '5556',
     "DepId": 5556,
     "DepartmentName": "Department of Science"
   }, {
     "BoxIdBarCode": 81552,
-    "Location": "L6658847789",
+    "Location": "legal",
     "DepId": 5557,
     "DepartmentName": "Department of Agriculture"
   }, {
@@ -39,37 +39,37 @@ export interface IBoxDataObj {
     "DepartmentName": "Department of Social Studies"
   }, {
     "BoxIdBarCode": 520868,
-    "Location": "L9186517090",
-    "DepId": 5555,
-    "DepartmentName": "Department of Aerophysics"
+    "Location": 'L9186517090',
+    'DepId': 5555,
+    'DepartmentName': 'Department of Aerophysics'
   }, {
-    "BoxIdBarCode": 978267,
-    "Location": "L4551179809",
-    "DepId": 5556,
-    "DepartmentName": "Department of Science"
+    'BoxIdBarCode': 978267,
+    'Location': 'L4551179809',
+    'DepId': 5556,
+    'DepartmentName': 'Department of Science'
   }, {
-    "BoxIdBarCode": 740127,
-    "Location": "L8320275040",
-    "DepId": 5557,
-    "DepartmentName": "Department of Agriculture"
+    'BoxIdBarCode': 740127,
+    'Location': 'L8320275040',
+    'DepId': 5557,
+    'DepartmentName': 'Department of Agriculture'
   }, {
-    "BoxIdBarCode": 909880,
-    "Location": "L0484444220",
-    "DepId": 5558,
-    "DepartmentName": "Department of Chemistry"
+    'BoxIdBarCode': 909880,
+    'Location': 'L0484444220',
+    'DepId': 5558,
+    'DepartmentName': 'Department of Chemistry'
   }, {
-    "BoxIdBarCode": 946158,
-    "Location": "L1840134305",
-    "DepId": 5559,
-    "DepartmentName": "Department of Business"
+    'BoxIdBarCode': 946158,
+    'Location': 'L1840134305',
+    'DepId': 5559,
+    'DepartmentName': 'Department of Business'
   }, {
-    "BoxIdBarCode": 749515,
-    "Location": "L2352083885",
-    "DepId": 5560,
-    "DepartmentName": "Department of Social Studies"
+    'BoxIdBarCode': 749515,
+    'Location': 'L2352083885',
+    'DepId': 5560,
+    'DepartmentName': 'Department of Social Studies'
   }, {
-    "BoxIdBarCode": 879407,
-    "Location": "L8508749600",
+    'BoxIdBarCode': 879407,
+    'Location': 'L8508749600',
     'DepId': 5555,
     'DepartmentName': 'Department of Aerophysics'
   }, {
