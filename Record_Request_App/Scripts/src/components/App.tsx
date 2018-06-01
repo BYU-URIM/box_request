@@ -113,16 +113,25 @@ export class App extends React.Component<
     })
   }
 
-  // determineCheckoutType =() => {
-  //   const depBoxList = this.getFilteredData()
-  //   let checkoutStatus: CheckoutTypes = CheckoutTypes.none
-  //   // tslint:disable-next-line:max-line-length
-  // tslint:disable-next-line:max-line-length
-  //   checkoutStatus === CheckoutTypes.none ? console.log('+ Add Box to Checkout') : checkoutStatus === CheckoutTypes.depPossession ? console.log('Box In Your Possession') : checkoutStatus === CheckoutTypes.notAvailable ? console.log('Item Currently Unavailable') : console.log('brilliant, you broke it...')
-
-  //   depBoxList.map(box => box.Location.forEach(location => (location.charAt(0) === 'L' ? console.log(true) : console.log(false))))
-
-  // }
+  determineCheckoutType = box => {
+    let checkoutStatus: CheckoutTypes = CheckoutTypes.none
+    let status = ''
+    if (box.Location.charAt(0) === 'L') {
+      checkoutStatus = CheckoutTypes.none
+    } else if (Number(box.Location) === this.state.selectedDep) {
+      checkoutStatus = CheckoutTypes.depPossession
+    } else {
+      checkoutStatus = CheckoutTypes.notAvailable
+    }
+    if (checkoutStatus === CheckoutTypes.none) {
+      status = '+ Add Box to Checkout'
+    } else if (checkoutStatus === CheckoutTypes.depPossession) {
+      status = '- In Your Possession'
+    } else {
+     status = '- Item Not Available'
+    }
+    return status
+  }
 
   onFolderCreateSubmit = ({ box }) => {
     this.folderData.push({
@@ -333,6 +342,7 @@ export class App extends React.Component<
                   })
                 }}
                 boxInCart={(boxNum: number) => this.boxInCart(boxNum)}
+                checkoutStatus={(box) => this.determineCheckoutType(box)}
               />
             </div>
             <div style={AppStyles.centerSection}>

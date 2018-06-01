@@ -16,9 +16,8 @@ export interface IBoxListProps {
   addBox(x): void
   openModal(i: IBoxData): void
   boxInCart(boxNumber: number): boolean
+  checkoutStatus(box: IBoxData): string
 }
-
-// const _items: {}[] = []
 
 const columns: IColumn[] = [
   {
@@ -57,17 +56,19 @@ export function BoxList(props: IBoxListProps) {
     ),
     checkoutBox: (
       <p
-        onClick={() =>
+        onClick={
+          props.checkoutStatus(x) === '+ Add Box to Checkout' ?
+          () =>
           props.addBox({
             key: i,
             BoxIdBarCode: x.BoxIdBarCode,
             Location: x.Location,
             DepId: x.DepId,
             DepartmentName: x.DepartmentName,
-          })
+          }) : undefined
         }
       >
-        + Add Box to Checkout
+        {props.checkoutStatus(x)}
       </p>
     ),
   }))
@@ -98,12 +99,12 @@ export function BoxList(props: IBoxListProps) {
               ...AppStyles.links,
               color: props.boxInCart(
                 Number(item.boxNumber.props.children.slice(1)) 
-              ) 
+              ) || item.checkoutBox.props.children !== '+ Add Box to Checkout'
                 ? 'grey'
                 : '#0078d7',
               cursor: props.boxInCart(
                 Number(item.boxNumber.props.children.slice(1))
-              )
+              ) || item.checkoutBox.props.children !== '+ Add Box to Checkout'
                 ? 'not-allowed'
                 : 'pointer',
             }}
