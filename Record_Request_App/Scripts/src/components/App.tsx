@@ -70,12 +70,12 @@ export class App extends React.Component<
     await this.init()
   }
   // checks if this box has folders carted; if so, remove the folders and add the box
-  boxInCart(boxNum: number): boolean {
-    if (this.state.selectedItems.has(boxNum)) {
+  itemInCart(itemNum: number): boolean {
+    if (this.state.selectedItems.has(itemNum)) {
       const x = this.state.selectedItems.values()
       for (let i = 0; i < this.state.selectedItems.size; i++) {
         const y = x.next().value
-        if (y.BoxID === boxNum) {
+        if (y.BoxID === itemNum) {
           this.state.selectedItems.delete(y.FolderIdBarCode)
         }
       }
@@ -116,22 +116,16 @@ export class App extends React.Component<
   determineCheckoutType = item => {
     let checkoutStatus: CheckoutTypes = CheckoutTypes.none
     let status = ''
-    if (item.hasOwnProperty('BoxIdBarCode')) {
-      if (item.Location.charAt(0) === 'L' || item.Location === item.BoxID) {
-        checkoutStatus = CheckoutTypes.none
-      } else if (Number(item.Location) === this.state.selectedDep) {
-        checkoutStatus = CheckoutTypes.depPossession
-      } else {
-        checkoutStatus = CheckoutTypes.notAvailable
-      }
-    }
 
-    if (checkoutStatus === CheckoutTypes.none) {
+    if (item.Location.charAt(0) === 'L' || item.BoxID === Number(item.Location)) {
+      checkoutStatus = CheckoutTypes.none
       status = '+ Add Item to Checkout'
-    } else if (checkoutStatus === CheckoutTypes.depPossession) {
+    } else if (Number(item.Location) === this.state.selectedDep) {
+      checkoutStatus = CheckoutTypes.depPossession
       status = '- In Your Possession'
     } else {
-     status = '- Item Not Available'
+      checkoutStatus = CheckoutTypes.notAvailable
+      status = '- Item Not Available'
     }
     return status
   }
@@ -344,7 +338,7 @@ export class App extends React.Component<
                     selectedBox: i,
                   })
                 }}
-                boxInCart={(boxNum: number) => this.boxInCart(boxNum)}
+                boxInCart={(boxNum: number) => this.itemInCart(boxNum)}
                 checkoutStatus={(item) => this.determineCheckoutType(item)}
               />
             </div>
@@ -362,7 +356,8 @@ export class App extends React.Component<
                   selectedBox={this.state.selectedBox}
                   addFolder={e => this.addItemToCheckout(e)}
                   toggleCreateModal={() => this.toggleModal(ModalTypes.create)}
-                  boxInCart={(boxNum: number) => this.boxInCart(boxNum)}
+                  itemInCart={(itemNum: number) => this.itemInCart(itemNum)}
+                  checkoutStatus={(item) => this.determineCheckoutType(item)}
                 />
               )}
             </div>

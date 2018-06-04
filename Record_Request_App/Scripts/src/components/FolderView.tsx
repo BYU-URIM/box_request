@@ -23,9 +23,11 @@ export interface IFolderViewProps {
   selectedBox?: IBoxData
   addFolder(x): void
   toggleCreateModal(): void
-  boxInCart(boxNumber: number): boolean
+  itemInCart(boxNumber: number): boolean
+  checkoutStatus(box: IFolderData): string
 }
 
+// create column info that goes into fabric ui component
 const columns: IColumn[] = [
   {
     key: 'column1',
@@ -71,10 +73,11 @@ export function FolderView(props: IFolderViewProps) {
             FolderIdBarCode: x.FolderIdBarCode,
             BoxID: x.BoxID,
             Folder_Description: x.Folder_Description,
+            Location: x.BoxID
           })
         }
       >
-        + Add Folder to Checkout
+        {props.checkoutStatus(x)}
       </button>
     ),
     createFolder: <p onClick={props.toggleCreateModal}>Create Folder</p>,
@@ -97,49 +100,56 @@ export function FolderView(props: IFolderViewProps) {
           compact={true}
           layoutMode={DetailsListLayoutMode.fixedColumns}
           checkboxVisibility={CheckboxVisibility.hidden}
-          onRenderItemColumn={(item, index, column) =>
-            <div style={AppStyles.test}
-            className='ms-fontSize-mPlus ms-fontWeight-light'>
-            {column.key === 'column1' ? (
-              <div
-                
-              >
-                {`${item.folderName.props.children.FolderName}'s Folder`}
-              </div>
-            ) : column.key === 'column2' ? (
-              <div
-                onClick={(() => item.checkoutFolder.props.onClick())}
+          onRenderItemColumn={(item, index, column) => (
+            <div
+              style={AppStyles.test}
+              className='ms-fontSize-mPlus ms-fontWeight-light'
+            >
+              {column.key === 'column1' ? (
+                <div>
+                  {`${item.folderName.props.children.FolderName}'s Folder`}
+                </div>
+              ) : column.key === 'column2' ? (
+                <div
+                onClick={
+                  item.checkoutFolder.props.children ===
+                  '+ Add Item to Checkout'
+                  ? () => item.checkoutFolder.props.onClick()
+                  : undefined
+                }
                 style={{
                   color:
-                    props.boxInCart(item.folderName.props.children.BoxID) ||
-                    props.boxInCart(
-                      item.folderName.props.children.FolderIdBarCode
-                    )
-                      ? 'gray'
-                      : '#0078d7',
+                  props.itemInCart(item.folderName.props.children.BoxID) ||
+                  props.itemInCart(
+                    item.folderName.props.children.FolderIdBarCode
+                  ) ||
+                  item.folderName.props.children !==
+                  '+ Add Item to Checkout'
+                  ? 'gray'
+                  : '#0078d7',
                   cursor:
-                    props.boxInCart(item.folderName.props.children.BoxID) ||
-                    props.boxInCart(
-                      item.folderName.props.children.FolderIdBarCode
-                    )
-                      ? 'not-allowed'
-                      : 'pointer',
-                }}
-
-              >
-                {item.checkoutFolder.props.children}
-              </div>
-            ) : (
-              <div
-                onClick={() => item.createFolder.props.onClick()}
-                style={AppStyles.links}
-
-              >
-                {item.createFolder.props.children}
-              </div>
-            )}
+                  props.itemInCart(item.folderName.props.children.BoxID) ||
+                  props.itemInCart(
+                    item.folderName.props.children.FolderIdBarCode
+                  ) ||
+                  item.folderName.props.children !==
+                  '+ Add Item to Checkout'
+                        ? 'not-allowed'
+                        : 'pointer',
+                  }}
+                >
+                  {item.checkoutFolder.props.children}
+                </div>
+              ) : (
+                <div
+                  onClick={() => item.createFolder.props.onClick()}
+                  style={AppStyles.links}
+                >
+                  {item.createFolder.props.children}
+                </div>
+              )}
             </div>
-          }
+          )}
         />
       </div>
     </div>

@@ -72,7 +72,7 @@ export const folderData: IFolderDataArrObj = [
     FolderName: 'Cat',
     BoxID: 978267,
     Folder_Description: 'Other specified diabetes mellitus with hypoglycemia',
-    Location: '978267',
+    Location: '5556',
   },
   {
     FolderIdBarCode: 658978,
