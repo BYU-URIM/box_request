@@ -57,7 +57,7 @@ export function BoxList(props: IBoxListProps) {
     checkoutBox: (
       <p
         onClick={
-          props.checkoutStatus(x) === '+ Add Box to Checkout' ?
+          
           () =>
           props.addBox({
             key: i,
@@ -65,7 +65,7 @@ export function BoxList(props: IBoxListProps) {
             Location: x.Location,
             DepId: x.DepId,
             DepartmentName: x.DepartmentName,
-          }) : undefined
+          }) 
         }
       >
         {props.checkoutStatus(x)}
@@ -92,19 +92,19 @@ export function BoxList(props: IBoxListProps) {
           </div>
         ) : (
           <div
-            onClick={() => {
+            onClick={item.checkoutBox.props.children === '+ Add Item to Checkout' ? () => {
               item.checkoutBox.props.onClick()
-            }}
+            } : undefined}
             style={{
               ...AppStyles.links,
               color: props.boxInCart(
                 Number(item.boxNumber.props.children.slice(1)) 
-              ) || item.checkoutBox.props.children !== '+ Add Box to Checkout'
+              ) || item.checkoutBox.props.children !== '+ Add Item to Checkout'
                 ? 'grey'
                 : '#0078d7',
               cursor: props.boxInCart(
                 Number(item.boxNumber.props.children.slice(1))
-              ) || item.checkoutBox.props.children !== '+ Add Box to Checkout'
+              ) || item.checkoutBox.props.children !== '+ Add Item to Checkout'
                 ? 'not-allowed'
                 : 'pointer',
             }}

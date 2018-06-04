@@ -113,18 +113,21 @@ export class App extends React.Component<
     })
   }
 
-  determineCheckoutType = box => {
+  determineCheckoutType = item => {
     let checkoutStatus: CheckoutTypes = CheckoutTypes.none
     let status = ''
-    if (box.Location.charAt(0) === 'L') {
-      checkoutStatus = CheckoutTypes.none
-    } else if (Number(box.Location) === this.state.selectedDep) {
-      checkoutStatus = CheckoutTypes.depPossession
-    } else {
-      checkoutStatus = CheckoutTypes.notAvailable
+    if (item.hasOwnProperty('BoxIdBarCode')) {
+      if (item.Location.charAt(0) === 'L' || item.Location === item.BoxID) {
+        checkoutStatus = CheckoutTypes.none
+      } else if (Number(item.Location) === this.state.selectedDep) {
+        checkoutStatus = CheckoutTypes.depPossession
+      } else {
+        checkoutStatus = CheckoutTypes.notAvailable
+      }
     }
+
     if (checkoutStatus === CheckoutTypes.none) {
-      status = '+ Add Box to Checkout'
+      status = '+ Add Item to Checkout'
     } else if (checkoutStatus === CheckoutTypes.depPossession) {
       status = '- In Your Possession'
     } else {
@@ -342,7 +345,7 @@ export class App extends React.Component<
                   })
                 }}
                 boxInCart={(boxNum: number) => this.boxInCart(boxNum)}
-                checkoutStatus={(box) => this.determineCheckoutType(box)}
+                checkoutStatus={(item) => this.determineCheckoutType(item)}
               />
             </div>
             <div style={AppStyles.centerSection}>
