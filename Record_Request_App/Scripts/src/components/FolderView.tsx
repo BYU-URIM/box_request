@@ -1,16 +1,17 @@
 import * as React from 'react'
+// tslint:disable-next-line:no-submodule-imports
 import { Modal } from 'office-ui-fabric-react/lib/Modal'
-import { DefaultButton } from 'office-ui-fabric-react/lib/Button'
 import {
+  DefaultButton,
   DetailsList,
   DetailsListLayoutMode,
   Selection,
   IColumn,
   CheckboxVisibility,
-} from 'office-ui-fabric-react/lib/DetailsList'
+} from 'office-ui-fabric-react'
 import { CreateFolderModal } from './CreateFolderModal'
-import { IFolderData, IBoxData } from '../models/MockData'
 import { AppStyles } from './Styles'
+import { IFolderDataObj, IBoxDataObj } from '../models/MockData'
 
 const Center = {
   textAlign: 'center',
@@ -19,12 +20,12 @@ const Center = {
 export interface IFolderViewProps {
   openModal(i: number): void
   closeModal(): void
-  filteredData: Array<IFolderData>
-  selectedBox?: IBoxData
+  filteredData: Array<IFolderDataObj>
+  selectedBox?: IBoxDataObj
   addFolder(x): void
   toggleCreateModal(): void
   itemInCart(boxNumber: number): boolean
-  checkoutStatus(box: IFolderData): string
+  checkoutStatus(box: IFolderDataObj): string
 }
 
 // create column info that goes into fabric ui component
@@ -73,7 +74,7 @@ export function FolderView(props: IFolderViewProps) {
             FolderIdBarCode: x.FolderIdBarCode,
             BoxID: x.BoxID,
             Folder_Description: x.Folder_Description,
-            Location: x.BoxID
+            Location: x.BoxID,
           })
         }
       >
@@ -85,15 +86,15 @@ export function FolderView(props: IFolderViewProps) {
 
   return (
     <div>
-      <div className='ms-modalExample-header'>
+      <div className={'ms-modalExample-header'}>
         <h2
           style={{ ...AppStyles.center, marginTop: '6.5px' }}
-          className='ms-font-xl'
+          className={'ms-font-xl'}
         >
           Folders in Box B{props.selectedBox.BoxIdBarCode}
         </h2>
       </div>
-      <div className='ms-modalExample-body' style={AppStyles.scroller}>
+      <div className={'ms-modalExample-body'} style={AppStyles.scroller}>
         <DetailsList
           items={folderIdList}
           columns={columns}
@@ -103,37 +104,37 @@ export function FolderView(props: IFolderViewProps) {
           onRenderItemColumn={(item, index, column) => (
             <div
               style={AppStyles.test}
-              className='ms-fontSize-mPlus ms-fontWeight-light'
+              className={'ms-fontSize-mPlus ms-fontWeight-light'}
             >
               {column.key === 'column1' ? (
                 <div>
-                  {`${item.folderName.props.children.FolderName}'s Folder`}
+                  {`${item.folderName.props.children.FolderName}'s Folder`}"
                 </div>
               ) : column.key === 'column2' ? (
                 <div
-                onClick={
-                  item.checkoutFolder.props.children ===
-                  '+ Add Item to Checkout'
-                  ? () => item.checkoutFolder.props.onClick()
-                  : undefined
-                }
-                style={{
-                  color:
-                  props.itemInCart(item.folderName.props.children.BoxID) ||
-                  props.itemInCart(
-                    item.folderName.props.children.FolderIdBarCode
-                  ) ||
-                  item.folderName.props.children !==
-                  '+ Add Item to Checkout'
-                  ? 'gray'
-                  : '#0078d7',
-                  cursor:
-                  props.itemInCart(item.folderName.props.children.BoxID) ||
-                  props.itemInCart(
-                    item.folderName.props.children.FolderIdBarCode
-                  ) ||
-                  item.folderName.props.children !==
-                  '+ Add Item to Checkout'
+                  onClick={
+                    item.checkoutFolder.props.children ===
+                    '+ Add Item to Checkout'
+                      ? () => item.checkoutFolder.props.onClick()
+                      : undefined
+                  }
+                  style={{
+                    color:
+                      props.itemInCart(item.folderName.props.children.BoxID) ||
+                      props.itemInCart(
+                        item.folderName.props.children.FolderIdBarCode
+                      ) ||
+                      item.folderName.props.children !==
+                        '+ Add Item to Checkout'
+                        ? 'gray'
+                        : '#0078d7',
+                    cursor:
+                      props.itemInCart(item.folderName.props.children.BoxID) ||
+                      props.itemInCart(
+                        item.folderName.props.children.FolderIdBarCode
+                      ) ||
+                      item.folderName.props.children !==
+                        '+ Add Item to Checkout'
                         ? 'not-allowed'
                         : 'pointer',
                   }}

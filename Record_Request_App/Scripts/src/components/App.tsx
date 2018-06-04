@@ -4,14 +4,12 @@ import { initializeIcons } from '@uifabric/icons'
 import {
   IFolderAndBox,
   ModalTypes,
-  IBoxData,
   IRequestObject,
   CheckoutTypes,
 } from '../models/'
 import {
   AppStyles,
   DepartmentDropdown,
-  WarningModal,
   SubmitModal,
   CreateFolderModal,
   BoxList,
@@ -19,13 +17,13 @@ import {
   RequestCart,
   Greeting,
 } from '.'
-import { ISubmitModal } from './SubmitModal'
 import { DataService } from '../services/DataService'
+import { IFolderDataObj, IBoxDataObj } from '../models/MockData'
 
 interface IAppState {
   selectedItems: Map<number, IFolderAndBox>
   selectedDep: number
-  selectedBox: IBoxData | undefined
+  selectedBox: IBoxDataObj | undefined
   isChecked: boolean
   modal: ModalTypes
   request: Map<number, IRequestObject>
@@ -46,8 +44,8 @@ export class App extends React.Component<
 > {
   // checks if box is in the cart.  if adding parent box of selected folders, remove folders and add parent box
   boxData = this.props.boxData
-  fmsData = async () => await this.props.dataService.getAll()
   folderData = this.props.folderData
+//   fmsData = async () => await this.props.dataService.getAll()
   state = {
     selectedItems: new Map(),
     selectedDep: 0,
@@ -62,13 +60,13 @@ export class App extends React.Component<
     folderNameError: '',
     fmsData: undefined,
   }
-  init = async () => {
-    const data = await this.props.dataService.getAll()
-    this.setState({ fmsData: data })
-  }
-  async componentWillMount() {
-    await this.init()
-  }
+//   init = async () => {
+//     const data = await this.props.dataService.getAll()
+//     this.setState({ fmsData: data })
+//   }
+//   async componentWillMount() {
+//     await this.init()
+//   }
   // checks if this box has folders carted; if so, remove the folders and add the box
   itemInCart(itemNum: number): boolean {
     if (this.state.selectedItems.has(itemNum)) {
@@ -117,7 +115,10 @@ export class App extends React.Component<
     let checkoutStatus: CheckoutTypes = CheckoutTypes.none
     let status = ''
 
-    if (item.Location.charAt(0) === 'L' || item.BoxID === Number(item.Location)) {
+    if (
+      item.Location.charAt(0) === 'L' ||
+      item.BoxID === Number(item.Location)
+    ) {
       checkoutStatus = CheckoutTypes.none
       status = '+ Add Item to Checkout'
     } else if (Number(item.Location) === this.state.selectedDep) {
@@ -199,7 +200,7 @@ export class App extends React.Component<
   toggleModal = (modalName: ModalTypes) => this.setState({ modal: modalName })
 
   // filter boxData to get the boxes within in the currently selected department
-  getFilteredData = () =>
+  getFilteredData = (): Array<IBoxDataObj> =>
     this.boxData.filter((x, i) => x.DepId === this.state.selectedDep)
 
   getFilteredFolders = () =>
@@ -333,13 +334,13 @@ export class App extends React.Component<
               <BoxList
                 boxData={this.getFilteredData()}
                 addBox={e => this.addItemToCheckout(e)}
-                openModal={(i: IBoxData) => {
+                openModal={(i: IBoxDataObj) => {
                   this.setState({
                     selectedBox: i,
                   })
                 }}
                 boxInCart={(boxNum: number) => this.itemInCart(boxNum)}
-                checkoutStatus={(item) => this.determineCheckoutType(item)}
+                checkoutStatus={item => this.determineCheckoutType(item)}
               />
             </div>
             <div style={AppStyles.centerSection}>
@@ -357,7 +358,7 @@ export class App extends React.Component<
                   addFolder={e => this.addItemToCheckout(e)}
                   toggleCreateModal={() => this.toggleModal(ModalTypes.create)}
                   itemInCart={(itemNum: number) => this.itemInCart(itemNum)}
-                  checkoutStatus={(item) => this.determineCheckoutType(item)}
+                  checkoutStatus={item => this.determineCheckoutType(item)}
                 />
               )}
             </div>

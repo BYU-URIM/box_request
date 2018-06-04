@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { FontClassNames } from '@uifabric/styling'
 
 const headingStyle = {
   display: 'flex',

@@ -1,7 +1,7 @@
 import * as React from 'react'
+// tslint:disable-next-line:no-submodule-imports
 import { Modal } from 'office-ui-fabric-react/lib/Modal'
-import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button'
-import { IFolderData, IBoxData } from '../models/MockData'
+import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react'
 
 // Styling
 
@@ -24,9 +24,9 @@ export function WarningModal(props: IWarningModal) {
         isOpen={true}
         isBlocking={false}
         isDarkOverlay={false}
-        containerClassName='ms-modalExample-container'
+        containerClassName={'ms-modalExample-container'}
       >
-        <div className='ms-modalExample-header'>
+        <div className={'ms-modalExample-header'}>
           <h1> Warning </h1>
         </div>
         <div>
@@ -38,10 +38,10 @@ export function WarningModal(props: IWarningModal) {
         </div>
         <div>
           <PrimaryButton
-            text='Clear Cart and Continue'
+            text={'Clear Cart and Continue'}
             onClick={props.continue}
           />
-          <PrimaryButton text='Keep Cart and Go Back' onClick={props.close} />
+          <PrimaryButton text={'Keep Cart and Go Back'} onClick={props.close} />
         </div>
       </Modal>
     </div>

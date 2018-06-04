@@ -4,7 +4,7 @@ import {
   IDropdown,
   DropdownMenuItemType,
   IDropdownOption,
-} from 'office-ui-fabric-react/lib/Dropdown'
+} from 'office-ui-fabric-react'
 
 export interface IUserDeps {
   mockUser
