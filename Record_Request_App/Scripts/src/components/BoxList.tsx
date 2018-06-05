@@ -55,10 +55,6 @@ export function BoxList(props: IBoxListProps) {
     },
   ]
 
-  // Grab just the BoxIdBarCodes, turn them into a string so I can add a "B" onto it
-  // This is how it is stored in the ROC, (as an int with a function adding on a B), so this is why it's done this way
-  // Also checks to make sure we are grabbing boxes within the selected department
-
   const bIdList = props.boxData.map((x, i) => ({
     key: i,
     boxNumber: <p>{`B${x.BoxIdBarCode}`}</p>,
@@ -103,7 +99,6 @@ export function BoxList(props: IBoxListProps) {
           })}
         </div>
       )}
-      // Go deep to shorten cell height; work with children to apply gray out if box is selected
     />
   )
 }
