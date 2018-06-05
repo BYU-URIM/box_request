@@ -8,7 +8,6 @@ import {
   CheckboxVisibility,
   getNativeProps,
 } from 'office-ui-fabric-react'
-import { AppStyles } from './Styles'
 import { IFolderDataObj, IBoxDataObj } from '../models/MockData'
 import './appstyles.scss'
 export interface IBoxListProps {
@@ -17,6 +16,9 @@ export interface IBoxListProps {
   openModal(i: IBoxDataObj): void
   boxInCart(boxNumber: number): boolean
   checkoutStatus(box: IBoxDataObj): string
+}
+const shortStyle = {
+  margin: '0px'
 }
 
 // --------------------------------------------------------------------------
@@ -43,7 +45,7 @@ export function BoxList(props: IBoxListProps) {
       ariaLabel: 'Operations for checkoutBox',
       onRender: (item: IBoxDataObj) => {
         return props.checkoutStatus(item)[0] === '+' ? (
-          <button onClick={() => props.addBox(item)}>
+          <button onClick={() => props.addBox(item)} className={'ms-fontSize-mPlus ms-fontWeight-light'}>
             {props.checkoutStatus(item)}
           </button>
         ) : (
@@ -62,6 +64,7 @@ export function BoxList(props: IBoxListProps) {
     boxNumber: <p>{`B${x.BoxIdBarCode}`}</p>,
     checkoutBox: (
       <p
+        style={shortStyle}
         onClick={() =>
           props.addBox({
             key: i,
@@ -95,8 +98,8 @@ export function BoxList(props: IBoxListProps) {
             ..._props,
             className:
               props.boxInCart(_props.item.BoxIdBarCode) === true
-                ? 'boxrow-disabled'
-                : 'boxrow',
+                ? 'boxrow boxrow-disabled ms-fontSize-mPlus ms-fontWeight-light'
+                : 'boxrow ms-fontSize-mPlus ms-fontWeight-light',
           })}
         </div>
       )}
