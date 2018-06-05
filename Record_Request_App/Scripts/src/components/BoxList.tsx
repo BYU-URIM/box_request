@@ -17,9 +17,6 @@ export interface IBoxListProps {
   boxInCart(boxNumber: number): boolean
   checkoutStatus(box: IBoxDataObj): string
 }
-const shortStyle = {
-  margin: '0px'
-}
 
 // --------------------------------------------------------------------------
 
@@ -60,7 +57,6 @@ export function BoxList(props: IBoxListProps) {
     boxNumber: <p>{`B${x.BoxIdBarCode}`}</p>,
     checkoutBox: (
       <p
-        style={shortStyle}
         onClick={() =>
           props.addBox({
             key: i,
@@ -77,6 +73,7 @@ export function BoxList(props: IBoxListProps) {
   }))
 
   return (
+    
     <DetailsList
       items={props.boxData}
       columns={columns}
