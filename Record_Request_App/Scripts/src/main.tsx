@@ -1,10 +1,8 @@
 import * as React from 'react'
 import * as ReactDom from 'react-dom'
 import { BrowserRouter, Router } from 'react-router-dom'
-import { App } from './components/App'
-import { mockUser } from './res/mockuser'
-import { boxData } from './res/boxdata'
-import { folderData } from './res/folderdata'
+import { App } from './components/'
+import { folderData, mockUser, boxData } from './res/'
 import { DataService } from './services/DataService'
 
 const root = document.getElementById('root')

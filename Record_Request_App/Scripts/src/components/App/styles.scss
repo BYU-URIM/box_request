@@ -41,7 +41,6 @@
 }
 
 .rightSection {
-    margin-right: 21.6%;
     padding: 10px;
     display: flex;
     flex-direction: row;
@@ -62,9 +61,8 @@
     justify-content: flex-start;
     width: 488px;
 }
-  
+
 .leftSection {
-    margin-left: 21.6%;
     padding: 10px;
     display: flex;
     flex-direction: row;
@@ -92,7 +90,6 @@
 
 .selectBoxStyle {
     text-align: center;
-    padding-top: 23%;
     margin: 0 auto;
 }
 
@@ -105,12 +102,12 @@
     font-size: 15px;
     cursor: pointer
 }
-  
+
 .links {
     color: #0078d7;
     cursor: pointer;
 }
-  
+
 .scroller {
     overflow-y: auto;
     height: 600px;

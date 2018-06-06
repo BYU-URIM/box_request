@@ -8,14 +8,15 @@ import {
   CheckboxVisibility,
   getNativeProps,
 } from 'office-ui-fabric-react'
-import { IFolderDataObj, IBoxDataObj } from '../models/MockData'
-import './appstyles.scss'
+import { IFolderDataObj, IBoxDataObj } from '../../models/MockData'
+import './styles.scss'
+import { IFolderAndBox } from '../../models'
 export interface IBoxListProps {
   boxData: Array<IBoxDataObj>
   addBox(x): void
   openModal(i: IBoxDataObj): void
-  boxInCart(boxNumber: number): boolean
-  checkoutStatus(box: IBoxDataObj): string
+  boxInCheckout(boxNumber: number): boolean
+  checkoutStatus(box: IFolderAndBox): string
 }
 
 // --------------------------------------------------------------------------
@@ -27,7 +28,7 @@ export function BoxList(props: IBoxListProps) {
       name: 'Box Number',
       fieldName: 'boxNumber',
       minWidth: 40,
-      maxWidth: 70,
+      maxWidth: 250,
       isResizable: true,
       ariaLabel: 'Operations for name',
       onRender: (item: IBoxDataObj) => <p>{`B${item.BoxIdBarCode}`}</p>,
@@ -41,39 +42,41 @@ export function BoxList(props: IBoxListProps) {
       isResizable: true,
       ariaLabel: 'Operations for checkoutBox',
       onRender: (item: IBoxDataObj) => {
-        return props.checkoutStatus(item)[0] === '+' ? (
-          <button onClick={() => props.addBox(item)} className={'ms-fontSize-mPlus ms-fontWeight-light'}>
-            {props.checkoutStatus(item)}
+        return props.checkoutStatus(item as IFolderAndBox)[0] === '+' ? (
+          <button
+            onClick={() => props.addBox(item)}
+            className={'ms-fontSize-mPlus ms-fontWeight-light'}
+          >
+            {props.checkoutStatus(item as IFolderAndBox)}
           </button>
         ) : (
-          props.checkoutStatus(item)
+          props.checkoutStatus(item as IFolderAndBox)
         )
       },
     },
   ]
 
-  const bIdList = props.boxData.map((x, i) => ({
+  const bIdList = props.boxData.map((box, i) => ({
     key: i,
-    boxNumber: <p>{`B${x.BoxIdBarCode}`}</p>,
+    boxNumber: <p>{`B${box.BoxIdBarCode}`}</p>,
     checkoutBox: (
       <p
         onClick={() =>
           props.addBox({
             key: i,
-            BoxIdBarCode: x.BoxIdBarCode,
-            Location: x.Location,
-            DepId: x.DepId,
-            DepartmentName: x.DepartmentName,
+            BoxIdBarCode: box.BoxIdBarCode,
+            Location: box.Location,
+            DepId: box.DepId,
+            DepartmentName: box.DepartmentName,
           })
         }
       >
-        {props.checkoutStatus(x)}
+        {props.checkoutStatus(box as IFolderAndBox)}
       </p>
     ),
   }))
 
   return (
-    
     <DetailsList
       items={props.boxData}
       columns={columns}
@@ -90,7 +93,7 @@ export function BoxList(props: IBoxListProps) {
           {defaultRender({
             ..._props,
             className:
-              props.boxInCart(_props.item.BoxIdBarCode) === true
+              props.boxInCheckout(_props.item.BoxIdBarCode) === true
                 ? 'boxrow boxrow-disabled ms-fontSize-mPlus ms-fontWeight-light'
                 : 'boxrow ms-fontSize-mPlus ms-fontWeight-light',
           })}

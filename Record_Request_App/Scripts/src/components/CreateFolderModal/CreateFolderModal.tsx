@@ -2,8 +2,7 @@ import * as React from 'react'
 // tslint:disable-next-line:no-submodule-imports
 import { Modal } from 'office-ui-fabric-react/lib/Modal'
 import { TextField, Label, PrimaryButton, DefaultButton } from 'office-ui-fabric-react'
-import { folderData } from '../res/folderdata'
-import { AppStyles } from '../components'
+import { folderData } from '../../res'
 
 export interface ICreateFolderModal {
   selectedBox?: number
@@ -27,13 +26,13 @@ export function CreateFolderModal(props: ICreateFolderModal) {
         isBlocking={false}
         isDarkOverlay={false}
       >
-        <div style={AppStyles.createModal}>
-          <h1 style={AppStyles.center} className={'ms-font-xl'}>
+        <div>
+          <h1 className={'ms-font-xl'}>
             {' '}
             Create Folder{' '}
           </h1>
 
-          <div style={{ ...AppStyles.center, width: '225px' }}>
+          <div style={{ width: '225px' }}>
             <Label>{`Box B${props.selectedBox}`}</Label>
             <br />
             <TextField

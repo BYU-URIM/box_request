@@ -1,6 +1,4 @@
-/* tslint:disable:no-unused-variable */
 import * as React from 'react'
-/* tslint:enable:no-unused-variable */
 import {
   TextField,
   Icon,
@@ -12,10 +10,10 @@ import {
   CheckboxVisibility,
 } from 'office-ui-fabric-react'
 
-import { IFolderAndBox, ModalTypes } from '../models/App'
-import { AppStyles } from './Styles'
+import { IFolderAndBox, ModalTypes } from '../../models/App'
+import { AppStyles } from '../Styles'
 
-export interface IRequestCartProps {
+export interface ICheckoutProps {
   selectedItems: Map<number, IFolderAndBox>
   type: string
   removeItemFromCheckout(itemRef: number): void
@@ -25,7 +23,7 @@ export interface IRequestCartProps {
 const columns: IColumn[] = [
   {
     key: 'column1',
-    name: 'Request Cart',
+    name: 'Request Checkout',
     fieldName: 'pendingItemRequests',
     minWidth: 70,
     maxWidth: 120,
@@ -54,7 +52,7 @@ const columns: IColumn[] = [
 
 // --------------------------------------------------------------------------
 
-export function RequestCart(props: IRequestCartProps) {
+export function Checkout(props: ICheckoutProps) {
   const checkoutList = Array.from(props.selectedItems.values()).map(
     (itemRef: IFolderAndBox, index) => ({
       key: `${index}`,

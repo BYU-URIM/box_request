@@ -33,15 +33,15 @@ export function WarningModal(props: IWarningModal) {
           <p>
             You cannot request both folders and boxes in one request. If you
             want to continue and select folders/boxes, then the items currently
-            in your cart will all be removed.
+            in your checkout will all be removed.
           </p>
         </div>
         <div>
           <PrimaryButton
-            text={'Clear Cart and Continue'}
+            text={'Clear Checkout and Continue'}
             onClick={props.continue}
           />
-          <PrimaryButton text={'Keep Cart and Go Back'} onClick={props.close} />
+          <PrimaryButton text={'Keep Checkout and Go Back'} onClick={props.close} />
         </div>
       </Modal>
     </div>

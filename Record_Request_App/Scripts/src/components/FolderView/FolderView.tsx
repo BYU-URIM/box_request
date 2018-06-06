@@ -9,22 +9,21 @@ import {
   IColumn,
   CheckboxVisibility,
 } from 'office-ui-fabric-react'
-import { CreateFolderModal } from './CreateFolderModal'
-import { AppStyles } from './Styles'
-import { IFolderDataObj, IBoxDataObj } from '../models/MockData'
+import { CreateFolderModal } from '../CreateFolderModal/CreateFolderModal'
+import { AppStyles } from '../Styles'
+import { IFolderDataObj, IBoxDataObj } from '../../models/MockData'
+import { IFolderAndBox, ModalTypes } from '../../models'
 
 const Center = {
   textAlign: 'center',
 } as React.CSSProperties
 
 export interface IFolderViewProps {
-  openModal(i: number): void
-  closeModal(): void
+  toggleModal(type: ModalTypes): void
   filteredData: Array<IFolderDataObj>
   selectedBox?: IBoxDataObj
   addFolder(x): void
-  toggleCreateModal(): void
-  itemInCart(boxNumber: number): boolean
+  folderInCheckout(boxNumber: number): boolean
   checkoutStatus(box: IFolderDataObj): string
 }
 
@@ -81,7 +80,9 @@ export function FolderView(props: IFolderViewProps) {
         {props.checkoutStatus(x)}
       </button>
     ),
-    createFolder: <p onClick={props.toggleCreateModal}>Create Folder</p>,
+    createFolder: (
+      <p onClick={() => props.toggleModal(ModalTypes.create)}>Create Folder</p>
+    ),
   }))
 
   return (
@@ -108,7 +109,7 @@ export function FolderView(props: IFolderViewProps) {
             >
               {column.key === 'column1' ? (
                 <div>
-                  {`${item.folderName.props.children.FolderName}'s Folder`}"
+                  {`${item.folderName.props.children.FolderName}'s Folder`}
                 </div>
               ) : column.key === 'column2' ? (
                 <div
@@ -120,8 +121,10 @@ export function FolderView(props: IFolderViewProps) {
                   }
                   style={{
                     color:
-                      props.itemInCart(item.folderName.props.children.BoxID) ||
-                      props.itemInCart(
+                      props.folderInCheckout(
+                        item.folderName.props.children.BoxID
+                      ) ||
+                      props.folderInCheckout(
                         item.folderName.props.children.FolderIdBarCode
                       ) ||
                       item.folderName.props.children !==
@@ -129,8 +132,10 @@ export function FolderView(props: IFolderViewProps) {
                         ? 'gray'
                         : '#0078d7',
                     cursor:
-                      props.itemInCart(item.folderName.props.children.BoxID) ||
-                      props.itemInCart(
+                      props.folderInCheckout(
+                        item.folderName.props.children.BoxID
+                      ) ||
+                      props.folderInCheckout(
                         item.folderName.props.children.FolderIdBarCode
                       ) ||
                       item.folderName.props.children !==
@@ -157,7 +162,6 @@ export function FolderView(props: IFolderViewProps) {
   )
 }
 
-
 // import * as React from 'react'
 
 // import { Modal } from 'office-ui-fabric-react/lib/Modal'
@@ -180,10 +184,9 @@ export function FolderView(props: IFolderViewProps) {
 //   selectedBox?: IBoxDataObj
 //   addFolder(x: IFolderDataObj): void
 //   toggleCreateModal(): void
-//   itemInCart(boxNumber: number): boolean
+//   itemInCheckout(boxNumber: number): boolean
 //   checkoutStatus(box: IFolderDataObj): string
 // }
-
 
 // export function FolderView(props: IFolderViewProps) {
 
@@ -272,7 +275,7 @@ export function FolderView(props: IFolderViewProps) {
 //               {defaultRender({
 //                 ..._props,
 //                 className:
-//                   props.itemInCart(_props.item.BoxID) ? 'boxrow boxrow-disabled ms-fontSize-mPlus ms-fontWeight-light'
+//                   props.itemInCheckout(_props.item.BoxID) ? 'boxrow boxrow-disabled ms-fontSize-mPlus ms-fontWeight-light'
 //                   : 'boxrow ms-fontSize-mPlus ms-fontWeight-light',
 //               })}
 //             </div>

@@ -1,0 +1,30 @@
+  addValues = (key: number, setVals: Map<number, IFolderAndBox>) => {
+    const additionalVals = setVals.get(key)
+    if (additionalVals.BoxIdBarCode === undefined) {
+      additionalVals['type'] = 'Folder'
+      additionalVals['folderNumber'] = additionalVals.FolderIdBarCode
+      additionalVals['parentBox'] = additionalVals.BoxID
+      additionalVals['requestingDepartment'] = this.getParentBoxInfo(
+        additionalVals.BoxID
+      ).DepId
+      additionalVals['location'] = this.getParentBoxInfo(
+        additionalVals.BoxID
+      ).Location
+    } else {
+      additionalVals['type'] = 'Box'
+      additionalVals['boxNumber'] = additionalVals.BoxIdBarCode
+      additionalVals['requestingDepartment'] = additionalVals.DepId
+      additionalVals['location'] = additionalVals.Location
+    }
+    delete additionalVals.key
+    additionalVals['requestType'] = this.state.requestTypeToggle
+      ? 'Permament'
+      : 'Temporary'
+    additionalVals['deliveryPriority'] = this.state.deliveryPriorityToggle
+      ? 'Urgent'
+      : 'Standard'
+    additionalVals['requestStatus'] = 'New'
+    additionalVals['deliveryInstructions'] = this.state.deliveryInstructions
+
+    return additionalVals
+  }

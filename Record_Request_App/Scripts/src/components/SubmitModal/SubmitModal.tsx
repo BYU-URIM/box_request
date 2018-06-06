@@ -7,8 +7,8 @@ import {
   TextField,
   Toggle,
 } from 'office-ui-fabric-react'
-import { IFolderAndBox } from '../models/App'
-import { AppStyles } from './Styles'
+import { IFolderAndBox } from '../../models/App'
+import { AppStyles } from '../Styles'
 
 export interface ISubmitModal {
   close(): void
