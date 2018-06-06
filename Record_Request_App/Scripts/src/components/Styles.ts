@@ -88,7 +88,7 @@ export const AppStyles = {
     color: '#0078d7',
     cursor: 'pointer',
   } as React.CSSProperties,
-  
+
   scroller: {
     overflowY: 'auto',
     height: '600px',

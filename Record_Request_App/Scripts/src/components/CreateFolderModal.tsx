@@ -1,9 +1,7 @@
 import * as React from 'react'
+// tslint:disable-next-line:no-submodule-imports
 import { Modal } from 'office-ui-fabric-react/lib/Modal'
-import { DefaultButton } from 'office-ui-fabric-react/lib/Button'
-import { IFolderData, IBoxData } from '../models/MockData'
-import { TextField, Label } from 'office-ui-fabric-react'
-import { PrimaryButton } from 'office-ui-fabric-react'
+import { TextField, Label, PrimaryButton, DefaultButton } from 'office-ui-fabric-react'
 import { folderData } from '../res/folderdata'
 import { AppStyles } from '../components'
 
@@ -17,14 +15,7 @@ export interface ICreateFolderModal {
 }
 
 function buttonDisabler(name, nameError) {
-  if (
-    name.length === 0 ||
-    nameError.length > 1
-  ) {
-    return true
-  } else {
-    return false
-  }
+  return name.length === 0 || nameError.length > 1 ? true : false
 }
 
 export function CreateFolderModal(props: ICreateFolderModal) {
@@ -37,31 +28,29 @@ export function CreateFolderModal(props: ICreateFolderModal) {
         isDarkOverlay={false}
       >
         <div style={AppStyles.createModal}>
-          <h1 style={AppStyles.center} className='ms-font-xl'>
+          <h1 style={AppStyles.center} className={'ms-font-xl'}>
             {' '}
             Create Folder{' '}
           </h1>
 
-          <div style={{...AppStyles.center, width: '225px'}}>
-            <Label>
-              {`Box B${props.selectedBox}`}
-            </Label>
+          <div style={{ ...AppStyles.center, width: '225px' }}>
+            <Label>{`Box B${props.selectedBox}`}</Label>
             <br />
             <TextField
-              type='text'
-              label='Folder Name'
-              description='Warning: You cannot change this later.'
+              type={'text'}
+              label={'Folder Name'}
+              description={'Warning: You cannot change this later.'}
               value={props.folderNameVal}
               onChanged={props.onNameChange}
               required={true}
-              placeholder='i.e. Jared'
+              placeholder={'i.e. Jared'}
               errorMessage={props.folderNameError}
             />
 
             <br />
             <PrimaryButton
-              text='Create Folder'
-              onClick={(box) => props.submitFolder(props.selectedBox)}
+              text={'Create Folder'}
+              onClick={box => props.submitFolder(props.selectedBox)}
               disabled={buttonDisabler(
                 props.folderNameVal,
                 props.folderNameError

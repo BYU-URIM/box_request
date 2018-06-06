@@ -9,7 +9,7 @@
       "noLib": false,
       "jsx": "react",
       "outDir": "dist",
-      "lib": ["es2015", "es7", "dom", "es2015.promise"],
+      "lib": ["es2017", "dom"],
       "moduleResolution": "node",
       "emitDecoratorMetadata": true,
       "sourceMap": true,

@@ -16,7 +16,18 @@ module.exports = function(env) {
                     test: /\.tsx?$/,
                     loader: 'ts-loader',
                     exclude: /node_modules/,
-                }
+                },
+                {
+                    test: /\.scss$/,
+                    use: [
+                        {
+                            loader: "style-loader",
+                        },
+                        {
+                            loader: "css-loader",
+                        },
+                    ],
+                },
             ]
         },
         resolve: {

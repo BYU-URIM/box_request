@@ -1,10 +1,5 @@
-export interface IFolderDataObj {
-  FolderIdBarCode: number
-  FolderName: string
-  BoxID: number
-  Folder_Description: string
-  Location: string
-}
+import { IFolderDataObj } from '../models/MockData'
+
 
 export interface IFolderDataArrObj extends Array<IFolderDataObj> {}
 
@@ -72,7 +67,7 @@ export const folderData: IFolderDataArrObj = [
     FolderName: 'Cat',
     BoxID: 978267,
     Folder_Description: 'Other specified diabetes mellitus with hypoglycemia',
-    Location: '978267',
+    Location: '5556',
   },
   {
     FolderIdBarCode: 658978,
@@ -102,7 +97,7 @@ export const folderData: IFolderDataArrObj = [
     Folder_Description: 'Other specified diabetes mellitus with hypoglycemia',
     Location: '978267',
   },
-  
+
   {
     FolderIdBarCode: 129584,
     FolderName: 'Pete',

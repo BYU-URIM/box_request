@@ -1,12 +1,8 @@
-export interface IBoxDataObj {
-    BoxIdBarCode: number,
-    Location: string,
-    DepartmentName: string,
-    DepId: any
-  }
-  
+import { IBoxDataObj } from '../models/MockData'
+
+
   export interface IBoxDataArrObj extends Array<IBoxDataObj> { }
-  
+
   export const boxData = [{
     "BoxIdBarCode": 323617,
     "Location": "L7957050050",
