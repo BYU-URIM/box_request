@@ -97,7 +97,7 @@ export const RequestBuilder = (props: IRequestBuilderProps) => {
                   props.itemInCheckout(itemNum)
                 }
                 checkoutStatus={item =>
-                  props.determineCheckoutType(item as IFolderAndBox)
+                  props.determineCheckoutType(item)
                 }
               />
             )}

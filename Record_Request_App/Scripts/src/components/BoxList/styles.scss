@@ -1,3 +1,20 @@
 .center {
     text-align: center;
 }
+.boxrow p {
+    margin: 0px;
+    padding: 0px;
+}
+.boxrow button {
+    border: 0px;
+    background: transparent;
+    outline: none;
+    color: rgb(0, 120, 215);
+    padding: 0px;
+    font-size: 15px;
+    cursor: pointer;
+}
+.boxrow-disabled button {
+    color: gray;
+    cursor: not-allowed;
+}
