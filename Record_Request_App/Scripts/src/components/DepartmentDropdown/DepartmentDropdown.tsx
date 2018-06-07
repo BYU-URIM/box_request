@@ -5,6 +5,7 @@ import {
   DropdownMenuItemType,
   IDropdownOption,
 } from 'office-ui-fabric-react'
+import './styles.scss'
 
 export interface IUserDeps {
   mockUser
@@ -13,11 +14,11 @@ export interface IUserDeps {
 }
 
 export function DepartmentDropdown(props: IUserDeps) {
-  const deps = [] // Department name that shows up on the dropdown list
-  const depsid = [] // department id, part of the object that links the user departments with list of available departments
-  const departmentObj = [] // Object that gives a name to the departments of the user
-  const userDepartments = props.mockUser.departments // props, gives department permissions of user
-  const departmentInfo = props.mockData // props, all of the data about departments and boxes
+  const deps = [] 
+  const depsid = [] 
+  const departmentObj = [] 
+  const userDepartments = props.mockUser.departments 
+  const departmentInfo = props.mockData 
 
   // iterate through json department object and pull out unique departments
   departmentInfo.forEach(outer => {
@@ -37,7 +38,7 @@ export function DepartmentDropdown(props: IUserDeps) {
   // return the HTML dropdown menu of the department names associated with the user
   return (
     <form action=''>
-      <h1 className='ms-font-xxl'>Select one of your available departments:</h1>
+      <h1 className='ms-font-xxl center'>Select one of your available departments:</h1>
 
       <Dropdown
         placeHolder='Departments'

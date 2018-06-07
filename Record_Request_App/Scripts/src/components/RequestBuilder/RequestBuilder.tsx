@@ -83,7 +83,7 @@ export const RequestBuilder = (props: IRequestBuilderProps) => {
           </div>
           <div className={'ms-Grid-col ms-sm4'}>
             {props.selectedBox === undefined && (
-              <div className={'ms-font-xl'}>
+              <div className={'ms-font-xl center'}>
                 <p>Click on a box to view its folders</p>
               </div>
             )}

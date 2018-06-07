@@ -11,6 +11,7 @@ import {
 import { IFolderDataObj, IBoxDataObj } from '../../models/MockData'
 import './styles.scss'
 import { IFolderAndBox } from '../../models'
+
 export interface IBoxListProps {
   boxData: Array<IBoxDataObj>
   addBox(x): void
@@ -28,7 +29,7 @@ export function BoxList(props: IBoxListProps) {
       name: 'Box Number',
       fieldName: 'boxNumber',
       minWidth: 40,
-      maxWidth: 250,
+      maxWidth: 70,
       isResizable: true,
       ariaLabel: 'Operations for name',
       onRender: (item: IBoxDataObj) => <p>{`B${item.BoxIdBarCode}`}</p>,
@@ -77,6 +78,12 @@ export function BoxList(props: IBoxListProps) {
   }))
 
   return (
+    <div>
+    <div className={'ms-modalExample-header'}>
+    <h2 className={'ms-font-xl center'}>
+      Box List
+    </h2>
+  </div>
     <DetailsList
       items={props.boxData}
       columns={columns}
@@ -100,5 +107,6 @@ export function BoxList(props: IBoxListProps) {
         </div>
       )}
     />
+  </div>
   )
 }

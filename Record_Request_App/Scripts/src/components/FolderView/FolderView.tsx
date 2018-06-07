@@ -10,9 +10,9 @@ import {
   CheckboxVisibility,
 } from 'office-ui-fabric-react'
 import { CreateFolderModal } from '../CreateFolderModal/CreateFolderModal'
-import { AppStyles } from '../Styles'
 import { IFolderDataObj, IBoxDataObj } from '../../models/MockData'
 import { IFolderAndBox, ModalTypes } from '../../models'
+import './styles.scss'
 
 const Center = {
   textAlign: 'center',
@@ -88,14 +88,11 @@ export function FolderView(props: IFolderViewProps) {
   return (
     <div>
       <div className={'ms-modalExample-header'}>
-        <h2
-          style={{ ...AppStyles.center, marginTop: '6.5px' }}
-          className={'ms-font-xl'}
-        >
+        <h2 className={'ms-font-xl center'}>
           Folders in Box B{props.selectedBox.BoxIdBarCode}
         </h2>
       </div>
-      <div className={'ms-modalExample-body'} style={AppStyles.scroller}>
+      <div className={'ms-modalExample-body'}>
         <DetailsList
           items={folderIdList}
           columns={columns}
@@ -104,7 +101,6 @@ export function FolderView(props: IFolderViewProps) {
           checkboxVisibility={CheckboxVisibility.hidden}
           onRenderItemColumn={(item, index, column) => (
             <div
-              style={AppStyles.test}
               className={'ms-fontSize-mPlus ms-fontWeight-light'}
             >
               {column.key === 'column1' ? (
@@ -149,7 +145,6 @@ export function FolderView(props: IFolderViewProps) {
               ) : (
                 <div
                   onClick={() => item.createFolder.props.onClick()}
-                  style={AppStyles.links}
                 >
                   {item.createFolder.props.children}
                 </div>

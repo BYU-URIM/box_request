@@ -11,7 +11,8 @@ import {
 } from 'office-ui-fabric-react'
 
 import { IFolderAndBox, ModalTypes } from '../../models/App'
-import { AppStyles } from '../Styles'
+
+import './styles.scss'
 
 export interface ICheckoutProps {
   selectedItems: Map<number, IFolderAndBox>
@@ -23,7 +24,7 @@ export interface ICheckoutProps {
 const columns: IColumn[] = [
   {
     key: 'column1',
-    name: 'Request Checkout',
+    name: 'Item',
     fieldName: 'pendingItemRequests',
     minWidth: 70,
     maxWidth: 120,
@@ -74,7 +75,6 @@ export function Checkout(props: ICheckoutProps) {
         >
           <i
             className={'ms-Icon ms-Icon--Cancel'}
-            style={AppStyles.links}
             aria-hidden={'true'}
           />
         </p>
@@ -84,6 +84,13 @@ export function Checkout(props: ICheckoutProps) {
 
   return (
     <div>
+      <div className={'ms-modalExample-header'}>
+        <h2
+          className={'ms-font-xl center'}
+        >
+          Checkout
+        </h2>
+      </div>
       <DetailsList
         items={checkoutList}
         columns={columns}
@@ -95,20 +102,17 @@ export function Checkout(props: ICheckoutProps) {
           column.key === 'column1' ? (
             <div
               className={'ms-fontSize-mPlus ms-fontWeight-light'}
-              style={AppStyles.test}
             >
               {item.pendingItemRequests.props.children[0]}
             </div>
           ) : column.key === 'column2' ? (
             <div
               className={'ms-fontSize-mPlus ms-fontWeight-light'}
-              style={AppStyles.test}
             >
               {item.type.props.children}
             </div>
           ) : (
             <div
-              style={AppStyles.test}
               onClick={() => item.removeItem.props.onClick()}
             >
               {item.removeItem.props.children}
@@ -116,7 +120,7 @@ export function Checkout(props: ICheckoutProps) {
           )
         }
       />
-      <div style={AppStyles.center}>
+      <div className={'content-center'}>
         <PrimaryButton
           disabled={!(props.selectedItems.size > 0)}
           text={'Submit Request'}

@@ -8,7 +8,6 @@ import {
   Toggle,
 } from 'office-ui-fabric-react'
 import { IFolderAndBox } from '../../models/App'
-import { AppStyles } from '../Styles'
 
 export interface ISubmitModal {
   close(): void
@@ -32,8 +31,8 @@ export function SubmitModal(props: ISubmitModal) {
         containerClassName={'ms-modalExample-container'}
       >
         <div>
-          <div style={AppStyles.createModal}>
-            <div className={'ms-modalExample-header'} style={AppStyles.center}>
+          <div>
+            <div className={'ms-modalExample-header'}>
               <h1 className={'ms-font-xl'}>Item Request</h1>
             </div>
             <Toggle
@@ -60,11 +59,10 @@ export function SubmitModal(props: ISubmitModal) {
               onChanged={props.updateInstructions}
             />{' '}
             <br />
-            <div style={AppStyles.center}>
+            <div>
               <PrimaryButton
                 text={'Submit'}
                 onClick={x => props.submit(props.selectedItems)}
-                style={AppStyles.breakApart}
               />
               <PrimaryButton text={'Cancel'} onClick={props.close} />
               <br />

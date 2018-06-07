@@ -1,10 +1,5 @@
 import * as React from 'react'
-
-const headingStyle = {
-  display: 'flex',
-  justifyContent: 'flex-end',
-  padding: '15px',
-} as React.CSSProperties
+import './styles.scss'
 
 export interface IGreeting {
   name: string
@@ -13,7 +8,7 @@ export interface IGreeting {
 
 export function Greeting(props: IGreeting) {
   return (
-    <div style={headingStyle}>
+    <div className={'headingStyle'}>
       <h2 className={'ms-font-l'}> Welcome, {props.name}</h2>
     </div>
   )

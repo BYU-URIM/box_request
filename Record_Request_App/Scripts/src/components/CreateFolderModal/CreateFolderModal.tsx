@@ -3,6 +3,7 @@ import * as React from 'react'
 import { Modal } from 'office-ui-fabric-react/lib/Modal'
 import { TextField, Label, PrimaryButton, DefaultButton } from 'office-ui-fabric-react'
 import { folderData } from '../../res'
+import './styles.scss'
 
 export interface ICreateFolderModal {
   selectedBox?: number
@@ -32,7 +33,7 @@ export function CreateFolderModal(props: ICreateFolderModal) {
             Create Folder{' '}
           </h1>
 
-          <div style={{ width: '225px' }}>
+          <div className={'modalWidth'}>
             <Label>{`Box B${props.selectedBox}`}</Label>
             <br />
             <TextField
