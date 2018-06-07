@@ -67,8 +67,8 @@ export const RequestBuilder = (props: IRequestBuilderProps) => {
 
       {!!props.selectedDep && (
         <div>
-          <div className={'ms-Grid-col ms-sm2'}/>
-          <div className={'ms-Grid-col ms-sm2 level'}>
+          <div className={'ms-Grid-col ms-sm1'} />
+          <div className={'ms-Grid-col ms-sm3'}>
             <BoxList
               boxData={props.filteredBoxData}
               addBox={e => props.addItemToCheckout(e)}
@@ -102,18 +102,15 @@ export const RequestBuilder = (props: IRequestBuilderProps) => {
               />
             )}
           </div>
-          {props.selectedItems.size > 0 && (
-            <div className={'level ms-Grid-col ms-sm2'}>
-              <Checkout
-                selectedItems={props.selectedItems}
-                type={props.isChecked ? 'Box' : 'Folder'}
-                removeItemFromCheckout={r => props.removeItemFromCheckout(r)}
-                toggleModal={props.toggleModal}
-              />
-            </div>
-          )}
-          <div className={'ms-Grid-col ms-sm2'}/>
-          </div>
+          <Checkout
+            selectedItems={props.selectedItems}
+            type={props.isChecked ? 'Box' : 'Folder'}
+            removeItemFromCheckout={r => props.removeItemFromCheckout(r)}
+            toggleModal={props.toggleModal}
+            classNames={'ms-Grid-col ms-sm3'}
+          />
+          <div className={'ms-Grid-col ms-sm1'} />
+        </div>
       )}
     </div>
   )
