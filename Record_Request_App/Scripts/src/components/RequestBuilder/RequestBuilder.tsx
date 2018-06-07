@@ -8,6 +8,7 @@ import {
   SubmitModal,
   Checkout,
 } from '..'
+import './styles.scss'
 export interface IRequestBuilderProps {
   selectedItems: Map<number, IFolderAndBox>
   selectedDep: number
@@ -66,7 +67,8 @@ export const RequestBuilder = (props: IRequestBuilderProps) => {
 
       {!!props.selectedDep && (
         <div>
-          <div>
+          <div className={'ms-Grid-col ms-sm2'}/>
+          <div className={'ms-Grid-col ms-sm2 level'}>
             <BoxList
               boxData={props.filteredBoxData}
               addBox={e => props.addItemToCheckout(e)}
@@ -79,7 +81,7 @@ export const RequestBuilder = (props: IRequestBuilderProps) => {
               checkoutStatus={item => props.determineCheckoutType(item)}
             />
           </div>
-          <div>
+          <div className={'ms-Grid-col ms-sm4'}>
             {props.selectedBox === undefined && (
               <div className={'ms-font-xl'}>
                 <p>Click on a box to view its folders</p>
@@ -99,18 +101,19 @@ export const RequestBuilder = (props: IRequestBuilderProps) => {
                 }
               />
             )}
-            {props.selectedItems.size > 0 && (
-              <div>
-                <Checkout
-                  selectedItems={props.selectedItems}
-                  type={props.isChecked ? 'Box' : 'Folder'}
-                  removeItemFromCheckout={r => props.removeItemFromCheckout(r)}
-                  toggleModal={props.toggleModal}
-                />
-              </div>
-            )}
           </div>
-        </div>
+          {props.selectedItems.size > 0 && (
+            <div className={'level ms-Grid-col ms-sm2'}>
+              <Checkout
+                selectedItems={props.selectedItems}
+                type={props.isChecked ? 'Box' : 'Folder'}
+                removeItemFromCheckout={r => props.removeItemFromCheckout(r)}
+                toggleModal={props.toggleModal}
+              />
+            </div>
+          )}
+          <div className={'ms-Grid-col ms-sm2'}/>
+          </div>
       )}
     </div>
   )

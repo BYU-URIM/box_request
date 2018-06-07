@@ -257,18 +257,26 @@ export class App extends React.Component<
     window['appState'] = this.state
     window['boxes'] = this.getFilteredData()
     return (
-      <div>
-        <Greeting
-          name={this.props.user.name}
-          departmentid={this.props.user.departments}
-        />
-        <div>
-          <DepartmentDropdown
-            mockUser={this.props.user}
-            mockData={this.boxData}
-            changeSelectedDep={this.changeSelectedDep}
-          />
+      <div className={'ms-Grid'}>
+        <div className={'ms-Grid-row'}>
+          <div className={'ms-Grid-col ms-sm4 ms-smPush8'}>
+            <Greeting
+              name={this.props.user.name}
+              departmentid={this.props.user.departments}
+            />
+          </div>
+        </div>
+        <div className={'ms-Grid-row'}>
+          <div className={'ms-Grid-col ms-sm4 ms-smPush4'}>
+            <DepartmentDropdown
+              mockUser={this.props.user}
+              mockData={this.boxData}
+              changeSelectedDep={this.changeSelectedDep}
+            />
+          </div>
+        </div>
 
+        <div className={'ms-Grid-row'}>
           <RequestBuilder
               selectedItems={this.state.selectedItems}
               selectedDep={this.state.selectedDep}
@@ -301,7 +309,7 @@ export class App extends React.Component<
 
               />
         </div>
-     </div>
+      </div>
     )
   }
 }
