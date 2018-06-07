@@ -114,6 +114,7 @@ export class App extends React.Component<
   changeSelectedDep = (val: number): void => {
     this.setState({
       selectedDep: val,
+      selectedBox: undefined,
     })
   }
 
@@ -143,7 +144,7 @@ export class App extends React.Component<
       FolderName: this.state.folderNameVal,
       Folder_Description: '',
       FolderIdBarCode: this.folderData.length + 1,
-      Location: this.state.selectedBox.BoxIdBarCode
+      Location: this.state.selectedBox.BoxIdBarCode,
     })
     this.setState({
       modal: ModalTypes.none,
@@ -192,7 +193,7 @@ export class App extends React.Component<
 
   selectBox = (boxId: IBoxDataObj) => {
     this.setState({
-        selectedBox: boxId
+      selectedBox: boxId,
     })
   }
 
@@ -278,36 +279,37 @@ export class App extends React.Component<
 
         <div className={'ms-Grid-row'}>
           <RequestBuilder
-              selectedItems={this.state.selectedItems}
-              selectedDep={this.state.selectedDep}
-              selectedBox={this.state.selectedBox}
-              isChecked={this.state.isChecked}
-              modal={this.state.modal}
-              request={this.state.request}
-              deliveryInstructions={this.state.deliveryInstructions}
-              requestTypeToggle={this.state.requestTypeToggle}
-              deliveryPriorityToggle={this.state.deliveryPriorityToggle}
-              folderNameVal={this.state.folderNameVal}
-              folderNameError={this.state.folderNameError}
-              fmsData={this.state.fmsData}
-              toggleModal={this.toggleModal}
-              updateDeliveryInstructions={this.updateDeliveryInstructions}
-              updateDeliveryPriority={this.updateDeliveryPriority}
-              updateRequestType={this.updateRequestType}
-              submitRequest={this.submitRequest}
-              onNameChange={this.onNameChange}
-              onFolderCreateSubmit={this.onFolderCreateSubmit}
-              filteredBoxData={this.getFilteredData()}
-              addItemToCheckout={this.addItemToCheckout}
-              itemInCheckout={this.itemInCheckout}
-              filteredFolderData={this.state.selectedBox && this.getFilteredFolders()}
-              removeItemFromCheckout={this.removeItemFromCheckout}
-              determineCheckoutType={this.determineCheckoutType}
-              addFolder={this.addItemToCheckout}
-              folderInCheckout={this.itemInCheckout}
-              selectBox={this.selectBox}
-
-              />
+            selectedItems={this.state.selectedItems}
+            selectedDep={this.state.selectedDep}
+            selectedBox={this.state.selectedBox}
+            isChecked={this.state.isChecked}
+            modal={this.state.modal}
+            request={this.state.request}
+            deliveryInstructions={this.state.deliveryInstructions}
+            requestTypeToggle={this.state.requestTypeToggle}
+            deliveryPriorityToggle={this.state.deliveryPriorityToggle}
+            folderNameVal={this.state.folderNameVal}
+            folderNameError={this.state.folderNameError}
+            fmsData={this.state.fmsData}
+            toggleModal={this.toggleModal}
+            updateDeliveryInstructions={this.updateDeliveryInstructions}
+            updateDeliveryPriority={this.updateDeliveryPriority}
+            updateRequestType={this.updateRequestType}
+            submitRequest={this.submitRequest}
+            onNameChange={this.onNameChange}
+            onFolderCreateSubmit={this.onFolderCreateSubmit}
+            filteredBoxData={this.getFilteredData()}
+            addItemToCheckout={this.addItemToCheckout}
+            itemInCheckout={this.itemInCheckout}
+            filteredFolderData={
+              this.state.selectedBox && this.getFilteredFolders()
+            }
+            removeItemFromCheckout={this.removeItemFromCheckout}
+            determineCheckoutType={this.determineCheckoutType}
+            addFolder={this.addItemToCheckout}
+            folderInCheckout={this.itemInCheckout}
+            selectBox={this.selectBox}
+          />
         </div>
       </div>
     )

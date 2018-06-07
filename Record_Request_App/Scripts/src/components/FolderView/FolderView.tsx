@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Fragment } from 'react'
 // tslint:disable-next-line:no-submodule-imports
 import { Modal } from 'office-ui-fabric-react/lib/Modal'
 import {
@@ -13,6 +14,7 @@ import { CreateFolderModal } from '../CreateFolderModal/CreateFolderModal'
 import { IFolderDataObj, IBoxDataObj } from '../../models/MockData'
 import { IFolderAndBox, ModalTypes } from '../../models'
 import './styles.scss'
+import DetailListHeader from '../DetailListHeader/DetailListHeader'
 
 const Center = {
   textAlign: 'center',
@@ -25,6 +27,8 @@ export interface IFolderViewProps {
   addFolder(item): void
   folderInCheckout(boxNumber: number): boolean
   checkoutStatus(box: IFolderAndBox): string
+  emptyMessage: string
+  classNames: string
 }
 
 // create column info that goes into fabric ui component
@@ -54,7 +58,6 @@ export function FolderView(props: IFolderViewProps) {
       isResizable: true,
       ariaLabel: 'Operations for checkoutFolder',
       onRender: (item: IFolderDataObj) => {
-        console.log(props.checkoutStatus(item as IFolderAndBox))
         return props.checkoutStatus(item as IFolderAndBox)[0] === '+' ? (
           <button
             onClick={() => props.addFolder(item)}
@@ -82,42 +85,48 @@ export function FolderView(props: IFolderViewProps) {
       ),
     },
   ]
-  const folderList = props.filteredData.map((folder: IFolderDataObj, i) => ({
-    key: folder.FolderIdBarCode,
-    checkoutFolder: () => props.addFolder(folder.FolderIdBarCode),
-    createFolder: () => props.toggleModal(ModalTypes.create),
-    ...folder
-  }))
+  const folderList =
+    props.selectedBox &&
+    props.filteredData.map((folder: IFolderDataObj, i) => ({
+      key: folder.FolderIdBarCode,
+      checkoutFolder: () => props.addFolder(folder.FolderIdBarCode),
+      createFolder: () => props.toggleModal(ModalTypes.create),
+      ...folder,
+    }))
 
   return (
-    <div>
-      <div className={'ms-modalExample-header'}>
-        <h2 className={'ms-font-xl center'}>
-          Folders in Box B{props.selectedBox.BoxIdBarCode}
-        </h2>
-      </div>
-      <div className={'ms-modalExample-body'}>
-        <DetailsList
-          items={folderList}
-          columns={columns}
-          compact={true}
-          layoutMode={DetailsListLayoutMode.fixedColumns}
-          checkboxVisibility={CheckboxVisibility.hidden}
-          // tslint:disable-next-line:variable-name
-          onRenderRow={(_props, defaultRender) => (
-            <div key={_props.item.key}>
-              {defaultRender({
-                ..._props,
-                className:
-                  props.folderInCheckout(_props.item.BoxID) ||
-                  props.folderInCheckout(_props.item.FolderIdBarCode)
-                    ? 'folderrow folderrow-disabled ms-fontSize-mPlus ms-fontWeight-light'
-                    : 'folderrow ms-fontSize-mPlus ms-fontWeight-light',
-              })}
-            </div>
-          )}
-        />
-      </div>
+    <div className={props.classNames}>
+      {props.selectedBox ? (
+        <>
+          <DetailListHeader
+            title={`Folders in Box B${props.selectedBox.BoxIdBarCode}`}
+          />
+          <div className={'ms-modalExample-body'}>
+            <DetailsList
+              items={folderList}
+              columns={columns}
+              compact={true}
+              layoutMode={DetailsListLayoutMode.fixedColumns}
+              checkboxVisibility={CheckboxVisibility.hidden}
+              // tslint:disable-next-line:variable-name
+              onRenderRow={(_props, defaultRender) => (
+                <div key={_props.item.key}>
+                  {defaultRender({
+                    ..._props,
+                    className:
+                      props.folderInCheckout(_props.item.BoxID) ||
+                      props.folderInCheckout(_props.item.FolderIdBarCode)
+                        ? 'folderrow folderrow-disabled ms-fontSize-mPlus ms-fontWeight-light'
+                        : 'folderrow ms-fontSize-mPlus ms-fontWeight-light',
+                  })}
+                </div>
+              )}
+            />
+          </div>
+        </>
+      ) : (
+        <DetailListHeader title={props.emptyMessage} />
+      )}
     </div>
   )
 }

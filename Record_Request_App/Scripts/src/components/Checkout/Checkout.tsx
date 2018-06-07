@@ -13,6 +13,7 @@ import {
 import { IFolderAndBox, ModalTypes } from '../../models/App'
 
 import './styles.scss'
+import DetailListHeader from '../DetailListHeader/DetailListHeader'
 
 export interface ICheckoutProps {
   selectedItems: Map<number, IFolderAndBox>
@@ -84,9 +85,7 @@ export function Checkout(props: ICheckoutProps) {
     <div className={props.classNames}>
       {props.selectedItems.size > 0 && (
         <div>
-          <div className={'ms-modalExample-header'}>
-            <h2 className={'ms-font-xl center'}>Checkout</h2>
-          </div>
+          <DetailListHeader title={'Checkout'} />
           <DetailsList
             items={checkoutList}
             columns={columns}

@@ -11,6 +11,7 @@ import {
 import { IFolderDataObj, IBoxDataObj } from '../../models/MockData'
 import './styles.scss'
 import { IFolderAndBox } from '../../models'
+import DetailListHeader from '../DetailListHeader/DetailListHeader'
 
 export interface IBoxListProps {
   boxData: Array<IBoxDataObj>
@@ -18,6 +19,7 @@ export interface IBoxListProps {
   openModal(i: IBoxDataObj): void
   boxInCheckout(boxNumber: number): boolean
   checkoutStatus(box: IFolderAndBox): string
+  classNames: string
 }
 
 // --------------------------------------------------------------------------
@@ -78,35 +80,36 @@ export function BoxList(props: IBoxListProps) {
   }))
 
   return (
-    <div>
-    <div className={'ms-modalExample-header'}>
-    <h2 className={'ms-font-xl center'}>
-      Box List
-    </h2>
-  </div>
-    <DetailsList
-      items={props.boxData}
-      columns={columns}
-      layoutMode={DetailsListLayoutMode.fixedColumns}
-      checkboxVisibility={CheckboxVisibility.hidden}
-      // tslint:disable-next-line:variable-name
-      onRenderRow={(_props, defaultRender) => (
-        <div
-          key={_props.item.key}
-          onClick={() => {
-            props.openModal(_props.item)
-          }}
-        >
-          {defaultRender({
-            ..._props,
-            className:
-              props.boxInCheckout(_props.item.BoxIdBarCode) === true
-                ? 'boxrow boxrow-disabled ms-fontSize-mPlus ms-fontWeight-light'
-                : 'boxrow ms-fontSize-mPlus ms-fontWeight-light',
-          })}
-        </div>
+    <div className={props.classNames}>
+      {props.boxData.length > 0 && (
+        <React.Fragment>
+          <DetailListHeader title={'Boxes'} />
+
+          <DetailsList
+            items={props.boxData}
+            columns={columns}
+            layoutMode={DetailsListLayoutMode.fixedColumns}
+            checkboxVisibility={CheckboxVisibility.hidden}
+            // tslint:disable-next-line:variable-name
+            onRenderRow={(_props, defaultRender) => (
+              <div
+                key={_props.item.key}
+                onClick={() => {
+                  props.openModal(_props.item)
+                }}
+              >
+                {defaultRender({
+                  ..._props,
+                  className:
+                    props.boxInCheckout(_props.item.BoxIdBarCode) === true
+                      ? 'boxrow boxrow-disabled ms-fontSize-mPlus ms-fontWeight-light'
+                      : 'boxrow ms-fontSize-mPlus ms-fontWeight-light',
+                })}
+              </div>
+            )}
+          />
+        </React.Fragment>
       )}
-    />
-  </div>
+    </div>
   )
 }
