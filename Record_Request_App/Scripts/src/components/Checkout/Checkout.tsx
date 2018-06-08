@@ -75,7 +75,7 @@ export function Checkout(props: ICheckoutProps) {
             )
           }
         >
-          <i className={'ms-Icon ms-Icon--Cancel'} aria-hidden={'true'} />
+          <i className={'ms-Icon ms-Icon--Cancel blueify'} aria-hidden={'true'} />
         </p>
       ),
     })
