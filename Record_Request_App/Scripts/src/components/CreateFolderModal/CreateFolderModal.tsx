@@ -27,13 +27,12 @@ export function CreateFolderModal(props: ICreateFolderModal) {
         isBlocking={false}
         isDarkOverlay={false}
       >
-        <div>
+        <div className={'buffer'}>
           <h1 className={'ms-font-xl'}>
             {' '}
             Create Folder{' '}
           </h1>
 
-          <div className={'modalWidth'}>
             <Label>{`Box B${props.selectedBox}`}</Label>
             <br />
             <TextField
@@ -48,6 +47,7 @@ export function CreateFolderModal(props: ICreateFolderModal) {
             />
 
             <br />
+          <div className={'modalWidth'}>
             <PrimaryButton
               text={'Create Folder'}
               onClick={box => props.submitFolder(props.selectedBox)}
