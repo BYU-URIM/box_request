@@ -109,7 +109,7 @@ export function Checkout(props: ICheckoutProps) {
               )
             }
           />
-          <div className={'content-center'}>
+          <div className={'centerCheckout'}>
             <PrimaryButton
               disabled={!(props.selectedItems.size > 0)}
               text={'Submit Request'}
