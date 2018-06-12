@@ -1,4 +1,4 @@
-export interface iMockDataObj {
+export interface IMockDataObj {
   BoxId: number,
   DepartmentId: number,
   DepartmentName: string,
@@ -6,9 +6,9 @@ export interface iMockDataObj {
   FolderId?: any
 }
 
-export interface iMockDataArrObj extends Array<iMockDataObj> { }
+export interface IMockDataArrObj extends Array<IMockDataObj> { }
 
-export const mockData: iMockDataArrObj = [{
+export const mockData: IMockDataArrObj = [{
   BoxId: 1,
   DepartmentId: 5555,
   DepartmentName: "Office of Administration",

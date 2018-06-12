@@ -1,13 +1,13 @@
-import * as React from 'react'
+import * as React from "react"
 // tslint:disable-next-line:no-submodule-imports
-import { Modal } from 'office-ui-fabric-react/lib/Modal'
-import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react'
+import { Modal } from "office-ui-fabric-react/lib/Modal"
+import { DefaultButton, PrimaryButton } from "office-ui-fabric-react"
 
 // Styling
 
 const Links = {
-  color: '#0078d7',
-  cursor: 'pointer',
+  color: "#0078d7",
+  cursor: "pointer",
 } as React.CSSProperties
 
 export interface IWarningModal {
@@ -24,9 +24,9 @@ export function WarningModal(props: IWarningModal) {
         isOpen={true}
         isBlocking={false}
         isDarkOverlay={false}
-        containerClassName={'ms-modalExample-container'}
+        containerClassName={"ms-modalExample-container"}
       >
-        <div className={'ms-modalExample-header'}>
+        <div className={"ms-modalExample-header"}>
           <h1> Warning </h1>
         </div>
         <div>
@@ -38,10 +38,10 @@ export function WarningModal(props: IWarningModal) {
         </div>
         <div>
           <PrimaryButton
-            text={'Clear Checkout and Continue'}
+            text={"Clear Checkout and Continue"}
             onClick={props.continue}
           />
-          <PrimaryButton text={'Keep Checkout and Go Back'} onClick={props.close} />
+          <PrimaryButton text={"Keep Checkout and Go Back"} onClick={props.close} />
         </div>
       </Modal>
     </div>

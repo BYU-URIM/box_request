@@ -1,1 +1,1 @@
-export { ModalTypes, IFolderAndBox, IRequestObject, CheckoutTypes } from './App'
+export { ModalTypes, IFolderAndBox, IRequestObject, CheckoutTypes } from "./App"

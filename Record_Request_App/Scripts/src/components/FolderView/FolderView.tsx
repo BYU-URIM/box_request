@@ -1,7 +1,7 @@
-import * as React from 'react'
-import { Fragment } from 'react'
+import * as React from "react"
+import { Fragment } from "react"
 // tslint:disable-next-line:no-submodule-imports
-import { Modal } from 'office-ui-fabric-react/lib/Modal'
+import { Modal } from "office-ui-fabric-react/lib/Modal"
 import {
   DefaultButton,
   DetailsList,
@@ -9,15 +9,15 @@ import {
   Selection,
   IColumn,
   CheckboxVisibility,
-} from 'office-ui-fabric-react'
-import { CreateFolderModal } from '../CreateFolderModal/CreateFolderModal'
-import { IFolderDataObj, IBoxDataObj } from '../../models/MockData'
-import { IFolderAndBox, ModalTypes } from '../../models'
-import './styles.scss'
-import DetailListHeader from '../DetailListHeader/DetailListHeader'
+} from "office-ui-fabric-react"
+import { CreateFolderModal } from "../CreateFolderModal/CreateFolderModal"
+import { IFolderDataObj, IBoxDataObj } from "../../models/MockData"
+import { IFolderAndBox, ModalTypes } from "../../models"
+import "./styles.scss"
+import DetailListHeader from "../DetailListHeader/DetailListHeader"
 
 const Center = {
-  textAlign: 'center',
+  textAlign: "center",
 } as React.CSSProperties
 
 export interface IFolderViewProps {
@@ -38,30 +38,30 @@ export interface IFolderViewProps {
 export function FolderView(props: IFolderViewProps) {
   const columns: IColumn[] = [
     {
-      key: 'column1',
-      name: 'Folder Name',
-      fieldName: 'FolderName',
+      key: "column1",
+      name: "Folder Name",
+      fieldName: "FolderName",
       minWidth: 80,
       maxWidth: 120,
       isResizable: true,
-      ariaLabel: 'Operations for name',
+      ariaLabel: "Operations for name",
       onRender: (item: IFolderDataObj) => {
         return <p>{`${item.FolderName}`}</p>
       },
     },
     {
-      key: 'column2',
-      name: '',
-      fieldName: 'checkoutFolder',
+      key: "column2",
+      name: "",
+      fieldName: "checkoutFolder",
       minWidth: 60,
       maxWidth: 170,
       isResizable: true,
-      ariaLabel: 'Operations for checkoutFolder',
+      ariaLabel: "Operations for checkoutFolder",
       onRender: (item: IFolderDataObj) => {
-        return props.checkoutStatus(item as IFolderAndBox)[0] === '+' ? (
+        return props.checkoutStatus(item as IFolderAndBox)[0] === "+" ? (
           <button
             onClick={() => props.addFolder(item)}
-            className={'ms-fontSize-mPlus ms-fontWeight-light'}
+            className={"ms-fontSize-mPlus ms-fontWeight-light"}
           >
             {props.checkoutStatus(item as IFolderAndBox)}
           </button>
@@ -71,13 +71,13 @@ export function FolderView(props: IFolderViewProps) {
       },
     },
     {
-      key: 'column3',
-      name: '',
-      fieldName: 'createFolder',
+      key: "column3",
+      name: "",
+      fieldName: "createFolder",
       minWidth: 40,
       maxWidth: 120,
       isResizable: true,
-      ariaLabel: 'Operations for createFolder',
+      ariaLabel: "Operations for createFolder",
       onRender: () => (
         <p onClick={() => props.toggleModal(ModalTypes.create)}>
           Create Folder
@@ -101,7 +101,7 @@ export function FolderView(props: IFolderViewProps) {
           <DetailListHeader
             title={`Folders in Box B${props.selectedBox.BoxIdBarCode}`}
           />
-          <div className={'ms-modalExample-body'}>
+          <div className={"ms-modalExample-body"}>
             <DetailsList
               items={folderList}
               columns={columns}
@@ -116,8 +116,8 @@ export function FolderView(props: IFolderViewProps) {
                     className:
                       props.folderInCheckout(_props.item.BoxID) ||
                       props.folderInCheckout(_props.item.FolderIdBarCode)
-                        ? 'folderrow folderrow-disabled ms-fontSize-mPlus ms-fontWeight-light'
-                        : 'folderrow ms-fontSize-mPlus ms-fontWeight-light',
+                        ? "folderrow folderrow-disabled ms-fontSize-mPlus ms-fontWeight-light"
+                        : "folderrow ms-fontSize-mPlus ms-fontWeight-light",
                   })}
                 </div>
               )}

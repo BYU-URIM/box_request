@@ -1,14 +1,14 @@
 export enum ModalTypes {
-  warning = 'warning',
-  submit = 'submit',
-  create = 'create',
-  none = 'none',
+  warning = "warning",
+  submit = "submit",
+  create = "create",
+  none = "none",
 }
 
 export enum CheckoutTypes {
-  none = 'none',
-  notAvailable = 'not available',
-  depPossession = 'in requesting department\'s possession'
+  none = "none",
+  notAvailable = "not available",
+  depPossession = "in requesting department's possession"
 }
 
 export interface IFolderAndBox {
@@ -27,7 +27,7 @@ export interface IRequestObject {
   type: string
   boxNumber?: void[]
   requestingDepartment: void[]
-  parentBox?: ''
+  parentBox?: ""
   location: void[]
   requestType: string
   deliveryPriority: string

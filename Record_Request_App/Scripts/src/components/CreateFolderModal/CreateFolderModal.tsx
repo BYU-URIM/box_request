@@ -1,9 +1,9 @@
-import * as React from 'react'
+import * as React from "react"
 // tslint:disable-next-line:no-submodule-imports
-import { Modal } from 'office-ui-fabric-react/lib/Modal'
-import { TextField, Label, PrimaryButton, DefaultButton } from 'office-ui-fabric-react'
-import { folderData } from '../../res'
-import './styles.scss'
+import { Modal } from "office-ui-fabric-react/lib/Modal"
+import { TextField, Label, PrimaryButton, DefaultButton } from "office-ui-fabric-react"
+import { folderData } from "../../res"
+import "./styles.scss"
 
 export interface ICreateFolderModal {
   selectedBox?: number
@@ -28,28 +28,28 @@ export function CreateFolderModal(props: ICreateFolderModal) {
         isDarkOverlay={false}
       >
         <div>
-          <h1 className={'ms-font-xl'}>
-            {' '}
-            Create Folder{' '}
+          <h1 className={"ms-font-xl"}>
+            {" "}
+            Create Folder{" "}
           </h1>
 
-          <div className={'modalWidth'}>
+          <div className={"modalWidth"}>
             <Label>{`Box B${props.selectedBox}`}</Label>
             <br />
             <TextField
-              type={'text'}
-              label={'Folder Name'}
-              description={'Warning: You cannot change this later.'}
+              type={"text"}
+              label={"Folder Name"}
+              description={"Warning: You cannot change this later."}
               value={props.folderNameVal}
               onChanged={props.onNameChange}
               required={true}
-              placeholder={'i.e. Jared'}
+              placeholder={"i.e. Jared"}
               errorMessage={props.folderNameError}
             />
 
             <br />
             <PrimaryButton
-              text={'Create Folder'}
+              text={"Create Folder"}
               onClick={box => props.submitFolder(props.selectedBox)}
               disabled={buttonDisabler(
                 props.folderNameVal,

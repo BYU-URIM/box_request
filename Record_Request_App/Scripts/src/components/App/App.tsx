@@ -1,12 +1,12 @@
-import * as React from 'react'
-import { PrimaryButton, ThemeSettingName } from 'office-ui-fabric-react'
-import { initializeIcons } from '@uifabric/icons'
+import * as React from "react"
+import { PrimaryButton, ThemeSettingName } from "office-ui-fabric-react"
+import { initializeIcons } from "@uifabric/icons"
 import {
   IFolderAndBox,
   ModalTypes,
   IRequestObject,
   CheckoutTypes,
-} from '../../models/'
+} from "../../models/"
 import {
   DepartmentDropdown,
   SubmitModal,
@@ -16,9 +16,9 @@ import {
   Checkout,
   Greeting,
   RequestBuilder,
-} from '../'
-import { DataService } from '../../services/DataService'
-import { IFolderDataObj, IBoxDataObj } from '../../models/MockData'
+} from "../"
+import { DataService } from "../../services/DataService"
+import { IFolderDataObj, IBoxDataObj } from "../../models/MockData"
 
 interface IAppState {
   selectedItems: Map<number, IFolderAndBox>
@@ -34,7 +34,7 @@ interface IAppState {
   folderNameError: string
   fmsData
 }
-import './styles.scss'
+import "./styles.scss"
 
 // Enables microsoft ui icons to appear
 initializeIcons()
@@ -56,9 +56,9 @@ export class App extends React.Component<
     request: new Map<number, IRequestObject>(),
     requestTypeToggle: false,
     deliveryPriorityToggle: false,
-    deliveryInstructions: '',
-    folderNameVal: '',
-    folderNameError: '',
+    deliveryInstructions: "",
+    folderNameVal: "",
+    folderNameError: "",
     fmsData: undefined,
   }
   //   init = async () => {
@@ -120,20 +120,20 @@ export class App extends React.Component<
 
   determineCheckoutType = (item: IFolderAndBox): string => {
     let checkoutStatus: CheckoutTypes = CheckoutTypes.none
-    let status = ''
+    let status = ""
 
     if (
-      item.Location.charAt(0) === 'L' ||
+      item.Location.charAt(0) === "L" ||
       item.BoxID === Number(item.Location)
     ) {
       checkoutStatus = CheckoutTypes.none
-      status = '+ Add Item to Checkout'
+      status = "+ Add Item to Checkout"
     } else if (Number(item.Location) === this.state.selectedDep) {
       checkoutStatus = CheckoutTypes.depPossession
-      status = '- In Your Possession'
+      status = "- In Your Possession"
     } else {
       checkoutStatus = CheckoutTypes.notAvailable
-      status = '- Item not available'
+      status = "- Item not available"
     }
     return status
   }
@@ -142,13 +142,13 @@ export class App extends React.Component<
     this.folderData.push({
       BoxID: this.state.selectedBox.BoxIdBarCode,
       FolderName: this.state.folderNameVal,
-      Folder_Description: '',
+      Folder_Description: "",
       FolderIdBarCode: this.folderData.length + 1,
       Location: this.state.selectedBox.BoxIdBarCode,
     })
     this.setState({
       modal: ModalTypes.none,
-      folderNameVal: '',
+      folderNameVal: "",
     })
   }
 
@@ -172,11 +172,11 @@ export class App extends React.Component<
         .find(element => element === value)
     ) {
       this.setState({
-        folderNameError: 'A folder already exists with that name in this box.',
+        folderNameError: "A folder already exists with that name in this box.",
       })
     } else {
       this.setState({
-        folderNameError: '',
+        folderNameError: "",
       })
     }
   }
@@ -255,20 +255,20 @@ export class App extends React.Component<
   }
 
   render() {
-    window['appState'] = this.state
-    window['boxes'] = this.getFilteredData()
+    window["appState"] = this.state
+    window["boxes"] = this.getFilteredData()
     return (
-      <div className={'ms-Grid'}>
-        <div className={'ms-Grid-row'}>
-          <div className={'ms-Grid-col ms-sm4 ms-smPush8'}>
+      <div className={"ms-Grid"}>
+        <div className={"ms-Grid-row"}>
+          <div className={"ms-Grid-col ms-sm4 ms-smPush8"}>
             <Greeting
               name={this.props.user.name}
               departmentid={this.props.user.departments}
             />
           </div>
         </div>
-        <div className={'ms-Grid-row'}>
-          <div className={'ms-Grid-col ms-sm4 ms-smPush4'}>
+        <div className={"ms-Grid-row"}>
+          <div className={"ms-Grid-col ms-sm4 ms-smPush4"}>
             <DepartmentDropdown
               mockUser={this.props.user}
               mockData={this.boxData}
@@ -277,7 +277,7 @@ export class App extends React.Component<
           </div>
         </div>
 
-        <div className={'ms-Grid-row'}>
+        <div className={"ms-Grid-row"}>
           <RequestBuilder
             selectedItems={this.state.selectedItems}
             selectedDep={this.state.selectedDep}

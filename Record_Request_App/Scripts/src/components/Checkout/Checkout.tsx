@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from "react"
 import {
   TextField,
   Icon,
@@ -8,12 +8,12 @@ import {
   Selection,
   IColumn,
   CheckboxVisibility,
-} from 'office-ui-fabric-react'
+} from "office-ui-fabric-react"
 
-import { IFolderAndBox, ModalTypes } from '../../models/App'
+import { IFolderAndBox, ModalTypes } from "../../models/App"
 
-import './styles.scss'
-import DetailListHeader from '../DetailListHeader/DetailListHeader'
+import "./styles.scss"
+import DetailListHeader from "../DetailListHeader/DetailListHeader"
 
 export interface ICheckoutProps {
   selectedItems: Map<number, IFolderAndBox>
@@ -25,31 +25,31 @@ export interface ICheckoutProps {
 
 const columns: IColumn[] = [
   {
-    key: 'column1',
-    name: 'Item',
-    fieldName: 'pendingItemRequests',
+    key: "column1",
+    name: "Item",
+    fieldName: "pendingItemRequests",
     minWidth: 70,
     maxWidth: 120,
     isResizable: true,
-    ariaLabel: 'Operations for pendingItemRequests',
+    ariaLabel: "Operations for pendingItemRequests",
   },
   {
-    key: 'column2',
-    name: 'Type',
-    fieldName: 'type',
+    key: "column2",
+    name: "Type",
+    fieldName: "type",
     minWidth: 40,
     maxWidth: 70,
     isResizable: true,
-    ariaLabel: 'Operations for type',
+    ariaLabel: "Operations for type",
   },
   {
-    key: 'column3',
-    name: '',
-    fieldName: 'removeItem',
+    key: "column3",
+    name: "",
+    fieldName: "removeItem",
     minWidth: 40,
     maxWidth: 40,
     isResizable: true,
-    ariaLabel: 'Operations for removeItem',
+    ariaLabel: "Operations for removeItem",
   },
 ]
 
@@ -61,12 +61,12 @@ export function Checkout(props: ICheckoutProps) {
       key: `${index}`,
       pendingItemRequests: (
         <p>
-          {itemRef.hasOwnProperty('BoxIdBarCode')
+          {itemRef.hasOwnProperty("BoxIdBarCode")
             ? `B${itemRef.BoxIdBarCode}`
-            : `${itemRef.FolderName}'s Folder`}{' '}
+            : `${itemRef.FolderName}'s Folder`}{" "}
         </p>
       ),
-      type: <p>{itemRef.BoxIdBarCode ? 'Box' : 'Folder'}</p>,
+      type: <p>{itemRef.BoxIdBarCode ? "Box" : "Folder"}</p>,
       removeItem: (
         <p
           onClick={() =>
@@ -75,7 +75,7 @@ export function Checkout(props: ICheckoutProps) {
             )
           }
         >
-          <i className={'ms-Icon ms-Icon--Cancel'} aria-hidden={'true'} />
+          <i className={"ms-Icon ms-Icon--Cancel"} aria-hidden={"true"} />
         </p>
       ),
     })
@@ -85,21 +85,21 @@ export function Checkout(props: ICheckoutProps) {
     <div className={props.classNames}>
       {props.selectedItems.size > 0 && (
         <div>
-          <DetailListHeader title={'Checkout'} />
+          <DetailListHeader title={"Checkout"} />
           <DetailsList
             items={checkoutList}
             columns={columns}
-            setKey={'set'}
+            setKey={"set"}
             compact={true}
             layoutMode={DetailsListLayoutMode.fixedColumns}
             checkboxVisibility={CheckboxVisibility.hidden}
             onRenderItemColumn={(item, index, column) =>
-              column.key === 'column1' ? (
-                <div className={'ms-fontSize-mPlus ms-fontWeight-light'}>
+              column.key === "column1" ? (
+                <div className={"ms-fontSize-mPlus ms-fontWeight-light"}>
                   {item.pendingItemRequests.props.children[0]}
                 </div>
-              ) : column.key === 'column2' ? (
-                <div className={'ms-fontSize-mPlus ms-fontWeight-light'}>
+              ) : column.key === "column2" ? (
+                <div className={"ms-fontSize-mPlus ms-fontWeight-light"}>
                   {item.type.props.children}
                 </div>
               ) : (
@@ -109,10 +109,10 @@ export function Checkout(props: ICheckoutProps) {
               )
             }
           />
-          <div className={'content-center'}>
+          <div className={"content-center"}>
             <PrimaryButton
               disabled={!(props.selectedItems.size > 0)}
-              text={'Submit Request'}
+              text={"Submit Request"}
               onClick={() => props.toggleModal(ModalTypes.submit)}
             />
           </div>

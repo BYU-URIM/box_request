@@ -1,11 +1,11 @@
-import * as React from 'react'
+import * as React from "react"
 import {
   Dropdown,
   IDropdown,
   DropdownMenuItemType,
   IDropdownOption,
-} from 'office-ui-fabric-react'
-import './styles.scss'
+} from "office-ui-fabric-react"
+import "./styles.scss"
 
 export interface IUserDeps {
   mockUser
@@ -37,13 +37,13 @@ export function DepartmentDropdown(props: IUserDeps) {
 
   // return the HTML dropdown menu of the department names associated with the user
   return (
-    <form action=''>
-      <h1 className='ms-font-xxl center'>Select one of your available departments:</h1>
+    <form action="">
+      <h1 className="ms-font-xxl center">Select one of your available departments:</h1>
 
       <Dropdown
-        placeHolder='Departments'
+        placeHolder="Departments"
         options={deps.map((x, i) => {
-          return { key: depsid[i], text: x, value: 'not a value' }
+          return { key: depsid[i], text: x, value: "not a value" }
         })}
         onChanged={x => props.changeSelectedDep(Number(x.key))}
       />

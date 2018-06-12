@@ -3,7 +3,7 @@
   "extends": ["tslint:recommended", "tslint-config-prettier"],
   "jsRules": {},
   "rules": {
-    "quotemark": [true, "single"],
+    "quotemark": [true, "double"],
     "no-bitwise": false,
     "semicolon": [true, "never"],
     "ordered-imports": false,
@@ -19,7 +19,8 @@
     "object-literal-sort-keys": false,
     "curly": false,
     "no-consecutive-blank-lines": [true, 2],
-    "no-string-literal": false
+    "no-string-literal": false,
+    "class-name": false
   },
   "rulesDirectory": []
 }

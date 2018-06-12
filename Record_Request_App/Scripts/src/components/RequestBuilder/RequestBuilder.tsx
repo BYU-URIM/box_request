@@ -1,14 +1,14 @@
-import * as React from 'react'
-import { IFolderAndBox, ModalTypes, IRequestObject } from '../../models'
-import { IBoxDataObj, IFolderDataObj } from '../../models/MockData'
+import * as React from "react"
+import { IFolderAndBox, ModalTypes, IRequestObject } from "../../models"
+import { IBoxDataObj, IFolderDataObj } from "../../models/MockData"
 import {
   FolderView,
   BoxList,
   CreateFolderModal,
   SubmitModal,
   Checkout,
-} from '..'
-import './styles.scss'
+} from ".."
+import "./styles.scss"
 export interface IRequestBuilderProps {
   selectedItems: Map<number, IFolderAndBox>
   selectedDep: number
@@ -66,7 +66,7 @@ export const RequestBuilder = (props: IRequestBuilderProps) => {
       )}
 
       <div>
-        <div className={'ms-Grid-col ms-sm1'} />
+        <div className={"ms-Grid-col ms-sm1"} />
         <BoxList
           boxData={props.filteredBoxData}
           addBox={e => props.addItemToCheckout(e)}
@@ -77,7 +77,7 @@ export const RequestBuilder = (props: IRequestBuilderProps) => {
             props.itemInCheckout(boxNum)
           }
           checkoutStatus={item => props.determineCheckoutType(item)}
-          classNames={'ms-Grid-col ms-sm3'}
+          classNames={"ms-Grid-col ms-sm3"}
         />
 
         <FolderView
@@ -88,18 +88,18 @@ export const RequestBuilder = (props: IRequestBuilderProps) => {
           folderInCheckout={(itemNum: number) => props.itemInCheckout(itemNum)}
           checkoutStatus={item => props.determineCheckoutType(item)}
           emptyMessage={
-            props.selectedDep !== 0 && 'Click on a box to view its folders'
+            props.selectedDep !== 0 && "Click on a box to view its folders"
           }
-          classNames={'ms-Grid-col ms-sm4'}
+          classNames={"ms-Grid-col ms-sm4"}
         />
         <Checkout
           selectedItems={props.selectedItems}
-          type={props.isChecked ? 'Box' : 'Folder'}
+          type={props.isChecked ? "Box" : "Folder"}
           removeItemFromCheckout={r => props.removeItemFromCheckout(r)}
           toggleModal={props.toggleModal}
-          classNames={'ms-Grid-col ms-sm3'}
+          classNames={"ms-Grid-col ms-sm3"}
         />
-        <div className={'ms-Grid-col ms-sm1'} />
+        <div className={"ms-Grid-col ms-sm1"} />
       </div>
     </div>
   )

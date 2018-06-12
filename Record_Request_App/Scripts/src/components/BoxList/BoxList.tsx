@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from "react"
 import {
   TextField,
   DetailsList,
@@ -7,11 +7,11 @@ import {
   IColumn,
   CheckboxVisibility,
   getNativeProps,
-} from 'office-ui-fabric-react'
-import { IFolderDataObj, IBoxDataObj } from '../../models/MockData'
-import './styles.scss'
-import { IFolderAndBox } from '../../models'
-import DetailListHeader from '../DetailListHeader/DetailListHeader'
+} from "office-ui-fabric-react"
+import { IFolderDataObj, IBoxDataObj } from "../../models/MockData"
+import "./styles.scss"
+import { IFolderAndBox } from "../../models"
+import DetailListHeader from "../DetailListHeader/DetailListHeader"
 
 export interface IBoxListProps {
   boxData: Array<IBoxDataObj>
@@ -27,28 +27,28 @@ export interface IBoxListProps {
 export function BoxList(props: IBoxListProps) {
   const columns: IColumn[] = [
     {
-      key: 'column1',
-      name: 'Box Number',
-      fieldName: 'boxNumber',
+      key: "column1",
+      name: "Box Number",
+      fieldName: "boxNumber",
       minWidth: 40,
       maxWidth: 70,
       isResizable: true,
-      ariaLabel: 'Operations for name',
+      ariaLabel: "Operations for name",
       onRender: (item: IBoxDataObj) => <p>{`B${item.BoxIdBarCode}`}</p>,
     },
     {
-      key: 'column2',
-      name: '',
-      fieldName: 'checkoutBox',
+      key: "column2",
+      name: "",
+      fieldName: "checkoutBox",
       minWidth: 40,
       maxWidth: 150,
       isResizable: true,
-      ariaLabel: 'Operations for checkoutBox',
+      ariaLabel: "Operations for checkoutBox",
       onRender: (item: IBoxDataObj) => {
-        return props.checkoutStatus(item as IFolderAndBox)[0] === '+' ? (
+        return props.checkoutStatus(item as IFolderAndBox)[0] === "+" ? (
           <button
             onClick={() => props.addBox(item)}
-            className={'ms-fontSize-mPlus ms-fontWeight-light'}
+            className={"ms-fontSize-mPlus ms-fontWeight-light"}
           >
             {props.checkoutStatus(item as IFolderAndBox)}
           </button>
@@ -83,7 +83,7 @@ export function BoxList(props: IBoxListProps) {
     <div className={props.classNames}>
       {props.boxData.length > 0 && (
         <React.Fragment>
-          <DetailListHeader title={'Boxes'} />
+          <DetailListHeader title={"Boxes"} />
 
           <DetailsList
             items={props.boxData}
@@ -102,8 +102,8 @@ export function BoxList(props: IBoxListProps) {
                   ..._props,
                   className:
                     props.boxInCheckout(_props.item.BoxIdBarCode) === true
-                      ? 'boxrow boxrow-disabled ms-fontSize-mPlus ms-fontWeight-light'
-                      : 'boxrow ms-fontSize-mPlus ms-fontWeight-light',
+                      ? "boxrow boxrow-disabled ms-fontSize-mPlus ms-fontWeight-light"
+                      : "boxrow ms-fontSize-mPlus ms-fontWeight-light",
                 })}
               </div>
             )}
