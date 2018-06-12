@@ -79,7 +79,7 @@ export function FolderView(props: IFolderViewProps) {
       isResizable: true,
       ariaLabel: "Operations for createFolder",
       onRender: () => (
-        <p onClick={() => props.toggleModal(ModalTypes.create)}>
+        <p onClick={() => props.toggleModal(ModalTypes.create)} className={'blueify'}>
           Create Folder
         </p>
       ),
