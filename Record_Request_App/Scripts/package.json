@@ -29,6 +29,9 @@
   "dependencies": {
     "@uifabric/icons": "^5.8.0",
     "core-decorators": "^0.20.0",
+    "mobx": "^5.0.2",
+    "mobx-react": "^5.2.3",
+    "mobx-react-devtools": "^5.0.1",
     "office-ui-fabric-react": "^5.112.0",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",

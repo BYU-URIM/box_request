@@ -5,11 +5,9 @@ export interface IMockUser {
     departments: number[]
 }
 
-export const mockUser:IMockUser = {
+export const mockUser: IMockUser = {
     name: "Greg Anderson",
     email: "email@gmail.com",
     username: "greggy",
-    departments : [5555, 5556, 5557,],
-
-
+    departments: [5555, 5556, 5557],
 }

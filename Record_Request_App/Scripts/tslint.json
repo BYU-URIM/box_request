@@ -20,7 +20,8 @@
     "curly": false,
     "no-consecutive-blank-lines": [true, 2],
     "no-string-literal": false,
-    "class-name": false
+    "class-name": false,
+    "variable-name": false
   },
   "rulesDirectory": []
 }
