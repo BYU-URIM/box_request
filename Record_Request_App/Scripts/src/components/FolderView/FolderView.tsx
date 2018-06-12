@@ -22,7 +22,7 @@ const Center = {
 } as React.CSSProperties
 
 export interface IFolderViewProps {
-    toggleModal(type: ModalTypes): void
+    setModalType(type: ModalTypes): void
     filteredData: Array<IFolderDataObj>
     selectedBox?: IBoxDataObj
     addFolder(item): void
@@ -84,7 +84,7 @@ export const FolderView = observer((props: IFolderViewProps) => {
             ariaLabel: "Operations for createFolder",
             onRender: () => (
                 <p
-                    onClick={() => props.toggleModal(ModalTypes.create)}
+                    onClick={() => props.setModalType(ModalTypes.create)}
                     className={"blueify"}
                 >
                     Create Folder
@@ -97,7 +97,7 @@ export const FolderView = observer((props: IFolderViewProps) => {
         props.filteredData.map((folder: IFolderDataObj, i) => ({
             key: folder.FolderIdBarCode,
             checkoutFolder: () => props.addFolder(folder.FolderIdBarCode),
-            createFolder: () => props.toggleModal(ModalTypes.create),
+            createFolder: () => props.setModalType(ModalTypes.create),
             ...folder,
         }))
 

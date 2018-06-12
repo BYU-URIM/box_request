@@ -18,9 +18,8 @@ import { observer } from "mobx-react"
 
 export interface ICheckoutProps {
     selectedItems: Array<IFolderAndBox>
-    type: string
     removeItemFromCheckout(itemRef: number): void
-    toggleModal(x): void
+    setModalType(x): void
     classNames: string
 }
 
@@ -129,7 +128,7 @@ export const Checkout = observer((props: ICheckoutProps) => {
                         <PrimaryButton
                             disabled={!(props.selectedItems.length > 0)}
                             text={"Submit Request"}
-                            onClick={() => props.toggleModal(ModalTypes.submit)}
+                            onClick={() => props.setModalType(ModalTypes.submit)}
                         />
                     </div>
                 </div>

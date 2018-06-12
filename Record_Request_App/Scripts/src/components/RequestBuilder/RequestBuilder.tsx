@@ -14,20 +14,19 @@ export interface IRequestBuilderProps {
     selectedItems: Array<IFolderAndBox>
     selectedDep: number
     selectedBox: IBoxDataObj | undefined
-    isChecked: boolean
     modal: ModalTypes
-    request: Map<number, IRequestObject>
+    checkoutCart: Map<number, IRequestObject>
     deliveryInstructions: string
-    deliveryPriorityToggle: boolean
+    requestIsUrgent: boolean
     folderNameVal: string
     folderNameError: string
-    toggleModal(type: ModalTypes): void
+    setModalType(type: ModalTypes): void
     updateDeliveryInstructions(e): void
-    updateDeliveryPriority(): void
-    updateRequestType(): void
+    updateIsUrgent(): boolean
+    updateIsPermament(): boolean
     submitRequest(e): void
     onNameChange(val): void
-    onFolderCreateSubmit(box): void
+    createFolder(box): void
     filteredBoxData: Array<IBoxDataObj>
     addItemToCheckout(e): void
     itemInCheckout(itemNum: number): boolean
@@ -44,12 +43,12 @@ export const RequestBuilder = observer((props: IRequestBuilderProps) => {
         <div>
             {props.modal === ModalTypes.submit && (
                 <SubmitModal
-                    close={() => props.toggleModal(ModalTypes.none)}
+                    close={() => props.setModalType(ModalTypes.none)}
                     updateInstructions={e =>
                         props.updateDeliveryInstructions(e)
                     }
-                    priority={props.updateDeliveryPriority}
-                    requestType={props.updateRequestType}
+                    priority={props.updateIsUrgent}
+                    requestType={props.updateIsPermament}
                     submit={e => props.submitRequest(e)}
                     selectedItems={props.selectedItems}
                     deliveryInstructions={props.deliveryInstructions}
@@ -57,12 +56,12 @@ export const RequestBuilder = observer((props: IRequestBuilderProps) => {
             )}
             {props.modal === ModalTypes.create && (
                 <CreateFolderModal
-                    closeModal={() => props.toggleModal(ModalTypes.none)}
+                    closeModal={() => props.setModalType(ModalTypes.none)}
                     selectedBox={props.selectedBox.BoxIdBarCode}
                     folderNameError={props.folderNameError}
                     folderNameVal={props.folderNameVal}
                     onNameChange={value => props.onNameChange(value)}
-                    submitFolder={box => props.onFolderCreateSubmit(box)}
+                    submitFolder={box => props.createFolder(box)}
                 />
             )}
 
@@ -82,7 +81,7 @@ export const RequestBuilder = observer((props: IRequestBuilderProps) => {
                 />
 
                 <FolderView
-                    toggleModal={props.toggleModal}
+                    setModalType={props.setModalType}
                     filteredData={props.filteredFolderData}
                     selectedBox={props.selectedBox}
                     addFolder={e => props.addItemToCheckout(e)}
@@ -99,11 +98,10 @@ export const RequestBuilder = observer((props: IRequestBuilderProps) => {
                 />
                 <Checkout
                     selectedItems={props.selectedItems}
-                    type={props.isChecked ? "Box" : "Folder"}
                     removeItemFromCheckout={r =>
                         props.removeItemFromCheckout(r)
                     }
-                    toggleModal={props.toggleModal}
+                    setModalType={props.setModalType}
                     classNames={"ms-Grid-col ms-sm3"}
                 />
                 <div className={"ms-Grid-col ms-sm1"} />
