@@ -12,10 +12,11 @@ import {
 } from "office-ui-fabric-react"
 import { IFolderAndBox } from "../../models/App"
 import "./styles.scss"
+import { observer } from "mobx-react"
 
 export interface ISubmitModal {
     close(): void
-    selectedItems: Map<number, IFolderAndBox>
+    selectedItems: Array<IFolderAndBox>
     submit(x): any
     updateInstructions(e): void
     priority(): void
@@ -25,7 +26,7 @@ export interface ISubmitModal {
 
 // ----------------------------------------------
 
-export function SubmitModal(props: ISubmitModal) {
+export const SubmitModal = observer((props: ISubmitModal) => {
     return (
         <div>
             <Modal
@@ -115,4 +116,4 @@ export function SubmitModal(props: ISubmitModal) {
             </Modal>
         </div>
     )
-}
+})

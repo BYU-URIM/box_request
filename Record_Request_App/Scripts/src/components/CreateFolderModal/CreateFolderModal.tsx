@@ -1,5 +1,4 @@
 import * as React from "react"
-// tslint:disable-next-line:no-submodule-imports
 import { Modal } from "office-ui-fabric-react/lib/Modal"
 import {
     TextField,
@@ -9,6 +8,7 @@ import {
 } from "office-ui-fabric-react"
 import { folderData } from "../../res"
 import "./styles.scss"
+import { observer } from "mobx-react"
 
 export interface ICreateFolderModal {
     selectedBox?: number
@@ -23,7 +23,7 @@ function buttonDisabler(name, nameError) {
     return name.length === 0 || nameError.length > 1 ? true : false
 }
 
-export function CreateFolderModal(props: ICreateFolderModal) {
+export const CreateFolderModal = observer((props: ICreateFolderModal) => {
     return (
         <div>
             <Modal
@@ -65,4 +65,4 @@ export function CreateFolderModal(props: ICreateFolderModal) {
             </Modal>
         </div>
     )
-}
+})

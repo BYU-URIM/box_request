@@ -14,9 +14,10 @@ import { IFolderAndBox, ModalTypes } from "../../models/App"
 
 import "./styles.scss"
 import DetailListHeader from "../DetailListHeader/DetailListHeader"
+import { observer } from "mobx-react"
 
 export interface ICheckoutProps {
-    selectedItems: Map<number, IFolderAndBox>
+    selectedItems: Array<IFolderAndBox>
     type: string
     removeItemFromCheckout(itemRef: number): void
     toggleModal(x): void
@@ -55,8 +56,8 @@ const columns: IColumn[] = [
 
 // --------------------------------------------------------------------------
 
-export function Checkout(props: ICheckoutProps) {
-    const checkoutList = Array.from(props.selectedItems.values()).map(
+export const Checkout = observer((props: ICheckoutProps) => {
+    const checkoutList = props.selectedItems.map(
         (itemRef: IFolderAndBox, index) => ({
             key: `${index}`,
             pendingItemRequests: (
@@ -86,7 +87,7 @@ export function Checkout(props: ICheckoutProps) {
 
     return (
         <div className={props.classNames}>
-            {props.selectedItems.size > 0 && (
+            {props.selectedItems.length > 0 && (
                 <div>
                     <DetailListHeader title={"Checkout"} />
                     <DetailsList
@@ -126,7 +127,7 @@ export function Checkout(props: ICheckoutProps) {
                     />
                     <div className={"centerCheckout"}>
                         <PrimaryButton
-                            disabled={!(props.selectedItems.size > 0)}
+                            disabled={!(props.selectedItems.length > 0)}
                             text={"Submit Request"}
                             onClick={() => props.toggleModal(ModalTypes.submit)}
                         />
@@ -135,4 +136,4 @@ export function Checkout(props: ICheckoutProps) {
             )}
         </div>
     )
-}
+})

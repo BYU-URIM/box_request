@@ -15,6 +15,7 @@ import { IFolderDataObj, IBoxDataObj } from "../../models/MockData"
 import { IFolderAndBox, ModalTypes } from "../../models"
 import "./styles.scss"
 import DetailListHeader from "../DetailListHeader/DetailListHeader"
+import { observer } from "mobx-react"
 
 const Center = {
     textAlign: "center",
@@ -36,7 +37,7 @@ export interface IFolderViewProps {
 
 // ----------------------------------------------
 
-export function FolderView(props: IFolderViewProps) {
+export const FolderView = observer((props: IFolderViewProps) => {
     const columns: IColumn[] = [
         {
             key: "column1",
@@ -141,4 +142,4 @@ export function FolderView(props: IFolderViewProps) {
             )}
         </div>
     )
-}
+})

@@ -62,44 +62,44 @@ export class App extends React.Component<any, any> {
     //     await this.init()
     //   }
     // checks if this box has folders checkouted; if so, remove the folders and add the box
-    itemInCheckout = (itemNum: number): boolean => {
-        if (this.rootStore.selectedItems.has(itemNum)) {
-            const x = this.rootStore.selectedItems.values()
-            const selectedItems = Array.from(
-                this.rootStore.selectedItems.values()
-            ).filter(item => {
-                return item.BoxID !== itemNum
-            })
+    // itemInCheckout = (itemNum: number): boolean => {
+    //     if (this.rootStore.selectedItems.has(itemNum)) {
+    //         const x = this.rootStore.selectedItems.values()
+    //         const selectedItems = Array.from(
+    //             this.rootStore.selectedItems.values()
+    //         ).filter(item => {
+    //             return item.BoxID !== itemNum
+    //         })
 
-            for (let i = 0; i < this.rootStore.selectedItems.size; i++) {
-                const y = x.next().value
-                if (y.BoxID === itemNum) {
-                    this.rootStore.selectedItems.delete(y.FolderIdBarCode)
-                }
-            }
-            return true
-        } else {
-            return false
-        }
-    }
+    //         for (let i = 0; i < this.rootStore.selectedItems.size; i++) {
+    //             const y = x.next().value
+    //             if (y.BoxID === itemNum) {
+    //                 this.rootStore.selectedItems.delete(y.FolderIdBarCode)
+    //             }
+    //         }
+    //         return true
+    //     } else {
+    //         return false
+    //     }
+    // }
 
     // function that removes all checkouted folders and adds their parent box if all folders were checkouted
     onAllFoldersAdded = (boxNum: number): boolean => {
         const folders = this.rootStore.filteredFolders
         let allFoldersAdded = false
         for (const i of folders) {
-            if (!this.rootStore.selectedItems.has(i.FolderIdBarCode)) {
+            if (!this.rootStore._selectedItems.has(i.FolderIdBarCode)) {
                 allFoldersAdded = false
                 break
             }
-            allFoldersAdded = this.rootStore.selectedItems.has(
+            allFoldersAdded = this.rootStore._selectedItems.has(
                 i.FolderIdBarCode
             )
         }
         if (allFoldersAdded) {
             for (const i of folders) {
-                this.rootStore.selectedItems.delete(i.FolderIdBarCode)
-                this.rootStore.selectedItems.set(boxNum, this.rootStore
+                this.rootStore._selectedItems.delete(i.FolderIdBarCode)
+                this.rootStore._selectedItems.set(boxNum, this.rootStore
                     .selectedBox as IFolderAndBox)
             }
         }
@@ -256,7 +256,7 @@ export class App extends React.Component<any, any> {
                         onFolderCreateSubmit={this.onFolderCreateSubmit}
                         filteredBoxData={this.rootStore.filteredBoxes}
                         addItemToCheckout={this.rootStore.addItemToCheckout}
-                        itemInCheckout={this.rootStore.boxInCheckout}
+                        itemInCheckout={this.rootStore.itemInCheckout}
                         filteredFolderData={
                             this.rootStore.selectedBox &&
                             this.rootStore.filteredFolders
@@ -266,7 +266,6 @@ export class App extends React.Component<any, any> {
                         }
                         determineCheckoutType={this.determineCheckoutType}
                         addFolder={this.rootStore.addItemToCheckout}
-                        folderInCheckout={this.rootStore.boxInCheckout}
                         selectBox={this.rootStore.setSelectedBox}
                         boxInCheckout={this.rootStore.selectedBoxInCheckout}
                     />
