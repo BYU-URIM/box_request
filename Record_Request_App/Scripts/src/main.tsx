@@ -8,14 +8,12 @@ import { Provider } from "mobx-react"
 import { rootStore } from "./stores/RootStore"
 const root = document.getElementById("root")
 
+window["rootStore"] = rootStore
+
+
 ReactDom.render(
     <Provider rootStore={rootStore} >
-        <App
-            dataService={new DataService()}
-            user={mockUser}
-            boxData={boxData}
-            folderData={folderData}
-        />
+        <App />
     </Provider>,
     root
 )

@@ -21,8 +21,6 @@ import { DataService } from "../../services/DataService"
 import { IFolderDataObj, IBoxDataObj } from "../../models/MockData"
 
 interface IAppState {
-    selectedItems: Map<number, IFolderAndBox>
-    selectedDep: number
     isChecked: boolean
     request: Map<number, IRequestObject>
     deliveryInstructions: string
@@ -30,7 +28,6 @@ interface IAppState {
     deliveryPriorityToggle: boolean
     folderNameVal: string
     folderNameError: string
-    fmsData
 }
 import "./styles.scss"
 import { inject, observer } from "mobx-react"
@@ -46,12 +43,9 @@ export class App extends React.Component<any, any> {
     }
     rootStore: RootStore
     // checks if box is in the checkout.  if adding parent box of selected folders, remove folders and add parent box
-    boxData: Array<IBoxDataObj> = this.props.boxData
-    folderData: Array<IFolderDataObj> = this.props.folderData
+
     //   fmsData = async () => await this.props.dataService.getAll()
     state = {
-        selectedItems: new Map<number, IFolderAndBox>(),
-        selectedDep: 0,
         isChecked: true,
         request: new Map<number, IRequestObject>(),
         requestTypeToggle: false,
@@ -59,7 +53,6 @@ export class App extends React.Component<any, any> {
         deliveryInstructions: "",
         folderNameVal: "",
         folderNameError: "",
-        fmsData: undefined,
     }
     //   init = async () => {
     //     const data = await this.props.dataService.getAll()
@@ -70,18 +63,18 @@ export class App extends React.Component<any, any> {
     //   }
     // checks if this box has folders checkouted; if so, remove the folders and add the box
     itemInCheckout = (itemNum: number): boolean => {
-        if (this.state.selectedItems.has(itemNum)) {
-            const x = this.state.selectedItems.values()
+        if (this.rootStore.selectedItems.has(itemNum)) {
+            const x = this.rootStore.selectedItems.values()
             const selectedItems = Array.from(
-                this.state.selectedItems.values()
+                this.rootStore.selectedItems.values()
             ).filter(item => {
                 return item.BoxID !== itemNum
             })
-            console.log(selectedItems)
-            for (let i = 0; i < this.state.selectedItems.size; i++) {
+
+            for (let i = 0; i < this.rootStore.selectedItems.size; i++) {
                 const y = x.next().value
                 if (y.BoxID === itemNum) {
-                    this.state.selectedItems.delete(y.FolderIdBarCode)
+                    this.rootStore.selectedItems.delete(y.FolderIdBarCode)
                 }
             }
             return true
@@ -92,19 +85,21 @@ export class App extends React.Component<any, any> {
 
     // function that removes all checkouted folders and adds their parent box if all folders were checkouted
     onAllFoldersAdded = (boxNum: number): boolean => {
-        const folders = this.getFilteredFolders()
+        const folders = this.rootStore.filteredFolders
         let allFoldersAdded = false
         for (const i of folders) {
-            if (!this.state.selectedItems.has(i.FolderIdBarCode)) {
+            if (!this.rootStore.selectedItems.has(i.FolderIdBarCode)) {
                 allFoldersAdded = false
                 break
             }
-            allFoldersAdded = this.state.selectedItems.has(i.FolderIdBarCode)
+            allFoldersAdded = this.rootStore.selectedItems.has(
+                i.FolderIdBarCode
+            )
         }
         if (allFoldersAdded) {
             for (const i of folders) {
-                this.state.selectedItems.delete(i.FolderIdBarCode)
-                this.state.selectedItems.set(boxNum, this.rootStore
+                this.rootStore.selectedItems.delete(i.FolderIdBarCode)
+                this.rootStore.selectedItems.set(boxNum, this.rootStore
                     .selectedBox as IFolderAndBox)
             }
         }
@@ -112,12 +107,6 @@ export class App extends React.Component<any, any> {
     }
 
     // function used to change the selected department via the dropdown menu
-    changeSelectedDep = (val: number): void => {
-        this.setState({
-            selectedDep: val,
-        })
-        this.rootStore.setSelectedBox(undefined)
-    }
 
     determineCheckoutType = (item: IFolderAndBox): string => {
         let checkoutStatus: CheckoutTypes = CheckoutTypes.none
@@ -129,7 +118,9 @@ export class App extends React.Component<any, any> {
         ) {
             checkoutStatus = CheckoutTypes.none
             status = "+ Add Item to Checkout"
-        } else if (Number(item.Location) === this.state.selectedDep) {
+        } else if (
+            Number(item.Location) === this.rootStore.selectedDepartment
+        ) {
             checkoutStatus = CheckoutTypes.depPossession
             status = "- In Your Possession"
         } else {
@@ -140,11 +131,11 @@ export class App extends React.Component<any, any> {
     }
 
     onFolderCreateSubmit = (): void => {
-        this.folderData.push({
+        this.rootStore.folders.push({
             BoxID: this.rootStore.selectedBox.BoxIdBarCode,
             FolderName: this.state.folderNameVal,
             Folder_Description: "",
-            FolderIdBarCode: this.folderData.length + 1,
+            FolderIdBarCode: this.rootStore.folders.length + 1,
             Location: this.rootStore.selectedBox.Location,
         })
         this.setState({
@@ -168,7 +159,7 @@ export class App extends React.Component<any, any> {
                 }.`,
             })
         } else if (
-            this.getFilteredFolders()
+            this.rootStore.filteredFolders
                 .map(x => x.FolderName)
                 .find(element => element === value)
         ) {
@@ -181,37 +172,6 @@ export class App extends React.Component<any, any> {
                 folderNameError: "",
             })
         }
-    }
-
-    addItemToCheckout = (e: IFolderAndBox): void => {
-        this.setState({
-            selectedItems: this.state.selectedItems.set(
-                e.BoxIdBarCode | e.FolderIdBarCode,
-                e
-            ),
-        })
-        this.onAllFoldersAdded(this.rootStore.selectedBox.BoxIdBarCode)
-    }
-
-    removeItemFromCheckout = (r: number): void => {
-        const newMap = this.state.selectedItems
-        newMap.delete(r)
-        this.setState({
-            selectedItems: newMap,
-        })
-    }
-
-    // filter boxData to get the boxes within in the currently selected department
-    getFilteredData = (): Array<IBoxDataObj> =>
-        this.boxData.filter((x, i) => x.DepId === this.state.selectedDep)
-
-    getFilteredFolders = (): Array<IFolderDataObj> =>
-        this.folderData.filter(
-            (x, i) => x.BoxID === this.rootStore.selectedBox.BoxIdBarCode
-        )
-
-    getParentBoxInfo = (boxId: number): IBoxDataObj => {
-        return this.boxData.filter(x => x.BoxIdBarCode === boxId)[0]
     }
 
     updateDeliveryInstructions = (value: string): void => {
@@ -234,11 +194,11 @@ export class App extends React.Component<any, any> {
 
     // This function creates the final request objects with the data necessary to communicate with the rock.
 
-    submitRequest = (items: Map<number, IFolderAndBox>) => {
-        console.log(Array.from(this.state.selectedItems.values()))
-        this.setState({ selectedItems: new Map<number, IFolderAndBox>() })
-        this.rootStore.setModalType(ModalTypes.none)
-    }
+    // submitRequest = (items: Map<number, IFolderAndBox>) => {
+    //     console.log(Array.from(this.rootStore.selectedItems.values()))
+    //     this.setState({ selectedItems: new Map<number, IFolderAndBox>() })
+    //     this.rootStore.setModalType(ModalTypes.none)
+    // }
 
     finalRequest = newRequest => {
         this.setState({
@@ -248,65 +208,67 @@ export class App extends React.Component<any, any> {
 
     render() {
         window["appState"] = this.state
-        window["boxes"] = this.getFilteredData()
+        window["boxes"] = this.rootStore.filteredBoxes
+        const { currentUser } = this.rootStore
 
         return (
             <div className={"ms-Grid"}>
                 <div className={"ms-Grid-row"}>
                     <div className={"ms-Grid-col ms-sm4 ms-smPush8"}>
                         <Greeting
-                            name={this.props.user.name}
-                            departmentid={this.props.user.departments}
+                            name={currentUser.name}
+                            departmentid={currentUser.departments}
                         />
                     </div>
                 </div>
                 <div className={"ms-Grid-row"}>
                     <div className={"ms-Grid-col ms-sm4 ms-smPush4"}>
                         <DepartmentDropdown
-                            mockUser={this.props.user}
-                            mockData={this.boxData}
-                            changeSelectedDep={this.changeSelectedDep}
+                            mockUser={currentUser}
+                            mockData={this.rootStore.boxes}
+                            changeSelectedDep={this.rootStore.selectDepartment}
                         />
                     </div>
                 </div>
 
                 <div className={"ms-Grid-row"}>
                     <RequestBuilder
-                        selectedItems={this.state.selectedItems}
-                        selectedDep={this.state.selectedDep}
+                        selectedItems={this.rootStore.selectedItems}
+                        selectedDep={this.rootStore.selectedDepartment}
                         selectedBox={this.rootStore.selectedBox}
                         isChecked={this.state.isChecked}
                         modal={this.rootStore.modal}
                         request={this.state.request}
                         deliveryInstructions={this.state.deliveryInstructions}
-                        requestTypeToggle={this.state.requestTypeToggle}
                         deliveryPriorityToggle={
                             this.state.deliveryPriorityToggle
                         }
                         folderNameVal={this.state.folderNameVal}
                         folderNameError={this.state.folderNameError}
-                        fmsData={this.state.fmsData}
                         toggleModal={this.rootStore.setModalType}
                         updateDeliveryInstructions={
                             this.updateDeliveryInstructions
                         }
                         updateDeliveryPriority={this.updateDeliveryPriority}
                         updateRequestType={this.updateRequestType}
-                        submitRequest={this.submitRequest}
+                        submitRequest={this.rootStore.submitRequest}
                         onNameChange={this.onNameChange}
                         onFolderCreateSubmit={this.onFolderCreateSubmit}
-                        filteredBoxData={this.getFilteredData()}
-                        addItemToCheckout={this.addItemToCheckout}
-                        itemInCheckout={this.itemInCheckout}
+                        filteredBoxData={this.rootStore.filteredBoxes}
+                        addItemToCheckout={this.rootStore.addItemToCheckout}
+                        itemInCheckout={this.rootStore.boxInCheckout}
                         filteredFolderData={
                             this.rootStore.selectedBox &&
-                            this.getFilteredFolders()
+                            this.rootStore.filteredFolders
                         }
-                        removeItemFromCheckout={this.removeItemFromCheckout}
+                        removeItemFromCheckout={
+                            this.rootStore.removeItemFromCheckout
+                        }
                         determineCheckoutType={this.determineCheckoutType}
-                        addFolder={this.addItemToCheckout}
-                        folderInCheckout={this.itemInCheckout}
+                        addFolder={this.rootStore.addItemToCheckout}
+                        folderInCheckout={this.rootStore.boxInCheckout}
                         selectBox={this.rootStore.setSelectedBox}
+                        boxInCheckout={this.rootStore.selectedBoxInCheckout}
                     />
                 </div>
             </div>

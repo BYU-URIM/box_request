@@ -17,11 +17,9 @@ export interface IRequestBuilderProps {
   modal: ModalTypes
   request: Map<number, IRequestObject>
   deliveryInstructions: string
-  requestTypeToggle: boolean
   deliveryPriorityToggle: boolean
   folderNameVal: string
   folderNameError: string
-  fmsData
   toggleModal(type: ModalTypes): void
   updateDeliveryInstructions(e): void
   updateDeliveryPriority(): void
@@ -38,6 +36,7 @@ export interface IRequestBuilderProps {
   addFolder(x): void
   folderInCheckout(boxNumber: number): boolean
   selectBox(box: IBoxDataObj): void
+  boxInCheckout: boolean
 }
 
 export const RequestBuilder = (props: IRequestBuilderProps) => {
@@ -91,6 +90,7 @@ export const RequestBuilder = (props: IRequestBuilderProps) => {
             props.selectedDep !== 0 && "Click on a box to view its folders"
           }
           classNames={"ms-Grid-col ms-sm4"}
+          boxInCheckout={props.boxInCheckout}
         />
         <Checkout
           selectedItems={props.selectedItems}
