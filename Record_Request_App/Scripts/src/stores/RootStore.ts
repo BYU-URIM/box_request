@@ -36,11 +36,6 @@ export class RootStore {
     }
 
     @computed
-    get firstName(): string {
-        return this.currentUser.name
-    }
-
-    @computed
     get selectedItems(): Array<IFolderAndBox> {
         return Array.from(this._selectedItems.values())
     }
@@ -97,6 +92,10 @@ export class RootStore {
     }
 
     @action
+    getBox = (boxIdBarCode: number): IBoxDataObj => this.boxes.find(box => box.BoxIdBarCode === boxIdBarCode)
+    
+
+    @action
     createFolder = (): void => {
         this.folders.push({
             BoxID: this.selectedBox.BoxIdBarCode,
@@ -105,22 +104,23 @@ export class RootStore {
             Location: this.selectedBox.Location,
             Folder_Description: "",
         })
+        console.log(this.folders)
     }
 
     @action
     addItemToCheckout = (item: IFolderAndBox) => {
         item.FolderIdBarCode
             ? this._selectedItems.set(item.FolderIdBarCode, item)
-            : this._selectedItems.set(item.BoxIdBarCode, item)
-        item.Location = "Cart"
+            : this._selectedItems.set(item.BoxIdBarCode, item)        
     }
 
     @action
     submitRequest = (items: Map<number, IFolderAndBox>) => {
         this._selectedItems.forEach(item => {
             item.Location = String(this.selectedDepartment)
+            console.log(this.determineCheckoutType(item))
         })
-        console.log(Array.from(this._selectedItems.values()))
+        console.log(this.selectedDepartment)
         this._selectedItems.clear()
         this.setModalType(ModalTypes.none)
     }
@@ -141,8 +141,11 @@ export class RootStore {
         this.setSelectedBox(undefined)
     }
     @action
-    removeItemFromCheckout = (itemNum: number) =>
+    removeItemFromCheckout = (itemNum: number) => {
         this._selectedItems.delete(itemNum)
+        this.getBox(itemNum).Location === "L0000000"
+        this.determineCheckoutType
+    }
 
     @action
     itemInCheckout = (itemNum: number): boolean =>
@@ -182,9 +185,6 @@ export class RootStore {
         } else if (item.Location === String(this.selectedDepartment)) {
             checkoutStatus = CheckoutTypes.depPossession
             status = "- In Your Possession"
-        } else if (item.Location === "Cart") {
-            checkoutStatus = CheckoutTypes.cart
-            status = "- Item in Shopping Cart"
         } else {
             checkoutStatus = CheckoutTypes.notAvailable
             status = "- Item Not Available"
