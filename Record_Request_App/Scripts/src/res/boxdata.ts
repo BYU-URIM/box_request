@@ -3,7 +3,7 @@ import { IBoxDataObj } from "../models/MockData"
 
   export interface IBoxDataArrObj extends Array<IBoxDataObj> { }
 
-  export const boxData = [{
+  export const boxData:IBoxDataArrObj = [{
     "BoxIdBarCode": 323617,
     "Location": "L7957050050",
     "DepId": 5555,
