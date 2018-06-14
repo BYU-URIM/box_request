@@ -9,7 +9,6 @@ export enum CheckoutTypes {
     none = "none",
     notAvailable = "not available",
     depPossession = "in requesting department's possession",
-    cart = "cart"
 }
 
 export interface IFolderAndBox {
