@@ -4,65 +4,65 @@ import {
     TextField,
     Label,
     PrimaryButton,
-    DefaultButton,
+    IconButton,
+    IconType,
 } from "office-ui-fabric-react"
-import { folderData } from "../../res"
 import "./styles.scss"
 import { observer } from "mobx-react"
+import { FolderForm } from "../../stores/RequestStore/FolderForm"
 
 export interface ICreateFolderModal {
     selectedBox?: number
     closeModal(): void
-    submitFolder(box): void
-    folderNameVal: string
-    folderNameError: string
-    onNameChange(value): void
-}
-
-function buttonDisabler(name, nameError) {
-    return name.length === 0 || nameError.length > 1 ? true : false
+    submitFolder(): void
+    folderForm: FolderForm
 }
 
 export const CreateFolderModal = observer((props: ICreateFolderModal) => {
     return (
-        <div>
-            <Modal
-                isOpen={true}
-                onDismiss={props.closeModal}
-                isBlocking={false}
-                isDarkOverlay={false}
-            >
-                <div className={"buffer"}>
-                    <h1 className={"ms-font-xl"}> Create Folder </h1>
-
-                    <Label>{`Box B${props.selectedBox}`}</Label>
-                    <br />
+        <Modal
+            isOpen={true}
+            onDismiss={props.closeModal}
+            isBlocking={false}
+            isDarkOverlay={false}
+        >
+            <div className={"create-modal-wrapper"}>
+                <div className="create-modal-header">
+                    <label className={"ms-font-xl"}>
+                        {" "}
+                        Create Folder - Box B{props.selectedBox}{" "}
+                    </label>
+                    <IconButton
+                        text={"Cancel"}
+                        onClick={props.closeModal}
+                        iconProps={{
+                            iconName: "cancel",
+                            iconType: IconType.default,
+                        }}
+                    />
+                </div>
+                <div className="create-modal-body">
                     <TextField
                         type={"text"}
-                        label={"Folder Name"}
                         description={"Warning: You cannot change this later."}
-                        value={props.folderNameVal}
-                        onChanged={props.onNameChange}
+                        value={props.folderForm.folderName}
+                        onChanged={val => (props.folderForm.folderName = val)}
                         required={true}
+                        autoFocus={true}
+                        label={"Folder Name"}
+                        underlined={true}
                         placeholder={"i.e. Jared"}
-                        errorMessage={props.folderNameError}
+                        errorMessage={props.folderForm.errorMessage}
                     />
-
-                    <br />
-                    <div className={"modalWidth"}>
-                        <PrimaryButton
-                            text={"Create Folder"}
-                            onClick={box =>
-                                props.submitFolder(props.selectedBox)
-                            }
-                            disabled={buttonDisabler(
-                                props.folderNameVal,
-                                props.folderNameError
-                            )}
-                        />
-                    </div>
                 </div>
-            </Modal>
-        </div>
+                <div className={"create-modal-footer"}>
+                    <PrimaryButton
+                        text={"Create Folder"}
+                        onClick={props.submitFolder}
+                        disabled={!props.folderForm.inputIsValid}
+                    />
+                </div>
+            </div>
+        </Modal>
     )
 })
