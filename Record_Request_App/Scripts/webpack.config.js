@@ -1,42 +1,36 @@
-var path = require('path');
-var webpack = require('webpack');
-
+var path = require("path")
+var webpack = require("webpack")
 
 module.exports = function(env) {
     return {
-        devtool: 'source-map',
-        entry: './src/main.tsx',
+        devServer: {
+            contentBase: "dist"
+        },
+        entry: "./src/main.tsx",
         output: {
-            filename: 'bundle.js',
-            path: path.join(__dirname, 'dist')
+            filename: "bundle.js",
+            path: path.join(__dirname, "dist"),
         },
         module: {
             rules: [
                 {
                     test: /\.tsx?$/,
-                    loader: 'ts-loader',
+                    loader: "ts-loader",
                     exclude: /node_modules/,
                 },
                 {
                     test: /\.scss$/,
-                    use: [
-                        {
-                            loader: "style-loader",
-                        },
-                        {
-                            loader: "css-loader",
-                        },
-                    ],
+                    use: ["style-loader", "css-loader", "sass-loader"],
                 },
-            ]
+            ],
         },
         resolve: {
-            extensions: [".tsx", ".ts", ".js", ".jsx"]
+            extensions: [".tsx", ".ts", ".js", ".jsx"],
         },
         plugins: [
             new webpack.DefinePlugin({
-                NODE_ENV: JSON.stringify(env.NODE_ENV)
-            })
-        ]
+                NODE_ENV: JSON.stringify(env.NODE_ENV),
+            }),
+        ],
     }
-};
+}
