@@ -1,13 +1,11 @@
 import * as React from "react"
 import {
-    TextField,
-    Icon,
     PrimaryButton,
     DetailsList,
     DetailsListLayoutMode,
-    Selection,
     IColumn,
     CheckboxVisibility,
+    SelectionMode,
 } from "office-ui-fabric-react"
 
 import { IFolderAndBox, ModalTypes } from "../../models/App"
@@ -128,7 +126,9 @@ export const Checkout = observer((props: ICheckoutProps) => {
                         <PrimaryButton
                             disabled={!(props.selectedItems.length > 0)}
                             text={"Submit Request"}
-                            onClick={() => props.setModalType(ModalTypes.submit)}
+                            onClick={() =>
+                                props.setModalType(ModalTypes.submit)
+                            }
                         />
                     </div>
                 </div>

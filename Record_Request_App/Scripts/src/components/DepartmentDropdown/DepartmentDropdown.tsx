@@ -1,10 +1,8 @@
 import * as React from "react"
 import {
     Dropdown,
-    IDropdown,
-    DropdownMenuItemType,
-    IDropdownOption,
-} from "office-ui-fabric-react"
+
+} from "office-ui-fabric-react/lib/"
 import "./styles.scss"
 import { observer } from "mobx-react"
 
@@ -38,8 +36,8 @@ export const DepartmentDropdown = observer((props: IUserDeps) => {
 
     // return the HTML dropdown menu of the department names associated with the user
     return (
-        <form action="">
-            <h1 className="ms-font-xxl center">
+        <div>
+            <h1 className="ms-font-xxl department-dropdown-center">
                 Select one of your available departments:
             </h1>
 
@@ -50,6 +48,6 @@ export const DepartmentDropdown = observer((props: IUserDeps) => {
                 })}
                 onChanged={x => props.changeSelectedDep(Number(x.key))}
             />
-        </form>
+        </div>
     )
 })
