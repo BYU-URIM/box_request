@@ -107,7 +107,6 @@ export const FolderView = observer((props: IFolderViewProps) => {
                             compact={true}
                             layoutMode={DetailsListLayoutMode.fixedColumns}
                             checkboxVisibility={CheckboxVisibility.hidden}
-                            // tslint:disable-next-line:variable-name
                             onRenderRow={(_props, defaultRender) => (
                                 <div key={_props.item.key}>
                                     {defaultRender({
