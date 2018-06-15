@@ -1,14 +1,11 @@
 import * as React from "react"
 import {
-    TextField,
     DetailsList,
     DetailsListLayoutMode,
-    Selection,
     IColumn,
     CheckboxVisibility,
-    getNativeProps,
 } from "office-ui-fabric-react"
-import { IFolderDataObj, IBoxDataObj } from "../../models/MockData"
+import { IBoxDataObj } from "../../models/MockData"
 import "./styles.scss"
 import { IFolderAndBox } from "../../models"
 import DetailListHeader from "../DetailListHeader/DetailListHeader"
@@ -61,32 +58,11 @@ export const BoxList = observer((props: IBoxListProps) => {
         },
     ]
 
-    const bIdList = props.boxData.map((box, i) => ({
-        key: i,
-        boxNumber: <p>{`B${box.BoxIdBarCode}`}</p>,
-        checkoutBox: (
-            <p
-                onClick={() =>
-                    props.addBox({
-                        key: i,
-                        BoxIdBarCode: box.BoxIdBarCode,
-                        Location: box.Location,
-                        DepId: box.DepId,
-                        DepartmentName: box.DepartmentName,
-                    })
-                }
-            >
-                {props.checkoutStatus(box as IFolderAndBox)}
-            </p>
-        ),
-    }))
-
     return (
         <div className={props.classNames}>
             {props.boxData.length > 0 && (
-                <React.Fragment>
+                <>
                     <DetailListHeader title={"Boxes"} />
-
                     <DetailsList
                         items={props.boxData}
                         columns={columns}
@@ -111,7 +87,7 @@ export const BoxList = observer((props: IBoxListProps) => {
                             </div>
                         )}
                     />
-                </React.Fragment>
+                </>
             )}
         </div>
     )
