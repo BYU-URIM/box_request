@@ -10,6 +10,7 @@ import {
 } from ".."
 import "./styles.scss"
 import { observer } from "mobx-react"
+import { FolderForm } from "../../stores/RequestStore/FolderForm"
 export interface IRequestBuilderProps {
     selectedItems: Array<IFolderAndBox>
     selectedDep: number
@@ -18,19 +19,17 @@ export interface IRequestBuilderProps {
     checkoutCart: Map<number, IRequestObject>
     deliveryInstructions: string
     requestIsUrgent: boolean
-    folderNameVal: string
-    folderNameError: string
+    folderForm: FolderForm
     setModalType(type: ModalTypes): void
     updateDeliveryInstructions(e): void
     updateIsUrgent(): boolean
     updateIsPermament(): boolean
     submitRequest(e): void
-    onNameChange(val): void
-    createFolder(box): void
+    createFolder(): void
     filteredBoxData: Array<IBoxDataObj>
     addItemToCheckout(e): void
-    itemInCheckout(itemNum: number): boolean
-    removeItemFromCheckout(itemRef: number): void
+    itemInCheckout(itemNum: string): boolean
+    removeItemFromCheckout(itemRef: string): void
     determineCheckoutType(item: IFolderAndBox): string
     filteredFolderData: Array<IFolderDataObj>
     addFolder(x): void
@@ -56,12 +55,10 @@ export const RequestBuilder = observer((props: IRequestBuilderProps) => {
             )}
             {props.modal === ModalTypes.create && (
                 <CreateFolderModal
+                    folderForm={props.folderForm}
                     closeModal={() => props.setModalType(ModalTypes.none)}
                     selectedBox={props.selectedBox.BoxIdBarCode}
-                    folderNameError={props.folderNameError}
-                    folderNameVal={props.folderNameVal}
-                    onNameChange={value => props.onNameChange(value)}
-                    submitFolder={box => props.createFolder(box)}
+                    submitFolder={props.createFolder}
                 />
             )}
 
@@ -74,7 +71,7 @@ export const RequestBuilder = observer((props: IRequestBuilderProps) => {
                         props.selectBox(box)
                     }}
                     boxInCheckout={(boxNum: number): boolean =>
-                        props.itemInCheckout(boxNum)
+                        props.itemInCheckout(boxNum.toString())
                     }
                     checkoutStatus={item => props.determineCheckoutType(item)}
                     classNames={"ms-Grid-col ms-sm3"}
@@ -86,7 +83,7 @@ export const RequestBuilder = observer((props: IRequestBuilderProps) => {
                     selectedBox={props.selectedBox}
                     addFolder={e => props.addItemToCheckout(e)}
                     folderInCheckout={(itemNum: number) =>
-                        props.itemInCheckout(itemNum)
+                        props.itemInCheckout(itemNum.toString())
                     }
                     checkoutStatus={item => props.determineCheckoutType(item)}
                     emptyMessage={
@@ -99,7 +96,7 @@ export const RequestBuilder = observer((props: IRequestBuilderProps) => {
                 <Checkout
                     selectedItems={props.selectedItems}
                     removeItemFromCheckout={r =>
-                        props.removeItemFromCheckout(r)
+                        props.removeItemFromCheckout(r.toString())
                     }
                     setModalType={props.setModalType}
                     classNames={"ms-Grid-col ms-sm3"}
