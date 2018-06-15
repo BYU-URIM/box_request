@@ -1,89 +1,83 @@
 import * as React from "react"
 import { initializeIcons } from "@uifabric/icons"
-import {
-    DepartmentDropdown,
-    Greeting,
-    RequestBuilder,
-} from "../"
+import { DepartmentDropdown, Greeting, RequestBuilder } from "../"
 import "./styles.scss"
 import { inject, observer } from "mobx-react"
-import { RootStore } from "../../stores/RootStore"
+import { RootStore } from "../../stores/RootStore/RootStore"
+import { Fabric } from "office-ui-fabric-react"
 
 initializeIcons()
 @inject("rootStore")
 @observer
 export class App extends React.Component<any, any> {
-    componentWillMount() {
-        this.rootStore = this.props.rootStore
-    }
     rootStore: RootStore
 
     render() {
-        window["boxes"] = this.rootStore.filteredBoxes
-        const { currentUser } = this.rootStore
+        this.rootStore = this.props.rootStore
+        window["boxes"] = this.rootStore.requestStore.filteredBoxes
+        const { sessionStore, requestStore } = this.rootStore
 
         return (
+            <Fabric>
+
             <div className={"ms-Grid"}>
                 <div className={"ms-Grid-row"}>
                     <div className={"ms-Grid-col ms-sm4 ms-smPush8"}>
                         <Greeting
-                            name={currentUser.name}
-                            departmentid={currentUser.departments}
+                            name={sessionStore.currentUser.name}
+                            departmentid={sessionStore.currentUser.departments}
                         />
                     </div>
                 </div>
                 <div className={"ms-Grid-row"}>
                     <div className={"ms-Grid-col ms-sm4 ms-smPush4"}>
                         <DepartmentDropdown
-                            mockUser={this.rootStore.currentUser}
-                            mockData={this.rootStore.boxes}
-                            changeSelectedDep={this.rootStore.chooseDepartment}
+                            mockUser={sessionStore.currentUser}
+                            mockData={requestStore.boxes}
+                            changeSelectedDep={requestStore.chooseDepartment}
                         />
                     </div>
                 </div>
 
                 <div className={"ms-Grid-row"}>
                     <RequestBuilder
-                        selectedItems={this.rootStore.selectedItems}
-                        selectedDep={this.rootStore.selectedDepartment}
-                        selectedBox={this.rootStore.selectedBox}
-                        modal={this.rootStore.modal}
-                        checkoutCart={this.rootStore.checkoutCart}
-                        deliveryInstructions={
-                            this.rootStore.deliveryInstructions
-                        }
-                        requestIsUrgent={this.rootStore.requestIsUrgent}
-                        folderNameVal={this.rootStore.folderNameVal}
-                        folderNameError={this.rootStore.folderNameError}
-                        setModalType={this.rootStore.setModalType}
+                        folderForm={requestStore.folderForm}
+                        selectedItems={requestStore.selectedItems}
+                        selectedDep={requestStore.selectedDepartment}
+                        selectedBox={requestStore.selectedBox}
+                        modal={requestStore.modal}
+                        checkoutCart={requestStore.checkoutCart}
+                        deliveryInstructions={requestStore.deliveryInstructions}
+                        requestIsUrgent={requestStore.requestIsUrgent}
+                        setModalType={requestStore.setModalType}
                         updateDeliveryInstructions={
-                            this.rootStore.updateDeliveryInstructions
+                            requestStore.updateDeliveryInstructions
                         }
-                        updateIsUrgent={this.rootStore.updateIsUrgent}
-                        updateIsPermament={this.rootStore.updateIsPermanent}
-                        submitRequest={this.rootStore.submitRequest}
-                        onNameChange={this.rootStore.onNameChange}
-                        createFolder={this.rootStore.createFolder}
-                        filteredBoxData={this.rootStore.filteredBoxes}
-                        addItemToCheckout={this.rootStore.addItemToCheckout}
+                        updateIsUrgent={requestStore.updateIsUrgent}
+                        updateIsPermament={requestStore.updateIsPermanent}
+                        submitRequest={requestStore.submitRequest}
+                        createFolder={requestStore.createFolder}
+                        filteredBoxData={requestStore.filteredBoxes}
+                        addItemToCheckout={requestStore.addItemToCheckout}
                         // Should only need one of these
-                        itemInCheckout={this.rootStore.itemInCheckout}
-                        boxInCheckout={this.rootStore.selectedBoxInCheckout}
+                        itemInCheckout={requestStore.itemInCheckout}
+                        boxInCheckout={requestStore.selectedBoxInCheckout}
                         filteredFolderData={
-                            this.rootStore.selectedBox &&
-                            this.rootStore.filteredFolders
+                            requestStore.selectedBox &&
+                            requestStore.filteredFolders
                         }
                         removeItemFromCheckout={
-                            this.rootStore.removeItemFromCheckout
+                            requestStore.removeItemFromCheckout
                         }
                         determineCheckoutType={
-                            this.rootStore.determineCheckoutType
+                            requestStore.determineCheckoutType
                         }
-                        addFolder={this.rootStore.addItemToCheckout}
-                        selectBox={this.rootStore.setSelectedBox}
+                        addFolder={requestStore.addItemToCheckout}
+                        selectBox={requestStore.setSelectedBox}
                     />
                 </div>
             </div>
+            </Fabric>
         )
     }
 }
