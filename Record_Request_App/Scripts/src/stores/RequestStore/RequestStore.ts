@@ -29,9 +29,6 @@ export class RequestStore {
     }
 
     init = async () => {
-        // this.selectedDepartment = 5556
-        // this.setSelectedBox(this.filteredBoxes[3])
-        // this.setModalType(ModalTypes.create)
         return
     }
 
