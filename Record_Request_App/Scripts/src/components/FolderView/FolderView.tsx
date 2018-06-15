@@ -1,25 +1,15 @@
 import * as React from "react"
-import { Fragment } from "react"
-// tslint:disable-next-line:no-submodule-imports
-import { Modal } from "office-ui-fabric-react/lib/Modal"
 import {
-    DefaultButton,
     DetailsList,
     DetailsListLayoutMode,
-    Selection,
     IColumn,
     CheckboxVisibility,
 } from "office-ui-fabric-react"
-import { CreateFolderModal } from "../CreateFolderModal/CreateFolderModal"
 import { IFolderDataObj, IBoxDataObj } from "../../models/MockData"
 import { IFolderAndBox, ModalTypes } from "../../models"
 import "./styles.scss"
 import DetailListHeader from "../DetailListHeader/DetailListHeader"
 import { observer } from "mobx-react"
-
-const Center = {
-    textAlign: "center",
-} as React.CSSProperties
 
 export interface IFolderViewProps {
     setModalType(type: ModalTypes): void
