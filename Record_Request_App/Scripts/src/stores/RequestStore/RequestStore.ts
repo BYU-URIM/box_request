@@ -64,13 +64,13 @@ export class RequestStore {
         return (this.requestIsUrgent = !this.requestIsUrgent)
     }
 
-    // Not currently usingthis.dataService
+    // Not currently using
     @action
     finalRequest = request => {
         console.log(request)
     }
 
-    // Not currently usingthis.dataService
+    // Not currently using
     @action
     updateDeliveryInstructions = (instructionInput: string) => {
         this.deliveryInstructions = instructionInput

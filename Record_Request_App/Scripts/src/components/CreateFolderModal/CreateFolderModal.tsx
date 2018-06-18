@@ -15,7 +15,7 @@ import { ModalTypes } from "../../models"
 
 export interface ICreateFolderModal {
     requestState: RequestState
-    submitFolder(): void
+    createFolder(): void
     folderForm: FolderForm
 }
 
@@ -63,7 +63,7 @@ export const CreateFolderModal = observer((props: ICreateFolderModal) => {
                 <div className={"create-modal-footer"}>
                     <PrimaryButton
                         text={"Create Folder"}
-                        onClick={props.submitFolder}
+                        onClick={props.createFolder}
                         disabled={!props.folderForm.inputIsValid}
                     />
                 </div>
