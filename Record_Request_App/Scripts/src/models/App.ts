@@ -1,3 +1,5 @@
+import { IBox, IFolder } from "./StoreModels"
+
 export enum ModalTypes {
     warning = "warning",
     submit = "submit",
@@ -9,18 +11,6 @@ export enum CheckoutTypes {
     none = "none",
     notAvailable = "not available",
     depPossession = "in requesting department's possession",
-}
-
-export interface IFolderAndBox {
-    key: number
-    BoxIdBarCode?: number
-    Location?: string
-    DepId?: number
-    DepartmentName?: string
-    FolderIdBarCode?: number
-    FolderName?: string
-    BoxID?: number
-    Folder_Description?: string
 }
 
 export interface IRequestObject {
@@ -35,3 +25,5 @@ export interface IRequestObject {
     deliveryInstructions: string
     folderNumber?: string
 }
+
+export type IFolderAndBox = IFolder | IBox
