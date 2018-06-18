@@ -1,13 +1,38 @@
-.mainBuffer {
+.submit-modal-wrapper {
+    position: relative;
+    min-width: 350px;
+    height: auto;
     padding: 10px;
 }
 
-.helpBuffer {
-    float: right;
-    padding-top: 5px;
-    color: rgb(0, 120, 215);
+.submit-modal-header {
+    text-align: center;
+    /* close icon button */
+    button {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        zoom: 1.5;
+    }
 }
 
-.breakApart {
-    float: right;
+/* modal body content (form) */
+
+.submit-modal-body {
+    padding: 16px;
+}
+
+/* submit-folder button */
+
+.submit-modal-footer {
+    text-align: right;
+    button {
+        margin: 10px;
+    }
+}
+
+i {
+    // float: right;
+    padding: 5px;
+    color: rgb(0, 120, 215);
 }

@@ -1,4 +1,4 @@
-export { boxData, IBoxDataArrObj } from './boxdata'
-export { folderData, IFolderDataArrObj } from './folderdata'
-export { iMockDataArrObj, iMockDataObj, mockData } from './mockdata'
-export { iMockUser, mockUser } from './mockuser'
+export { boxData, IBoxArr } from "./boxdata"
+export { folderData, IFolderArr } from "./folderdata"
+export { IMockDataArrObj, IMockDataObj, mockData } from "./mockdata"
+export { mockUser } from "./mockuser"

@@ -1,15 +1,9 @@
-export interface iMockUser {
-    name: string
-    email: string
-    username: string
-    departments: number[]
-}
+import { IUser } from "../models/StoreModels"
 
-export const mockUser:iMockUser = {
+export const mockUser: IUser = {
     name: "Greg Anderson",
+    Id: "12345",
     email: "email@gmail.com",
     username: "greggy",
-    departments : [5555, 5556, 5557,],
-
-    
+    departments: [5555, 5556, 5557],
 }

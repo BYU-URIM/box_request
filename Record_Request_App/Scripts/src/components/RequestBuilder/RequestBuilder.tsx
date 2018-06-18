@@ -1,106 +1,85 @@
-import * as React from 'react'
-import { IFolderAndBox, ModalTypes, IRequestObject } from '../../models'
-import { IBoxDataObj, IFolderDataObj } from '../../models/MockData'
+import * as React from "react"
+import { ModalTypes } from "../../models"
+import { IBox, IFolder, IFolderOrBox } from "../../models/StoreModels"
 import {
-  FolderView,
-  BoxList,
-  CreateFolderModal,
-  SubmitModal,
-  Checkout,
-} from '..'
-import './styles.scss'
+    FolderView,
+    BoxList,
+    CreateFolderModal,
+    SubmitModal,
+    Checkout,
+} from ".."
+import "./styles.scss"
+import { observer } from "mobx-react"
+import { FolderForm } from "../../stores/RequestStore/FolderForm"
+import { RequestState } from "../../stores/RequestStore/RequestState"
 export interface IRequestBuilderProps {
-  selectedItems: Map<number, IFolderAndBox>
-  selectedDep: number
-  selectedBox: IBoxDataObj | undefined
-  isChecked: boolean
-  modal: ModalTypes
-  request: Map<number, IRequestObject>
-  deliveryInstructions: string
-  requestTypeToggle: boolean
-  deliveryPriorityToggle: boolean
-  folderNameVal: string
-  folderNameError: string
-  fmsData
-  toggleModal(type: ModalTypes): void
-  updateDeliveryInstructions(e): void
-  updateDeliveryPriority(): void
-  updateRequestType(): void
-  submitRequest(e): void
-  onNameChange(val): void
-  onFolderCreateSubmit(box): void
-  filteredBoxData: Array<IBoxDataObj>
-  addItemToCheckout(e): void
-  itemInCheckout(itemNum: number): boolean
-  removeItemFromCheckout(itemRef: number): void
-  determineCheckoutType(item: IFolderAndBox): string
-  filteredFolderData: Array<IFolderDataObj>
-  addFolder(x): void
-  folderInCheckout(boxNumber: number): boolean
-  selectBox(box: IBoxDataObj): void
+    requestState: RequestState
+    deliveryInstructions: string
+    requestIsUrgent: boolean
+    folderForm: FolderForm
+    updateDeliveryInstructions(e): void
+    updateIsUrgent(): boolean
+    updateIsPermament(): boolean
+    submitRequest(e): void
+    createFolder(): void
+    determineCheckoutType(item: IFolderOrBox): string
 }
 
-export const RequestBuilder = (props: IRequestBuilderProps) => {
-  return (
-    <div>
-      {props.modal === ModalTypes.submit && (
-        <SubmitModal
-          close={() => props.toggleModal(ModalTypes.none)}
-          updateInstructions={e => props.updateDeliveryInstructions(e)}
-          priority={props.updateDeliveryPriority}
-          requestType={props.updateRequestType}
-          submit={e => props.submitRequest(e)}
-          selectedItems={props.selectedItems}
-          deliveryInstructions={props.deliveryInstructions}
-        />
-      )}
-      {props.modal === ModalTypes.create && (
-        <CreateFolderModal
-          closeModal={() => props.toggleModal(ModalTypes.none)}
-          selectedBox={props.selectedBox.BoxIdBarCode}
-          folderNameError={props.folderNameError}
-          folderNameVal={props.folderNameVal}
-          onNameChange={value => props.onNameChange(value)}
-          submitFolder={box => props.onFolderCreateSubmit(box)}
-        />
-      )}
+export const RequestBuilder = observer((props: IRequestBuilderProps) => {
+    return (
+        <div>
+            {props.requestState.modal === ModalTypes.submit && (
+                <SubmitModal
+                    updateInstructions={(e: string) =>
+                        props.updateDeliveryInstructions(e)
+                    }
+                    priority={props.updateIsUrgent}
+                    requestType={props.updateIsPermament}
+                    submit={e => props.submitRequest(e)}
+                    requestState={props.requestState}
+                    deliveryInstructions={props.deliveryInstructions}
+                />
+            )}
+            {props.folderForm &&
+                props.requestState.modal === ModalTypes.create && (
+                    <CreateFolderModal
+                        requestState={props.requestState}
+                        folderForm={props.folderForm}
+                        submitFolder={props.createFolder}
+                    />
+                )}
 
-      <div>
-        <div className={'ms-Grid-col ms-sm1'} />
-        <BoxList
-          boxData={props.filteredBoxData}
-          addBox={e => props.addItemToCheckout(e)}
-          openModal={(box: IBoxDataObj) => {
-            props.selectBox(box)
-          }}
-          boxInCheckout={(boxNum: number): boolean =>
-            props.itemInCheckout(boxNum)
-          }
-          checkoutStatus={item => props.determineCheckoutType(item)}
-          classNames={'ms-Grid-col ms-sm3'}
-        />
+            <div>
+                <div className={"ms-Grid-col ms-sm1"} />
+                <BoxList
+                    cartContains={(item: IFolderOrBox) =>
+                        props.requestState.cartContains(item)
+                    }
+                    requestState={props.requestState}
+                    checkoutStatus={item => props.determineCheckoutType(item)}
+                    classNames={"ms-Grid-col ms-sm3"}
+                    boxes={props.requestState.boxes}
+                />
 
-        <FolderView
-          toggleModal={props.toggleModal}
-          filteredData={props.filteredFolderData}
-          selectedBox={props.selectedBox}
-          addFolder={e => props.addItemToCheckout(e)}
-          folderInCheckout={(itemNum: number) => props.itemInCheckout(itemNum)}
-          checkoutStatus={item => props.determineCheckoutType(item)}
-          emptyMessage={
-            props.selectedDep !== 0 && 'Click on a box to view its folders'
-          }
-          classNames={'ms-Grid-col ms-sm4'}
-        />
-        <Checkout
-          selectedItems={props.selectedItems}
-          type={props.isChecked ? 'Box' : 'Folder'}
-          removeItemFromCheckout={r => props.removeItemFromCheckout(r)}
-          toggleModal={props.toggleModal}
-          classNames={'ms-Grid-col ms-sm3'}
-        />
-        <div className={'ms-Grid-col ms-sm1'} />
-      </div>
-    </div>
-  )
-}
+                <FolderView
+                    cartContains={(item: IFolderOrBox) =>
+                        props.requestState.cartContains(item)
+                    }
+                    cart={props.requestState.cart}
+                    checkoutStatus={item => props.determineCheckoutType(item)}
+                    emptyMessage={
+                        props.requestState.department !== 0 &&
+                        "Click on a box to view its folders"
+                    }
+                    classNames={"ms-Grid-col ms-sm4"}
+                    requestState={props.requestState}
+                />
+                <Checkout
+                    requestState={props.requestState}
+                    classNames={"ms-Grid-col ms-sm3"}
+                />
+                <div className={"ms-Grid-col ms-sm1"} />
+            </div>
+        </div>
+    )
+})

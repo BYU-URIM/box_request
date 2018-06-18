@@ -1,8 +1,32 @@
-.modalWidth {
-    width: 205px;
-    text-align: center;
+.create-modal-wrapper {
+    position: relative;
+    min-width: 350px;
+    min-height: 180px;
+    padding: 10px;
 }
 
-.buffer {
-    margin: 10px;
+.create-modal-header {
+    text-align: center;
+    /* close icon button */
+    button {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        zoom: 1.5;
+    }
+}
+
+
+/* modal body content (form) */
+
+.create-modal-body {
+    padding: 16px;
+}
+
+/* create-folder button */
+
+.create-modal-footer {
+    position: absolute;
+    right: 32px;
+    bottom: 32px;
 }

@@ -1,18 +1,20 @@
-import * as React from 'react'
-import * as ReactDom from 'react-dom'
-import { BrowserRouter, Router } from 'react-router-dom'
-import { App } from './components/'
-import { folderData, mockUser, boxData } from './res/'
-import { DataService } from './services/DataService'
+import * as React from "react"
+import * as ReactDom from "react-dom"
+import { App } from "./components/"
+import { Provider } from "mobx-react"
+import { DataServiceFactory } from "./services/DataServiceFactory"
 
-const root = document.getElementById('root')
-
-ReactDom.render(
-  <App
-    dataService={new DataService()}
-    user={mockUser}
-    boxData={boxData}
-    folderData={folderData}
-  />,
-  root
-)
+const root = document.getElementById("root")
+const rootStore = DataServiceFactory.getRootStore()
+window["rootStore"] = rootStore
+const init = async () => {
+    await rootStore.init()
+    if (rootStore.initialized)
+        ReactDom.render(
+            <Provider rootStore={rootStore}>
+                <App />
+            </Provider>,
+            root
+        )
+}
+init()

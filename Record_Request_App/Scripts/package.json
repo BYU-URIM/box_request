@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev:local": "webpack-dev-server --env.NODE_ENV=local --inline --content-base dist",
+    "dev:local": "webpack-dev-server --env.NODE_ENV=local --mode=development --hints=off",
     "dev:sharepoint": "webpack --watch --env.NODE_ENV=sharepoint",
     "build": "webpack --env.NODE_ENV=sharepoint",
     "build:production": "webpack --env.Node_ENV=sharepoint --optimize-minimize"
@@ -13,29 +13,28 @@
   "devDependencies": {
     "@types/react": "^16.3.14",
     "@types/react-dom": "^16.0.5",
-    "@types/react-router": "^4.0.25",
-    "@types/react-router-dom": "^4.2.6",
+    "@uifabric/icons": "^6.0.1",
     "css-loader": "^0.28.11",
+    "fork-ts-checker-webpack-plugin": "^0.4.2",
+    "node-sass": "^4.9.0",
     "prettier": "^1.13.5",
+    "sass-loader": "^7.0.3",
     "source-map-loader": "^0.2.3",
     "style-loader": "^0.21.0",
-    "ts-loader": "^3.5.0",
+    "ts-loader": "^4.4.1",
+    "ts-node": "^4.1.0",
     "tslint": "^5.10.0",
     "tslint-config-prettier": "^1.13.0",
     "typescript": "^2.9.1",
-    "webpack": "^3.12.0",
-    "webpack-dev-server": "^2.11.2"
+    "webpack": "^4.12.0",
+    "webpack-cli": "^3.0.6",
+    "webpack-dev-server": "^3.1.4"
   },
   "dependencies": {
-    "@uifabric/icons": "^5.8.0",
-    "core-decorators": "^0.20.0",
-    "office-ui-fabric-react": "^5.112.0",
-    "react": "^16.4.0",
-    "react-dom": "^16.4.0",
-    "react-jsonschema-form": "^1.0.3",
-    "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1",
-    "ts-node": "^4.1.0",
-    "yarn": "^1.7.0"
+    "mobx": "^5.0.2",
+    "mobx-react": "^5.2.3",
+    "office-ui-fabric-react": "^6.9.0",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2"
   }
 }
