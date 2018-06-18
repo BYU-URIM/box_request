@@ -15,6 +15,7 @@
     "@types/react-dom": "^16.0.5",
     "@uifabric/icons": "^6.0.1",
     "css-loader": "^0.28.11",
+    "fork-ts-checker-webpack-plugin": "^0.4.2",
     "node-sass": "^4.9.0",
     "prettier": "^1.13.5",
     "sass-loader": "^7.0.3",
@@ -30,8 +31,8 @@
     "webpack-dev-server": "^3.1.4"
   },
   "dependencies": {
-    "mobx": "^3.3.2",
-    "mobx-react": "^4.3.2",
+    "mobx": "^5.0.2",
+    "mobx-react": "^5.2.3",
     "office-ui-fabric-react": "^6.9.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2"

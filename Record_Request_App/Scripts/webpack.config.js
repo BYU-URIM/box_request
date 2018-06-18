@@ -1,10 +1,11 @@
 var path = require("path")
 var webpack = require("webpack")
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin")
 
 module.exports = function(env) {
     return {
         devServer: {
-            contentBase: "dist"
+            contentBase: "dist",
         },
         entry: "./src/main.tsx",
         output: {
@@ -17,6 +18,9 @@ module.exports = function(env) {
                     test: /\.tsx?$/,
                     loader: "ts-loader",
                     exclude: /node_modules/,
+                    options: {
+                        transpileOnly: true,
+                    },
                 },
                 {
                     test: /\.scss$/,
@@ -31,6 +35,7 @@ module.exports = function(env) {
             new webpack.DefinePlugin({
                 NODE_ENV: JSON.stringify(env.NODE_ENV),
             }),
+            new ForkTsCheckerWebpackPlugin(),
         ],
     }
 }
