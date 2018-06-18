@@ -6,10 +6,8 @@ export interface IGreeting {
     departmentid: number[]
 }
 
-export function Greeting(props: IGreeting) {
-    return (
-        <div className={"greeting-wrapper"}>
-            <h2 className={"ms-font-l"}> Welcome, {props.name}</h2>
-        </div>
-    )
-}
+export const Greeting = (props: IGreeting) => (
+    <div className={"greeting-wrapper"}>
+        <h2 className={"ms-font-l"}> Welcome, {props.name}</h2>
+    </div>
+)

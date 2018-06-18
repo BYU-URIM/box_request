@@ -5,22 +5,20 @@ import {
     IColumn,
     CheckboxVisibility,
 } from "office-ui-fabric-react"
-import { IFolderDataObj, IBoxDataObj } from "../../models/MockData"
-import { IFolderAndBox, ModalTypes } from "../../models"
+import { IFolder, IBox, IFolderOrBox } from "../../models/StoreModels"
+import { ModalTypes } from "../../models"
 import "./styles.scss"
 import DetailListHeader from "../DetailListHeader/DetailListHeader"
 import { observer } from "mobx-react"
+import { RequestState } from "../../stores/RequestStore/RequestState"
 
 export interface IFolderViewProps {
-    setModalType(type: ModalTypes): void
-    filteredData: Array<IFolderDataObj>
-    selectedBox?: IBoxDataObj
-    addFolder(item): void
-    folderInCheckout(boxNumber: number): boolean
-    checkoutStatus(box: IFolderAndBox): string
+    requestState: RequestState
+    cart: Array<IFolderOrBox>
+    checkoutStatus(box: IFolderOrBox): string
     emptyMessage: string
     classNames: string
-    boxInCheckout: boolean
+    cartContains(item: IFolderOrBox): boolean
 }
 
 // create column info that goes into fabric ui component
@@ -37,7 +35,7 @@ export const FolderView = observer((props: IFolderViewProps) => {
             maxWidth: 120,
             isResizable: true,
             ariaLabel: "Operations for name",
-            onRender: (item: IFolderDataObj) => {
+            onRender: (item: IFolder) => {
                 return <p>{`${item.FolderName}`}</p>
             },
         },
@@ -49,18 +47,17 @@ export const FolderView = observer((props: IFolderViewProps) => {
             maxWidth: 170,
             isResizable: true,
             ariaLabel: "Operations for checkoutFolder",
-            onRender: (item: IFolderDataObj) => {
-                return props.checkoutStatus(item as IFolderAndBox)[0] ===
-                    "+" ? (
-                    <button
-                        onClick={() => props.addFolder(item)}
-                        className={"ms-fontSize-mPlus ms-fontWeight-light"}
-                        disabled={props.boxInCheckout}
-                    >
-                        {props.checkoutStatus(item as IFolderAndBox)}
-                    </button>
-                ) : (
-                    props.checkoutStatus(item as IFolderAndBox)
+            onRender: (item: IFolder) => {
+                return (
+                    props.cart && (
+                        <button
+                            onClick={() => props.requestState.addToCart(item)}
+                            className={"ms-fontSize-mPlus ms-fontWeight-light"}
+                            disabled={item.inCart}
+                        >
+                            {props.checkoutStatus(item)}
+                        </button>
+                    )
                 )
             },
         },
@@ -74,8 +71,9 @@ export const FolderView = observer((props: IFolderViewProps) => {
             ariaLabel: "Operations for createFolder",
             onRender: () => (
                 <p
-                    onClick={() => props.setModalType(ModalTypes.create)}
-                    className={"blueify"}
+                    onClick={() =>
+                        (props.requestState.modal = ModalTypes.create)
+                    }
                 >
                     Create Folder
                 </p>
@@ -83,24 +81,24 @@ export const FolderView = observer((props: IFolderViewProps) => {
         },
     ]
     const folderList =
-        props.selectedBox &&
-        props.filteredData.map((folder: IFolderDataObj, i) => ({
+        props.requestState.box &&
+        props.requestState.folders.map((folder: IFolder) => ({
             key: folder.FolderIdBarCode,
-            checkoutFolder: () => props.addFolder(folder.FolderIdBarCode),
-            createFolder: () => props.setModalType(ModalTypes.create),
+            checkoutFolder: () => props.requestState.addToCart(folder),
+            createFolder: () => (props.requestState.modal = ModalTypes.create),
             ...folder,
         }))
 
     return (
         <div className={props.classNames}>
-            {props.selectedBox ? (
+            {props.requestState.box ? (
                 <>
                     <DetailListHeader
                         title={`Folders in Box B${
-                            props.selectedBox.BoxIdBarCode
+                            props.requestState.box.BoxIdBarCode
                         }`}
                     />
-                    <div className={"ms-modalExample-body"}>
+                    <div>
                         <DetailsList
                             items={folderList}
                             columns={columns}
@@ -111,15 +109,11 @@ export const FolderView = observer((props: IFolderViewProps) => {
                                 <div key={_props.item.key}>
                                     {defaultRender({
                                         ..._props,
-                                        className:
-                                            props.folderInCheckout(
-                                                _props.item.BoxID
-                                            ) ||
-                                            props.folderInCheckout(
-                                                _props.item.FolderIdBarCode
-                                            )
-                                                ? "folderrow folderrow-disabled ms-fontSize-mPlus ms-fontWeight-light"
-                                                : "folderrow ms-fontSize-mPlus ms-fontWeight-light",
+                                        className: props.requestState.cartContains(
+                                            _props.item
+                                        )
+                                            ? "folderrow folderrow-disabled ms-fontSize-mPlus ms-fontWeight-light"
+                                            : "folderrow ms-fontSize-mPlus ms-fontWeight-light",
                                     })}
                                 </div>
                             )}

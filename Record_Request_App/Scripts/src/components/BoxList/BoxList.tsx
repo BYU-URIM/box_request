@@ -5,19 +5,18 @@ import {
     IColumn,
     CheckboxVisibility,
 } from "office-ui-fabric-react"
-import { IBoxDataObj } from "../../models/MockData"
+import { IBox, IFolderOrBox } from "../../models/StoreModels"
 import "./styles.scss"
-import { IFolderAndBox } from "../../models"
 import DetailListHeader from "../DetailListHeader/DetailListHeader"
 import { observer } from "mobx-react"
+import { RequestState } from "../../stores/RequestStore/RequestState"
 
 export interface IBoxListProps {
-    boxData: Array<IBoxDataObj>
-    addBox(x): void
-    openModal(i: IBoxDataObj): void
-    boxInCheckout(boxNumber: number): boolean
-    checkoutStatus(box: IFolderAndBox): string
+    checkoutStatus(box: IFolderOrBox): string
+    boxes: Array<IBox>
     classNames: string
+    requestState: RequestState
+    cartContains(item: IFolderOrBox): boolean
 }
 
 // --------------------------------------------------------------------------
@@ -28,31 +27,32 @@ export const BoxList = observer((props: IBoxListProps) => {
             key: "column1",
             name: "Box Number",
             fieldName: "boxNumber",
+            className: "boxlist-row-row",
             minWidth: 40,
-            maxWidth: 70,
+            maxWidth: 75,
             isResizable: true,
             ariaLabel: "Operations for name",
-            onRender: (item: IBoxDataObj) => <p>{`B${item.BoxIdBarCode}`}</p>,
+            onRender: (item: IBox) => <p>{`B${item.BoxIdBarCode}`}</p>,
         },
         {
             key: "column2",
             name: "",
+            className: "boxlist-row-row",
             fieldName: "checkoutBox",
             minWidth: 40,
             maxWidth: 150,
             isResizable: true,
             ariaLabel: "Operations for checkoutBox",
-            onRender: (item: IBoxDataObj) => {
-                return props.checkoutStatus(item as IFolderAndBox)[0] ===
-                    "+" ? (
+            onRender: (item: IBox) => {
+                return props.checkoutStatus(item)[0] === "+" ? (
                     <button
-                        onClick={() => props.addBox(item)}
+                        onClick={() => props.requestState.addToCart(item)}
                         className={"ms-fontSize-mPlus ms-fontWeight-light"}
                     >
-                        {props.checkoutStatus(item as IFolderAndBox)}
+                        {props.checkoutStatus(item)}
                     </button>
                 ) : (
-                    props.checkoutStatus(item as IFolderAndBox)
+                    props.checkoutStatus(item)
                 )
             },
         },
@@ -60,32 +60,36 @@ export const BoxList = observer((props: IBoxListProps) => {
 
     return (
         <div className={props.classNames}>
-            {props.boxData.length > 0 && (
+            {props.boxes.length > 0 && (
                 <>
                     <DetailListHeader title={"Boxes"} />
                     <DetailsList
-                        items={props.boxData}
+                        items={props.boxes}
                         columns={columns}
                         layoutMode={DetailsListLayoutMode.fixedColumns}
                         checkboxVisibility={CheckboxVisibility.hidden}
-                        onRenderRow={(_props, defaultRender) => (
-                            <div
-                                key={_props.item.key}
-                                onClick={() => {
-                                    props.openModal(_props.item)
-                                }}
-                            >
-                                {defaultRender({
-                                    ..._props,
-                                    className:
-                                        props.boxInCheckout(
-                                            _props.item.BoxIdBarCode
-                                        ) === true
-                                            ? "boxrow boxrow-disabled ms-fontSize-mPlus ms-fontWeight-light"
-                                            : "boxrow ms-fontSize-mPlus ms-fontWeight-light",
-                                })}
-                            </div>
-                        )}
+                        onRenderRow={(_props, defaultRender) => {
+                            console.log(_props)
+
+                            return (
+                                <div
+                                    key={_props.item.key}
+                                    onClick={() => {
+                                        props.requestState.box = _props.item
+                                    }}
+                                    className={"boxlist-row"}
+                                >
+                                    {defaultRender({
+                                        ..._props,
+                                        className: props.requestState.cartContains(
+                                            _props.item
+                                        )
+                                            ? "boxlist-row-disabled ms-fontSize-mPlus ms-fontWeight-light"
+                                            : "boxlist-row ms-fontSize-mPlus ms-fontWeight-light",
+                                    })}
+                                </div>
+                            )
+                        }}
                     />
                 </>
             )}

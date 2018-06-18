@@ -1,4 +1,4 @@
-import { observable, computed, action } from "mobx"
+import { observable, computed } from "mobx"
 
 export class FolderForm {
     @observable private _folderInput: string = ""

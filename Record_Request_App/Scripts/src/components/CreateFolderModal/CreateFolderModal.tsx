@@ -10,10 +10,11 @@ import {
 import "./styles.scss"
 import { observer } from "mobx-react"
 import { FolderForm } from "../../stores/RequestStore/FolderForm"
+import { RequestState } from "../../stores/RequestStore/RequestState"
+import { ModalTypes } from "../../models"
 
 export interface ICreateFolderModal {
-    selectedBox?: number
-    closeModal(): void
+    requestState: RequestState
     submitFolder(): void
     folderForm: FolderForm
 }
@@ -22,7 +23,7 @@ export const CreateFolderModal = observer((props: ICreateFolderModal) => {
     return (
         <Modal
             isOpen={true}
-            onDismiss={props.closeModal}
+            onDismiss={() => (props.requestState.modal = ModalTypes.none)}
             isBlocking={false}
             isDarkOverlay={false}
         >
@@ -30,11 +31,15 @@ export const CreateFolderModal = observer((props: ICreateFolderModal) => {
                 <div className="create-modal-header">
                     <label className={"ms-font-xl"}>
                         {" "}
-                        Create Folder - Box B{props.selectedBox}{" "}
+                        Create Folder - Box B{
+                            props.requestState.box.BoxIdBarCode
+                        }{" "}
                     </label>
                     <IconButton
                         text={"Cancel"}
-                        onClick={props.closeModal}
+                        onClick={() =>
+                            (props.requestState.modal = ModalTypes.none)
+                        }
                         iconProps={{
                             iconName: "cancel",
                             iconType: IconType.default,

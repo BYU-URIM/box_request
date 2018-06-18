@@ -7,8 +7,7 @@
 
 .create-modal-header {
     text-align: center;
-
-/* close icon button */
+    /* close icon button */
     button {
         position: absolute;
         top: 0px;
@@ -19,11 +18,13 @@
 
 
 /* modal body content (form) */
+
 .create-modal-body {
     padding: 16px;
 }
 
 /* create-folder button */
+
 .create-modal-footer {
     position: absolute;
     right: 32px;

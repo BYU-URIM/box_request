@@ -1,9 +1,23 @@
-.centerCheckout {
-    text-align: center;
-    width: 290px;
-    padding-top: 10px;
+.checkout-wrapper {
+    width: 320px;
 }
 
-.blueify {
-    color: rgb(0, 120, 215);
+.checkout-row {
+    font-size: 15px;
+    p {
+        margin: 0px;
+        padding: 4px;
+    }
+    div {
+        padding: 0px !important;
+    }
+    i {
+        color: rgb(0, 120, 215);
+        font-size: 15px;
+        cursor: pointer;
+    }
+}
+
+.checkout-submit {
+    padding: 16px;
 }
