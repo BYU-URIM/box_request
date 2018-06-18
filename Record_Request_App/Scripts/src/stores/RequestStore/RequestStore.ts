@@ -6,8 +6,8 @@ import { RootStore } from "../RootStore/RootStore"
 import { FolderForm } from "./FolderForm"
 import { RequestState } from "./RequestState"
 export class RequestStore {
-    boxes: IBoxArr
-    folders: IFolderArr
+    @observable boxes: IBoxArr
+    @observable folders: IFolderArr
 
     @observable folderForm: FolderForm
     @observable requestState: RequestState
@@ -91,6 +91,7 @@ export class RequestStore {
             Folder_Description: "",
         })
         console.log(this.folders)
+        this.requestState.modal = ModalTypes.none
     }
 
     @action

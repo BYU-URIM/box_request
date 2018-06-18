@@ -64,7 +64,10 @@ export const CreateFolderModal = observer((props: ICreateFolderModal) => {
                     <PrimaryButton
                         text={"Create Folder"}
                         onClick={props.createFolder}
-                        disabled={!props.folderForm.inputIsValid}
+                        disabled={
+                            !props.folderForm.folderName ||
+                            !props.folderForm.inputIsValid
+                        }
                     />
                 </div>
             </div>
