@@ -45,7 +45,7 @@ export const RequestBuilder = observer((props: IRequestBuilderProps) => {
                     <CreateFolderModal
                         requestState={props.requestState}
                         folderForm={props.folderForm}
-                        submitFolder={props.createFolder}
+                        createFolder={props.createFolder}
                     />
                 )}
 
