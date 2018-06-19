@@ -30,7 +30,7 @@ export const BoxList = observer((props: IBoxListProps) => {
             key: "column1",
             name: "Box Number",
             fieldName: "boxNumber",
-            className: "boxlist-row-row",
+            className: "boxlist-row",
             minWidth: 50,
             maxWidth: 80,
             isResizable: true,
@@ -40,7 +40,7 @@ export const BoxList = observer((props: IBoxListProps) => {
         {
             key: "column2",
             name: "",
-            className: "boxlist-row-row",
+            className: "boxlist-row",
             fieldName: "checkoutBox",
             minWidth: 150,
             maxWidth: 180,
@@ -65,23 +65,23 @@ export const BoxList = observer((props: IBoxListProps) => {
             key: "column3",
             name: "",
             fieldName: "createFolder",
+            className: "boxlist-row-createfolder",
             minWidth: 100,
             maxWidth: 100,
             isResizable: true,
             ariaLabel: "Operations for createFolder",
             onRender: (item: IBox) => {
                 return (
-                    console.log(item.BoxIdBarCode),
                     (
-                        <button
-                            className={"ms-fontSize-mPlus ms-fontWeight-light"}
+                        <p
+                            className={"blue ms-fontSize-mPlus ms-fontWeight-light"}
                             onClick={props.initializeFolderForm}
                         >
                             {props.selectedBoxId ===
                             item.BoxIdBarCode
                                 ? "Create Folder"
                                 : ""}
-                        </button>
+                        </p>
                     )
                 )
             },
