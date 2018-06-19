@@ -19,6 +19,7 @@ export interface IBoxListProps {
     requestState: RequestState
     cartContains(item: IFolderOrBox): boolean
     initializeFolderForm(): void
+    canCreateFolder(item:IBox): string
 }
 
 // --------------------------------------------------------------------------
@@ -31,7 +32,7 @@ export const BoxList = observer((props: IBoxListProps) => {
             fieldName: "boxNumber",
             className: "boxlist-row-row",
             minWidth: 50,
-            maxWidth: 85,
+            maxWidth: 80,
             isResizable: true,
             ariaLabel: "Operations for name",
             onRender: (item: IBox) => <p>{`B${item.BoxIdBarCode}`}</p>,
@@ -41,12 +42,12 @@ export const BoxList = observer((props: IBoxListProps) => {
             name: "",
             className: "boxlist-row-row",
             fieldName: "checkoutBox",
-            minWidth: 50,
-            maxWidth: 160,
+            minWidth: 150,
+            maxWidth: 180,
             isResizable: true,
             ariaLabel: "Operations for checkoutBox",
             onRender: (item: IBox) => {
-                return props.checkoutStatus(item)[0] === "+" ? (
+                return props.checkoutStatus(item).startsWith("+") ? (
                     <button
                         onClick={() => props.requestState.addToCart(item)}
                         className={"ms-fontSize-mPlus ms-fontWeight-light"}
@@ -64,21 +65,20 @@ export const BoxList = observer((props: IBoxListProps) => {
             key: "column3",
             name: "",
             fieldName: "createFolder",
-            minWidth: 50,
+            minWidth: 100,
             maxWidth: 100,
             isResizable: true,
             ariaLabel: "Operations for createFolder",
             onRender: (item: IBox) => {
-                return props.checkoutStatus(item)[0] === "+" && !props.requestState.cartContains(item) ? (
+                return (
+                    console.log(item.BoxIdBarCode === props.requestState.box.BoxIdBarCode ? "true" : "false"),
                 <button
                     className={"ms-fontSize-mPlus ms-fontWeight-light"}
                     onClick={props.initializeFolderForm}
                 >
-                    Create Folder
+                    {props.canCreateFolder(item)}
                 </button>
-                ) : (
-                    <p>Create Folder</p>
-                )
+                ) 
             },
         },
     ]

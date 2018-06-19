@@ -55,10 +55,10 @@ export class App extends React.Component<any, any> {
                             submitRequest={requestStore.submitRequest}
                             createFolder={requestStore.createFolder}
                             initializeFolderForm={requestStore.initializeFolderForm}
-                            initializeRequesetForm={requestStore.initializeRequesetForm}
+                            initializeRequestForm={requestStore.initializeRequestForm}
                             determineCheckoutType={
-                                requestStore.determineCheckoutType
-                            }
+                                requestStore.determineCheckoutType}
+                            canCreateFolder={requestStore.canCreateFolder}
                         />
                     </div>
                 </div>
