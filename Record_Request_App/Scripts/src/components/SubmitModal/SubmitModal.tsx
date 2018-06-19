@@ -13,14 +13,14 @@ import {
 import { ModalTypes } from "../../models/App"
 import "./styles.scss"
 import { observer } from "mobx-react"
+import { RequestForm } from "../../stores/RequestStore/RequestForm"
 import { RequestState } from "../../stores/RequestStore/RequestState"
 
 export interface ISubmitModal {
     submit(x): any
-    updateInstructions(e): void
     priority(): void
     requestType(): void
-    deliveryInstructions: string
+    requestForm: RequestForm
     requestState: RequestState
 }
 
@@ -96,10 +96,12 @@ export const SubmitModal = observer((props: ISubmitModal) => {
                         </TooltipHost>
                     </Label>
                     <TextField
+                        type={"text"}
                         multiline={true}
                         autoAdjustHeight={true}
-                        value={props.deliveryInstructions}
-                        onChanged={props.updateInstructions}
+                        value={props.requestForm.deliveryInstructions}
+                        onChanged={val => props.requestForm.deliveryInstructions = val}
+                        errorMessage={props.requestForm.errorMessage}
                     />
                 </div>
                 <div className={"submit-modal-footer"}>

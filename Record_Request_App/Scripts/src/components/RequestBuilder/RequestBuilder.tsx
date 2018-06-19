@@ -11,16 +11,19 @@ import {
 import "./styles.scss"
 import { observer } from "mobx-react"
 import { FolderForm } from "../../stores/RequestStore/FolderForm"
+import { RequestForm } from "../../stores/RequestStore/RequestForm";
 import { RequestState } from "../../stores/RequestStore/RequestState"
 export interface IRequestBuilderProps {
     requestState: RequestState
-    deliveryInstructions: string
     requestIsUrgent: boolean
     folderForm: FolderForm
+    requestForm: RequestForm
     updateDeliveryInstructions(e): void
     updateIsUrgent(): boolean
     updateIsPermament(): boolean
     submitRequest(e): void
+    initializeFolderForm(): void
+    initializeRequesetForm(): void
     createFolder(): void
     determineCheckoutType(item: IFolderOrBox): string
 }
@@ -28,18 +31,16 @@ export interface IRequestBuilderProps {
 export const RequestBuilder = observer((props: IRequestBuilderProps) => {
     return (
         <div>
-            {props.requestState.modal === ModalTypes.submit && (
-                <SubmitModal
-                    updateInstructions={(e: string) =>
-                        props.updateDeliveryInstructions(e)
-                    }
-                    priority={props.updateIsUrgent}
-                    requestType={props.updateIsPermament}
-                    submit={e => props.submitRequest(e)}
-                    requestState={props.requestState}
-                    deliveryInstructions={props.deliveryInstructions}
-                />
-            )}
+            {props.requestForm &&
+                props.requestState.modal === ModalTypes.submit && (
+                    <SubmitModal
+                        priority={props.updateIsUrgent}
+                        requestType={props.updateIsPermament}
+                        submit={e => props.submitRequest(e)}
+                        requestState={props.requestState}
+                        requestForm={props.requestForm}
+                    />
+                )}
             {props.folderForm &&
                 props.requestState.modal === ModalTypes.create && (
                     <CreateFolderModal
@@ -55,9 +56,10 @@ export const RequestBuilder = observer((props: IRequestBuilderProps) => {
                     cartContains={(item: IFolderOrBox) =>
                         props.requestState.cartContains(item)
                     }
+                    initializeFolderForm={props.initializeFolderForm}
                     requestState={props.requestState}
                     checkoutStatus={item => props.determineCheckoutType(item)}
-                    classNames={"ms-Grid-col ms-sm3"}
+                    classNames={"ms-Grid-col ms-sm4"}
                     boxes={props.requestState.boxes}
                 />
 
@@ -68,15 +70,16 @@ export const RequestBuilder = observer((props: IRequestBuilderProps) => {
                     cart={props.requestState.cart}
                     checkoutStatus={item => props.determineCheckoutType(item)}
                     emptyMessage={
-                        props.requestState.department !== 0 &&
+                        props.requestState.department !== undefined &&
                         "Click on a box to view its folders"
                     }
-                    classNames={"ms-Grid-col ms-sm4"}
+                    classNames={"ms-Grid-col ms-sm3"}
                     requestState={props.requestState}
                 />
                 <Checkout
                     requestState={props.requestState}
                     classNames={"ms-Grid-col ms-sm3"}
+                    initializeRequesetForm={props.initializeRequesetForm}
                 />
                 <div className={"ms-Grid-col ms-sm1"} />
             </div>

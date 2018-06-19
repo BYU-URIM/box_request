@@ -4,12 +4,14 @@ import { IBox, IFolder, IFolderOrBox } from "../../models/StoreModels"
 import { ModalTypes } from "../../models"
 import { RootStore } from "../RootStore/RootStore"
 import { FolderForm } from "./FolderForm"
+import { RequestForm } from "./RequestForm"
 import { RequestState } from "./RequestState"
 export class RequestStore {
     @observable boxes: IBoxArr
     @observable folders: IFolderArr
 
     @observable folderForm: FolderForm
+    @observable requestForm: RequestForm
     @observable requestState: RequestState
     @observable deliveryInstructions: string = ""
     @observable checkoutCart: any
@@ -27,11 +29,12 @@ export class RequestStore {
             this.folders,
             this.boxes
         )
-        this.requestState.department = 5556
-        this.requestState.box = this.boxes[1]
-        this.requestState.folder = this.folders[0]
-        this.requestState.addToCart(this.requestState.boxes[0])
-        this.requestState.modal = ModalTypes.submit
+        // this.requestState.department = 5556
+        // this.requestState.box = this.boxes[1]
+        // this.requestState.folder = this.folders[0]
+        // this.requestState.addToCart(this.requestState.boxes[0])
+        // this.requestState.modal = ModalTypes.submit
+
         return
     }
 
@@ -78,7 +81,14 @@ export class RequestStore {
 
     @action
     initializeFolderForm = (): void => {
+        this.requestState.modal = ModalTypes.create
         this.folderForm = new FolderForm(this.filteredFolderNames)
+    }
+
+    @action
+    initializeRequesetForm = (): void => {
+        this.requestState.modal = ModalTypes.submit
+        this.requestForm = new RequestForm()
     }
 
     @action
@@ -90,13 +100,11 @@ export class RequestStore {
             Location: this.requestState.box.Location,
             Folder_Description: "",
         })
-        console.log(this.folders)
         this.requestState.modal = ModalTypes.none
     }
 
     @action
     submitRequest = () => {
-        console.log(this.requestState.cart)
         this.requestState.clearCart()
         this.requestState.modal = ModalTypes.none
     }
