@@ -19,7 +19,7 @@ import { IFolderOrBox } from "../../models/StoreModels"
 export interface ICheckoutProps {
     requestState: RequestState
     classNames: string
-    initializeRequesetForm(): void
+    initializeRequestForm(): void
 }
 
 // --------------------------------------------------------------------------
@@ -31,7 +31,7 @@ export const Checkout = observer((props: ICheckoutProps) => {
             name: "Item",
             fieldName: "pendingItemRequests",
             minWidth: 50,
-            maxWidth: 60,
+            maxWidth: 120,
             isResizable: false,
             ariaLabel: "Operations for pendingItemRequests",
             onRender: (item: IFolderOrBox) => (
@@ -47,7 +47,7 @@ export const Checkout = observer((props: ICheckoutProps) => {
             name: "Type",
             fieldName: "type",
             minWidth: 20,
-            maxWidth: 40,
+            maxWidth: 70,
             isResizable: false,
             ariaLabel: "Operations for type",
             onRender: (item: IFolderOrBox) => (
@@ -59,7 +59,6 @@ export const Checkout = observer((props: ICheckoutProps) => {
             name: "",
             fieldName: "removeItem",
             minWidth: 40,
-            maxWidth: 40,
             isResizable: false,
             ariaLabel: "Operations for removeItem",
             onRender: (item: IFolderOrBox) => (
@@ -79,7 +78,7 @@ export const Checkout = observer((props: ICheckoutProps) => {
         },
     ]
     return (
-        <div className={`${props.classNames} checkout-wrapper`}>
+        <div className={`${props.classNames}`}>
             {props.requestState.cart.length > 0 && (
                 <div>
                     <DetailListHeader title={"Checkout"} />
@@ -101,7 +100,7 @@ export const Checkout = observer((props: ICheckoutProps) => {
                     <div className={"checkout-submit"}>
                         <PrimaryButton
                             text={"Submit Request"}
-                            onClick={props.initializeRequesetForm}
+                            onClick={props.initializeRequestForm}
                         />
                     </div>
                 </div>

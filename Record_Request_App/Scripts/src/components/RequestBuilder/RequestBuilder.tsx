@@ -23,9 +23,10 @@ export interface IRequestBuilderProps {
     updateIsPermament(): boolean
     submitRequest(e): void
     initializeFolderForm(): void
-    initializeRequesetForm(): void
+    initializeRequestForm(): void
     createFolder(): void
     determineCheckoutType(item: IFolderOrBox): string
+    canCreateFolder(item: IBox): string
 }
 
 export const RequestBuilder = observer((props: IRequestBuilderProps) => {
@@ -51,7 +52,7 @@ export const RequestBuilder = observer((props: IRequestBuilderProps) => {
                 )}
 
             <div>
-                <div className={"ms-Grid-col ms-sm1"} />
+                <div className={"ms-Grid-col ms-sm2"} />
                 <BoxList
                     cartContains={(item: IFolderOrBox) =>
                         props.requestState.cartContains(item)
@@ -59,7 +60,8 @@ export const RequestBuilder = observer((props: IRequestBuilderProps) => {
                     initializeFolderForm={props.initializeFolderForm}
                     requestState={props.requestState}
                     checkoutStatus={item => props.determineCheckoutType(item)}
-                    classNames={"ms-Grid-col ms-sm4"}
+                    canCreateFolder={item => props.canCreateFolder(item)}
+                    classNames={"ms-Grid-col ms-sm3"}
                     boxes={props.requestState.boxes}
                 />
 
@@ -78,10 +80,10 @@ export const RequestBuilder = observer((props: IRequestBuilderProps) => {
                 />
                 <Checkout
                     requestState={props.requestState}
-                    classNames={"ms-Grid-col ms-sm3"}
-                    initializeRequesetForm={props.initializeRequesetForm}
+                    classNames={"ms-Grid-col ms-sm2"}
+                    initializeRequestForm={props.initializeRequestForm}
                 />
-                <div className={"ms-Grid-col ms-sm1"} />
+                <div className={"ms-Grid-col ms-sm2"} />
             </div>
         </div>
     )
