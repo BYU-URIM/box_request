@@ -19,6 +19,7 @@ import { IFolderOrBox } from "../../models/StoreModels"
 export interface ICheckoutProps {
     requestState: RequestState
     classNames: string
+    initializeRequesetForm(): void
 }
 
 // --------------------------------------------------------------------------
@@ -100,9 +101,7 @@ export const Checkout = observer((props: ICheckoutProps) => {
                     <div className={"checkout-submit"}>
                         <PrimaryButton
                             text={"Submit Request"}
-                            onClick={() =>
-                                (props.requestState.modal = ModalTypes.submit)
-                            }
+                            onClick={props.initializeRequesetForm}
                         />
                     </div>
                 </div>

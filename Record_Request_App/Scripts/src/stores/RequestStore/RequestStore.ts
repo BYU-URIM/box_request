@@ -29,11 +29,11 @@ export class RequestStore {
             this.folders,
             this.boxes
         )
-        // this.requestState.department = 5556
-        // this.requestState.box = this.boxes[1]
-        // this.requestState.folder = this.folders[0]
-        // this.requestState.addToCart(this.requestState.boxes[0])
-        // this.requestState.modal = ModalTypes.submit
+        this.requestState.department = 5556
+        this.requestState.box = this.boxes[1]
+        this.requestState.folder = this.folders[0]
+        this.requestState.addToCart(this.requestState.boxes[0])
+        this.requestState.modal = ModalTypes.submit
 
         return
     }

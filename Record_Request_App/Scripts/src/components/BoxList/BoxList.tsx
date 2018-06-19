@@ -18,6 +18,7 @@ export interface IBoxListProps {
     classNames: string
     requestState: RequestState
     cartContains(item: IFolderOrBox): boolean
+    initializeFolderForm(): void
 }
 
 // --------------------------------------------------------------------------
@@ -29,8 +30,8 @@ export const BoxList = observer((props: IBoxListProps) => {
             name: "Box Number",
             fieldName: "boxNumber",
             className: "boxlist-row-row",
-            minWidth: 40,
-            maxWidth: 75,
+            minWidth: 50,
+            maxWidth: 85,
             isResizable: true,
             ariaLabel: "Operations for name",
             onRender: (item: IBox) => <p>{`B${item.BoxIdBarCode}`}</p>,
@@ -40,8 +41,8 @@ export const BoxList = observer((props: IBoxListProps) => {
             name: "",
             className: "boxlist-row-row",
             fieldName: "checkoutBox",
-            minWidth: 40,
-            maxWidth: 150,
+            minWidth: 50,
+            maxWidth: 160,
             isResizable: true,
             ariaLabel: "Operations for checkoutBox",
             onRender: (item: IBox) => {
@@ -53,7 +54,9 @@ export const BoxList = observer((props: IBoxListProps) => {
                         {props.checkoutStatus(item)}
                     </button>
                 ) : (
-                    props.checkoutStatus(item)
+                    <p className="boxlist-row-disabled">
+                        {props.checkoutStatus(item)}
+                    </p>
                 )
             },
         },
@@ -61,20 +64,22 @@ export const BoxList = observer((props: IBoxListProps) => {
             key: "column3",
             name: "",
             fieldName: "createFolder",
-            minWidth: 40,
-            maxWidth: 120,
+            minWidth: 50,
+            maxWidth: 100,
             isResizable: true,
             ariaLabel: "Operations for createFolder",
-            onRender: () => (
+            onRender: (item: IBox) => {
+                return props.checkoutStatus(item)[0] === "+" && !props.requestState.cartContains(item) ? (
                 <button
                     className={"ms-fontSize-mPlus ms-fontWeight-light"}
-                    onClick={() =>
-                        (props.requestState.modal = ModalTypes.create)
-                    }
+                    onClick={props.initializeFolderForm}
                 >
                     Create Folder
                 </button>
-            ),
+                ) : (
+                    <p>Create Folder</p>
+                )
+            },
         },
     ]
 
@@ -89,7 +94,6 @@ export const BoxList = observer((props: IBoxListProps) => {
                         layoutMode={DetailsListLayoutMode.fixedColumns}
                         checkboxVisibility={CheckboxVisibility.hidden}
                         onRenderRow={(_props, defaultRender) => {
-                            console.log(_props)
 
                             return (
                                 <div

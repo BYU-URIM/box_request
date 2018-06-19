@@ -37,7 +37,6 @@ export class RequestState {
     }
 
     set modal(val: ModalTypes) {
-        if (val === ModalTypes.create) this.requestStore.initializeFolderForm()
         this._modal = val
     }
 
