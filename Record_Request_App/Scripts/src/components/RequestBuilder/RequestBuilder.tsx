@@ -26,7 +26,6 @@ export interface IRequestBuilderProps {
     initializeRequestForm(): void
     createFolder(): void
     determineCheckoutType(item: IFolderOrBox): string
-    canCreateFolder(item: IBox): string
 }
 
 export const RequestBuilder = observer((props: IRequestBuilderProps) => {
@@ -60,9 +59,9 @@ export const RequestBuilder = observer((props: IRequestBuilderProps) => {
                     initializeFolderForm={props.initializeFolderForm}
                     requestState={props.requestState}
                     checkoutStatus={item => props.determineCheckoutType(item)}
-                    canCreateFolder={item => props.canCreateFolder(item)}
                     classNames={"ms-Grid-col ms-sm3"}
                     boxes={props.requestState.boxes}
+                    selectedBoxId={props.requestState.box ?  props.requestState.box.BoxIdBarCode : 0}
                 />
 
                 <FolderView

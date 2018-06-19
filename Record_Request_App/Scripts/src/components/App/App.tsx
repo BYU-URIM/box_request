@@ -58,7 +58,6 @@ export class App extends React.Component<any, any> {
                             initializeRequestForm={requestStore.initializeRequestForm}
                             determineCheckoutType={
                                 requestStore.determineCheckoutType}
-                            canCreateFolder={requestStore.canCreateFolder}
                         />
                     </div>
                 </div>
