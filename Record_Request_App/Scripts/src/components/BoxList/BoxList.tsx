@@ -16,10 +16,10 @@ export interface IBoxListProps {
     checkoutStatus(box: IFolderOrBox): string
     boxes: Array<IBox>
     classNames: string
+    selectedBoxId: number
     requestState: RequestState
     cartContains(item: IFolderOrBox): boolean
     initializeFolderForm(): void
-    canCreateFolder(item:IBox): string
 }
 
 // --------------------------------------------------------------------------
@@ -71,14 +71,19 @@ export const BoxList = observer((props: IBoxListProps) => {
             ariaLabel: "Operations for createFolder",
             onRender: (item: IBox) => {
                 return (
-                    console.log(item.BoxIdBarCode === props.requestState.box.BoxIdBarCode ? "true" : "false"),
-                <button
-                    className={"ms-fontSize-mPlus ms-fontWeight-light"}
-                    onClick={props.initializeFolderForm}
-                >
-                    {props.canCreateFolder(item)}
-                </button>
-                ) 
+                    console.log(item.BoxIdBarCode),
+                    (
+                        <button
+                            className={"ms-fontSize-mPlus ms-fontWeight-light"}
+                            onClick={props.initializeFolderForm}
+                        >
+                            {props.selectedBoxId ===
+                            item.BoxIdBarCode
+                                ? "Create Folder"
+                                : ""}
+                        </button>
+                    )
+                )
             },
         },
     ]
@@ -94,7 +99,6 @@ export const BoxList = observer((props: IBoxListProps) => {
                         layoutMode={DetailsListLayoutMode.fixedColumns}
                         checkboxVisibility={CheckboxVisibility.hidden}
                         onRenderRow={(_props, defaultRender) => {
-
                             return (
                                 <div
                                     key={_props.item.key}
