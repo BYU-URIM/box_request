@@ -49,7 +49,8 @@ export const FolderView = observer((props: IFolderViewProps) => {
             ariaLabel: "Operations for checkoutFolder",
             onRender: (item: IFolder) => {
                 return (
-                    props.cart && (
+                    // props.cart && (
+                    props.checkoutStatus(item)[0] === "+" ? (
                         <button
                             onClick={() => props.requestState.addToCart(item)}
                             className={"ms-fontSize-mPlus ms-fontWeight-light"}
@@ -57,28 +58,31 @@ export const FolderView = observer((props: IFolderViewProps) => {
                         >
                             {props.checkoutStatus(item)}
                         </button>
+                    ) : (
+                        props.checkoutStatus(item)
                     )
                 )
             },
         },
-        {
-            key: "column3",
-            name: "",
-            fieldName: "createFolder",
-            minWidth: 40,
-            maxWidth: 120,
-            isResizable: true,
-            ariaLabel: "Operations for createFolder",
-            onRender: () => (
-                <p
-                    onClick={() =>
-                        (props.requestState.modal = ModalTypes.create)
-                    }
-                >
-                    Create Folder
-                </p>
-            ),
-        },
+        // {
+        //     key: "column3",
+        //     name: "",
+        //     fieldName: "createFolder",
+        //     minWidth: 40,
+        //     maxWidth: 120,
+        //     isResizable: true,
+        //     ariaLabel: "Operations for createFolder",
+        //     onRender: () => (
+        //         <button
+        //             className={"ms-fontSize-mPlus ms-fontWeight-light"}
+        //             onClick={() =>
+        //                 (props.requestState.modal = ModalTypes.create)
+        //             }
+        //         >
+        //             Create Folder
+        //         </button>
+        //     ),
+        // },
     ]
     const folderList =
         props.requestState.box &&

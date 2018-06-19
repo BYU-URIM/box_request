@@ -10,6 +10,7 @@ import "./styles.scss"
 import DetailListHeader from "../DetailListHeader/DetailListHeader"
 import { observer } from "mobx-react"
 import { RequestState } from "../../stores/RequestStore/RequestState"
+import { ModalTypes } from "../../models"
 
 export interface IBoxListProps {
     checkoutStatus(box: IFolderOrBox): string
@@ -55,6 +56,25 @@ export const BoxList = observer((props: IBoxListProps) => {
                     props.checkoutStatus(item)
                 )
             },
+        },
+        {
+            key: "column3",
+            name: "",
+            fieldName: "createFolder",
+            minWidth: 40,
+            maxWidth: 120,
+            isResizable: true,
+            ariaLabel: "Operations for createFolder",
+            onRender: () => (
+                <button
+                    className={"ms-fontSize-mPlus ms-fontWeight-light"}
+                    onClick={() =>
+                        (props.requestState.modal = ModalTypes.create)
+                    }
+                >
+                    Create Folder
+                </button>
+            ),
         },
     ]
 
