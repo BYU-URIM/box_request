@@ -69,8 +69,6 @@ export const BoxList = observer((props: IBoxListProps) => {
                         layoutMode={DetailsListLayoutMode.fixedColumns}
                         checkboxVisibility={CheckboxVisibility.hidden}
                         onRenderRow={(_props, defaultRender) => {
-                            console.log(_props)
-
                             return (
                                 <div
                                     key={_props.item.key}

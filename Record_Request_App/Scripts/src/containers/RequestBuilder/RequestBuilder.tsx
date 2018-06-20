@@ -1,17 +1,18 @@
 import * as React from "react"
 import { ModalTypes } from "../../models"
-import { IBox, IFolder, IFolderOrBox } from "../../models/StoreModels"
-import {
-    FolderView,
-    BoxList,
-    CreateFolderModal,
-    SubmitModal,
-    Checkout,
-} from ".."
+
 import "./styles.scss"
 import { observer } from "mobx-react"
 import { FolderForm } from "../../stores/RequestStore/FolderForm"
 import { RequestState } from "../../stores/RequestStore/RequestState"
+import { IFolderOrBox } from "../../models/StoreModels"
+import {
+    SubmitModal,
+    CreateFolderModal,
+    BoxList,
+    Checkout,
+    FolderView,
+} from "../../components"
 export interface IRequestBuilderProps {
     requestState: RequestState
     deliveryInstructions: string

@@ -2,6 +2,7 @@ import { action, observable, runInAction } from "mobx"
 import { SessionStore } from "../SessionStore/SessionStore"
 import { IUser } from "../../models/StoreModels"
 import { RequestStore } from "../RequestStore/RequestStore"
+import { IDataService } from "../../services/IDataService"
 
 export class RootStore {
     sessionStore: SessionStore
@@ -9,7 +10,8 @@ export class RootStore {
     constructor(
         private _currentUser: IUser,
         private _folderData,
-        private _boxData
+        private _boxData,
+        private _dataService: IDataService
     ) {}
 
     @observable public initialized: boolean = false

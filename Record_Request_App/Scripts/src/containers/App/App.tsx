@@ -1,11 +1,11 @@
 import * as React from "react"
 import { initializeIcons } from "@uifabric/icons"
-import { DepartmentDropdown, Greeting, RequestBuilder } from "../"
-import "./styles.scss"
+import { DepartmentDropdown, Greeting } from "../../components"
 import { inject, observer } from "mobx-react"
 import { RootStore } from "../../stores/RootStore/RootStore"
 import { Fabric } from "office-ui-fabric-react"
-import { IFolderOrBox } from "../../models/StoreModels"
+import "./styles.scss"
+import { RequestBuilder } from "../RequestBuilder/RequestBuilder"
 
 initializeIcons()
 @inject("rootStore")

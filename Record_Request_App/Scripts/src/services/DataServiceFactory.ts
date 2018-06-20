@@ -11,6 +11,6 @@ export class DataServiceFactory {
         //     ENVIRONMENT === EnvType.LOCAL
         //         ? new MockDataService()
         //         : new DataService()
-        return new RootStore(mockUser, folderData, boxData)
+        return new RootStore(mockUser, folderData, boxData, new DataService())
     }
 }
