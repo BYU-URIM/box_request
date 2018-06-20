@@ -16,7 +16,10 @@ export class RequestState {
     @observable private _folder: IFolder = undefined
 
     @observable
-    private _cart: Map<number, IFolderOrBox> = observable.map<number, IFolderOrBox>()
+    private _cart: Map<number, IFolderOrBox> = observable.map<
+        number,
+        IFolderOrBox
+    >()
     @action
     addToCart = (item: IFolderOrBox) =>
         this._cart.set(

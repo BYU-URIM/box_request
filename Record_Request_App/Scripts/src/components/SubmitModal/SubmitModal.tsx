@@ -18,8 +18,6 @@ import { RequestState } from "../../stores/RequestStore/RequestState"
 
 export interface ISubmitModal {
     submit(x): any
-    priority(): void
-    requestType(): void
     requestForm: RequestForm
     requestState: RequestState
 }
@@ -28,12 +26,7 @@ export interface ISubmitModal {
 
 export const SubmitModal = observer((props: ISubmitModal) => {
     return (
-        <Modal
-            isOpen={true}
-            onDismiss={() => (props.requestState.modal = ModalTypes.none)}
-            isBlocking={false}
-            isDarkOverlay={false}
-        >
+
             <div className={"submit-modal-wrapper"}>
                 <div className={"submit-modal-header"}>
                     <label className={"ms-font-xl"}>Item Request</label>
@@ -69,7 +62,7 @@ export const SubmitModal = observer((props: ISubmitModal) => {
                         }
                         onText={"Permanent"}
                         offText={"Temporary"}
-                        onChanged={props.requestType}
+                        onChanged={e => (props.requestForm.permanent = e)}
                     />
                     <Label>
                         Delivery Priority
@@ -86,8 +79,7 @@ export const SubmitModal = observer((props: ISubmitModal) => {
                         }
                         onText={"Urgent"}
                         offText={"Standard"}
-                        onChanged={props.priority}
-                        className={"item1"}
+                        onChanged={e => (props.requestForm.urgent = e)}
                     />
                     <Label>
                         Delivery Instructions
@@ -100,7 +92,9 @@ export const SubmitModal = observer((props: ISubmitModal) => {
                         multiline={true}
                         autoAdjustHeight={true}
                         value={props.requestForm.deliveryInstructions}
-                        onChanged={val => props.requestForm.deliveryInstructions = val}
+                        onChanged={val =>
+                            (props.requestForm.deliveryInstructions = val)
+                        }
                         errorMessage={props.requestForm.errorMessage}
                     />
                 </div>
@@ -111,6 +105,5 @@ export const SubmitModal = observer((props: ISubmitModal) => {
                     />
                 </div>
             </div>
-        </Modal>
     )
 })

@@ -1,6 +1,6 @@
 import * as React from "react"
 import * as ReactDom from "react-dom"
-import { App } from "./components/"
+import { App } from "./containers/"
 import { Provider } from "mobx-react"
 import { DataServiceFactory } from "./services/DataServiceFactory"
 
