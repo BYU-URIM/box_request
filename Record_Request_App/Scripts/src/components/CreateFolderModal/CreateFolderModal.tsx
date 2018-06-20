@@ -21,56 +21,47 @@ export interface ICreateFolderModal {
 
 export const CreateFolderModal = observer((props: ICreateFolderModal) => {
     return (
-        <Modal
-            isOpen={true}
-            onDismiss={() => (props.requestState.modal = ModalTypes.none)}
-            isBlocking={false}
-            isDarkOverlay={false}
-        >
-            <div className={"create-modal-wrapper"}>
-                <div className="create-modal-header">
-                    <label className={"ms-font-xl"}>
-                        {" "}
-                        Create Folder - Box B{
-                            props.requestState.box.BoxIdBarCode
-                        }{" "}
-                    </label>
-                    <IconButton
-                        text={"Cancel"}
-                        onClick={() =>
-                            (props.requestState.modal = ModalTypes.none)
-                        }
-                        iconProps={{
-                            iconName: "cancel",
-                            iconType: IconType.default,
-                        }}
-                    />
-                </div>
-                <div className="create-modal-body">
-                    <TextField
-                        type={"text"}
-                        description={"Warning: You cannot change this later."}
-                        value={props.folderForm.folderName}
-                        onChanged={val => (props.folderForm.folderName = val)}
-                        required={true}
-                        autoFocus={true}
-                        label={"Folder Name"}
-                        underlined={true}
-                        placeholder={"i.e. Jared"}
-                        errorMessage={props.folderForm.errorMessage}
-                    />
-                </div>
-                <div className={"create-modal-footer"}>
-                    <PrimaryButton
-                        text={"Create Folder"}
-                        onClick={props.createFolder}
-                        disabled={
-                            !props.folderForm.folderName ||
-                            !props.folderForm.inputIsValid
-                        }
-                    />
-                </div>
+        <div className={"create-modal-wrapper"}>
+            <div className="create-modal-header">
+                <label className={"ms-font-xl"}>
+                    {" "}
+                    Create Folder - Box B{
+                        props.requestState.box.BoxIdBarCode
+                    }{" "}
+                </label>
+                <IconButton
+                    text={"Cancel"}
+                    onClick={() => (props.requestState.modal = ModalTypes.none)}
+                    iconProps={{
+                        iconName: "cancel",
+                        iconType: IconType.default,
+                    }}
+                />
             </div>
-        </Modal>
+            <div className="create-modal-body">
+                <TextField
+                    type={"text"}
+                    description={"Warning: You cannot change this later."}
+                    value={props.folderForm.folderName}
+                    onChanged={val => (props.folderForm.folderName = val)}
+                    required={true}
+                    autoFocus={true}
+                    label={"Folder Name"}
+                    underlined={true}
+                    placeholder={"i.e. Jared"}
+                    errorMessage={props.folderForm.errorMessage}
+                />
+            </div>
+            <div className={"create-modal-footer"}>
+                <PrimaryButton
+                    text={"Create Folder"}
+                    onClick={props.createFolder}
+                    disabled={
+                        !props.folderForm.folderName ||
+                        !props.folderForm.inputIsValid
+                    }
+                />
+            </div>
+        </div>
     )
 })
