@@ -2,6 +2,23 @@ import { observable, computed } from "mobx"
 
 export class RequestForm {
     @observable private _deliveryInstructions: string = ""
+    @observable private _urgent: boolean = false
+    @observable private _permanent: boolean = false
+
+    @computed
+    get urgent(): boolean {
+        return this._urgent
+    }
+    set urgent(value: boolean) {
+        this._urgent = value
+    }
+    @computed
+    get permanent(): boolean {
+        return this._permanent
+    }
+    set permanent(value: boolean) {
+        this._permanent = value
+    }
 
     @computed
     get deliveryInstructions(): string {
@@ -22,8 +39,6 @@ export class RequestForm {
 
     @computed
     get inputIsValid(): boolean {
-        return(
-            this.deliveryInstructions.length < 50
-        )
+        return this.deliveryInstructions.length < 50
     }
 }

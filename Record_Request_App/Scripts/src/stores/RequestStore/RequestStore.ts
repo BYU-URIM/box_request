@@ -13,10 +13,6 @@ export class RequestStore {
     @observable folderForm: FolderForm
     @observable requestForm: RequestForm
     @observable requestState: RequestState
-    @observable deliveryInstructions: string = ""
-    @observable checkoutCart: any
-    @observable requestIsUrgent: boolean = false
-    @observable requestIsPermanent: boolean = false
 
     constructor(folders: IFolderArr, boxes: IBoxArr, private root: RootStore) {
         this.boxes = boxes
@@ -29,11 +25,6 @@ export class RequestStore {
             this.folders,
             this.boxes
         )
-        this.requestState.department = 5556
-        this.requestState.box = this.boxes[1]
-        this.requestState.folder = this.folders[0]
-        this.requestState.addToCart(this.requestState.boxes[0])
-        this.requestState.modal = ModalTypes.submit
 
         return
     }
@@ -48,37 +39,6 @@ export class RequestStore {
             .map(folder => folder.FolderName.toLowerCase())
     }
 
-    @computed
-    get checkoutFolderBoxIds(): Array<number> {
-        return Array.from(this.requestState.cart.values())
-            .filter(item => (item as IFolder).BoxID)
-            .map(folder => (folder as IFolder).BoxID)
-    }
-
-    // Not currently using
-    @action
-    updateIsPermanent = (): boolean => {
-        return (this.requestIsPermanent = !this.requestIsPermanent)
-    }
-
-    // Not currently using
-    @action
-    updateIsUrgent = (): boolean => {
-        return (this.requestIsUrgent = !this.requestIsUrgent)
-    }
-
-    // Not currently using
-    @action
-    finalRequest = request => {
-        console.log(request)
-    }
-
-    // Not currently using
-    @action
-    updateDeliveryInstructions = (instructionInput: string) => {
-        this.deliveryInstructions = instructionInput
-    }
-
     @action
     initializeFolderForm = (): void => {
         this.requestState.modal = ModalTypes.create
@@ -86,7 +46,7 @@ export class RequestStore {
     }
 
     @action
-    initializeRequesetForm = (): void => {
+    initializeRequestForm = (): void => {
         this.requestState.modal = ModalTypes.submit
         this.requestForm = new RequestForm()
     }
