@@ -10,13 +10,16 @@ import "./styles.scss"
 import DetailListHeader from "../DetailListHeader/DetailListHeader"
 import { observer } from "mobx-react"
 import { RequestState } from "../../stores/RequestStore/RequestState"
+import { ModalTypes } from "../../models"
 
 export interface IBoxListProps {
     checkoutStatus(box: IFolderOrBox): string
     boxes: Array<IBox>
     classNames: string
+    selectedBoxId: number
     requestState: RequestState
     cartContains(item: IFolderOrBox): boolean
+    initializeFolderForm(): void
 }
 
 // --------------------------------------------------------------------------
@@ -27,9 +30,9 @@ export const BoxList = observer((props: IBoxListProps) => {
             key: "column1",
             name: "Box Number",
             fieldName: "boxNumber",
-            className: "boxlist-row-row",
-            minWidth: 40,
-            maxWidth: 75,
+            className: "boxlist-row",
+            minWidth: 50,
+            maxWidth: 80,
             isResizable: true,
             ariaLabel: "Operations for name",
             onRender: (item: IBox) => <p>{`B${item.BoxIdBarCode}`}</p>,
@@ -37,14 +40,14 @@ export const BoxList = observer((props: IBoxListProps) => {
         {
             key: "column2",
             name: "",
-            className: "boxlist-row-row",
+            className: "boxlist-row",
             fieldName: "checkoutBox",
-            minWidth: 40,
-            maxWidth: 150,
+            minWidth: 150,
+            maxWidth: 180,
             isResizable: true,
             ariaLabel: "Operations for checkoutBox",
             onRender: (item: IBox) => {
-                return props.checkoutStatus(item)[0] === "+" ? (
+                return props.checkoutStatus(item).startsWith("+") ? (
                     <button
                         onClick={() => props.requestState.addToCart(item)}
                         className={"ms-fontSize-mPlus ms-fontWeight-light"}
@@ -52,7 +55,34 @@ export const BoxList = observer((props: IBoxListProps) => {
                         {props.checkoutStatus(item)}
                     </button>
                 ) : (
-                    props.checkoutStatus(item)
+                    <p className="boxlist-row-disabled">
+                        {props.checkoutStatus(item)}
+                    </p>
+                )
+            },
+        },
+        {
+            key: "column3",
+            name: "",
+            fieldName: "createFolder",
+            className: "boxlist-row-createfolder",
+            minWidth: 100,
+            maxWidth: 100,
+            isResizable: true,
+            ariaLabel: "Operations for createFolder",
+            onRender: (item: IBox) => {
+                return (
+                    (
+                        <p
+                            className={"blue ms-fontSize-mPlus ms-fontWeight-light"}
+                            onClick={props.initializeFolderForm}
+                        >
+                            {props.selectedBoxId ===
+                            item.BoxIdBarCode
+                                ? "Create Folder"
+                                : ""}
+                        </p>
+                    )
                 )
             },
         },

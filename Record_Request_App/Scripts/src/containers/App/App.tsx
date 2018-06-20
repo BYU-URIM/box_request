@@ -44,10 +44,8 @@ export class App extends React.Component<any, any> {
                     <div className={"ms-Grid-row"}>
                         <RequestBuilder
                             folderForm={requestStore.folderForm}
+                            requestForm={requestStore.requestForm}
                             requestState={requestStore.requestState}
-                            deliveryInstructions={
-                                requestStore.deliveryInstructions
-                            }
                             requestIsUrgent={requestStore.requestIsUrgent}
                             updateDeliveryInstructions={
                                 requestStore.updateDeliveryInstructions
@@ -56,9 +54,10 @@ export class App extends React.Component<any, any> {
                             updateIsPermament={requestStore.updateIsPermanent}
                             submitRequest={requestStore.submitRequest}
                             createFolder={requestStore.createFolder}
+                            initializeFolderForm={requestStore.initializeFolderForm}
+                            initializeRequestForm={requestStore.initializeRequestForm}
                             determineCheckoutType={
-                                requestStore.determineCheckoutType
-                            }
+                                requestStore.determineCheckoutType}
                         />
                     </div>
                 </div>
