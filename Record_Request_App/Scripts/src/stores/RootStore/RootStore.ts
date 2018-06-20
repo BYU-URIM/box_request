@@ -3,10 +3,12 @@ import { SessionStore } from "../SessionStore/SessionStore"
 import { IUser } from "../../models/StoreModels"
 import { RequestStore } from "../RequestStore/RequestStore"
 import { IDataService } from "../../services/IDataService"
+import { CreatorStore } from "../CreatorStore/CreatorStore"
 
 export class RootStore {
     sessionStore: SessionStore
     requestStore: RequestStore
+    creatorStore: CreatorStore
     constructor(
         private _currentUser: IUser,
         private _folderData,
@@ -20,13 +22,13 @@ export class RootStore {
     async init(): Promise<void> {
         if (!this.initialized) {
             this.sessionStore = new SessionStore(this._currentUser, this)
-            await this.sessionStore.init()
             this.requestStore = new RequestStore(
                 this._folderData,
                 this._boxData,
                 this
             )
-            await this.requestStore.init()
+            this.creatorStore = new CreatorStore(this)
+            await this.sessionStore.init()
             runInAction(() => (this.initialized = true))
         }
     }
