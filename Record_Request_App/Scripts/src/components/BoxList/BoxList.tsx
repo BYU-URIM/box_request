@@ -35,7 +35,7 @@ export const BoxList = observer((props: IBoxListProps) => {
             maxWidth: 80,
             isResizable: true,
             ariaLabel: "Operations for name",
-            onRender: (item: IBox) => <p>{`B${item.BoxIdBarCode}`}</p>,
+            onRender: (item: IBox) => <p>{item.BoxIdBarCode}</p>,
         },
         {
             key: "column2",
