@@ -14,7 +14,7 @@ import { IFolderOrBox } from "../../models/StoreModels"
 import { ModalTypes } from "../../models"
 import Modal from "office-ui-fabric-react/lib/Modal"
 import { RequestStore } from "../../stores/RequestStore/RequestStore"
-import { MessageBarType } from "office-ui-fabric-react";
+import { MessageBarType } from "office-ui-fabric-react"
 
 @inject("rootStore")
 @observer
@@ -27,12 +27,12 @@ export class BoxRequest extends React.Component<any, any> {
             <>
                 <div className={"ms-Grid-row"}>
                     <div className={"ms-Grid-col ms-sm12"}>
-                        {requestStore.requestState.message.length > 0 &&
-                        <WarningBar 
-                            type={MessageBarType.warning}    
-                            requestState={requestStore.requestState}                    
-                        />
-                        }
+                        {requestStore.requestState.message.length > 0 && (
+                            <WarningBar
+                                type={MessageBarType.warning}
+                                requestState={requestStore.requestState}
+                            />
+                        )}
                     </div>
                 </div>
                 <div className={"ms-Grid-row"}>
@@ -80,7 +80,7 @@ export class BoxRequest extends React.Component<any, any> {
                             )}
                         </Modal>
                         <div>
-                            <div className={"ms-Grid-col ms-sm2"} />
+                            <div className={"ms-Grid-col ms-sm1"} />
                             <BoxList
                                 cartContains={(item: IFolderOrBox) =>
                                     requestStore.requestState.cartContains(item)
@@ -101,6 +101,7 @@ export class BoxRequest extends React.Component<any, any> {
                                         : 0
                                 }
                             />
+                            <div className={"ms-Grid-col ms-sm1"} />
 
                             <FolderView
                                 cartContains={(item: IFolderOrBox) =>
@@ -115,17 +116,19 @@ export class BoxRequest extends React.Component<any, any> {
                                         undefined &&
                                     "Click on a box to view its folders"
                                 }
-                                classNames={"ms-Grid-col ms-sm3"}
+                                classNames={"ms-Grid-col ms-sm2"}
                                 requestState={requestStore.requestState}
                             />
+                            <div className={"ms-Grid-col ms-sm1"} />
+
                             <Checkout
                                 requestState={requestStore.requestState}
-                                classNames={"ms-Grid-col ms-sm2"}
+                                classNames={"ms-Grid-col ms-sm3"}
                                 initializeRequestForm={
                                     requestStore.initializeRequestForm
                                 }
                             />
-                            <div className={"ms-Grid-col ms-sm2"} />
+                            <div className={"ms-Grid-col ms-sm1"} />
                         </div>
                     </div>
                 </div>
