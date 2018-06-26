@@ -10,6 +10,7 @@ export interface IUserDeps {
     mockUser
     mockData
     changeSelectedDep(val: number)
+    title: string
 }
 
 export const DepartmentDropdown = observer((props: IUserDeps) => {
@@ -38,7 +39,7 @@ export const DepartmentDropdown = observer((props: IUserDeps) => {
     return (
         <div>
             <h1 className="ms-font-xxl department-dropdown-center">
-                Select one of your available departments:
+                {props.title}
             </h1>
 
             <Dropdown
@@ -46,7 +47,7 @@ export const DepartmentDropdown = observer((props: IUserDeps) => {
                 options={deps.map((x, i) => {
                     return { key: depsid[i], text: x, value: "not a value" }
                 })}
-                onChanged={x => props.changeSelectedDep(Number(x.key))}
+                onChanged={x => props.changeSelectedDep(Number(x.key))}                
             />
         </div>
     )

@@ -31,11 +31,12 @@ export class BoxRequest extends React.Component<any, any> {
                             changeSelectedDep={(department: number) =>
                                 (requestStore.requestState.department = department)
                             }
+                            title={"Select one of your available departments:"}
                         />
                     </div>
                 </div>
 
-                <div className={"ms-Grid-row"}>
+                <div className={"ms-Grid-row box-request-row"}>
                     <div>
                         <Modal
                             isOpen={
