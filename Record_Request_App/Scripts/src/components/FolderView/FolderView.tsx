@@ -106,7 +106,9 @@ export const FolderView = observer((props: IFolderViewProps) => {
                     </div>
                 </>
             ) : (
-                <DetailListHeader title={props.emptyMessage} />
+                <div className={"empty-message"}>
+                    <DetailListHeader title={props.emptyMessage}/>
+                </div>
             )}
         </div>
     )
