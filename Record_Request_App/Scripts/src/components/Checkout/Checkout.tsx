@@ -37,8 +37,8 @@ export const Checkout = observer((props: ICheckoutProps) => {
             onRender: (item: IFolderOrBox) => (
                 <p>
                     {item.BoxIdBarCode
-                        ? `B${item.BoxIdBarCode}`
-                        : item.FolderName}
+                        ? item.BoxIdBarCode
+                        : `${item.FolderName}`}
                 </p>
             ),
         },
@@ -56,6 +56,18 @@ export const Checkout = observer((props: ICheckoutProps) => {
         },
         {
             key: "column3",
+            name: "Parent Box",
+            fieldName: "parentBox",
+            minWidth: 30,
+            maxWidth: 90,
+            isResizable: false,
+            ariaLabel: "Operations for parentBox",
+            onRender: (item: IFolderOrBox) => (
+                <p>{item.BoxID}</p>
+            ),
+        },
+        {
+            key: "column4",
             name: "",
             fieldName: "removeItem",
             minWidth: 40,
