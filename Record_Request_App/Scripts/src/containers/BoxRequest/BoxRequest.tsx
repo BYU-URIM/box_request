@@ -15,7 +15,6 @@ import { ModalTypes } from "../../models"
 import Modal from "office-ui-fabric-react/lib/Modal"
 import { RequestStore } from "../../stores/RequestStore/RequestStore"
 import { MessageBarType } from "office-ui-fabric-react";
-import { RequestState } from "../../stores/RequestStore/RequestState"
 
 @inject("rootStore")
 @observer
