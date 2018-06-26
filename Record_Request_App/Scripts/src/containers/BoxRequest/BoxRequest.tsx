@@ -7,12 +7,15 @@ import {
     FolderView,
     Checkout,
 } from "../../components"
+import { WarningBar } from "../../components/WarningBar/WarningBar"
 import "./styles.scss"
 import { inject, observer } from "mobx-react"
 import { IFolderOrBox } from "../../models/StoreModels"
 import { ModalTypes } from "../../models"
 import Modal from "office-ui-fabric-react/lib/Modal"
 import { RequestStore } from "../../stores/RequestStore/RequestStore"
+import { MessageBarType } from "office-ui-fabric-react";
+import { RequestState } from "../../stores/RequestStore/RequestState"
 
 @inject("rootStore")
 @observer
@@ -23,6 +26,16 @@ export class BoxRequest extends React.Component<any, any> {
 
         return (
             <>
+                <div className={"ms-Grid-row"}>
+                    <div className={"ms-Grid-col ms-sm12"}>
+                        {requestStore.requestState.message.length > 0 &&
+                        <WarningBar 
+                            type={MessageBarType.warning}    
+                            requestState={requestStore.requestState}                    
+                        />
+                        }
+                    </div>
+                </div>
                 <div className={"ms-Grid-row"}>
                     <div className={"ms-Grid-col ms-sm4 ms-smPush4"}>
                         <DepartmentDropdown
