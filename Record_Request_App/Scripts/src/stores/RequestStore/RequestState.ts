@@ -24,11 +24,12 @@ export class RequestState {
     @action
     addToCart = (item: IFolderOrBox) => {
         this.removeChildFolders(item)
-
+        
         this._cart.set(
             item.BoxIdBarCode ? item.BoxIdBarCode : item.FolderIdBarCode,
             item
         )
+        this.removeGroupedFolders(item)
     }
     @action clearCart = () => this._cart.clear()
     @action removeFromCart = (itemKey: number) => this._cart.delete(itemKey)
@@ -120,16 +121,40 @@ export class RequestState {
     }
 
     @action
-    removeChildFolders = (item: IFolderOrBox) => {
-        this.cart.map(x => {
-            if (x.BoxID !== undefined && x.BoxID === item.BoxIdBarCode) {
-                this.removeFromCart(x.FolderIdBarCode)
+    removeChildFolders = (box: IFolderOrBox) => {
+        this.cart.map(item => {
+            if (item.BoxID !== undefined && item.BoxID === box.BoxIdBarCode) {
+                this.removeFromCart(item.FolderIdBarCode)
                 this._message = `Box ${
-                    item.BoxIdBarCode
+                    box.BoxIdBarCode
                 }, the item you just added, removed and replaced its child folders.`
             } else {
                 false
             }
         })
     }
+
+    
+    @action
+    removeGroupedFolders = (folder: IFolderOrBox) => {
+        if (this.countChildFolders(folder) >= 5) {
+            this.cart.map(item => { item.BoxID === folder.BoxID ? this.removeFromCart(item.FolderIdBarCode) : "" })
+            this.addToCart(this.box)
+            this._message = `Because you added more than 5 folders from Box ${this.box.BoxIdBarCode}, we removed and replaced those folders with their parent box.`
+        }
+    }
+    
+    @action
+    countChildFolders = (folder: IFolderOrBox): number => {
+        let folderCount = 0
+        this.cart.map(item => {
+            if (item.BoxID !== undefined && item.BoxID === folder.BoxID) {
+                folderCount++
+            }
+        })
+        return (
+            folderCount
+        )
+    }
+    
 }
