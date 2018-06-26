@@ -31,8 +31,8 @@ export const FolderView = observer((props: IFolderViewProps) => {
             key: "column1",
             name: "Folder Name",
             fieldName: "FolderName",
-            minWidth: 80,
-            maxWidth: 120,
+            minWidth: 60,
+            maxWidth: 100,
             isResizable: true,
             ariaLabel: "Operations for name",
             onRender: (item: IFolder) => {
@@ -43,8 +43,8 @@ export const FolderView = observer((props: IFolderViewProps) => {
             key: "column2",
             name: "",
             fieldName: "checkoutFolder",
-            minWidth: 60,
-            maxWidth: 170,
+            minWidth: 40,
+            maxWidth: 150,
             isResizable: true,
             ariaLabel: "Operations for checkoutFolder",
             onRender: (item: IFolder) => {
@@ -54,7 +54,7 @@ export const FolderView = observer((props: IFolderViewProps) => {
                         <button
                             onClick={() => props.requestState.addToCart(item)}
                             className={"ms-fontSize-mPlus ms-fontWeight-light"}
-                            disabled={item.inCart}
+                            disabled={props.requestState.cartContains(item)}
                         >
                             {props.checkoutStatus(item)}
                         </button>
