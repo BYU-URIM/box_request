@@ -14,6 +14,7 @@ export class RequestState {
     @observable private _department: number = undefined
     @observable private _box: IBox = undefined
     @observable private _folder: IFolder = undefined
+    @observable private _message: string = ""
 
     @observable
     private _cart: Map<number, IFolderOrBox> = observable.map<
@@ -21,13 +22,24 @@ export class RequestState {
         IFolderOrBox
     >()
     @action
-    addToCart = (item: IFolderOrBox) =>
+    addToCart = (item: IFolderOrBox) => {
+        this.removeChildFolders(item)
+
         this._cart.set(
             item.BoxIdBarCode ? item.BoxIdBarCode : item.FolderIdBarCode,
             item
         )
+    }
     @action clearCart = () => this._cart.clear()
     @action removeFromCart = (itemKey: number) => this._cart.delete(itemKey)
+
+    @computed
+    get message(): string {
+        return this._message
+    }
+    set message(val: string) {
+        this._message = val
+    }
 
     @computed
     get cart(): Array<IFolderOrBox> {
@@ -38,7 +50,6 @@ export class RequestState {
     get modal(): ModalTypes {
         return this._modal
     }
-
     set modal(val: ModalTypes) {
         this._modal = val
     }
@@ -47,7 +58,6 @@ export class RequestState {
     get department(): number {
         return this._department
     }
-
     set department(val: number) {
         this.box = undefined
         this.folder = undefined
@@ -107,5 +117,19 @@ export class RequestState {
         } else {
             return this._cart.has(item.BoxIdBarCode)
         }
+    }
+
+    @action
+    removeChildFolders = (item: IFolderOrBox) => {
+        this.cart.map(x => {
+            if (x.BoxID !== undefined && x.BoxID === item.BoxIdBarCode) {
+                this.removeFromCart(x.FolderIdBarCode)
+                this._message = `Box ${
+                    item.BoxIdBarCode
+                }, the item you just added, removed and replaced its child folders.`
+            } else {
+                false
+            }
+        })
     }
 }
