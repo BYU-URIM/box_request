@@ -44,10 +44,10 @@ export const DepartmentDropdown = observer((props: IUserDeps) => {
 
             <Dropdown
                 placeHolder="Departments"
-                options={deps.map((x, i) => {
-                    return { key: depsid[i], text: x, value: "not a value" }
+                options={deps.map((department, i) => {
+                    return { key: depsid[i], text: `${depsid[i]} - ${department}`, value: "not a value" }
                 })}
-                onChanged={x => props.changeSelectedDep(Number(x.key))}                
+                onChanged={department => props.changeSelectedDep(Number(department.key))}                
             />
         </div>
     )
