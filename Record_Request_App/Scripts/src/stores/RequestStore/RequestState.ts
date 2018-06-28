@@ -150,7 +150,7 @@ export class RequestState {
             info.selectedKey = this.userDepartments[0].id
         }
         if (this.department) {
-            info.style = "ms-Grid-col ms-sm2  ms-smPush10"
+            info.style = "ms-Grid-col ms-sm2  ms-smPush1"
             info.title = "Your Department:"
 
         } else {
