@@ -1,13 +1,14 @@
 import { ModalTypes } from "../../models"
 import { observable, computed, action } from "mobx"
 import { RequestStore } from "./RequestStore"
-import { IBox, IFolder, IFolderOrBox } from "../../models/StoreModels"
+import { IBox, IFolder, IFolderOrBox, IDepartmentList, IDepartmentArrList, IUser } from "../../models/StoreModels"
+import { mockUser } from "../../res";
 
 export class RequestState {
     constructor(
         private requestStore: RequestStore,
         private _folders: Array<IFolder>,
-        private _boxes: Array<IBox>
+        private _boxes: Array<IBox>,
     ) {}
 
     @observable private _modal: ModalTypes = ModalTypes.none
@@ -15,6 +16,7 @@ export class RequestState {
     @observable private _box: IBox = undefined
     @observable private _folder: IFolder = undefined
     @observable private _message: string = ""
+    @observable private _user: IUser = mockUser
 
     @observable
     private _cart: Map<number, IFolderOrBox> = observable.map<
@@ -108,6 +110,32 @@ export class RequestState {
         )
     }
 
+    @computed
+    get uniqueDepartments(): any {
+        let depList = []
+        this._boxes.forEach(boxItem => {
+            if (!depList.find(box => box.id === boxItem.DepId)) {
+                depList.push({ name: boxItem.DepartmentName, id: boxItem.DepId})
+            }
+        })
+        return(
+            depList
+        )
+    }
+
+    @computed
+    get userDepartments(): any {
+        let depList = this.uniqueDepartments
+        let userDeps = []
+
+        depList.forEach(department => {
+            if (this._user.departments.find(depId => depId === department.id)) {
+                userDeps.push({ name: department.name, id: department.id})
+            }
+        })
+        return userDeps
+    }
+
     @action
     cartContains = (item: IFolderOrBox): boolean => {
         if (item.FolderIdBarCode) {
@@ -156,5 +184,7 @@ export class RequestState {
             folderCount
         )
     }
+
+
     
 }
