@@ -136,6 +136,36 @@ export class RequestState {
         return userDeps
     }
 
+    @computed
+    get dropdownInfo(): any {
+        let info = {
+            style: "",
+            title: "",
+            disabled: false,
+            selectedKey: undefined
+        }
+        if(this.userDepartments.length === 1) {
+            info.disabled = true
+            this.onlyDepartment()
+            info.selectedKey = this.userDepartments[0].id
+        }
+        if (this.department) {
+            info.style = "ms-Grid-col ms-sm2  ms-smPush10"
+            info.title = "Your Department:"
+
+        } else {
+            info.style = "ms-Grid-col ms-sm4 ms-smPush4" 
+            info.title = "Select one of your available departments:"
+        }
+
+        return info
+    }
+
+    @action
+    onlyDepartment = (): any => {
+        this.department = this.userDepartments[0].id
+    }
+
     @action
     cartContains = (item: IFolderOrBox): boolean => {
         if (item.FolderIdBarCode) {
