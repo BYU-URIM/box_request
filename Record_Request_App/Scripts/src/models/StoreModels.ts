@@ -33,3 +33,20 @@ export interface IFolderOrBox {
     DepId?: any
     inCart?: boolean
 }
+
+export interface IMockDataObj {
+    BoxId: number,
+    DepId: number,
+    DepartmentName: string,
+    DateSubmitted: string,
+    FolderId?: any
+  }
+  
+  export interface IMockDataArrObj extends Array<IMockDataObj> { }
+
+export interface IDepartmentList {
+    name: string,
+    id: number,
+}
+
+  export interface IDepartmentArrList extends Array<IDepartmentList> { }
