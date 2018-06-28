@@ -5,12 +5,14 @@ import {
 } from "office-ui-fabric-react/lib/"
 import "./styles.scss"
 import { observer } from "mobx-react"
+import { RequestState } from "../../stores/RequestStore/RequestState";
 
 export interface IUserDeps {
     mockUser
     mockData
     changeSelectedDep(val: number)
     title: string
+    requestState: RequestState
 }
 
 export const DepartmentDropdown = observer((props: IUserDeps) => {
@@ -20,22 +22,8 @@ export const DepartmentDropdown = observer((props: IUserDeps) => {
     const userDepartments = props.mockUser.departments
     const departmentInfo = props.mockData
 
-    // iterate through json department object and pull out unique departments
-    departmentInfo.forEach(outer => {
-        if (!departmentObj.find(inner => inner.id === outer.DepId)) {
-            departmentObj.push({ name: outer.DepartmentName, id: outer.DepId })
-        }
-    })
+    let userDeps = props.requestState.userDepartments
 
-    // iterates through each object of name and id, compares the id with the user departments, applies a department name with the users dep ID
-    departmentObj.forEach(outer => {
-        if (userDepartments.find(inner => inner === outer.id)) {
-            deps.push(outer.name)
-            depsid.push(outer.id)
-        }
-    })
-
-    // return the HTML dropdown menu of the department names associated with the user
     return (
         <div>
             <h1 className="ms-font-xxl department-dropdown-center">
@@ -44,8 +32,8 @@ export const DepartmentDropdown = observer((props: IUserDeps) => {
 
             <Dropdown
                 placeHolder="Departments"
-                options={deps.map((department, i) => {
-                    return { key: depsid[i], text: `${depsid[i]} - ${department}`, value: "not a value" }
+                options={userDeps.map((department, i) => {
+                    return { key: userDeps[i].id, text: `${userDeps[i].id} - ${userDeps[i].name}`, value: "not a value" }
                 })}
                 onChanged={department => props.changeSelectedDep(Number(department.key))}                
             />
