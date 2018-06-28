@@ -1,4 +1,4 @@
-import { IBox, IFolder } from "./StoreModels"
+import { IBox, IFolder, IUser, IMockDataArrObj } from "./StoreModels"
 
 export enum ModalTypes {
     warning = "warning",

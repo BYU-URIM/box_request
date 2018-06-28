@@ -44,6 +44,7 @@ export class BoxRequest extends React.Component<any, any> {
                                 (requestStore.requestState.department = department)
                             }
                             title={"Select one of your available departments:"}
+                            requestState={requestStore.requestState}
                         />
                     </div>
                 </div>
