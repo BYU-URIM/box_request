@@ -14,7 +14,7 @@ import { IFolderOrBox } from "../../models/StoreModels"
 import { ModalTypes } from "../../models"
 import Modal from "office-ui-fabric-react/lib/Modal"
 import { RequestStore } from "../../stores/RequestStore/RequestStore"
-import { MessageBarType } from "office-ui-fabric-react"
+import { MessageBarType, Dropdown } from "office-ui-fabric-react"
 
 @inject("rootStore")
 @observer
@@ -36,19 +36,18 @@ export class BoxRequest extends React.Component<any, any> {
                     </div>
                 </div>
                 <div className={"ms-Grid-row"}>
-                    <div className={"ms-Grid-col ms-sm4 ms-smPush4"}>
+                    <div className={requestStore.requestState.dropdownInfo.style}>
                         <DepartmentDropdown
-                            mockUser={currentUser}
-                            mockData={requestStore.boxes}
                             changeSelectedDep={(department: number) =>
                                 (requestStore.requestState.department = department)
                             }
-                            title={"Select one of your available departments:"}
+                            title={requestStore.requestState.dropdownInfo.title}
                             requestState={requestStore.requestState}
+                            disabled={requestStore.requestState.dropdownInfo.disabled}
+                            selectedKey={requestStore.requestState.dropdownInfo.selectedKey}
                         />
                     </div>
                 </div>
-
                 <div className={"ms-Grid-row box-request-row"}>
                     <div>
                         <Modal
