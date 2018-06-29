@@ -1,7 +1,7 @@
 import { IMockDataArrObj } from "../models/StoreModels";
 
 export const mockData: IMockDataArrObj = [{
-  BoxId: 1,
+  BoxIdBarCode: 1,
   DepId: 5555,
   DepartmentName: "Office of Administration",
   DateSubmitted: "17/03/2014",
@@ -14,13 +14,13 @@ export const mockData: IMockDataArrObj = [{
     "Gary Taylock"
   ]
 }, {
-  BoxId: 2,
+  BoxIdBarCode: 2,
   DepId: 5556,
   DepartmentName: "BYU Police Department",
   DateSubmitted: "23/08/2014",
   FolderId: null
 }, {
-  BoxId: 3,
+  BoxIdBarCode: 3,
   DepId: 5557,
   DepartmentName: "Department of Cultural Studies",
   DateSubmitted: "31/01/2014",
@@ -33,7 +33,7 @@ export const mockData: IMockDataArrObj = [{
     529
   ]
 }, {
-  BoxId: 4,
+  BoxIdBarCode: 4,
   DepId: 5558,
   DepartmentName: "Department of Defense",
   DateSubmitted: "22/10/2011",
@@ -46,19 +46,19 @@ export const mockData: IMockDataArrObj = [{
     781
   ]
 }, {
-  BoxId: 5,
+  BoxIdBarCode: 5,
   DepId: 5559,
   DepartmentName: "Department of Agriculture",
   DateSubmitted: "08/08/2014",
   FolderId: null
 }, {
-  BoxId: 6,
+  BoxIdBarCode: 6,
   DepId: 5560,
   DepartmentName: "Department of Healthcare",
   DateSubmitted: "11/05/2016",
   FolderId: null
 }, {
-  BoxId: 7,
+  BoxIdBarCode: 7,
   DepId: 5555,
   DepartmentName: "Office of Administration",
   DateSubmitted: "03/02/2014",
@@ -71,7 +71,7 @@ export const mockData: IMockDataArrObj = [{
     68
   ]
 }, {
-  BoxId: 8,
+  BoxIdBarCode: 8,
   DepId: 5556,
   DepartmentName: "BYU Police Department",
   DateSubmitted: "08/08/2015",
@@ -84,7 +84,7 @@ export const mockData: IMockDataArrObj = [{
     437
   ]
 }, {
-  BoxId: 9,
+  BoxIdBarCode: 9,
   DepId: 5557,
   DepartmentName: "Department of Cultural Studies",
   DateSubmitted: "24/09/2017",
@@ -97,13 +97,13 @@ export const mockData: IMockDataArrObj = [{
     599
   ]
 }, {
-  BoxId: 10,
+  BoxIdBarCode: 10,
   DepId: 5558,
   DepartmentName: "Department of Defense",
   DateSubmitted: "08/07/2017",
   FolderId: null
 }, {
-  BoxId: 11,
+  BoxIdBarCode: 11,
   DepId: 5559,
   DepartmentName: "Department of Agriculture",
   DateSubmitted: "27/05/2015",
@@ -116,7 +116,7 @@ export const mockData: IMockDataArrObj = [{
     505
   ]
 }, {
-  BoxId: 12,
+  BoxIdBarCode: 12,
   DepId: 5560,
   DepartmentName: "Department of Healthcare",
   DateSubmitted: "27/10/2016",
@@ -129,7 +129,7 @@ export const mockData: IMockDataArrObj = [{
     765
   ]
 }, {
-  BoxId: 13,
+  BoxIdBarCode: 13,
   DepId: 5555,
   DepartmentName: "Office of Administration",
   DateSubmitted: "03/08/2017",
@@ -142,7 +142,7 @@ export const mockData: IMockDataArrObj = [{
     488
   ]
 }, {
-  BoxId: 14,
+  BoxIdBarCode: 14,
   DepId: 5556,
   DepartmentName: "BYU Police Department",
   DateSubmitted: "17/06/2017",
@@ -155,7 +155,7 @@ export const mockData: IMockDataArrObj = [{
     84
   ]
 }, {
-  BoxId: 15,
+  BoxIdBarCode: 15,
   DepId: 5557,
   DepartmentName: "Department of Cultural Studies",
   DateSubmitted: "15/08/2017",
@@ -168,13 +168,13 @@ export const mockData: IMockDataArrObj = [{
     682
   ]
 }, {
-  BoxId: 16,
+  BoxIdBarCode: 16,
   DepId: 5558,
   DepartmentName: "Department of Defense",
   DateSubmitted: "31/12/2012",
   FolderId: null
 }, {
-  BoxId: 17,
+  BoxIdBarCode: 17,
   DepId: 5559,
   DepartmentName: "Department of Agriculture",
   DateSubmitted: "26/02/2015",
@@ -187,13 +187,13 @@ export const mockData: IMockDataArrObj = [{
     551
   ]
 }, {
-  BoxId: 18,
+  BoxIdBarCode: 18,
   DepId: 5560,
   DepartmentName: "Department of Healthcare",
   DateSubmitted: "15/10/2017",
   FolderId: null
 }, {
-  BoxId: 19,
+  BoxIdBarCode: 19,
   DepId: 5555,
   DepartmentName: "Office of Administration",
   DateSubmitted: "15/01/2013",
@@ -206,7 +206,7 @@ export const mockData: IMockDataArrObj = [{
     900
   ]
 }, {
-  BoxId: 20,
+  BoxIdBarCode: 20,
   DepId: 5556,
   DepartmentName: "BYU Police Department",
   DateSubmitted: "14/08/2010",
@@ -219,7 +219,7 @@ export const mockData: IMockDataArrObj = [{
     802
   ]
 }, {
-  BoxId: 21,
+  BoxIdBarCode: 21,
   DepId: 5557,
   DepartmentName: "Department of Cultural Studies",
   DateSubmitted: "09/11/2016",
@@ -232,7 +232,7 @@ export const mockData: IMockDataArrObj = [{
     402
   ]
 }, {
-  BoxId: 22,
+  BoxIdBarCode: 22,
   DepId: 5558,
   DepartmentName: "Department of Defense",
   DateSubmitted: "08/01/2014",
@@ -245,7 +245,7 @@ export const mockData: IMockDataArrObj = [{
     760
   ]
 }, {
-  BoxId: 23,
+  BoxIdBarCode: 23,
   DepId: 5559,
   DepartmentName: "Department of Agriculture",
   DateSubmitted: "07/10/2016",
@@ -258,7 +258,7 @@ export const mockData: IMockDataArrObj = [{
     727
   ]
 }, {
-  BoxId: 24,
+  BoxIdBarCode: 24,
   DepId: 5560,
   DepartmentName: "Department of Healthcare",
   DateSubmitted: "21/09/2014",
@@ -271,7 +271,7 @@ export const mockData: IMockDataArrObj = [{
     972
   ]
 }, {
-  BoxId: 25,
+  BoxIdBarCode: 25,
   DepId: 5555,
   DepartmentName: "Office of Administration",
   DateSubmitted: "11/05/2015",
@@ -284,7 +284,7 @@ export const mockData: IMockDataArrObj = [{
     192
   ]
 }, {
-  BoxId: 26,
+  BoxIdBarCode: 26,
   DepId: 5556,
   DepartmentName: "BYU Police Department",
   DateSubmitted: "25/08/2011",
@@ -297,7 +297,7 @@ export const mockData: IMockDataArrObj = [{
     995
   ]
 }, {
-  BoxId: 27,
+  BoxIdBarCode: 27,
   DepId: 5557,
   DepartmentName: "Department of Cultural Studies",
   DateSubmitted: "21/05/2012",
@@ -310,7 +310,7 @@ export const mockData: IMockDataArrObj = [{
     666
   ]
 }, {
-  BoxId: 28,
+  BoxIdBarCode: 28,
   DepId: 5558,
   DepartmentName: "Department of Defense",
   DateSubmitted: "27/09/2014",
@@ -323,7 +323,7 @@ export const mockData: IMockDataArrObj = [{
     409
   ]
 }, {
-  BoxId: 29,
+  BoxIdBarCode: 29,
   DepId: 5559,
   DepartmentName: "Department of Agriculture",
   DateSubmitted: "14/03/2016",
@@ -336,7 +336,7 @@ export const mockData: IMockDataArrObj = [{
     351
   ]
 }, {
-  BoxId: 30,
+  BoxIdBarCode: 30,
   DepId: 5560,
   DepartmentName: "Department of Healthcare",
   DateSubmitted: "17/01/2015",
@@ -349,7 +349,7 @@ export const mockData: IMockDataArrObj = [{
     486
   ]
 }, {
-  BoxId: 31,
+  BoxIdBarCode: 31,
   DepId: 5555,
   DepartmentName: "Office of Administration",
   DateSubmitted: "09/04/2013",
@@ -362,7 +362,7 @@ export const mockData: IMockDataArrObj = [{
     372
   ]
 }, {
-  BoxId: 32,
+  BoxIdBarCode: 32,
   DepId: 5556,
   DepartmentName: "BYU Police Department",
   DateSubmitted: "10/11/2016",
@@ -375,13 +375,13 @@ export const mockData: IMockDataArrObj = [{
     383
   ]
 }, {
-  BoxId: 33,
+  BoxIdBarCode: 33,
   DepId: 5557,
   DepartmentName: "Department of Cultural Studies",
   DateSubmitted: "08/02/2011",
   FolderId: null
 }, {
-  BoxId: 34,
+  BoxIdBarCode: 34,
   DepId: 5558,
   DepartmentName: "Department of Defense",
   DateSubmitted: "13/10/2012",
@@ -394,19 +394,19 @@ export const mockData: IMockDataArrObj = [{
     904
   ]
 }, {
-  BoxId: 35,
+  BoxIdBarCode: 35,
   DepId: 5559,
   DepartmentName: "Department of Agriculture",
   DateSubmitted: "07/07/2017",
   FolderId: null
 }, {
-  BoxId: 36,
+  BoxIdBarCode: 36,
   DepId: 5560,
   DepartmentName: "Department of Healthcare",
   DateSubmitted: "24/04/2015",
   FolderId: null
 }, {
-  BoxId: 37,
+  BoxIdBarCode: 37,
   DepId: 5555,
   DepartmentName: "Office of Administration",
   DateSubmitted: "03/08/2016",
@@ -419,7 +419,7 @@ export const mockData: IMockDataArrObj = [{
     353
   ]
 }, {
-  BoxId: 38,
+  BoxIdBarCode: 38,
   DepId: 5556,
   DepartmentName: "BYU Police Department",
   DateSubmitted: "23/02/2015",
@@ -432,7 +432,7 @@ export const mockData: IMockDataArrObj = [{
     693
   ]
 }, {
-  BoxId: 39,
+  BoxIdBarCode: 39,
   DepId: 5557,
   DepartmentName: "Department of Cultural Studies",
   DateSubmitted: "08/11/2011",
@@ -445,7 +445,7 @@ export const mockData: IMockDataArrObj = [{
     95
   ]
 }, {
-  BoxId: 40,
+  BoxIdBarCode: 40,
   DepId: 5558,
   DepartmentName: "Department of Defense",
   DateSubmitted: "27/07/2010",
@@ -458,19 +458,19 @@ export const mockData: IMockDataArrObj = [{
     298
   ]
 }, {
-  BoxId: 41,
+  BoxIdBarCode: 41,
   DepId: 5559,
   DepartmentName: "Department of Agriculture",
   DateSubmitted: "29/10/2013",
   FolderId: null
 }, {
-  BoxId: 42,
+  BoxIdBarCode: 42,
   DepId: 5560,
   DepartmentName: "Department of Healthcare",
   DateSubmitted: "27/12/2012",
   FolderId: null
 }, {
-  BoxId: 43,
+  BoxIdBarCode: 43,
   DepId: 5555,
   DepartmentName: "Office of Administration",
   DateSubmitted: "11/05/2011",
@@ -483,19 +483,19 @@ export const mockData: IMockDataArrObj = [{
     516
   ]
 }, {
-  BoxId: 44,
+  BoxIdBarCode: 44,
   DepId: 5556,
   DepartmentName: "BYU Police Department",
   DateSubmitted: "05/08/2015",
   FolderId: null
 }, {
-  BoxId: 45,
+  BoxIdBarCode: 45,
   DepId: 5557,
   DepartmentName: "Department of Cultural Studies",
   DateSubmitted: "05/04/2014",
   FolderId: null
 }, {
-  BoxId: 46,
+  BoxIdBarCode: 46,
   DepId: 5558,
   DepartmentName: "Department of Defense",
   DateSubmitted: "07/03/2016",
@@ -508,7 +508,7 @@ export const mockData: IMockDataArrObj = [{
     782
   ]
 }, {
-  BoxId: 47,
+  BoxIdBarCode: 47,
   DepId: 5559,
   DepartmentName: "Department of Agriculture",
   DateSubmitted: "27/10/2015",
@@ -521,7 +521,7 @@ export const mockData: IMockDataArrObj = [{
     676
   ]
 }, {
-  BoxId: 48,
+  BoxIdBarCode: 48,
   DepId: 5560,
   DepartmentName: "Department of Healthcare",
   DateSubmitted: "21/07/2013",
@@ -534,7 +534,7 @@ export const mockData: IMockDataArrObj = [{
     910
   ]
 }, {
-  BoxId: 49,
+  BoxIdBarCode: 49,
   DepId: 5555,
   DepartmentName: "Office of Administration",
   DateSubmitted: "11/06/2015",
@@ -547,7 +547,7 @@ export const mockData: IMockDataArrObj = [{
     425
   ]
 }, {
-  BoxId: 50,
+  BoxIdBarCode: 50,
   DepId: 5556,
   DepartmentName: "BYU Police Department",
   DateSubmitted: "17/09/2015",
@@ -560,7 +560,7 @@ export const mockData: IMockDataArrObj = [{
     223
   ]
 }, {
-  BoxId: 51,
+  BoxIdBarCode: 51,
   DepId: 5557,
   DepartmentName: "Department of Cultural Studies",
   DateSubmitted: "13/10/2013",
@@ -573,7 +573,7 @@ export const mockData: IMockDataArrObj = [{
     534
   ]
 }, {
-  BoxId: 52,
+  BoxIdBarCode: 52,
   DepId: 5558,
   DepartmentName: "Department of Defense",
   DateSubmitted: "28/11/2011",
@@ -586,7 +586,7 @@ export const mockData: IMockDataArrObj = [{
     381
   ]
 }, {
-  BoxId: 53,
+  BoxIdBarCode: 53,
   DepId: 5559,
   DepartmentName: "Department of Agriculture",
   DateSubmitted: "11/05/2012",
@@ -599,19 +599,19 @@ export const mockData: IMockDataArrObj = [{
     610
   ]
 }, {
-  BoxId: 54,
+  BoxIdBarCode: 54,
   DepId: 5560,
   DepartmentName: "Department of Healthcare",
   DateSubmitted: "10/05/2013",
   FolderId: null
 }, {
-  BoxId: 55,
+  BoxIdBarCode: 55,
   DepId: 5555,
   DepartmentName: "Office of Administration",
   DateSubmitted: "24/12/2012",
   FolderId: null
 }, {
-  BoxId: 56,
+  BoxIdBarCode: 56,
   DepId: 5556,
   DepartmentName: "BYU Police Department",
   DateSubmitted: "09/11/2014",
@@ -624,7 +624,7 @@ export const mockData: IMockDataArrObj = [{
     202
   ]
 }, {
-  BoxId: 57,
+  BoxIdBarCode: 57,
   DepId: 5557,
   DepartmentName: "Department of Cultural Studies",
   DateSubmitted: "07/04/2012",
@@ -637,7 +637,7 @@ export const mockData: IMockDataArrObj = [{
     367
   ]
 }, {
-  BoxId: 58,
+  BoxIdBarCode: 58,
   DepId: 5558,
   DepartmentName: "Department of Defense",
   DateSubmitted: "04/11/2017",
@@ -650,19 +650,19 @@ export const mockData: IMockDataArrObj = [{
     511
   ]
 }, {
-  BoxId: 59,
+  BoxIdBarCode: 59,
   DepId: 5559,
   DepartmentName: "Department of Agriculture",
   DateSubmitted: "17/05/2017",
   FolderId: null
 }, {
-  BoxId: 60,
+  BoxIdBarCode: 60,
   DepId: 5560,
   DepartmentName: "Department of Healthcare",
   DateSubmitted: "25/04/2013",
   FolderId: null
 }, {
-  BoxId: 61,
+  BoxIdBarCode: 61,
   DepId: 5555,
   DepartmentName: "Office of Administration",
   DateSubmitted: "20/06/2017",
@@ -675,7 +675,7 @@ export const mockData: IMockDataArrObj = [{
     479
   ]
 }, {
-  BoxId: 62,
+  BoxIdBarCode: 62,
   DepId: 5556,
   DepartmentName: "BYU Police Department",
   DateSubmitted: "03/02/2018",
@@ -688,7 +688,7 @@ export const mockData: IMockDataArrObj = [{
     108
   ]
 }, {
-  BoxId: 63,
+  BoxIdBarCode: 63,
   DepId: 5557,
   DepartmentName: "Department of Cultural Studies",
   DateSubmitted: "02/04/2014",
@@ -701,13 +701,13 @@ export const mockData: IMockDataArrObj = [{
     834
   ]
 }, {
-  BoxId: 64,
+  BoxIdBarCode: 64,
   DepId: 5558,
   DepartmentName: "Department of Defense",
   DateSubmitted: "14/11/2017",
   FolderId: null
 }, {
-  BoxId: 65,
+  BoxIdBarCode: 65,
   DepId: 5559,
   DepartmentName: "Department of Agriculture",
   DateSubmitted: "30/07/2011",
@@ -720,13 +720,13 @@ export const mockData: IMockDataArrObj = [{
     939
   ]
 }, {
-  BoxId: 66,
+  BoxIdBarCode: 66,
   DepId: 5560,
   DepartmentName: "Department of Healthcare",
   DateSubmitted: "12/08/2014",
   FolderId: null
 }, {
-  BoxId: 67,
+  BoxIdBarCode: 67,
   DepId: 5555,
   DepartmentName: "Office of Administration",
   DateSubmitted: "28/12/2016",
@@ -739,13 +739,13 @@ export const mockData: IMockDataArrObj = [{
     212
   ]
 }, {
-  BoxId: 68,
+  BoxIdBarCode: 68,
   DepId: 5556,
   DepartmentName: "BYU Police Department",
   DateSubmitted: "28/04/2016",
   FolderId: null
 }, {
-  BoxId: 69,
+  BoxIdBarCode: 69,
   DepId: 5557,
   DepartmentName: "Department of Cultural Studies",
   DateSubmitted: "27/09/2015",
@@ -758,7 +758,7 @@ export const mockData: IMockDataArrObj = [{
     556
   ]
 }, {
-  BoxId: 70,
+  BoxIdBarCode: 70,
   DepId: 5558,
   DepartmentName: "Department of Defense",
   DateSubmitted: "22/11/2012",
@@ -771,19 +771,19 @@ export const mockData: IMockDataArrObj = [{
     338
   ]
 }, {
-  BoxId: 71,
+  BoxIdBarCode: 71,
   DepId: 5559,
   DepartmentName: "Department of Agriculture",
   DateSubmitted: "29/10/2012",
   FolderId: null
 }, {
-  BoxId: 72,
+  BoxIdBarCode: 72,
   DepId: 5560,
   DepartmentName: "Department of Healthcare",
   DateSubmitted: "13/11/2016",
   FolderId: null
 }, {
-  BoxId: 73,
+  BoxIdBarCode: 73,
   DepId: 5555,
   DepartmentName: "Office of Administration",
   DateSubmitted: "21/06/2014",
@@ -796,7 +796,7 @@ export const mockData: IMockDataArrObj = [{
     42
   ]
 }, {
-  BoxId: 74,
+  BoxIdBarCode: 74,
   DepId: 5556,
   DepartmentName: "BYU Police Department",
   DateSubmitted: "17/01/2011",
@@ -809,7 +809,7 @@ export const mockData: IMockDataArrObj = [{
     480
   ]
 }, {
-  BoxId: 75,
+  BoxIdBarCode: 75,
   DepId: 5557,
   DepartmentName: "Department of Cultural Studies",
   DateSubmitted: "30/10/2017",
@@ -822,13 +822,13 @@ export const mockData: IMockDataArrObj = [{
     514
   ]
 }, {
-  BoxId: 76,
+  BoxIdBarCode: 76,
   DepId: 5558,
   DepartmentName: "Department of Defense",
   DateSubmitted: "13/02/2017",
   FolderId: null
 }, {
-  BoxId: 77,
+  BoxIdBarCode: 77,
   DepId: 5559,
   DepartmentName: "Department of Agriculture",
   DateSubmitted: "16/04/2012",
@@ -841,7 +841,7 @@ export const mockData: IMockDataArrObj = [{
     991
   ]
 }, {
-  BoxId: 78,
+  BoxIdBarCode: 78,
   DepId: 5560,
   DepartmentName: "Department of Healthcare",
   DateSubmitted: "10/10/2017",
@@ -854,13 +854,13 @@ export const mockData: IMockDataArrObj = [{
     462
   ]
 }, {
-  BoxId: 79,
+  BoxIdBarCode: 79,
   DepId: 5555,
   DepartmentName: "Office of Administration",
   DateSubmitted: "27/07/2011",
   FolderId: null
 }, {
-  BoxId: 80,
+  BoxIdBarCode: 80,
   DepId: 5556,
   DepartmentName: "BYU Police Department",
   DateSubmitted: "25/12/2012",
@@ -873,7 +873,7 @@ export const mockData: IMockDataArrObj = [{
     708
   ]
 }, {
-  BoxId: 81,
+  BoxIdBarCode: 81,
   DepId: 5557,
   DepartmentName: "Department of Cultural Studies",
   DateSubmitted: "18/06/2015",
@@ -886,13 +886,13 @@ export const mockData: IMockDataArrObj = [{
     788
   ]
 }, {
-  BoxId: 82,
+  BoxIdBarCode: 82,
   DepId: 5558,
   DepartmentName: "Department of Defense",
   DateSubmitted: "25/12/2012",
   FolderId: null
 }, {
-  BoxId: 83,
+  BoxIdBarCode: 83,
   DepId: 5559,
   DepartmentName: "Department of Agriculture",
   DateSubmitted: "29/03/2012",
@@ -905,7 +905,7 @@ export const mockData: IMockDataArrObj = [{
     693
   ]
 }, {
-  BoxId: 84,
+  BoxIdBarCode: 84,
   DepId: 5560,
   DepartmentName: "Department of Healthcare",
   DateSubmitted: "21/10/2016",
@@ -918,7 +918,7 @@ export const mockData: IMockDataArrObj = [{
     624
   ]
 }, {
-  BoxId: 85,
+  BoxIdBarCode: 85,
   DepId: 5555,
   DepartmentName: "Office of Administration",
   DateSubmitted: "14/10/2014",
@@ -931,7 +931,7 @@ export const mockData: IMockDataArrObj = [{
     867
   ]
 }, {
-  BoxId: 86,
+  BoxIdBarCode: 86,
   DepId: 5556,
   DepartmentName: "BYU Police Department",
   DateSubmitted: "29/10/2017",
@@ -944,7 +944,7 @@ export const mockData: IMockDataArrObj = [{
     928
   ]
 }, {
-  BoxId: 87,
+  BoxIdBarCode: 87,
   DepId: 5557,
   DepartmentName: "Department of Cultural Studies",
   DateSubmitted: "02/03/2014",
@@ -957,7 +957,7 @@ export const mockData: IMockDataArrObj = [{
     91
   ]
 }, {
-  BoxId: 88,
+  BoxIdBarCode: 88,
   DepId: 5558,
   DepartmentName: "Department of Defense",
   DateSubmitted: "23/10/2011",
@@ -970,7 +970,7 @@ export const mockData: IMockDataArrObj = [{
     940
   ]
 }, {
-  BoxId: 89,
+  BoxIdBarCode: 89,
   DepId: 5559,
   DepartmentName: "Department of Agriculture",
   DateSubmitted: "11/09/2011",
@@ -983,7 +983,7 @@ export const mockData: IMockDataArrObj = [{
     683
   ]
 }, {
-  BoxId: 90,
+  BoxIdBarCode: 90,
   DepId: 5560,
   DepartmentName: "Department of Healthcare",
   DateSubmitted: "12/11/2010",
@@ -996,7 +996,7 @@ export const mockData: IMockDataArrObj = [{
     793
   ]
 }, {
-  BoxId: 91,
+  BoxIdBarCode: 91,
   DepId: 5555,
   DepartmentName: "Office of Administration",
   DateSubmitted: "06/12/2010",
@@ -1009,7 +1009,7 @@ export const mockData: IMockDataArrObj = [{
     825
   ]
 }, {
-  BoxId: 92,
+  BoxIdBarCode: 92,
   DepId: 5556,
   DepartmentName: "BYU Police Department",
   DateSubmitted: "23/02/2015",
@@ -1022,7 +1022,7 @@ export const mockData: IMockDataArrObj = [{
     541
   ]
 }, {
-  BoxId: 93,
+  BoxIdBarCode: 93,
   DepId: 5557,
   DepartmentName: "Department of Cultural Studies",
   DateSubmitted: "01/03/2015",
@@ -1035,7 +1035,7 @@ export const mockData: IMockDataArrObj = [{
     149
   ]
 }, {
-  BoxId: 94,
+  BoxIdBarCode: 94,
   DepId: 5558,
   DepartmentName: "Department of Defense",
   DateSubmitted: "04/10/2013",
@@ -1048,7 +1048,7 @@ export const mockData: IMockDataArrObj = [{
     940
   ]
 }, {
-  BoxId: 95,
+  BoxIdBarCode: 95,
   DepId: 5559,
   DepartmentName: "Department of Agriculture",
   DateSubmitted: "11/09/2016",
@@ -1061,7 +1061,7 @@ export const mockData: IMockDataArrObj = [{
     107
   ]
 }, {
-  BoxId: 96,
+  BoxIdBarCode: 96,
   DepId: 5560,
   DepartmentName: "Department of Healthcare",
   DateSubmitted: "15/12/2015",
@@ -1074,7 +1074,7 @@ export const mockData: IMockDataArrObj = [{
     845
   ]
 }, {
-  BoxId: 97,
+  BoxIdBarCode: 97,
   DepId: 5555,
   DepartmentName: "Office of Administration",
   DateSubmitted: "12/04/2017",
@@ -1087,7 +1087,7 @@ export const mockData: IMockDataArrObj = [{
     512
   ]
 }, {
-  BoxId: 98,
+  BoxIdBarCode: 98,
   DepId: 5556,
   DepartmentName: "BYU Police Department",
   DateSubmitted: "18/05/2011",
@@ -1100,13 +1100,13 @@ export const mockData: IMockDataArrObj = [{
     263
   ]
 }, {
-  BoxId: 99,
+  BoxIdBarCode: 99,
   DepId: 5557,
   DepartmentName: "Department of Cultural Studies",
   DateSubmitted: "02/11/2015",
   FolderId: null
 }, {
-  BoxId: 100,
+  BoxIdBarCode: 100,
   DepId: 5558,
   DepartmentName: "Department of Defense",
   DateSubmitted: "18/10/2014",

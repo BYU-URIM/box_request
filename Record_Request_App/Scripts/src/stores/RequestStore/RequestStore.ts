@@ -34,7 +34,7 @@ export class RequestStore {
         return this.folders
             .filter(
                 (folder: IFolder) =>
-                    folder.BoxID === this.requestState.box.BoxIdBarCode
+                    folder.BoxIdBarCode === this.requestState.box.BoxIdBarCode
             )
             .map(folder => folder.FolderName.toLowerCase())
     }
@@ -54,7 +54,7 @@ export class RequestStore {
     @action
     createFolder = (): void => {
         this.folders.push({
-            BoxID: this.requestState.box.BoxIdBarCode,
+            BoxIdBarCode: this.requestState.box.BoxIdBarCode,
             FolderName: this.folderForm.folderName,
             FolderIdBarCode: this.folders.length + 1,
             Location: this.requestState.box.Location,
@@ -82,7 +82,7 @@ export class RequestStore {
     canAddItem = (item: IFolderOrBox): boolean => {
         return (
             item.Location.startsWith("L") ||
-            item.BoxID === Number(item.Location)
+            item.BoxIdBarCode === Number(item.Location)
         )
     }
     inYourPossession = (item: IFolderOrBox): boolean => {

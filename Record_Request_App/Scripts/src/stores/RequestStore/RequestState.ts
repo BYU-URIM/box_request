@@ -25,10 +25,10 @@ export class RequestState {
     >()
     @action
     addToCart = (item: IFolderOrBox) => {
-        this.removeChildFolders(item)
+        if(!item.FolderIdBarCode) this.removeChildFolders(item)
         
         this._cart.set(
-            item.BoxIdBarCode ? item.BoxIdBarCode : item.FolderIdBarCode,
+            item.FolderIdBarCode ? item.FolderIdBarCode : item.BoxIdBarCode,
             item
         )
         this.removeGroupedFolders(item)
@@ -46,7 +46,7 @@ export class RequestState {
 
     @computed
     get cart(): Array<IFolderOrBox> {
-        return Array.from(this._cart.values()).sort((a, b) => { return a[0] - b[0]})
+        return Array.from(this._cart.values()).sort((a, b) => a.BoxIdBarCode - b.BoxIdBarCode)
     }
 
     @computed
@@ -106,7 +106,7 @@ export class RequestState {
             this.box &&
             this._folders
                 .filter(
-                    (folder: IFolder) => folder.BoxID === this.box.BoxIdBarCode
+                    (folder: IFolder) => folder.BoxIdBarCode === this.box.BoxIdBarCode
                 )
                 .map(folder => ({
                     ...folder,
@@ -175,7 +175,7 @@ export class RequestState {
     cartContains = (item: IFolderOrBox): boolean => {
         if (item.FolderIdBarCode) {
             return (
-                this._cart.has(item.BoxID) ||
+                this._cart.has(item.BoxIdBarCode) ||
                 this._cart.has(item.FolderIdBarCode)
             )
         } else {
@@ -186,7 +186,7 @@ export class RequestState {
     @action
     removeChildFolders = (box: IFolderOrBox) => {
         this.cart.map(item => {
-            if (item.BoxID !== undefined && item.BoxID === box.BoxIdBarCode) {
+            if (item.BoxIdBarCode!== undefined && item.BoxIdBarCode=== box.BoxIdBarCode) {
                 this.removeFromCart(item.FolderIdBarCode)
                 this._message = `Box ${
                     box.BoxIdBarCode
@@ -201,7 +201,7 @@ export class RequestState {
     @action
     removeGroupedFolders = (folder: IFolderOrBox) => {
         if (this.countChildFolders(folder) >= 5) {
-            this.cart.map(item => { item.BoxID === folder.BoxID ? this.removeFromCart(item.FolderIdBarCode) : "" })
+            this.cart.map(item => { item.BoxIdBarCode=== folder.BoxIdBarCode? this.removeFromCart(item.FolderIdBarCode) : "" })
             this.addToCart(this.box)
             this._message = `Because you added more than 5 folders from Box ${this.box.BoxIdBarCode}, we removed and replaced those folders with their parent box.`
         }
@@ -211,7 +211,7 @@ export class RequestState {
     countChildFolders = (folder: IFolderOrBox): number => {
         let folderCount = 0
         this.cart.map(item => {
-            if (item.BoxID !== undefined && item.BoxID === folder.BoxID) {
+            if (item.BoxIdBarCode !== undefined && item.BoxIdBarCode=== folder.BoxIdBarCode) {
                 folderCount++
             }
         })

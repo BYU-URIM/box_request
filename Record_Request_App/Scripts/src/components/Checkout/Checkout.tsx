@@ -36,9 +36,7 @@ export const Checkout = observer((props: ICheckoutProps) => {
             ariaLabel: "Operations for pendingItemRequests",
             onRender: (item: IFolderOrBox) => (
                 <p>
-                    {item.BoxIdBarCode
-                        ? item.BoxIdBarCode
-                        : `${item.FolderName}`}
+                    {item.FolderIdBarCode ? `-  ${item.FolderName}` : item.BoxIdBarCode}
                 </p>
             ),
         },
@@ -51,7 +49,7 @@ export const Checkout = observer((props: ICheckoutProps) => {
             isResizable: false,
             ariaLabel: "Operations for type",
             onRender: (item: IFolderOrBox) => (
-                <p>{item.BoxIdBarCode ? "Box" : "Folder"}</p>
+                <p>{item.FolderIdBarCode ? "Folder" : "Box"}</p>
             ),
         },
         {
@@ -63,7 +61,7 @@ export const Checkout = observer((props: ICheckoutProps) => {
             isResizable: false,
             ariaLabel: "Operations for parentBox",
             onRender: (item: IFolderOrBox) => (
-                <p>{item.BoxID}</p>
+                <p>{item.FolderIdBarCode ? item.BoxIdBarCode : ""}</p>
             ),
         },
         {
@@ -80,7 +78,7 @@ export const Checkout = observer((props: ICheckoutProps) => {
                     }}
                     onClick={() =>
                         props.requestState.removeFromCart(
-                            item.BoxID
+                            item.FolderIdBarCode
                                 ? item.FolderIdBarCode
                                 : item.BoxIdBarCode
                         )

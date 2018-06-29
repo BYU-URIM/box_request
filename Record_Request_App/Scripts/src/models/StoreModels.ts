@@ -9,7 +9,7 @@ export interface IUser {
 export interface IFolder {
     FolderIdBarCode: number
     FolderName: string
-    BoxID: number
+    BoxIdBarCode: number
     Folder_Description: string
     Location: string
     inCart?: boolean
@@ -25,7 +25,6 @@ export interface IBox {
 export interface IFolderOrBox {
     FolderIdBarCode?: number
     FolderName?: string
-    BoxID?: number
     Folder_Description?: string
     Location?: string
     BoxIdBarCode?: number
@@ -35,7 +34,7 @@ export interface IFolderOrBox {
 }
 
 export interface IMockDataObj {
-    BoxId: number,
+    BoxIdBarCode: number,
     DepId: number,
     DepartmentName: string,
     DateSubmitted: string,
