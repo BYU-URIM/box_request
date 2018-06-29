@@ -39,11 +39,32 @@ export const BoxList = observer((props: IBoxListProps) => {
         },
         {
             key: "column2",
+            name: "Description",
+            className: "boxlist-row",
+            fieldName: "checkoutBox",
+            minWidth: 100,
+            maxWidth: 120,
+            isResizable: true,
+            ariaLabel: "Operations for checkoutBox",
+            onRender: (item: IBox) => {
+                return (
+                    (
+                        <p
+                            className={"ms-fontSize-mPlus ms-fontWeight-light"}
+                        >
+                            {item.BoxDescription}
+                        </p>
+                    )
+                )
+            },
+        },
+        {
+            key: "column3",
             name: "",
             className: "boxlist-row",
             fieldName: "checkoutBox",
-            minWidth: 150,
-            maxWidth: 180,
+            minWidth: 100,
+            maxWidth: 120,
             isResizable: true,
             ariaLabel: "Operations for checkoutBox",
             onRender: (item: IBox) => {
@@ -62,7 +83,7 @@ export const BoxList = observer((props: IBoxListProps) => {
             },
         },
         {
-            key: "column3",
+            key: "column4",
             name: "",
             fieldName: "createFolder",
             className: "boxlist-row-createfolder",

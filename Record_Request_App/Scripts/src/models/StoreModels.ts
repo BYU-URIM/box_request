@@ -20,6 +20,7 @@ export interface IBox {
     DepartmentName: string
     DepId: any
     inCart?: boolean
+    BoxDescription: string
 }
 
 export interface IFolderOrBox {
