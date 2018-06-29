@@ -54,7 +54,7 @@ export const CreateFolderModal = observer((props: ICreateFolderModal) => {
             </div>
             <div className={"create-modal-footer"}>
                 <PrimaryButton
-                    text={"Create Folder"}
+                    text={"Create and Request Folder"}
                     onClick={props.createFolder}
                     disabled={
                         !props.folderForm.folderName ||

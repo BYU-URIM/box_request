@@ -60,6 +60,7 @@ export class RequestStore {
             Location: this.requestState.box.Location,
             Folder_Description: "",
         })
+        this.requestState.addToCart(this.folders[this.folders.length-1])
         this.requestState.modal = ModalTypes.none
     }
 
@@ -72,7 +73,7 @@ export class RequestStore {
     @action
     determineCheckoutType = (item: IFolderOrBox): string => {
         return this.canAddItem(item)
-            ? "+ Add Item to Checkout"
+            ? "+ Request"
             : this.inYourPossession(item)
                 ? "- In Your Possession"
                 : "- Item Not Available"
