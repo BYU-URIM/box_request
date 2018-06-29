@@ -49,7 +49,6 @@ export const FolderView = observer((props: IFolderViewProps) => {
             ariaLabel: "Operations for checkoutFolder",
             onRender: (item: IFolder) => {
                 return (
-                    // props.cart && (
                     props.checkoutStatus(item)[0] === "+" ? (
                         <button
                             onClick={() => props.requestState.addToCart(item)}

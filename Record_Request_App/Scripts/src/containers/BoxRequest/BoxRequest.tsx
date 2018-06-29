@@ -93,7 +93,7 @@ export class BoxRequest extends React.Component<any, any> {
                                     requestStore.determineCheckoutType(item)
                                 }
                                 classNames={"ms-Grid-col ms-sm3"}
-                                boxes={requestStore.requestState.boxes}
+                                boxes={requestStore.requestState.sortBoxes}
                                 selectedBoxId={
                                     requestStore.requestState.box
                                         ? requestStore.requestState.box

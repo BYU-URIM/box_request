@@ -46,7 +46,7 @@ export class RequestState {
 
     @computed
     get cart(): Array<IFolderOrBox> {
-        return Array.from(this._cart.values())
+        return Array.from(this._cart.values()).sort((a, b) => { return a[0] - b[0]})
     }
 
     @computed
@@ -93,6 +93,11 @@ export class RequestState {
                 ...box,
                 inCart: this.cartContains(box),
             }))
+    }
+
+    @computed
+    get sortBoxes(): Array<IBox> {
+        return this.boxes.sort(function(a, b){return a.BoxIdBarCode - b.BoxIdBarCode})
     }
 
     @computed
