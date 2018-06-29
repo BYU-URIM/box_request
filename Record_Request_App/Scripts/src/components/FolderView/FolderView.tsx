@@ -66,12 +66,13 @@ export const FolderView = observer((props: IFolderViewProps) => {
     ]
     const folderList =
         props.requestState.box &&
-        props.requestState.folders.map((folder: IFolder) => ({
+        props.requestState.folders.map((folder: IFolder) => {
+            return({
             key: folder.FolderIdBarCode,
             checkoutFolder: () => props.requestState.addToCart(folder),
             createFolder: () => (props.requestState.modal = ModalTypes.create),
             ...folder,
-        }))
+        })})
 
     return (
         <div className={props.classNames}>
