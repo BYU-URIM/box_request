@@ -92,7 +92,7 @@ export class BoxRequest extends React.Component<any, any> {
                                 checkoutStatus={item =>
                                     requestStore.determineCheckoutType(item)
                                 }
-                                classNames={"ms-Grid-col ms-sm3"}
+                                classNames={"ms-Grid-col ms-sm4 scroll-container"}
                                 boxes={requestStore.requestState.sortBoxes}
                                 selectedBoxId={
                                     requestStore.requestState.box
@@ -101,7 +101,7 @@ export class BoxRequest extends React.Component<any, any> {
                                         : 0
                                 }
                             />
-                            <div className={"ms-Grid-col ms-sm1"} />
+                            {/* <div className={"ms-Grid-col ms-sm1"} /> */}
 
                             <FolderView
                                 cartContains={(item: IFolderOrBox) =>
