@@ -1,3 +1,18 @@
 .box-request-row {
     padding-top: 50px;
 }
+
+.scroll-container {
+    overflow-y: scroll;
+    height: 600px;
+    overflow-x:hidden;
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #0069BC
+}
