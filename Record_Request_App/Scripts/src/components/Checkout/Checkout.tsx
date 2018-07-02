@@ -54,14 +54,14 @@ export const Checkout = observer((props: ICheckoutProps) => {
         },
         {
             key: "column3",
-            name: "Parent Box",
+            name: "Parent Box/Dep",
             fieldName: "parentBox",
             minWidth: 30,
             maxWidth: 90,
             isResizable: false,
             ariaLabel: "Operations for parentBox",
             onRender: (item: IFolderOrBox) => (
-                <p>{item.FolderIdBarCode ? item.BoxIdBarCode : ""}</p>
+                <p>{item.FolderIdBarCode ? `Box - ${item.BoxIdBarCode}` : `Dep - ${item.DepId}`}</p>
             ),
         },
         {
