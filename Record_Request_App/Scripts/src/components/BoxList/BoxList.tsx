@@ -63,8 +63,8 @@ export const BoxList = observer((props: IBoxListProps) => {
             name: "",
             className: "boxlist-row",
             fieldName: "checkoutBox",
-            minWidth: 100,
-            maxWidth: 120,
+            minWidth: 80,
+            maxWidth: 100,
             isResizable: true,
             ariaLabel: "Operations for checkoutBox",
             onRender: (item: IBox) => {
