@@ -4,6 +4,7 @@ import {
     DetailsListLayoutMode,
     IColumn,
     CheckboxVisibility,
+    ConstrainMode,
 } from "office-ui-fabric-react"
 import { IBox, IFolderOrBox } from "../../models/StoreModels"
 import "./styles.scss"
@@ -42,9 +43,10 @@ export const BoxList = observer((props: IBoxListProps) => {
             name: "Description",
             className: "boxlist-row",
             fieldName: "checkoutBox",
-            minWidth: 100,
-            maxWidth: 120,
+            minWidth: 230,
+            maxWidth: 230,
             isResizable: true,
+            isMultiline: true,
             ariaLabel: "Operations for checkoutBox",
             onRender: (item: IBox) => {
                 return (
@@ -63,8 +65,8 @@ export const BoxList = observer((props: IBoxListProps) => {
             name: "",
             className: "boxlist-row",
             fieldName: "checkoutBox",
-            minWidth: 80,
-            maxWidth: 100,
+            minWidth: 120,
+            maxWidth: 120,
             isResizable: true,
             ariaLabel: "Operations for checkoutBox",
             onRender: (item: IBox) => {
@@ -87,8 +89,8 @@ export const BoxList = observer((props: IBoxListProps) => {
             name: "",
             fieldName: "createFolder",
             className: "boxlist-row-createfolder",
-            minWidth: 100,
-            maxWidth: 100,
+            minWidth: 140,
+            maxWidth: 160,
             isResizable: true,
             ariaLabel: "Operations for createFolder",
             onRender: (item: IBox) => {
