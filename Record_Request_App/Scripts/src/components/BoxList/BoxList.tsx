@@ -124,7 +124,9 @@ export const BoxList = observer((props: IBoxListProps) => {
                                 <div
                                     key={_props.item.key}
                                     onClick={() => {
-                                        props.requestState.box = _props.item
+                                        if (props.requestState.message.length === 0) {
+                                            props.requestState.box = _props.item
+                                        } 
                                     }}
                                     className={"boxlist-row"}
                                 >
