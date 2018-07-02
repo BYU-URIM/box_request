@@ -1,14 +1,21 @@
 import { ModalTypes } from "../../models"
 import { observable, computed, action } from "mobx"
 import { RequestStore } from "./RequestStore"
-import { IBox, IFolder, IFolderOrBox, IDepartmentList, IDepartmentArrList, IUser } from "../../models/StoreModels"
-import { mockUser } from "../../res";
+import {
+    IBox,
+    IFolder,
+    IFolderOrBox,
+    IDepartmentList,
+    IDepartmentArrList,
+    IUser,
+} from "../../models/StoreModels"
+import { mockUser } from "../../res"
 
 export class RequestState {
     constructor(
         private requestStore: RequestStore,
         private _folders: Array<IFolder>,
-        private _boxes: Array<IBox>,
+        private _boxes: Array<IBox>
     ) {}
 
     @observable private _modal: ModalTypes = ModalTypes.none
@@ -23,15 +30,16 @@ export class RequestState {
         number,
         IFolderOrBox
     >()
+
     @action
     addToCart = (item: IFolderOrBox) => {
-        if(!item.FolderIdBarCode) this.removeChildFolders(item)
-        
+        if (!item.FolderIdBarCode) this.removeChildFoldersMessage(item)
+
         this._cart.set(
             item.FolderIdBarCode ? item.FolderIdBarCode : item.BoxIdBarCode,
             item
         )
-        this.removeGroupedFolders(item)
+        this.removeGroupedFoldersMessage(item)
     }
     @action clearCart = () => this._cart.clear()
     @action removeFromCart = (itemKey: number) => this._cart.delete(itemKey)
@@ -46,7 +54,9 @@ export class RequestState {
 
     @computed
     get cart(): Array<IFolderOrBox> {
-        return Array.from(this._cart.values()).sort((a, b) => a.BoxIdBarCode - b.BoxIdBarCode)
+        return Array.from(this._cart.values()).sort(
+            (a, b) => a.BoxIdBarCode - b.BoxIdBarCode
+        )
     }
 
     @computed
@@ -97,7 +107,9 @@ export class RequestState {
 
     @computed
     get sortBoxes(): Array<IBox> {
-        return this.boxes.sort(function(a, b){return a.BoxIdBarCode - b.BoxIdBarCode})
+        return this.boxes.sort(function(a, b) {
+            return a.BoxIdBarCode - b.BoxIdBarCode
+        })
     }
 
     @computed
@@ -106,7 +118,8 @@ export class RequestState {
             this.box &&
             this._folders
                 .filter(
-                    (folder: IFolder) => folder.BoxIdBarCode === this.box.BoxIdBarCode
+                    (folder: IFolder) =>
+                        folder.BoxIdBarCode === this.box.BoxIdBarCode
                 )
                 .map(folder => ({
                     ...folder,
@@ -120,12 +133,13 @@ export class RequestState {
         let depList = []
         this._boxes.forEach(boxItem => {
             if (!depList.find(box => box.id === boxItem.DepId)) {
-                depList.push({ name: boxItem.DepartmentName, id: boxItem.DepId})
+                depList.push({
+                    name: boxItem.DepartmentName,
+                    id: boxItem.DepId,
+                })
             }
         })
-        return(
-            depList
-        )
+        return depList
     }
 
     @computed
@@ -135,7 +149,7 @@ export class RequestState {
 
         depList.forEach(department => {
             if (this._user.departments.find(depId => depId === department.id)) {
-                userDeps.push({ name: department.name, id: department.id})
+                userDeps.push({ name: department.name, id: department.id })
             }
         })
         return userDeps
@@ -147,9 +161,9 @@ export class RequestState {
             style: "",
             title: "",
             disabled: false,
-            selectedKey: undefined
+            selectedKey: undefined,
         }
-        if(this.userDepartments.length === 1) {
+        if (this.userDepartments.length === 1) {
             info.disabled = true
             this.onlyDepartment()
             info.selectedKey = this.userDepartments[0].id
@@ -157,9 +171,8 @@ export class RequestState {
         if (this.department) {
             info.style = "ms-Grid-col ms-sm2  ms-smPush1"
             info.title = "Your Department:"
-
         } else {
-            info.style = "ms-Grid-col ms-sm4 ms-smPush4" 
+            info.style = "ms-Grid-col ms-sm4 ms-smPush4"
             info.title = "Select one of your available departments:"
         }
 
@@ -184,42 +197,57 @@ export class RequestState {
     }
 
     @action
-    removeChildFolders = (box: IFolderOrBox) => {
+    removeChildFoldersMessage = (box: IFolderOrBox) => {
         this.cart.map(item => {
-            if (item.BoxIdBarCode!== undefined && item.BoxIdBarCode=== box.BoxIdBarCode) {
-                this.removeFromCart(item.FolderIdBarCode)
-                this._message = `Box ${
+            if (
+                item.BoxIdBarCode !== undefined &&
+                item.BoxIdBarCode === box.BoxIdBarCode
+            ) {
+                this._message = `You just added Box ${
                     box.BoxIdBarCode
-                }, the item you just added, removed and replaced its child folders.`
+                }. Would you like to remove Box ${
+                    box.BoxIdBarCode
+                }'s folder(s) from checkout?`
             } else {
                 false
             }
         })
     }
 
-    
     @action
-    removeGroupedFolders = (folder: IFolderOrBox) => {
+    removeChildFolders = (selectedBox: IBox) => {
+        this.countChildFolders(selectedBox) >= 5 ? this.addToCart(selectedBox) : "" 
+        this.cart.map(checkedItem => {
+            checkedItem.BoxIdBarCode === selectedBox.BoxIdBarCode ? this.removeFromCart(checkedItem.FolderIdBarCode) : ""
+        })
+        this.message = ""
+    }
+
+    @action
+    removeGroupedFoldersMessage = (folder: IFolderOrBox) => {
         if (this.countChildFolders(folder) >= 5) {
-            this.cart.map(item => { item.BoxIdBarCode=== folder.BoxIdBarCode? this.removeFromCart(item.FolderIdBarCode) : "" })
-            this.addToCart(this.box)
-            this._message = `Because you added more than 5 folders from Box ${this.box.BoxIdBarCode}, we removed and replaced those folders with their parent box.`
+            this._message = `You just added 5 folders from Box ${
+                this.box.BoxIdBarCode
+            }. We recommend that you checkout the box instead. Would you like to remove these folders and check out Box ${
+                this.box.BoxIdBarCode
+            }?`
         }
     }
-    
+
     @action
-    countChildFolders = (folder: IFolderOrBox): number => {
+    countChildFolders = (parentBox: IFolderOrBox): number => {
         let folderCount = 0
         this.cart.map(item => {
-            if (item.BoxIdBarCode !== undefined && item.BoxIdBarCode=== folder.BoxIdBarCode) {
-                folderCount++
-            }
+            
+                // item.BoxIdBarCode !== undefined &&
+                item.BoxIdBarCode === parentBox.BoxIdBarCode ? folderCount++ : ""
         })
-        return (
-            folderCount
-        )
+        return folderCount
     }
 
-
-    
+    @action 
+    removeParentBox = (parentBox: IFolderOrBox) => {
+        this.message = ""
+        this.removeFromCart(parentBox.BoxIdBarCode)
+    }
 }
