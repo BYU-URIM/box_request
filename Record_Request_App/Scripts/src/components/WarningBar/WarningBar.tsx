@@ -24,7 +24,10 @@ export const WarningBar = observer((props: IWarningBar) => {
                 <div>
                     <MessageBarButton
                         onClick={() => (props.requestState.message = "")}
-                    >OK</MessageBarButton>
+                    >Yes</MessageBarButton>
+                    <MessageBarButton>
+                        No
+                    </MessageBarButton>
                 </div>
             }
         >
