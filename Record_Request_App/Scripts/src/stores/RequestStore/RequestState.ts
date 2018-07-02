@@ -184,26 +184,32 @@ export class RequestState {
     }
 
     @action
-    removeChildFolders = (box: IFolderOrBox) => {
+    // removeChildFoldersMessage = (box: IFolderOrBox) => {
         this.cart.map(item => {
             if (item.BoxIdBarCode!== undefined && item.BoxIdBarCode=== box.BoxIdBarCode) {
                 this.removeFromCart(item.FolderIdBarCode)
-                this._message = `Box ${
+                this._message = `You just added Box ${
                     box.BoxIdBarCode
-                }, the item you just added, removed and replaced its child folders.`
+                }.  Would you like to remove Box ${box.BoxIdBarCode}'s folder(s) from checkout?`
             } else {
                 false
             }
         })
     }
 
+    @action removeChildFolders = (box: IFolderOrBox) => {
+        this.cart.map(item => {
+                this.removeFromCart(item.FolderIdBarCode)
+            })
+        }
+
     
     @action
-    removeGroupedFolders = (folder: IFolderOrBox) => {
+    // removeGroupedFoldersMessage = (folder: IFolderOrBox) => {
         if (this.countChildFolders(folder) >= 5) {
             this.cart.map(item => { item.BoxIdBarCode=== folder.BoxIdBarCode? this.removeFromCart(item.FolderIdBarCode) : "" })
             this.addToCart(this.box)
-            this._message = `Because you added more than 5 folders from Box ${this.box.BoxIdBarCode}, we removed and replaced those folders with their parent box.`
+            this._message = `You just added 5 folders in Box ${this.box.BoxIdBarCode}. We recommend that you checkout the box instead.  Would you like to remove these folders and check out Box ${this.box.BoxIdBarCode}?`
         }
     }
     
