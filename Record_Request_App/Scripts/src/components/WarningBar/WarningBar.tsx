@@ -23,8 +23,11 @@ export const WarningBar = observer((props: IWarningBar) => {
             actions={
                 <div>
                     <MessageBarButton
-                        onClick={() => (props.requestState.message = "")}
-                    >OK</MessageBarButton>
+                        onClick={() => (props.requestState.removeChildFolders(props.requestState.box))}
+                    >Yes</MessageBarButton>
+                    <MessageBarButton
+                        onClick={() => (props.requestState.removeParentBox(props.requestState.box))}
+                    >No</MessageBarButton>
                 </div>
             }
         >
