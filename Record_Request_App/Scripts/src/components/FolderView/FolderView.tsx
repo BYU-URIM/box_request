@@ -6,7 +6,7 @@ import {
     CheckboxVisibility,
 } from "office-ui-fabric-react"
 import { IFolder, IBox, IFolderOrBox } from "../../models/StoreModels"
-import { ModalTypes } from "../../models"
+import { ModalTypes, CheckoutTypes } from "../../models"
 import "./styles.scss"
 import DetailListHeader from "../DetailListHeader/DetailListHeader"
 import { observer } from "mobx-react"
@@ -49,7 +49,7 @@ export const FolderView = observer((props: IFolderViewProps) => {
             ariaLabel: "Operations for checkoutFolder",
             onRender: (item: IFolder) => {
                 return (
-                    (props.checkoutStatus(item)[0] === "+" && props.requestState.msgBarMessage.length === 0) ? (
+                    (props.checkoutStatus(item) === CheckoutTypes.request && props.requestState.msgBarMessage.length === 0) ? (
                         <button
                             onClick={() => props.requestState.addToCart(item)}
                             className={"ms-fontSize-mPlus ms-fontWeight-light"}

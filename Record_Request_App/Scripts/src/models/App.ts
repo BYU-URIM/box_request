@@ -13,6 +13,12 @@ export enum CheckoutTypes {
     depPossession = "in requesting department's possession",
 }
 
+export enum CheckoutTypes {
+    request = "+ Request",
+    unavailable = "- Item Unavailable",
+    hasCustody = "- In Your Possession"
+}
+
 export interface IRequestObject {
     type: string
     boxNumber?: void[]

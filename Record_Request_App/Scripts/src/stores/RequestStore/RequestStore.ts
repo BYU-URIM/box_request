@@ -1,7 +1,7 @@
 import { action, observable, computed, ObservableMap } from "mobx"
 import { IBoxArr, IFolderArr } from "../../res"
 import { IBox, IFolder, IFolderOrBox } from "../../models/StoreModels"
-import { ModalTypes } from "../../models"
+import { ModalTypes, CheckoutTypes } from "../../models"
 import { RootStore } from "../RootStore/RootStore"
 import { FolderForm } from "./FolderForm"
 import { RequestForm } from "./RequestForm"
@@ -77,10 +77,10 @@ export class RequestStore {
     @action
     determineCheckoutType = (item: IFolderOrBox): string => {
         return (this.canAddItem(item) && this.checkParentBox(item))
-            ? "+ Request"
+            ? this.requestState.checkoutType = CheckoutTypes.request
             : this.inYourPossession(item)
-                ? "- In Your Possession"
-                : "- Item Unavailable"
+                ? this.requestState.checkoutType = CheckoutTypes.hasCustody
+                : this.requestState.checkoutType = CheckoutTypes.unavailable
     }
 
     @action

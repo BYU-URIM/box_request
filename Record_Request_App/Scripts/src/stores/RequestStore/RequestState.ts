@@ -1,4 +1,4 @@
-import { ModalTypes } from "../../models"
+import { ModalTypes, CheckoutTypes } from "../../models"
 import { observable, computed, action } from "mobx"
 import { RequestStore } from "./RequestStore"
 import {
@@ -26,6 +26,7 @@ export class RequestState {
     @observable private _msgBarMessage: string = ""
     @observable private _user: IUser = mockUser
     @observable private _mBarType: MessageBarType = undefined
+    @observable private _checkoutType: CheckoutTypes = CheckoutTypes.request
     @observable
     private _cart: Map<number, IFolderOrBox> = observable.map<
         number,
@@ -66,6 +67,14 @@ export class RequestState {
         return Array.from(this._cart.values()).sort(
             (a, b) => a.BoxIdBarCode - b.BoxIdBarCode
         )
+    }
+
+    @computed
+    get checkoutType(): CheckoutTypes {
+        return this._checkoutType
+    }
+    set checkoutType(val: CheckoutTypes) {
+        this._checkoutType = val
     }
 
     @computed
