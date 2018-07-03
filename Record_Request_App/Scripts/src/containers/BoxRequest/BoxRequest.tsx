@@ -29,7 +29,6 @@ export class BoxRequest extends React.Component<any, any> {
                     <div className={"ms-Grid-col ms-sm12"}>
                         {requestStore.requestState.message.length > 0 && (
                             <WarningBar
-                                type={MessageBarType.warning}
                                 requestState={requestStore.requestState}
                             />
                         )}
