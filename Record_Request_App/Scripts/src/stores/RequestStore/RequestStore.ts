@@ -6,6 +6,7 @@ import { RootStore } from "../RootStore/RootStore"
 import { FolderForm } from "./FolderForm"
 import { RequestForm } from "./RequestForm"
 import { RequestState } from "./RequestState"
+import { MessageBarType } from "office-ui-fabric-react";
 export class RequestStore {
     @observable boxes: IBoxArr
     @observable folders: IFolderArr
@@ -68,6 +69,8 @@ export class RequestStore {
     submitRequest = () => {
         this.requestState.clearCart()
         this.requestState.modal = ModalTypes.none
+        this.requestState.mBarType = MessageBarType.success
+        this.requestState.message = "Thank you. Your order has been submitted."
     }
 
     @action
