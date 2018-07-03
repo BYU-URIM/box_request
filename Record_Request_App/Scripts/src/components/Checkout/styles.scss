@@ -6,15 +6,19 @@
     }
     div {
         padding: 0px !important;
+        display: inline-flex;
     }
     i {
         color: rgb(0, 120, 215);
         font-size: 15px;
-        cursor: pointer;
     }
 }
 
 .checkout-submit {
     text-align: center;
     padding-top: 10px;
+}
+
+.delete-icon {
+    cursor: pointer;
 }

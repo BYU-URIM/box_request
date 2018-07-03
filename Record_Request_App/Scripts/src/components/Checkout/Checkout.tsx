@@ -36,10 +36,15 @@ export const Checkout = observer((props: ICheckoutProps) => {
             isResizable: false,
             ariaLabel: "Operations for pendingItemRequests",
             onRender: (item: IFolderOrBox) => (
-                
-                <p>
-                    {item.FolderIdBarCode ? `-  ${item.FolderName}` : item.BoxIdBarCode}
-                </p>
+                <div>
+                {item.FolderIdBarCode ?
+                    <Icon iconName="FabricFolder"/> :
+                    <Icon iconName="GiftboxSolid"/>
+                }
+                    <p>
+                        {item.FolderIdBarCode ? `-  ${item.FolderName}` : item.BoxIdBarCode}
+                    </p>
+                </div>
             ),
         },
         {
@@ -78,6 +83,7 @@ export const Checkout = observer((props: ICheckoutProps) => {
                     iconProps={{
                         iconName: "cancel",
                     }}
+                    className={"delete-icon"}
                     onClick={() =>
                         props.requestState.removeFromCart(
                             item.FolderIdBarCode
