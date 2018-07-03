@@ -70,7 +70,7 @@ export const BoxList = observer((props: IBoxListProps) => {
             isResizable: true,
             ariaLabel: "Operations for checkoutBox",
             onRender: (item: IBox) => {
-                return props.checkoutStatus(item).startsWith("+") ? (
+                return (props.checkoutStatus(item).startsWith("+") && props.requestState.message.length === 0) ? (
                     <button
                         onClick={() => props.requestState.addToCart(item)}
                         className={"ms-fontSize-mPlus ms-fontWeight-light"}
