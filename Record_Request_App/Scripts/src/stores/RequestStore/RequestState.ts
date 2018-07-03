@@ -10,6 +10,7 @@ import {
     IUser,
 } from "../../models/StoreModels"
 import { mockUser } from "../../res"
+import { MessageBarType } from "office-ui-fabric-react";
 
 export class RequestState {
     constructor(
@@ -24,7 +25,7 @@ export class RequestState {
     @observable private _folder: IFolder = undefined
     @observable private _message: string = ""
     @observable private _user: IUser = mockUser
-
+    @observable private _mBarType: MessageBarType = undefined
     @observable
     private _cart: Map<number, IFolderOrBox> = observable.map<
         number,
@@ -50,6 +51,14 @@ export class RequestState {
     }
     set message(val: string) {
         this._message = val
+    }
+
+    @computed
+    get mBarType(): MessageBarType {
+        return this._mBarType
+    }
+    set mBarType(val: MessageBarType) {
+        this._mBarType = val
     }
 
     @computed
@@ -208,10 +217,16 @@ export class RequestState {
                 }. Would you like to remove Box ${
                     box.BoxIdBarCode
                 }'s folder(s) from checkout?`
+                this.mBarType = MessageBarType.warning
             } else {
                 false
             }
         })
+    }
+
+    @action
+    clearMessage = () => {
+        this.message = ""
     }
 
     @action
@@ -220,7 +235,7 @@ export class RequestState {
         this.cart.map(checkedItem => {
             checkedItem.BoxIdBarCode === selectedBox.BoxIdBarCode ? this.removeFromCart(checkedItem.FolderIdBarCode) : ""
         })
-        this.message = ""
+        this.clearMessage()
     }
 
     @action
@@ -231,6 +246,7 @@ export class RequestState {
             }. We recommend that you checkout the box instead. Would you like to remove these folders and check out Box ${
                 this.box.BoxIdBarCode
             }?`
+            this.mBarType = MessageBarType.warning
         }
     }
 
@@ -238,9 +254,7 @@ export class RequestState {
     countChildFolders = (parentBox: IFolderOrBox): number => {
         let folderCount = 0
         this.cart.map(item => {
-            
-                // item.BoxIdBarCode !== undefined &&
-                item.BoxIdBarCode === parentBox.BoxIdBarCode ? folderCount++ : ""
+            item.BoxIdBarCode === parentBox.BoxIdBarCode ? folderCount++ : ""
         })
         return folderCount
     }
