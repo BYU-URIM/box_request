@@ -7,6 +7,7 @@ import { FolderForm } from "./FolderForm"
 import { RequestForm } from "./RequestForm"
 import { RequestState } from "./RequestState"
 import { MessageBarType } from "office-ui-fabric-react";
+import { getComboBoxOptionClassNames } from "office-ui-fabric-react/lib/components/ComboBox/ComboBox.classNames";
 export class RequestStore {
     @observable boxes: IBoxArr
     @observable folders: IFolderArr
@@ -61,7 +62,8 @@ export class RequestStore {
             Location: this.requestState.box.Location,
             Folder_Description: "",
         })
-        this.requestState.addToCart(this.folders[this.folders.length-1])
+        this.checkParentBox(this.folders[this.folders.length - 1]) ?
+        this.requestState.addToCart(this.folders[this.folders.length-1]) : ""
         this.requestState.modal = ModalTypes.none
     }
 
@@ -75,11 +77,22 @@ export class RequestStore {
 
     @action
     determineCheckoutType = (item: IFolderOrBox): string => {
-        return this.canAddItem(item)
+        return (this.canAddItem(item) && this.checkParentBox(item))
             ? "+ Request"
             : this.inYourPossession(item)
                 ? "- In Your Possession"
-                : "- Item Not Available"
+                : "- Item Unavailable"
+    }
+
+    @action
+    checkParentBox = (item:IFolderOrBox): boolean => {
+        let x: boolean
+        this.boxes.map(box => {
+            if(box.BoxIdBarCode === item.BoxIdBarCode) {
+                box.Location.startsWith("L") ? x = true : x = false
+            }
+        })
+        return x
     }
 
     canAddItem = (item: IFolderOrBox): boolean => {
