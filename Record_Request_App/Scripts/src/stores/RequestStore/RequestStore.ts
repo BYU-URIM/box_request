@@ -7,7 +7,6 @@ import { FolderForm } from "./FolderForm"
 import { RequestForm } from "./RequestForm"
 import { RequestState } from "./RequestState"
 import { MessageBarType } from "office-ui-fabric-react";
-import { getComboBoxOptionClassNames } from "office-ui-fabric-react/lib/components/ComboBox/ComboBox.classNames";
 export class RequestStore {
     @observable boxes: IBoxArr
     @observable folders: IFolderArr
