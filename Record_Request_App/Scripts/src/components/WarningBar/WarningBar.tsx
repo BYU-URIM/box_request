@@ -7,7 +7,6 @@ import { observer } from "mobx-react"
 import { IBox } from "../../models/StoreModels";
 
 export interface IWarningBar {
-    type: MessageBarType
     requestState: RequestState
 }
 
@@ -17,10 +16,19 @@ export interface IWarningBar {
 export const WarningBar = observer((props: IWarningBar) => {
     return (
         <MessageBar
-            messageBarType={props.type}
+            messageBarType={props.requestState.mBarType}
             isMultiline={false}
             dismissButtonAriaLabel="Close"
             actions={
+                props.requestState.cart.length === 0 ?
+                <div>
+                    <MessageBarButton
+                        onClick={() => (props.requestState.clearMessage())}
+                    >
+                        OK
+                    </MessageBarButton>
+                </div>
+                :
                 <div>
                     <MessageBarButton
                         onClick={() => (props.requestState.removeChildFolders(props.requestState.box))}
@@ -28,7 +36,8 @@ export const WarningBar = observer((props: IWarningBar) => {
                     <MessageBarButton
                         onClick={() => (props.requestState.removeParentBox(props.requestState.box))}
                     >No</MessageBarButton>
-                </div>
+                </div> 
+                
             }
         >
         {props.requestState.message}
