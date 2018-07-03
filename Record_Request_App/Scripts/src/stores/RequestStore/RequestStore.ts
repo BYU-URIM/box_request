@@ -71,7 +71,7 @@ export class RequestStore {
         this.requestState.clearCart()
         this.requestState.modal = ModalTypes.none
         this.requestState.mBarType = MessageBarType.success
-        this.requestState.message = "Thank you. Your order has been submitted."
+        this.requestState.msgBarMessage = "Thank you. Your order has been submitted."
     }
 
     @action

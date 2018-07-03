@@ -70,7 +70,7 @@ export const BoxList = observer((props: IBoxListProps) => {
             isResizable: true,
             ariaLabel: "Operations for checkoutBox",
             onRender: (item: IBox) => {
-                return (props.checkoutStatus(item).startsWith("+") && props.requestState.message.length === 0) ? (
+                return (props.checkoutStatus(item).startsWith("+") && props.requestState.msgBarMessage.length === 0) ? (
                     <button
                         onClick={() => props.requestState.addToCart(item)}
                         className={"ms-fontSize-mPlus ms-fontWeight-light"}
@@ -101,7 +101,7 @@ export const BoxList = observer((props: IBoxListProps) => {
                             onClick={props.initializeFolderForm}
                         >
                             {props.selectedBoxId ===
-                            item.BoxIdBarCode
+                            item.BoxIdBarCode && props.requestState.msgBarMessage.length === 0
                                 ? "Create Folder"
                                 : ""}
                         </p>
@@ -126,7 +126,7 @@ export const BoxList = observer((props: IBoxListProps) => {
                                 <div
                                     key={_props.item.key}
                                     onClick={() => {
-                                        if (props.requestState.message.length === 0) {
+                                        if (props.requestState.msgBarMessage.length === 0) {
                                             props.requestState.box = _props.item
                                         } 
                                     }}

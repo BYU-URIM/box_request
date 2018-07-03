@@ -40,7 +40,7 @@ export const WarningBar = observer((props: IWarningBar) => {
                 
             }
         >
-        {props.requestState.message}
+        {props.requestState.msgBarMessage}
         </MessageBar>
     )
 })

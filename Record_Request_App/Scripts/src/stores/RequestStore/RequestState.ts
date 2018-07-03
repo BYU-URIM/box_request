@@ -23,7 +23,7 @@ export class RequestState {
     @observable private _department: number = undefined
     @observable private _box: IBox = undefined
     @observable private _folder: IFolder = undefined
-    @observable private _message: string = ""
+    @observable private _msgBarMessage: string = ""
     @observable private _user: IUser = mockUser
     @observable private _mBarType: MessageBarType = undefined
     @observable
@@ -46,11 +46,11 @@ export class RequestState {
     @action removeFromCart = (itemKey: number) => this._cart.delete(itemKey)
 
     @computed
-    get message(): string {
-        return this._message
+    get msgBarMessage(): string {
+        return this._msgBarMessage
     }
-    set message(val: string) {
-        this._message = val
+    set msgBarMessage(val: string) {
+        this._msgBarMessage = val
     }
 
     @computed
@@ -212,7 +212,7 @@ export class RequestState {
                 item.BoxIdBarCode !== undefined &&
                 item.BoxIdBarCode === box.BoxIdBarCode
             ) {
-                this._message = `You just added Box ${
+                this._msgBarMessage = `You just added Box ${
                     box.BoxIdBarCode
                 }. Would you like to remove Box ${
                     box.BoxIdBarCode
@@ -226,7 +226,7 @@ export class RequestState {
 
     @action
     clearMessage = () => {
-        this.message = ""
+        this.msgBarMessage = ""
     }
 
     @action
@@ -241,7 +241,7 @@ export class RequestState {
     @action
     removeGroupedFoldersMessage = (folder: IFolderOrBox) => {
         if (this.countChildFolders(folder) >= 5) {
-            this._message = `You just added 5 folders from Box ${
+            this._msgBarMessage = `You just added 5 folders from Box ${
                 this.box.BoxIdBarCode
             }. We recommend that you checkout the box instead. Would you like to remove these folders and check out Box ${
                 this.box.BoxIdBarCode
@@ -261,7 +261,7 @@ export class RequestState {
 
     @action 
     removeParentBox = (parentBox: IFolderOrBox) => {
-        this.message = ""
+        this.clearMessage()
         this.removeFromCart(parentBox.BoxIdBarCode)
     }
 }

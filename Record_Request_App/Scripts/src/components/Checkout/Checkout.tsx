@@ -111,7 +111,7 @@ export const Checkout = observer((props: ICheckoutProps) => {
                         <PrimaryButton
                             text={"Submit Request"}
                             onClick={props.initializeRequestForm}
-                            disabled={props.requestState.message.length !== 0}
+                            disabled={props.requestState.msgBarMessage.length !== 0}
                         />
                     </div>
                 </div>
