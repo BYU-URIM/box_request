@@ -6,6 +6,7 @@ import {
     IColumn,
     CheckboxVisibility,
     IconButton,
+    Icon,
 } from "office-ui-fabric-react"
 
 import { ModalTypes } from "../../models/App"
@@ -35,6 +36,7 @@ export const Checkout = observer((props: ICheckoutProps) => {
             isResizable: false,
             ariaLabel: "Operations for pendingItemRequests",
             onRender: (item: IFolderOrBox) => (
+                
                 <p>
                     {item.FolderIdBarCode ? `-  ${item.FolderName}` : item.BoxIdBarCode}
                 </p>
@@ -83,6 +85,7 @@ export const Checkout = observer((props: ICheckoutProps) => {
                                 : item.BoxIdBarCode
                         )
                     }
+                    disabled={props.requestState.msgBarMessage.length !== 0}
                 />
             ),
         },
