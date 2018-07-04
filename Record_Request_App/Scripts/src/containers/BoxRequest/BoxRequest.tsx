@@ -7,7 +7,7 @@ import {
     FolderView,
     Checkout,
 } from "../../components"
-import { WarningBar } from "../../components/WarningBar/WarningBar"
+import { MsgBar } from "../../components/MsgBar/MsgBar"
 import "./styles.scss"
 import { inject, observer } from "mobx-react"
 import { IFolderOrBox } from "../../models/StoreModels"
@@ -28,7 +28,7 @@ export class BoxRequest extends React.Component<any, any> {
                 <div className={"ms-Grid-row"}>
                     <div className={"ms-Grid-col ms-sm12"}>
                         {requestStore.requestState.msgBarMessage.length > 0 && (
-                            <WarningBar
+                            <MsgBar
                                 requestState={requestStore.requestState}
                             />
                         )}

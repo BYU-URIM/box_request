@@ -13,7 +13,7 @@ export interface IWarningBar {
 
 // ----------------------------------------------
 
-export const WarningBar = observer((props: IWarningBar) => {
+export const MsgBar = observer((props: IWarningBar) => {
     return (
         <MessageBar
             messageBarType={props.requestState.mBarType}
