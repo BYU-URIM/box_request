@@ -1,6 +1,6 @@
 import React = require("react")
 import { PrimaryButton } from "office-ui-fabric-react"
-import { AppModes } from "../../stores/SessionStore/SessionStore"
+import { AppModes } from "../../stores"
 import "./styles.scss"
 export interface IAppSelectorProps {
     switchApp(mode: AppModes): void

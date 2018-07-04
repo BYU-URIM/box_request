@@ -5,20 +5,16 @@ import {
     IColumn,
     CheckboxVisibility,
 } from "office-ui-fabric-react"
-import { IBox, IFolderOrBox } from "../../models/StoreModels"
+import { IBox, IFolderOrBox } from "../../models"
 import "./styles.scss"
-import DetailListHeader from "../DetailListHeader/DetailListHeader"
+import { DetailListHeader } from "../"
 import { observer } from "mobx-react"
-import { RequestState } from "../../stores/RequestStore/RequestState"
-import { ModalTypes } from "../../models"
+import { RequestState } from "../../stores"
 
 export interface IBoxListProps {
     checkoutStatus(box: IFolderOrBox): string
-    boxes: Array<IBox>
     classNames: string
-    selectedBoxId: number
     requestState: RequestState
-    cartContains(item: IFolderOrBox): boolean
     initializeFolderForm(): void
 }
 
@@ -72,17 +68,15 @@ export const BoxList = observer((props: IBoxListProps) => {
             ariaLabel: "Operations for createFolder",
             onRender: (item: IBox) => {
                 return (
-                    (
-                        <p
-                            className={"blue ms-fontSize-mPlus ms-fontWeight-light"}
-                            onClick={props.initializeFolderForm}
-                        >
-                            {props.selectedBoxId ===
-                            item.BoxIdBarCode
-                                ? "Create Folder"
-                                : ""}
-                        </p>
-                    )
+                    <p
+                        className={"blue ms-fontSize-mPlus ms-fontWeight-light"}
+                        onClick={props.initializeFolderForm}
+                    >
+                        {props.requestState.box.BoxIdBarCode ===
+                        item.BoxIdBarCode
+                            ? "Create Folder"
+                            : ""}
+                    </p>
                 )
             },
         },
@@ -90,11 +84,11 @@ export const BoxList = observer((props: IBoxListProps) => {
 
     return (
         <div className={props.classNames}>
-            {props.boxes.length > 0 && (
+            {props.requestState.sortBoxes.length > 0 && (
                 <>
                     <DetailListHeader title={"Boxes"} />
                     <DetailsList
-                        items={props.boxes}
+                        items={props.requestState.sortBoxes}
                         columns={columns}
                         layoutMode={DetailsListLayoutMode.fixedColumns}
                         checkboxVisibility={CheckboxVisibility.hidden}

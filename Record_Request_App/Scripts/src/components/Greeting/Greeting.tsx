@@ -1,15 +1,13 @@
 import * as React from "react"
 import "./styles.scss"
-import { PrimaryButton } from "office-ui-fabric-react"
-import { AppModes } from "../../stores/SessionStore/SessionStore"
+import { AppModes } from "../../stores"
 
-export interface IGreeting {
+export interface IGreetingProps {
     name: string
-    departmentid: number[]
     switchApp(mode: AppModes): void
 }
 
-export const Greeting = (props: IGreeting) => (
+export const Greeting = (props: IGreetingProps) => (
     <div className={"ms-Grid-row"}>
         <div className={"ms-Grid-col ms-sm4 ms-smPush8"}>
             <div className={"greeting-wrapper"}>

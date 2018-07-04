@@ -1,11 +1,11 @@
 import * as React from "react"
+// tslint:disable-next-line:no-implicit-dependencies
 import { initializeIcons } from "@uifabric/icons"
 import "./styles.scss"
-import { Fabric, PrimaryButton } from "office-ui-fabric-react"
-import { BoxRequest } from "../BoxRequest/BoxRequest"
-import { SessionStore } from "../../stores/SessionStore/SessionStore"
+import { Fabric } from "office-ui-fabric-react"
+import { SessionStore } from "../../stores"
 import { inject, observer } from "mobx-react"
-import { BoxCreator } from "../BoxCreator/BoxCreator"
+import { BoxCreator, BoxRequest } from ".."
 import { Greeting, AppSelector } from "../../components"
 
 initializeIcons()
@@ -22,7 +22,6 @@ export class App extends React.Component<any, any> {
                 <div className={"ms-Grid"}>
                     <Greeting
                         name={this.sessionStore.currentUser.name}
-                        departmentid={this.sessionStore.currentUser.departments}
                         switchApp={this.sessionStore.switchApp}
                     />
                     <AppSelector switchApp={this.sessionStore.switchApp} />
