@@ -3,7 +3,7 @@ export interface IUser {
     username: string
     email: string
     Id: string
-    departments: Array<number>
+    departments: IDepartmentArrList
 }
 
 export interface IFolder {
@@ -14,6 +14,7 @@ export interface IFolder {
     Location: string
     inCart?: boolean
 }
+
 export interface IBox {
     BoxIdBarCode: number
     Location: string
@@ -34,18 +35,18 @@ export interface IFolderOrBox {
 }
 
 export interface IMockDataObj {
-    BoxIdBarCode: number,
-    DepId: number,
-    DepartmentName: string,
-    DateSubmitted: string,
+    BoxIdBarCode: number
+    DepId: number
+    DepartmentName: string
+    DateSubmitted: string
     FolderId?: any
-  }
-  
-  export interface IMockDataArrObj extends Array<IMockDataObj> { }
-
-export interface IDepartmentList {
-    name: string,
-    id: number,
 }
 
-  export interface IDepartmentArrList extends Array<IDepartmentList> { }
+export interface IMockDataArrObj extends Array<IMockDataObj> {}
+
+export interface IDepartment {
+    name: string
+    id: number
+}
+
+export interface IDepartmentArrList extends Array<IDepartment> {}

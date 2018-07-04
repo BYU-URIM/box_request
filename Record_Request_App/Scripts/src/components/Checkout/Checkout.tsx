@@ -7,13 +7,10 @@ import {
     CheckboxVisibility,
     IconButton,
 } from "office-ui-fabric-react"
-
-import { ModalTypes } from "../../models/App"
-
 import "./styles.scss"
-import DetailListHeader from "../DetailListHeader/DetailListHeader"
+import { DetailListHeader } from ".."
 import { observer } from "mobx-react"
-import { RequestState } from "../../stores/RequestStore/RequestState"
+import { RequestState } from "../../stores"
 import { IFolderOrBox } from "../../models/StoreModels"
 
 export interface ICheckoutProps {
@@ -36,7 +33,9 @@ export const Checkout = observer((props: ICheckoutProps) => {
             ariaLabel: "Operations for pendingItemRequests",
             onRender: (item: IFolderOrBox) => (
                 <p>
-                    {item.FolderIdBarCode ? `-  ${item.FolderName}` : item.BoxIdBarCode}
+                    {item.FolderIdBarCode
+                        ? `-  ${item.FolderName}`
+                        : item.BoxIdBarCode}
                 </p>
             ),
         },

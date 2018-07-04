@@ -2,7 +2,7 @@ import { action, observable, runInAction } from "mobx"
 import { SessionStore } from "../SessionStore/SessionStore"
 import { IUser } from "../../models/StoreModels"
 import { RequestStore } from "../RequestStore/RequestStore"
-import { IDataService } from "../../services/IDataService"
+import { IDataService } from "../../services/DataService/IDataService"
 import { CreatorStore } from "../CreatorStore/CreatorStore"
 
 export class RootStore {
@@ -29,6 +29,8 @@ export class RootStore {
             )
             this.creatorStore = new CreatorStore(this)
             await this.sessionStore.init()
+            await this.requestStore.init()
+            this.sessionStore.switchApp("BoxCreate")
             runInAction(() => (this.initialized = true))
         }
     }

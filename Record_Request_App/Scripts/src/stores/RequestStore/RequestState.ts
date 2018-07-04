@@ -1,22 +1,22 @@
 import { ModalTypes } from "../../models"
 import { observable, computed, action } from "mobx"
-import { RequestStore } from "./RequestStore"
-import { IBox, IFolder, IFolderOrBox, IDepartmentList, IDepartmentArrList, IUser } from "../../models/StoreModels"
-import { mockUser } from "../../res";
+import { IBox, IFolder, IFolderOrBox } from "../../models/StoreModels"
+import { SessionStore } from "../SessionStore/SessionStore"
 
 export class RequestState {
+    sessionStore: SessionStore
     constructor(
-        private requestStore: RequestStore,
+        _sessionStore: SessionStore,
         private _folders: Array<IFolder>,
-        private _boxes: Array<IBox>,
-    ) {}
+        private _boxes: Array<IBox>
+    ) {
+        this.sessionStore = _sessionStore
+    }
 
     @observable private _modal: ModalTypes = ModalTypes.none
-    @observable private _department: number = undefined
     @observable private _box: IBox = undefined
     @observable private _folder: IFolder = undefined
     @observable private _message: string = ""
-    @observable private _user: IUser = mockUser
 
     @observable
     private _cart: Map<number, IFolderOrBox> = observable.map<
@@ -25,8 +25,8 @@ export class RequestState {
     >()
     @action
     addToCart = (item: IFolderOrBox) => {
-        if(!item.FolderIdBarCode) this.removeChildFolders(item)
-        
+        if (!item.FolderIdBarCode) this.removeChildFolders(item)
+
         this._cart.set(
             item.FolderIdBarCode ? item.FolderIdBarCode : item.BoxIdBarCode,
             item
@@ -46,7 +46,9 @@ export class RequestState {
 
     @computed
     get cart(): Array<IFolderOrBox> {
-        return Array.from(this._cart.values()).sort((a, b) => a.BoxIdBarCode - b.BoxIdBarCode)
+        return Array.from(this._cart.values()).sort(
+            (a, b) => a.BoxIdBarCode - b.BoxIdBarCode
+        )
     }
 
     @computed
@@ -55,16 +57,6 @@ export class RequestState {
     }
     set modal(val: ModalTypes) {
         this._modal = val
-    }
-
-    @computed
-    get department(): number {
-        return this._department
-    }
-    set department(val: number) {
-        this.box = undefined
-        this.folder = undefined
-        this._department = val
     }
 
     @computed
@@ -88,7 +80,7 @@ export class RequestState {
     @computed
     get boxes(): Array<IBox> {
         return this._boxes
-            .filter(box => box.DepId === this.department)
+            .filter(box => box.DepId === this.sessionStore.departmentId)
             .map(box => ({
                 ...box,
                 inCart: this.cartContains(box),
@@ -97,7 +89,7 @@ export class RequestState {
 
     @computed
     get sortBoxes(): Array<IBox> {
-        return this.boxes.sort(function(a, b){return a.BoxIdBarCode - b.BoxIdBarCode})
+        return this.boxes.sort((a, b) => a.BoxIdBarCode - b.BoxIdBarCode)
     }
 
     @computed
@@ -106,7 +98,8 @@ export class RequestState {
             this.box &&
             this._folders
                 .filter(
-                    (folder: IFolder) => folder.BoxIdBarCode === this.box.BoxIdBarCode
+                    (folder: IFolder) =>
+                        folder.BoxIdBarCode === this.box.BoxIdBarCode
                 )
                 .map(folder => ({
                     ...folder,
@@ -117,58 +110,39 @@ export class RequestState {
 
     @computed
     get uniqueDepartments(): any {
-        let depList = []
+        const depList = []
         this._boxes.forEach(boxItem => {
             if (!depList.find(box => box.id === boxItem.DepId)) {
-                depList.push({ name: boxItem.DepartmentName, id: boxItem.DepId})
+                depList.push({
+                    name: boxItem.DepartmentName,
+                    id: boxItem.DepId,
+                })
             }
         })
-        return(
-            depList
-        )
-    }
-
-    @computed
-    get userDepartments(): any {
-        let depList = this.uniqueDepartments
-        let userDeps = []
-
-        depList.forEach(department => {
-            if (this._user.departments.find(depId => depId === department.id)) {
-                userDeps.push({ name: department.name, id: department.id})
-            }
-        })
-        return userDeps
+        return depList
     }
 
     @computed
     get dropdownInfo(): any {
-        let info = {
+        const info = {
             style: "",
             title: "",
             disabled: false,
-            selectedKey: undefined
+            selectedKey: undefined,
         }
-        if(this.userDepartments.length === 1) {
+        if (this.sessionStore.userDepartments.length === 1) {
             info.disabled = true
-            this.onlyDepartment()
-            info.selectedKey = this.userDepartments[0].id
+            info.selectedKey = this.sessionStore.userDepartments[0].id
         }
-        if (this.department) {
+        if (this.sessionStore.department) {
             info.style = "ms-Grid-col ms-sm2  ms-smPush1"
             info.title = "Your Department:"
-
         } else {
-            info.style = "ms-Grid-col ms-sm4 ms-smPush4" 
+            info.style = "ms-Grid-col ms-sm4 ms-smPush4"
             info.title = "Select one of your available departments:"
         }
 
         return info
-    }
-
-    @action
-    onlyDepartment = (): any => {
-        this.department = this.userDepartments[0].id
     }
 
     @action
@@ -186,40 +160,44 @@ export class RequestState {
     @action
     removeChildFolders = (box: IFolderOrBox) => {
         this.cart.map(item => {
-            if (item.BoxIdBarCode!== undefined && item.BoxIdBarCode=== box.BoxIdBarCode) {
+            if (
+                item.BoxIdBarCode !== undefined &&
+                item.BoxIdBarCode === box.BoxIdBarCode
+            ) {
                 this.removeFromCart(item.FolderIdBarCode)
                 this._message = `Box ${
                     box.BoxIdBarCode
                 }, the item you just added, removed and replaced its child folders.`
-            } else {
-                false
             }
         })
     }
 
-    
     @action
     removeGroupedFolders = (folder: IFolderOrBox) => {
         if (this.countChildFolders(folder) >= 5) {
-            this.cart.map(item => { item.BoxIdBarCode=== folder.BoxIdBarCode? this.removeFromCart(item.FolderIdBarCode) : "" })
+            this.cart.forEach(item => {
+                if (item.BoxIdBarCode === folder.BoxIdBarCode) {
+                    this.removeFromCart(item.FolderIdBarCode)
+                }
+            })
             this.addToCart(this.box)
-            this._message = `Because you added more than 5 folders from Box ${this.box.BoxIdBarCode}, we removed and replaced those folders with their parent box.`
+            this._message = `Because you added more than 5 folders from Box ${
+                this.box.BoxIdBarCode
+            }, we removed and replaced those folders with their parent box.`
         }
     }
-    
+
     @action
     countChildFolders = (folder: IFolderOrBox): number => {
         let folderCount = 0
-        this.cart.map(item => {
-            if (item.BoxIdBarCode !== undefined && item.BoxIdBarCode=== folder.BoxIdBarCode) {
+        this.cart.forEach(item => {
+            if (
+                item.BoxIdBarCode !== undefined &&
+                item.BoxIdBarCode === folder.BoxIdBarCode
+            ) {
                 folderCount++
             }
         })
-        return (
-            folderCount
-        )
+        return folderCount
     }
-
-
-    
 }

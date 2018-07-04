@@ -1,20 +1,18 @@
 import * as React from "react"
 import {
-    MessageBar, MessageBarType, MessageBarButton
+    MessageBar,
+    MessageBarType,
+    MessageBarButton,
 } from "office-ui-fabric-react"
-import { RequestState } from "../../stores/RequestStore/RequestState";
+import { RequestState } from "../../stores"
 import { observer } from "mobx-react"
-import { IBox } from "../../models/StoreModels";
 
-export interface IWarningBar {
+export interface IWarningBarProps {
     type: MessageBarType
     requestState: RequestState
 }
 
-
-// ----------------------------------------------
-
-export const WarningBar = observer((props: IWarningBar) => {
+export const WarningBar = observer((props: IWarningBarProps) => {
     return (
         <MessageBar
             messageBarType={props.type}
@@ -24,11 +22,13 @@ export const WarningBar = observer((props: IWarningBar) => {
                 <div>
                     <MessageBarButton
                         onClick={() => (props.requestState.message = "")}
-                    >OK</MessageBarButton>
+                    >
+                        OK
+                    </MessageBarButton>
                 </div>
             }
         >
-        {props.requestState.message}
+            {props.requestState.message}
         </MessageBar>
     )
 })
