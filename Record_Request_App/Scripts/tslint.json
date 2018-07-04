@@ -1,6 +1,6 @@
 {
   "defaultSeverity": "error",
-  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "extends": ["tslint:latest", "tslint-react", "tslint-plugin-prettier", "tslint-config-prettier"],
   "jsRules": {},
   "rules": {
     "quotemark": [true, "double"],
@@ -22,7 +22,13 @@
     "no-string-literal": false,
     "class-name": false,
     "variable-name": false,
-    "no-namespace": false
+    "no-namespace": false,
+    "jsx-no-lambda": false,
+    "jsx-wrap-multiline": false,
+    "jsx-key": true,
+    "jsx-no-bind": true,
+    "no-submodule-imports": false,
+    "prettier": true
   },
   "rulesDirectory": []
 }
