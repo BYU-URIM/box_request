@@ -8,6 +8,7 @@ import {
     Checkout,
 } from "../../components"
 import { MsgBar } from "../../components/MsgBar/MsgBar"
+import { WarningDialog } from "../../components/WarningDialog/WarningDialog"
 import "./styles.scss"
 import { inject, observer } from "mobx-react"
 import { IFolderOrBox } from "../../models/StoreModels"
@@ -28,7 +29,12 @@ export class BoxRequest extends React.Component<any, any> {
                 <div className={"ms-Grid-row"}>
                     <div className={"ms-Grid-col ms-sm12"}>
                         {requestStore.requestState.msgBarMessage.length > 0 && (
-                            <MsgBar
+                            <MsgBar 
+                                requestState={requestStore.requestState}
+                            />
+                        )}
+                        {requestStore.requestState.dialogMessage.length > 0 && (
+                            <WarningDialog 
                                 requestState={requestStore.requestState}
                             />
                         )}
