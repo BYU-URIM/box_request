@@ -27,6 +27,7 @@ export class RequestState {
     @observable private _user: IUser = mockUser
     @observable private _mBarType: MessageBarType = undefined
     @observable private _checkoutType: CheckoutTypes = CheckoutTypes.request
+    @observable private _hiddenDialog: boolean = false
     @observable
     private _cart: Map<number, IFolderOrBox> = observable.map<
         number,
@@ -45,6 +46,14 @@ export class RequestState {
     }
     @action clearCart = () => this._cart.clear()
     @action removeFromCart = (itemKey: number) => this._cart.delete(itemKey)
+
+    @computed
+    get hiddenDialog(): boolean {
+        return this._hiddenDialog
+    }
+    set hiddenDialog(val: boolean) {
+        this._hiddenDialog = val
+    }
 
     @computed
     get msgBarMessage(): string {
@@ -171,6 +180,18 @@ export class RequestState {
             }
         })
         return userDeps
+    }
+
+    @computed
+    get _closeDialog(): boolean {
+        return
+            this._msgBarMessage.length === 0 ? this.hiddenDialog = true : ""
+    }
+
+    @computed
+    get _openDialog(): boolean {
+        return 
+            this._msgBarMessage.length !== 0 ? this.hiddenDialog = false : ""
     }
 
     @computed
