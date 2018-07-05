@@ -23,6 +23,7 @@ export class RequestState {
     @observable private _department: number = undefined
     @observable private _box: IBox = undefined
     @observable private _folder: IFolder = undefined
+    @observable private _dialogMessage: string = ""
     @observable private _msgBarMessage: string = ""
     @observable private _user: IUser = mockUser
     @observable private _mBarType: MessageBarType = undefined
@@ -53,6 +54,14 @@ export class RequestState {
     }
     set hiddenDialog(val: boolean) {
         this._hiddenDialog = val
+    }
+
+    @computed
+    get dialogMessage(): string {
+        return this._dialogMessage
+    }
+    set dialogMessage(val: string) {
+        this._dialogMessage = val
     }
 
     @computed
@@ -185,13 +194,13 @@ export class RequestState {
     @computed
     get _closeDialog(): boolean {
         return
-            this._msgBarMessage.length === 0 ? this.hiddenDialog = true : ""
+            this._dialogMessage.length === 0 ? this.hiddenDialog = true : ""
     }
 
     @computed
     get _openDialog(): boolean {
         return 
-            this._msgBarMessage.length !== 0 ? this.hiddenDialog = false : ""
+            this._dialogMessage.length !== 0 ? this.hiddenDialog = false : ""
     }
 
     @computed
@@ -242,7 +251,7 @@ export class RequestState {
                 item.BoxIdBarCode !== undefined &&
                 item.BoxIdBarCode === box.BoxIdBarCode
             ) {
-                this._msgBarMessage = `You just added Box ${
+                this._dialogMessage = `You just added Box ${
                     box.BoxIdBarCode
                 }. Would you like to remove Box ${
                     box.BoxIdBarCode
@@ -256,6 +265,7 @@ export class RequestState {
 
     @action
     clearMessage = () => {
+        this.dialogMessage = ""
         this.msgBarMessage = ""
     }
 
@@ -271,7 +281,7 @@ export class RequestState {
     @action
     removeGroupedFoldersMessage = (folder: IFolderOrBox) => {
         if (this.countChildFolders(folder) >= 5) {
-            this._msgBarMessage = `You just added 5 folders from Box ${
+            this._dialogMessage = `You just added 5 folders from Box ${
                 this.box.BoxIdBarCode
             }. We recommend that you checkout the box instead. Would you like to remove these folders and check out Box ${
                 this.box.BoxIdBarCode
