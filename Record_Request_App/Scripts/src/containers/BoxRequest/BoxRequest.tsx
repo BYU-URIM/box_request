@@ -6,79 +6,72 @@ import {
     BoxList,
     FolderView,
     Checkout,
+    MsgBar,
+    WarningDialog
 } from "../../components"
-import { MsgBar } from "../../components/MsgBar/MsgBar"
-import { WarningDialog } from "../../components/WarningDialog/WarningDialog"
+
 import "./styles.scss"
 import { inject, observer } from "mobx-react"
-import { IFolderOrBox } from "../../models/StoreModels"
-import { ModalTypes } from "../../models"
+import { ModalTypes, IFolderOrBox } from "../../models"
 import Modal from "office-ui-fabric-react/lib/Modal"
-import { RequestStore } from "../../stores/RequestStore/RequestStore"
-import { MessageBarType, Dropdown } from "office-ui-fabric-react"
+import { MessageBarType } from "office-ui-fabric-react"
+import { RequestState, RequestStore } from "../../stores"
 
 @inject("rootStore")
 @observer
 export class BoxRequest extends React.Component<any, any> {
     render() {
         const requestStore: RequestStore = this.props.rootStore.requestStore
-        const { currentUser } = this.props.rootStore.sessionStore
-
+        const requestState: RequestState = requestStore.requestState
         return (
             <>
                 <div className={"ms-Grid-row"}>
                     <div className={"ms-Grid-col ms-sm12"}>
-                        {requestStore.requestState.msgBarMessage.length > 0 && (
+                        {requestState.msgBarMessage.length > 0 && (
                             <MsgBar 
-                                requestState={requestStore.requestState}
+                                requestState={requestState}
                             />
                         )}
-                        {requestStore.requestState.dialogMessage.length > 0 && (
+                        {requestState.dialogMessage.length > 0 && (
                             <WarningDialog 
-                                requestState={requestStore.requestState}
+                                requestState={requestState}
                             />
                         )}
                     </div>
                 </div>
                 <div className={"ms-Grid-row"}>
-                    <div className={requestStore.requestState.dropdownInfo.style}>
+                    <div className={requestState.dropdownInfo.style}>
                         <DepartmentDropdown
                             changeSelectedDep={(department: number) =>
-                                (requestStore.requestState.department = department)
+                                (requestStore.sessionStore.departmentId = department)
                             }
-                            title={requestStore.requestState.dropdownInfo.title}
-                            requestState={requestStore.requestState}
-                            disabled={requestStore.requestState.dropdownInfo.disabled}
-                            selectedKey={requestStore.requestState.dropdownInfo.selectedKey}
+                            title={requestState.dropdownInfo.title}
+                            sessionStore={requestStore.sessionStore}
+                            disabled={requestState.dropdownInfo.disabled}
+                            selectedKey={requestState.dropdownInfo.selectedKey}
                         />
                     </div>
                 </div>
                 <div className={"ms-Grid-row box-request-row"}>
                     <div>
                         <Modal
-                            isOpen={
-                                requestStore.requestState.modal !==
-                                ModalTypes.none
-                            }
+                            isOpen={requestState.modal !== ModalTypes.none}
                             onDismiss={() =>
-                                (requestStore.requestState.modal =
-                                    ModalTypes.none)
+                                (requestState.modal = ModalTypes.none)
                             }
                             isBlocking={false}
                             isDarkOverlay={false}
                         >
-                            {requestStore.requestState.modal ===
-                                ModalTypes.submit && (
+                            {requestState.modal === ModalTypes.submit && (
                                 <SubmitModal
                                     submit={requestStore.submitRequest}
-                                    requestState={requestStore.requestState}
+                                    requestState={requestState}
                                     requestForm={requestStore.requestForm}
                                 />
                             )}
-                            {requestStore.requestState.modal ===
-                                ModalTypes.create && (
+                            {requestState.modal === ModalTypes.create && (
                                 <CreateFolderModal
-                                    requestState={requestStore.requestState}
+                                    requestState={requestState}
                                     folderForm={requestStore.folderForm}
                                     createFolder={requestStore.createFolder}
                                 />
@@ -87,21 +80,21 @@ export class BoxRequest extends React.Component<any, any> {
                         <div>
                             <div className={"ms-Grid-col ms-sm1"} />
                             <BoxList
-                                cartContains={(item: IFolderOrBox) =>
-                                    requestStore.requestState.cartContains(item)
-                                }
+                                // cartContains={(item: IFolderOrBox) =>
+                                //     requestState.cartContains(item)
+                                // }
                                 initializeFolderForm={
                                     requestStore.initializeFolderForm
                                 }
-                                requestState={requestStore.requestState}
+                                requestState={requestState}
                                 checkoutStatus={item =>
                                     requestStore.determineCheckoutType(item)
                                 }
                                 classNames={"ms-Grid-col ms-sm4 scroll-container"}
-                                boxes={requestStore.requestState.sortBoxes}
+                                // boxes={requestState.sortBoxes}
                                 selectedBoxId={
-                                    requestStore.requestState.box
-                                        ? requestStore.requestState.box
+                                    requestState.box
+                                        ? requestState.box
                                               .BoxIdBarCode
                                         : 0
                                 }
@@ -110,24 +103,24 @@ export class BoxRequest extends React.Component<any, any> {
 
                             <FolderView
                                 cartContains={(item: IFolderOrBox) =>
-                                    requestStore.requestState.cartContains(item)
+                                    requestState.cartContains(item)
                                 }
-                                cart={requestStore.requestState.cart}
+                                cart={requestState.cart}
                                 checkoutStatus={item =>
                                     requestStore.determineCheckoutType(item)
                                 }
                                 emptyMessage={
-                                    requestStore.requestState.department !==
+                                    requestStore.sessionStore.department !==
                                         undefined &&
                                     "Click on a box to view its folders"
                                 }
                                 classNames={"ms-Grid-col ms-sm2"}
-                                requestState={requestStore.requestState}
+                                requestState={requestState}
                             />
                             <div className={"ms-Grid-col ms-sm1"} />
 
                             <Checkout
-                                requestState={requestStore.requestState}
+                                requestState={requestState}
                                 classNames={"ms-Grid-col ms-sm3"}
                                 initializeRequestForm={
                                     requestStore.initializeRequestForm

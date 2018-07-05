@@ -5,12 +5,12 @@ import {
     IColumn,
     CheckboxVisibility,
 } from "office-ui-fabric-react"
-import { IFolder, IBox, IFolderOrBox } from "../../models/StoreModels"
+import { IFolder, IFolderOrBox } from "../../models/StoreModels"
 import { ModalTypes, CheckoutTypes } from "../../models"
 import "./styles.scss"
-import DetailListHeader from "../DetailListHeader/DetailListHeader"
+import { DetailListHeader } from ".."
 import { observer } from "mobx-react"
-import { RequestState } from "../../stores/RequestStore/RequestState"
+import { RequestState } from "../../stores"
 
 export interface IFolderViewProps {
     requestState: RequestState
@@ -67,12 +67,14 @@ export const FolderView = observer((props: IFolderViewProps) => {
     const folderList =
         props.requestState.box &&
         props.requestState.folders.map((folder: IFolder) => {
-            return({
-            key: folder.FolderIdBarCode,
-            checkoutFolder: () => props.requestState.addToCart(folder),
-            createFolder: () => (props.requestState.modal = ModalTypes.create),
-            ...folder,
-        })})
+            return {
+                key: folder.FolderIdBarCode,
+                checkoutFolder: () => props.requestState.addToCart(folder),
+                createFolder: () =>
+                    (props.requestState.modal = ModalTypes.create),
+                ...folder,
+            }
+        })
 
     return (
         <div className={props.classNames}>
@@ -107,7 +109,7 @@ export const FolderView = observer((props: IFolderViewProps) => {
                 </>
             ) : (
                 <div className={"empty-message"}>
-                    <DetailListHeader title={props.emptyMessage}/>
+                    <DetailListHeader title={props.emptyMessage} />
                 </div>
             )}
         </div>

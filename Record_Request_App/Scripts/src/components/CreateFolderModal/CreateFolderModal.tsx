@@ -1,25 +1,22 @@
 import * as React from "react"
-import { Modal } from "office-ui-fabric-react/lib/Modal"
 import {
     TextField,
-    Label,
     PrimaryButton,
     IconButton,
     IconType,
 } from "office-ui-fabric-react"
 import "./styles.scss"
 import { observer } from "mobx-react"
-import { FolderForm } from "../../stores/RequestStore/FolderForm"
-import { RequestState } from "../../stores/RequestStore/RequestState"
+import { FolderForm, RequestState } from "../../stores"
 import { ModalTypes } from "../../models"
 
-export interface ICreateFolderModal {
+export interface ICreateFolderModalProps {
     requestState: RequestState
     createFolder(): void
     folderForm: FolderForm
 }
 
-export const CreateFolderModal = observer((props: ICreateFolderModal) => {
+export const CreateFolderModal = observer((props: ICreateFolderModalProps) => {
     return (
         <div className={"create-modal-wrapper"}>
             <div className="create-modal-header">

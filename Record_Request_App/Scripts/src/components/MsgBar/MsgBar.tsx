@@ -1,10 +1,11 @@
 import * as React from "react"
 import {
-    MessageBar, MessageBarType, MessageBarButton
+    MessageBar,
+    MessageBarType,
+    MessageBarButton,
 } from "office-ui-fabric-react"
-import { RequestState } from "../../stores/RequestStore/RequestState";
+import { RequestState } from "../../stores"
 import { observer } from "mobx-react"
-import { IBox } from "../../models/StoreModels";
 
 export interface IWarningBar {
     requestState: RequestState

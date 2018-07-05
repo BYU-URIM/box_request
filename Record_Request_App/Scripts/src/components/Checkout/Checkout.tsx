@@ -8,13 +8,10 @@ import {
     IconButton,
     Icon,
 } from "office-ui-fabric-react"
-
-import { ModalTypes } from "../../models/App"
-
 import "./styles.scss"
-import DetailListHeader from "../DetailListHeader/DetailListHeader"
+import { DetailListHeader } from ".."
 import { observer } from "mobx-react"
-import { RequestState } from "../../stores/RequestStore/RequestState"
+import { RequestState } from "../../stores"
 import { IFolderOrBox } from "../../models/StoreModels"
 
 export interface ICheckoutProps {

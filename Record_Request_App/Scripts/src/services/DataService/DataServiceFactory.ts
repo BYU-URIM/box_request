@@ -1,9 +1,7 @@
-import { RootStore } from "../stores/RootStore/RootStore"
-import { ENVIRONMENT, EnvType } from "../env"
-import { IDataService } from "./IDataService"
-import { MockDataService } from "./MockDataService"
+import { RootStore } from "../../stores/RootStore/RootStore"
+import { ENVIRONMENT, EnvType } from "../../env"
 import { DataService } from "./DataService"
-import { folderData, boxData, mockUser } from "../res"
+import { folderData, boxData, mockUser } from "../../res"
 
 export class DataServiceFactory {
     static getRootStore(): RootStore {

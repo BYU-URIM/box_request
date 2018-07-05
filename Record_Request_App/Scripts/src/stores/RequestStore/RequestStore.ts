@@ -7,7 +7,9 @@ import { FolderForm } from "./FolderForm"
 import { RequestForm } from "./RequestForm"
 import { RequestState } from "./RequestState"
 import { MessageBarType } from "office-ui-fabric-react";
+import { SessionStore } from "../SessionStore/SessionStore"
 export class RequestStore {
+    sessionStore: SessionStore
     @observable boxes: IBoxArr
     @observable folders: IFolderArr
 
@@ -18,11 +20,12 @@ export class RequestStore {
     constructor(folders: IFolderArr, boxes: IBoxArr, private root: RootStore) {
         this.boxes = boxes
         this.folders = folders
+        this.sessionStore = root.sessionStore
     }
 
     init = async () => {
         this.requestState = await new RequestState(
-            this,
+            this.sessionStore,
             this.folders,
             this.boxes
         )
@@ -61,8 +64,9 @@ export class RequestStore {
             Location: this.requestState.box.Location,
             Folder_Description: "",
         })
-        this.checkParentBox(this.folders[this.folders.length - 1]) ?
-        this.requestState.addToCart(this.folders[this.folders.length-1]) : ""
+        // this.checkParentBox(this.folders[this.folders.length - 1]) ?
+        // this.requestState.addToCart(this.folders[this.folders.length-1]) : ""
+        this.requestState.addToCart(this.folders[this.folders.length - 1])
         this.requestState.modal = ModalTypes.none
     }
 
@@ -101,7 +105,7 @@ export class RequestStore {
         )
     }
     inYourPossession = (item: IFolderOrBox): boolean => {
-        return item.Location === String(this.requestState.department)
+        return item.Location === String(this.sessionStore.department)
     }
     @action
     itemInCheckout = (item: IFolderOrBox): boolean =>
