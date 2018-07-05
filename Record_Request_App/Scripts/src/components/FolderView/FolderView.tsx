@@ -49,7 +49,7 @@ export const FolderView = observer((props: IFolderViewProps) => {
             ariaLabel: "Operations for checkoutFolder",
             onRender: (item: IFolder) => {
                 return (
-                    (props.checkoutStatus(item) === CheckoutTypes.request && props.requestState.msgBarMessage.length === 0) ? (
+                    (props.checkoutStatus(item) === CheckoutTypes.request && props.requestState.dialogMessage.length === 0) ? (
                         <button
                             onClick={() => props.requestState.addToCart(item)}
                             className={"ms-fontSize-mPlus ms-fontWeight-light"}

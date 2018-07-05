@@ -25,7 +25,7 @@ export const WarningDialog = observer((props: IWarningDialog) => {
           type: DialogType.normal,
           title: 'Box or Folders',
           subText:
-            `${props.requestState.msgBarMessage}`
+            `${props.requestState.dialogMessage}`
         }}
         modalProps={{
           titleAriaId: 'myLabelId',
