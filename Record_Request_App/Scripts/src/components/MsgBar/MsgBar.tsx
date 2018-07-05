@@ -20,24 +20,11 @@ export const MsgBar = observer((props: IWarningBar) => {
             isMultiline={false}
             dismissButtonAriaLabel="Close"
             actions={
-                props.requestState.cart.length === 0 ?
-                <div>
                     <MessageBarButton
                         onClick={() => (props.requestState.clearMessage())}
                     >
                         OK
-                    </MessageBarButton>
-                </div>
-                :
-                <div>
-                    <MessageBarButton
-                        onClick={() => (props.requestState.removeChildFolders(props.requestState.box))}
-                    >Yes</MessageBarButton>
-                    <MessageBarButton
-                        onClick={() => (props.requestState.removeParentBox(props.requestState.box))}
-                    >No</MessageBarButton>
-                </div> 
-                
+                    </MessageBarButton>             
             }
         >
         {props.requestState.msgBarMessage}
