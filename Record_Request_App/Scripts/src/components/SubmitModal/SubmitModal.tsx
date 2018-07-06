@@ -52,7 +52,7 @@ export const SubmitModal = observer((props: ISubmitModalProps) => {
                     offAriaLabel={"This toggle is unchecked. Press to check."}
                     onText={"Permanent"}
                     offText={"Temporary"}
-                    onChanged={e => (props.requestForm.permanent = e)}
+                    onChanged={event => (props.requestForm.permanent = event)}
                 />
                 <Label>
                     Delivery Priority
@@ -65,7 +65,7 @@ export const SubmitModal = observer((props: ISubmitModalProps) => {
                     offAriaLabel={"This toggle is unchecked. Press to check."}
                     onText={"Urgent"}
                     offText={"Standard"}
-                    onChanged={e => (props.requestForm.urgent = e)}
+                    onChanged={event => (props.requestForm.urgent = event)}
                 />
                 <Label>
                     Delivery Instructions
@@ -78,8 +78,8 @@ export const SubmitModal = observer((props: ISubmitModalProps) => {
                     multiline={true}
                     autoAdjustHeight={true}
                     value={props.requestForm.deliveryInstructions}
-                    onChanged={val =>
-                        (props.requestForm.deliveryInstructions = val)
+                    onChanged={instructions =>
+                        (props.requestForm.deliveryInstructions = instructions)
                     }
                     errorMessage={props.requestForm.errorMessage}
                 />
