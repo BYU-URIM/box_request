@@ -90,6 +90,10 @@ export class BoxRequest extends React.Component<any, any> {
                             />
 
                             <FolderView
+                                cartContains={(item: IFolderOrBox) =>
+                                    requestState.cartContains(item)
+                                }
+                                cart={requestState.cart}
                                 checkoutStatus={item =>
                                     requestStore.determineCheckoutType(item)
                                 }

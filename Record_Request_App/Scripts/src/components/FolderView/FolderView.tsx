@@ -13,15 +13,13 @@ import { observer } from "mobx-react"
 import { RequestState } from "../../stores"
 
 export interface IFolderViewProps {
+    cart: Array<IFolderOrBox>
     requestState: RequestState
     checkoutStatus(box: IFolderOrBox): string
     emptyMessage: string
     classNames: string
+    cartContains(item: IFolderOrBox): boolean
 }
-
-// create column info that goes into fabric ui component
-
-// ----------------------------------------------
 
 export const FolderView = observer((props: IFolderViewProps) => {
     const columns: IColumn[] = [
