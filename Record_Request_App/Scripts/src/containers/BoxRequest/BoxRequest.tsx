@@ -7,7 +7,7 @@ import {
     FolderView,
     Checkout,
     MsgBar,
-    WarningDialog
+    WarningDialog,
 } from "../../components"
 
 import "./styles.scss"
@@ -27,14 +27,10 @@ export class BoxRequest extends React.Component<any, any> {
                 <div className={"ms-Grid-row"}>
                     <div className={"ms-Grid-col ms-sm12"}>
                         {requestState.msgBarMessage.length > 0 && (
-                            <MsgBar 
-                                requestState={requestState}
-                            />
+                            <MsgBar requestState={requestState} />
                         )}
                         {requestState.dialogMessage.length > 0 && (
-                            <WarningDialog 
-                                requestState={requestState}
-                            />
+                            <WarningDialog requestState={requestState} />
                         )}
                     </div>
                 </div>
@@ -83,7 +79,14 @@ export class BoxRequest extends React.Component<any, any> {
                                 checkoutStatus={item =>
                                     requestStore.determineCheckoutType(item)
                                 }
-                                classNames={"ms-Grid-col ms-sm4 scroll-container"}
+                                classNames={
+                                    "ms-Grid-col ms-sm4 scroll-container"
+                                }
+                                selectedBoxId={
+                                    requestState.box
+                                        ? requestState.box.BoxIdBarCode
+                                        : 0
+                                }
                             />
 
                             <FolderView
