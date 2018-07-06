@@ -14,11 +14,9 @@ import { RequestState } from "../../stores"
 
 export interface IFolderViewProps {
     requestState: RequestState
-    cart: Array<IFolderOrBox>
     checkoutStatus(box: IFolderOrBox): string
     emptyMessage: string
     classNames: string
-    cartContains(item: IFolderOrBox): boolean
 }
 
 // create column info that goes into fabric ui component

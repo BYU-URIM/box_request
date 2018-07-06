@@ -2,21 +2,19 @@ import * as React from "react"
 import { Dropdown } from "office-ui-fabric-react"
 import "./styles.scss"
 import { observer } from "mobx-react"
-import { SessionStore } from "../../stores"
+import { SessionStore, RequestState } from "../../stores"
 
 export interface IUserDepsProps {
     changeSelectedDep(dep: number)
-    title: string
     sessionStore: SessionStore
-    disabled: boolean
-    selectedKey: number
+    requestState: RequestState
 }
 
 export const DepartmentDropdown = observer((props: IUserDepsProps) => {
     return (
         <div>
             <h1 className="ms-font-xxl department-dropdown-center">
-                {props.title}
+                {props.requestState.dropdownInfo.title}
             </h1>
             <Dropdown
                 placeHolder="Departments"
@@ -31,8 +29,8 @@ export const DepartmentDropdown = observer((props: IUserDepsProps) => {
                     props.changeSelectedDep(Number(department.key))
                 }
                 id={"test"}
-                disabled={props.disabled}
-                defaultSelectedKey={props.selectedKey}
+                disabled={props.requestState.dropdownInfo.disabled}
+                defaultSelectedKey={props.requestState.dropdownInfo.selectedKey}
             />
         </div>
     )

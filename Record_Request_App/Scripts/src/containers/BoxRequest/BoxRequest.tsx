@@ -14,7 +14,6 @@ import "./styles.scss"
 import { inject, observer } from "mobx-react"
 import { ModalTypes, IFolderOrBox } from "../../models"
 import Modal from "office-ui-fabric-react/lib/Modal"
-import { MessageBarType } from "office-ui-fabric-react"
 import { RequestState, RequestStore } from "../../stores"
 
 @inject("rootStore")
@@ -45,10 +44,8 @@ export class BoxRequest extends React.Component<any, any> {
                             changeSelectedDep={(department: number) =>
                                 (requestStore.sessionStore.departmentId = department)
                             }
-                            title={requestState.dropdownInfo.title}
                             sessionStore={requestStore.sessionStore}
-                            disabled={requestState.dropdownInfo.disabled}
-                            selectedKey={requestState.dropdownInfo.selectedKey}
+                            requestState={requestState}
                         />
                     </div>
                 </div>
@@ -72,17 +69,13 @@ export class BoxRequest extends React.Component<any, any> {
                             {requestState.modal === ModalTypes.create && (
                                 <CreateFolderModal
                                     requestState={requestState}
-                                    folderForm={requestStore.folderForm}
-                                    createFolder={requestStore.createFolder}
+                                    requestStore={requestStore}
                                 />
                             )}
                         </Modal>
                         <div>
                             <div className={"ms-Grid-col ms-sm1"} />
                             <BoxList
-                                // cartContains={(item: IFolderOrBox) =>
-                                //     requestState.cartContains(item)
-                                // }
                                 initializeFolderForm={
                                     requestStore.initializeFolderForm
                                 }
@@ -91,21 +84,9 @@ export class BoxRequest extends React.Component<any, any> {
                                     requestStore.determineCheckoutType(item)
                                 }
                                 classNames={"ms-Grid-col ms-sm4 scroll-container"}
-                                // boxes={requestState.sortBoxes}
-                                selectedBoxId={
-                                    requestState.box
-                                        ? requestState.box
-                                              .BoxIdBarCode
-                                        : 0
-                                }
                             />
-                            {/* <div className={"ms-Grid-col ms-sm1"} /> */}
 
                             <FolderView
-                                cartContains={(item: IFolderOrBox) =>
-                                    requestState.cartContains(item)
-                                }
-                                cart={requestState.cart}
                                 checkoutStatus={item =>
                                     requestStore.determineCheckoutType(item)
                                 }

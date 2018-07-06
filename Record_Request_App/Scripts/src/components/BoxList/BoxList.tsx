@@ -19,7 +19,6 @@ export interface IBoxListProps {
     classNames: string
     requestState: RequestState
     initializeFolderForm(): void
-    selectedBoxId: number
 }
 
 // --------------------------------------------------------------------------
@@ -99,7 +98,7 @@ export const BoxList = observer((props: IBoxListProps) => {
                             className={"blue ms-fontSize-mPlus ms-fontWeight-light"}
                             onClick={props.initializeFolderForm}
                         >
-                            {props.selectedBoxId ===
+                            {props.requestState.box.BoxIdBarCode ===
                             item.BoxIdBarCode && props.requestState.dialogMessage.length === 0 && props.checkoutStatus(item) === CheckoutTypes.request
                                 ? "Create Folder"
                                 : ""}

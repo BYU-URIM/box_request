@@ -13,9 +13,6 @@ export interface IWarningDialog {
     requestState: RequestState
 }
 
-
-// ----------------------------------------------
-
 export const WarningDialog = observer((props: IWarningDialog) => {
     return (
         <Dialog

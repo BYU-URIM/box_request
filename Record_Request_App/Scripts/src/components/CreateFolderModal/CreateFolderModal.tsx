@@ -7,13 +7,12 @@ import {
 } from "office-ui-fabric-react"
 import "./styles.scss"
 import { observer } from "mobx-react"
-import { FolderForm, RequestState } from "../../stores"
+import { RequestState, RequestStore } from "../../stores"
 import { ModalTypes } from "../../models"
 
 export interface ICreateFolderModalProps {
     requestState: RequestState
-    createFolder(): void
-    folderForm: FolderForm
+    requestStore: RequestStore
 }
 
 export const CreateFolderModal = observer((props: ICreateFolderModalProps) => {
@@ -39,23 +38,23 @@ export const CreateFolderModal = observer((props: ICreateFolderModalProps) => {
                 <TextField
                     type={"text"}
                     description={"Warning: You cannot change this later."}
-                    value={props.folderForm.folderName}
-                    onChanged={val => (props.folderForm.folderName = val)}
+                    value={props.requestStore.folderForm.folderName}
+                    onChanged={val => (props.requestStore.folderForm.folderName = val)}
                     required={true}
                     autoFocus={true}
                     label={"Folder Name"}
                     underlined={true}
                     placeholder={"i.e. Jared"}
-                    errorMessage={props.folderForm.errorMessage}
+                    errorMessage={props.requestStore.folderForm.errorMessage}
                 />
             </div>
             <div className={"create-modal-footer"}>
                 <PrimaryButton
                     text={"Create and Request Folder"}
-                    onClick={props.createFolder}
+                    onClick={props.requestStore.createFolder}
                     disabled={
-                        !props.folderForm.folderName ||
-                        !props.folderForm.inputIsValid
+                        !props.requestStore.folderForm.folderName ||
+                        !props.requestStore.folderForm.inputIsValid
                     }
                 />
             </div>
