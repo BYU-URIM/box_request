@@ -2,14 +2,9 @@ import { ModalTypes, CheckoutTypes } from "../../models"
 import { observable, computed, action } from "mobx"
 
 import { RequestStore } from "./RequestStore"
-import {
-    IBox,
-    IFolder,
-    IFolderOrBox,
-    IUser,
-} from "../../models/StoreModels"
+import { IBox, IFolder, IFolderOrBox, IUser } from "../../models/StoreModels"
 import { mockUser } from "../../res"
-import { MessageBarType } from "office-ui-fabric-react";
+import { MessageBarType } from "office-ui-fabric-react"
 import { SessionStore } from "../SessionStore/SessionStore"
 
 export class RequestState {
@@ -40,7 +35,6 @@ export class RequestState {
     @action
     addToCart = (item: IFolderOrBox) => {
         if (!item.FolderIdBarCode) this.removeChildFoldersMessage(item)
-
 
         this._cart.set(
             item.FolderIdBarCode ? item.FolderIdBarCode : item.BoxIdBarCode,
@@ -184,14 +178,14 @@ export class RequestState {
 
     @computed
     get _closeDialog(): boolean {
-        return
-            this._dialogMessage.length === 0 ? this.hiddenDialog = true : ""
+        return 
+        (this._dialogMessage.length === 0 ? (this.hiddenDialog = true) : "")
     }
 
     @computed
     get _openDialog(): boolean {
-        return 
-            this._dialogMessage.length !== 0 ? this.hiddenDialog = false : ""
+        return
+        (this._dialogMessage.length !== 0 ? (this.hiddenDialog = false) : "")
     }
 
     @computed
@@ -256,9 +250,13 @@ export class RequestState {
 
     @action
     removeChildFolders = (selectedBox: IBox) => {
-        this.countChildFolders(selectedBox) >= 5 ? this.addToCart(selectedBox) : "" 
+        this.countChildFolders(selectedBox) >= 5
+            ? this.addToCart(selectedBox)
+            : ""
         this.cart.map(checkedItem => {
-            checkedItem.BoxIdBarCode === selectedBox.BoxIdBarCode ? this.removeFromCart(checkedItem.FolderIdBarCode) : ""
+            checkedItem.BoxIdBarCode === selectedBox.BoxIdBarCode
+                ? this.removeFromCart(checkedItem.FolderIdBarCode)
+                : ""
         })
         this.clearMessage()
     }
@@ -284,7 +282,7 @@ export class RequestState {
         return folderCount
     }
 
-    @action 
+    @action
     removeParentBox = (parentBox: IFolderOrBox) => {
         this.clearMessage()
         this.removeFromCart(parentBox.BoxIdBarCode)

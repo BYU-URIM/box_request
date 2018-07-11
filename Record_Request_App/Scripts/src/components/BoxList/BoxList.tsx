@@ -65,7 +65,8 @@ export const BoxList = observer((props: IBoxListProps) => {
             ariaLabel: "Operations for checkoutBox",
             onRender: (item: IBox) => {
                 return props.checkoutStatus(item) === CheckoutTypes.request &&
-                    props.requestState.dialogMessage.length === 0 ? (
+                    // props.requestState.dialogMessage.length === 0 ? (
+                    item.BoxIdBarCode === props.requestState.box.BoxIdBarCode ? (
                     <button
                         onClick={() => props.requestState.addToCart(item)}
                         className={"ms-fontSize-mPlus ms-fontWeight-light"}

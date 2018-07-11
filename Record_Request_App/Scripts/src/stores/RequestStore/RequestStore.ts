@@ -6,7 +6,7 @@ import { RootStore } from "../RootStore/RootStore"
 import { FolderForm } from "./FolderForm"
 import { RequestForm } from "./RequestForm"
 import { RequestState } from "./RequestState"
-import { MessageBarType } from "office-ui-fabric-react";
+import { MessageBarType } from "office-ui-fabric-react"
 import { SessionStore } from "../SessionStore/SessionStore"
 export class RequestStore {
     sessionStore: SessionStore
@@ -75,24 +75,25 @@ export class RequestStore {
         this.requestState.clearCart()
         this.requestState.modal = ModalTypes.none
         this.requestState.mBarType = MessageBarType.success
-        this.requestState.msgBarMessage = "Thank you. Your order has been submitted."
+        this.requestState.msgBarMessage =
+            "Thank you. Your order has been submitted."
     }
 
     @action
     determineCheckoutType = (item: IFolderOrBox): string => {
-        return (this.canAddItem(item) && this.checkParentBox(item))
-            ? this.requestState.checkoutType = CheckoutTypes.request
+        return this.canAddItem(item) && this.checkParentBox(item)
+            ? (this.requestState.checkoutType = CheckoutTypes.request)
             : this.inYourPossession(item)
-                ? this.requestState.checkoutType = CheckoutTypes.hasCustody
-                : this.requestState.checkoutType = CheckoutTypes.unavailable
+                ? (this.requestState.checkoutType = CheckoutTypes.hasCustody)
+                : (this.requestState.checkoutType = CheckoutTypes.unavailable)
     }
 
     @action
-    checkParentBox = (item:IFolderOrBox): boolean => {
+    checkParentBox = (item: IFolderOrBox): boolean => {
         let x: boolean
         this.boxes.map(box => {
-            if(box.BoxIdBarCode === item.BoxIdBarCode) {
-                box.Location.startsWith("L") ? x = true : x = false
+            if (box.BoxIdBarCode === item.BoxIdBarCode) {
+                box.Location.startsWith("L") ? (x = true) : (x = false)
             }
         })
         return x

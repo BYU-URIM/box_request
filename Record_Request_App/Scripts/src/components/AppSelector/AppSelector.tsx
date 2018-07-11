@@ -1,4 +1,4 @@
-import React = require("react")
+import * as React from "react"
 import { PrimaryButton } from "office-ui-fabric-react"
 import { AppModes } from "../../stores"
 import "./styles.scss"
