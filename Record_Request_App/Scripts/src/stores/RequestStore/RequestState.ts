@@ -1,4 +1,4 @@
-import { ModalTypes, CheckoutTypes } from "../../models"
+import { ModalTypes, ItemStatusTypes } from "../../models"
 import { observable, computed, action } from "mobx"
 
 import { RequestStore } from "./RequestStore"
@@ -7,11 +7,18 @@ import {
     IFolder,
     IFolderOrBox,
     IUser,
+    IDepartment,
 } from "../../models/StoreModels"
 import { mockUser } from "../../res"
-import { MessageBarType } from "office-ui-fabric-react";
+import { MessageBarType } from "office-ui-fabric-react"
 import { SessionStore } from "../SessionStore/SessionStore"
 
+export interface IDropdownInfo {
+    title: string
+    key: number
+    style: string
+    placeHolder: string
+}
 export class RequestState {
     sessionStore: SessionStore
     constructor(
@@ -27,10 +34,8 @@ export class RequestState {
     @observable private _folder: IFolder = undefined
     @observable private _dialogMessage: string = ""
     @observable private _msgBarMessage: string = ""
-    @observable private _user: IUser = mockUser
     @observable private _mBarType: MessageBarType = undefined
-    @observable private _checkoutType: CheckoutTypes = CheckoutTypes.request
-    @observable private _hiddenDialog: boolean = false
+    @observable private _itemStatus: ItemStatusTypes = ItemStatusTypes.available
     @observable
     private _cart: Map<number, IFolderOrBox> = observable.map<
         number,
@@ -41,7 +46,6 @@ export class RequestState {
     addToCart = (item: IFolderOrBox) => {
         if (!item.FolderIdBarCode) this.removeChildFoldersMessage(item)
 
-
         this._cart.set(
             item.FolderIdBarCode ? item.FolderIdBarCode : item.BoxIdBarCode,
             item
@@ -50,14 +54,6 @@ export class RequestState {
     }
     @action clearCart = () => this._cart.clear()
     @action removeFromCart = (itemKey: number) => this._cart.delete(itemKey)
-
-    @computed
-    get hiddenDialog(): boolean {
-        return this._hiddenDialog
-    }
-    set hiddenDialog(val: boolean) {
-        this._hiddenDialog = val
-    }
 
     @computed
     get dialogMessage(): string {
@@ -91,11 +87,11 @@ export class RequestState {
     }
 
     @computed
-    get checkoutType(): CheckoutTypes {
-        return this._checkoutType
+    get itemStatus(): ItemStatusTypes {
+        return this._itemStatus
     }
-    set checkoutType(val: CheckoutTypes) {
-        this._checkoutType = val
+    set itemStatus(val: ItemStatusTypes) {
+        this._itemStatus = val
     }
 
     @computed
@@ -127,7 +123,7 @@ export class RequestState {
     @computed
     get boxes(): Array<IBox> {
         return this._boxes
-            .filter(box => box.DepId === this.sessionStore.departmentId)
+            .filter(box => box.DepId === this.sessionStore.department.id)
             .map(box => ({
                 ...box,
                 inCart: this.cartContains(box),
@@ -155,56 +151,25 @@ export class RequestState {
         )
     }
 
-    @computed
-    get uniqueDepartments(): any {
-        const depList = []
-        this._boxes.forEach(boxItem => {
-            if (!depList.find(box => box.id === boxItem.DepId)) {
-                depList.push({
-                    name: boxItem.DepartmentName,
-                    id: boxItem.DepId,
-                })
-            }
-        })
-        return depList
-    }
+    // @computed
+    // get uniqueDepartments(): Array<IDepartment> {
+    //     return this.boxes.(boxItem => {
+    //         if (!depList.find(box => box.id === boxItem.DepId)) {
+    //             depList.push({
+    //                 name: boxItem.DepartmentName,
+    //                 id: boxItem.DepId,
+    //             })
+    //         }
+    //     })
+    // }
 
     @computed
-    get userDepartments(): any {
-        let depList = this.uniqueDepartments
-        let userDeps = []
-
-        depList.forEach(department => {
-            if (this._user.departments.find(depId => depId === department.id)) {
-                userDeps.push({ name: department.name, id: department.id })
-            }
-        })
-        return depList
-    }
-
-    @computed
-    get _closeDialog(): boolean {
-        return
-            this._dialogMessage.length === 0 ? this.hiddenDialog = true : ""
-    }
-
-    @computed
-    get _openDialog(): boolean {
-        return 
-            this._dialogMessage.length !== 0 ? this.hiddenDialog = false : ""
-    }
-
-    @computed
-    get dropdownInfo(): any {
-        const info = {
-            style: "",
+    get dropdownInfo(): IDropdownInfo {
+        const info: IDropdownInfo = {
             title: "",
-            disabled: false,
-            selectedKey: undefined,
-        }
-        if (this.sessionStore.userDepartments.length === 1) {
-            info.disabled = true
-            info.selectedKey = this.sessionStore.userDepartments[0].id
+            key: this.sessionStore.department.id || undefined,
+            style: "",
+            placeHolder: "Departments",
         }
         if (this.sessionStore.department) {
             info.style = "ms-Grid-col ms-sm2  ms-smPush1"
@@ -231,19 +196,17 @@ export class RequestState {
 
     @action
     removeChildFoldersMessage = (box: IFolderOrBox) => {
-        this.cart.map(item => {
+        this.cart.forEach(item => {
             if (
                 item.BoxIdBarCode !== undefined &&
                 item.BoxIdBarCode === box.BoxIdBarCode
             ) {
-                this._dialogMessage = `You just added Box ${
+                this.dialogMessage = `You just added Box ${
                     box.BoxIdBarCode
                 }. Would you like to remove Box ${
                     box.BoxIdBarCode
                 }'s folder(s) from checkout?`
                 this.mBarType = MessageBarType.warning
-            } else {
-                false
             }
         })
     }
@@ -255,10 +218,12 @@ export class RequestState {
     }
 
     @action
-    removeChildFolders = (selectedBox: IBox) => {
-        this.countChildFolders(selectedBox) >= 5 ? this.addToCart(selectedBox) : "" 
-        this.cart.map(checkedItem => {
-            checkedItem.BoxIdBarCode === selectedBox.BoxIdBarCode ? this.removeFromCart(checkedItem.FolderIdBarCode) : ""
+    removeChildFolders = () => {
+        if (this.countChildFolders(this.box) >= 5) this.addToCart(this.box)
+
+        this.cart.forEach(checkedItem => {
+            if (checkedItem.BoxIdBarCode === this.box.BoxIdBarCode)
+                this.removeFromCart(checkedItem.FolderIdBarCode)
         })
         this.clearMessage()
     }
@@ -266,7 +231,7 @@ export class RequestState {
     @action
     removeGroupedFoldersMessage = (folder: IFolderOrBox) => {
         if (this.countChildFolders(folder) >= 5) {
-            this._dialogMessage = `You just added 5 folders from Box ${
+            this.dialogMessage = `You just added 5 folders from Box ${
                 this.box.BoxIdBarCode
             }. We recommend that you checkout the box instead. Would you like to remove these folders and check out Box ${
                 this.box.BoxIdBarCode
@@ -277,16 +242,14 @@ export class RequestState {
 
     @action
     countChildFolders = (parentBox: IFolderOrBox): number => {
-        let folderCount = 0
-        this.cart.map(item => {
-            item.BoxIdBarCode === parentBox.BoxIdBarCode ? folderCount++ : ""
-        })
-        return folderCount
+        return this.cart.filter(
+            item => item.BoxIdBarCode === parentBox.BoxIdBarCode
+        ).length
     }
 
-    @action 
-    removeParentBox = (parentBox: IFolderOrBox) => {
+    @action
+    removeParentBox = () => {
         this.clearMessage()
-        this.removeFromCart(parentBox.BoxIdBarCode)
+        this.removeFromCart(this.box.BoxIdBarCode)
     }
 }

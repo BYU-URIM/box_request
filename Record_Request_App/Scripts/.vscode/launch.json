@@ -5,20 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "node",
+            "type": "chrome",
             "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceFolder}/src/res/testing.js"
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch Program",
-            "program": "${file}",
-            "preLaunchTask": "tsc: build - tsconfig.json",
-            "outFiles": [
-                "${workspaceFolder}/dist/**/*.js"
-            ]
+            "name": "Attach Chrome against localhost",
+            "smartStep": true,
+            "timeout": 5000,
+            "linux": {
+                "sourceMaps": true,
+
+            },
+            "url": "http://localhost:8080/",
+            "webRoot": "${workspaceFolder}",
+            "skipFiles": [
+                "<node_internals>/**/*.js",
+                "/node_modules/",
+
+              ]
         }
     ]
 }

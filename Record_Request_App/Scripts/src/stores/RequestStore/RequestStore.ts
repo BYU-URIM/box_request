@@ -1,23 +1,26 @@
-import { action, observable, computed, ObservableMap } from "mobx"
-import { IBoxArr, IFolderArr } from "../../res"
-import { IBox, IFolder, IFolderOrBox } from "../../models/StoreModels"
-import { ModalTypes, CheckoutTypes } from "../../models"
+import { action, observable, computed } from "mobx"
+import { IFolder, IFolderOrBox, IBox } from "../../models/StoreModels"
+import { ModalTypes, ItemStatusTypes } from "../../models"
 import { RootStore } from "../RootStore/RootStore"
 import { FolderForm } from "./FolderForm"
 import { RequestForm } from "./RequestForm"
 import { RequestState } from "./RequestState"
-import { MessageBarType } from "office-ui-fabric-react";
+import { MessageBarType } from "office-ui-fabric-react"
 import { SessionStore } from "../SessionStore/SessionStore"
 export class RequestStore {
     sessionStore: SessionStore
-    @observable boxes: IBoxArr
-    @observable folders: IFolderArr
+    @observable boxes: Array<IBox>
+    @observable folders: Array<IFolder>
 
     @observable folderForm: FolderForm
     @observable requestForm: RequestForm
     @observable requestState: RequestState
 
-    constructor(folders: IFolderArr, boxes: IBoxArr, private root: RootStore) {
+    constructor(
+        folders: Array<IFolder>,
+        boxes: Array<IBox>,
+        private root: RootStore
+    ) {
         this.boxes = boxes
         this.folders = folders
         this.sessionStore = root.sessionStore
@@ -64,35 +67,53 @@ export class RequestStore {
             Location: this.requestState.box.Location,
             Folder_Description: "",
         })
-        // this.checkParentBox(this.folders[this.folders.length - 1]) ?
-        // this.requestState.addToCart(this.folders[this.folders.length-1]) : ""
         this.requestState.addToCart(this.folders[this.folders.length - 1])
         this.requestState.modal = ModalTypes.none
     }
 
     @action
-    submitRequest = () => {
+    submitRequest = (): void => {
         this.requestState.clearCart()
         this.requestState.modal = ModalTypes.none
         this.requestState.mBarType = MessageBarType.success
-        this.requestState.msgBarMessage = "Thank you. Your order has been submitted."
+        this.requestState.msgBarMessage =
+            "Thank you. Your order has been submitted."
     }
 
     @action
-    determineCheckoutType = (item: IFolderOrBox): string => {
-        return (this.canAddItem(item) && this.checkParentBox(item))
-            ? this.requestState.checkoutType = CheckoutTypes.request
-            : this.inYourPossession(item)
-                ? this.requestState.checkoutType = CheckoutTypes.hasCustody
-                : this.requestState.checkoutType = CheckoutTypes.unavailable
+    determineItemStatus = (item: IFolderOrBox): string => {
+        return !!item.FolderIdBarCode
+            ? this.determineFolderStatus(item as IFolder)
+            : this.determineBoxStatus(item.BoxIdBarCode)
     }
 
     @action
-    checkParentBox = (item:IFolderOrBox): boolean => {
+    determineBoxStatus = (_boxId?: number): ItemStatusTypes => {
+        const box = this.boxes.find(_b => _b.BoxIdBarCode === _boxId)
+        return box.Location === String(box.DepId)
+            ? ItemStatusTypes.checkedOutByClient
+            : box.Location.toLowerCase().startsWith("l") &&
+              box.Location.toLowerCase() !== "legal"
+                ? ItemStatusTypes.available
+                : ItemStatusTypes.unavailable
+    }
+
+    @action
+    determineFolderStatus = (_folder: IFolder): ItemStatusTypes => {
+        console.log(_folder.Location.toLowerCase() === "legal")
+        return _folder.Location === String(_folder.BoxIdBarCode)
+            ? this.determineBoxStatus(_folder.BoxIdBarCode)
+            : _folder.Location.toLowerCase() === "legal"
+                ? ItemStatusTypes.unavailable
+                : ItemStatusTypes.checkedOutByClient
+    }
+
+    @action
+    checkParentBox = (item: IFolderOrBox): boolean => {
         let x: boolean
         this.boxes.map(box => {
-            if(box.BoxIdBarCode === item.BoxIdBarCode) {
-                box.Location.startsWith("L") ? x = true : x = false
+            if (box.BoxIdBarCode === item.BoxIdBarCode) {
+                box.Location.startsWith("L") ? (x = true) : (x = false)
             }
         })
         return x
@@ -104,10 +125,20 @@ export class RequestStore {
             item.BoxIdBarCode === Number(item.Location)
         )
     }
+
+    @action
+    canAddItemToCart = (item: IFolderOrBox): boolean => {
+        console.log(this.requestState.cartContains(item))
+
+        if (this.requestState.cartContains(item)) {
+            return false
+        }
+        if (this.determineItemStatus(item) === ItemStatusTypes.available) {
+            return true
+        }
+        return false
+    }
     inYourPossession = (item: IFolderOrBox): boolean => {
         return item.Location === String(this.sessionStore.department)
     }
-    @action
-    itemInCheckout = (item: IFolderOrBox): boolean =>
-        this.requestState.cartContains(item)
 }

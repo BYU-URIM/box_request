@@ -5,8 +5,8 @@ import {
     IColumn,
     CheckboxVisibility,
 } from "office-ui-fabric-react"
-import { IFolder, IFolderOrBox } from "../../models/StoreModels"
-import { ModalTypes, CheckoutTypes } from "../../models"
+import { IFolder, IFolderOrBox, IBox } from "../../models/StoreModels"
+import { ModalTypes, ItemStatusTypes } from "../../models"
 import "./styles.scss"
 import { DetailListHeader } from ".."
 import { observer } from "mobx-react"
@@ -14,11 +14,14 @@ import { RequestState } from "../../stores"
 
 export interface IFolderViewProps {
     cart: Array<IFolderOrBox>
-    requestState: RequestState
-    checkoutStatus(box: IFolderOrBox): string
+    checkoutStatus(item: IFolderOrBox): string
     emptyMessage: string
     classNames: string
-    cartContains(item: IFolderOrBox): boolean
+    canAddItem(item: IFolderOrBox): boolean
+    addToCart(item: IFolderOrBox): void
+    box: IBox
+    folders: Array<IFolder>
+    modal: ModalTypes
 }
 
 export const FolderView = observer((props: IFolderViewProps) => {
@@ -44,42 +47,36 @@ export const FolderView = observer((props: IFolderViewProps) => {
             isResizable: true,
             ariaLabel: "Operations for checkoutFolder",
             onRender: (item: IFolder) => {
-                return (
-                    (props.checkoutStatus(item) === CheckoutTypes.request && props.requestState.dialogMessage.length === 0) ? (
-                        <button
-                            onClick={() => props.requestState.addToCart(item)}
-                            className={"ms-fontSize-mPlus ms-fontWeight-light"}
-                            disabled={props.requestState.cartContains(item)}
-                        >
-                            {props.checkoutStatus(item)}
-                        </button>
-                    ) : (
-                        props.checkoutStatus(item)
-                    )
+                return props.canAddItem(item) ? (
+                    <button
+                        onClick={() => props.addToCart(item)}
+                        className={"ms-fontSize-mPlus ms-fontWeight-light"}
+                    >
+                        {props.checkoutStatus(item)}
+                    </button>
+                ) : (
+                    props.checkoutStatus(item)
                 )
             },
         },
     ]
     const folderList =
-        props.requestState.box &&
-        props.requestState.folders.map((folder: IFolder) => {
+        props.box &&
+        props.folders.map((folder: IFolder) => {
             return {
                 key: folder.FolderIdBarCode,
-                checkoutFolder: () => props.requestState.addToCart(folder),
-                createFolder: () =>
-                    (props.requestState.modal = ModalTypes.create),
+                checkoutFolder: () => props.addToCart(folder),
+                createFolder: () => (props.modal = ModalTypes.create),
                 ...folder,
             }
         })
 
     return (
         <div className={props.classNames}>
-            {props.requestState.box ? (
+            {props.box ? (
                 <>
                     <DetailListHeader
-                        title={`Folders in Box B${
-                            props.requestState.box.BoxIdBarCode
-                        }`}
+                        title={`Folders in Box B${props.box.BoxIdBarCode}`}
                     />
                     <div>
                         <DetailsList
@@ -92,11 +89,9 @@ export const FolderView = observer((props: IFolderViewProps) => {
                                 <div key={_props.item.key}>
                                     {defaultRender({
                                         ..._props,
-                                        className: props.requestState.cartContains(
-                                            _props.item
-                                        )
-                                            ? "folderrow folderrow-disabled ms-fontSize-mPlus ms-fontWeight-light"
-                                            : "folderrow ms-fontSize-mPlus ms-fontWeight-light",
+                                        className: props.canAddItem(_props.item)
+                                            ? "folderrow ms-fontSize-mPlus ms-fontWeight-light"
+                                            : "folderrow folderrow-disabled ms-fontSize-mPlus ms-fontWeight-light",
                                     })}
                                 </div>
                             )}

@@ -28,7 +28,14 @@
     "jsx-key": true,
     "jsx-no-bind": true,
     "no-submodule-imports": false,
-    "prettier": true
+    "prettier": true,
+    "no-any": true
   },
+  "exclude": [
+    "node_modules",
+    "**/node_modules/*",
+    "static",
+    "dist"
+  ],
   "rulesDirectory": []
 }

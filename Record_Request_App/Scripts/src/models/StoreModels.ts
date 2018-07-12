@@ -19,7 +19,7 @@ export interface IBox {
     BoxIdBarCode: number
     Location: string
     DepartmentName: string
-    DepId: any
+    DepId: number
     inCart?: boolean
     BoxDescription: string
 }
@@ -31,19 +31,9 @@ export interface IFolderOrBox {
     Location?: string
     BoxIdBarCode?: number
     DepartmentName?: string
-    DepId?: any
+    DepId?: number
     inCart?: boolean
 }
-
-export interface IMockDataObj {
-    BoxIdBarCode: number
-    DepId: number
-    DepartmentName: string
-    DateSubmitted: string
-    FolderId?: any
-}
-
-export interface IMockDataArrObj extends Array<IMockDataObj> {}
 
 export interface IDepartment {
     name: string

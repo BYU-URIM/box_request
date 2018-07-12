@@ -7,16 +7,16 @@ export enum ModalTypes {
     none = "none",
 }
 
-export enum CheckoutTypes {
+export enum ItemStatusTypes {
     none = "none",
     notAvailable = "not available",
     depPossession = "in requesting department's possession",
 }
 
-export enum CheckoutTypes {
-    request = "+ Request",
+export enum ItemStatusTypes {
+    available = "+ Request",
     unavailable = "- Item Unavailable",
-    hasCustody = "- In Your Possession"
+    checkedOutByClient = "- In Your Possession"
 }
 
 export interface IRequestObject {

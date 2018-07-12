@@ -11,7 +11,7 @@ import "./styles.scss"
 import { DetailListHeader } from "../"
 import { observer } from "mobx-react"
 import { RequestState } from "../../stores"
-import { CheckoutTypes } from "../../models/App"
+import { ItemStatusTypes } from "../../models/App"
 
 export interface IBoxListProps {
     checkoutStatus(box: IFolderOrBox): string
@@ -64,8 +64,11 @@ export const BoxList = observer((props: IBoxListProps) => {
             isResizable: true,
             ariaLabel: "Operations for checkoutBox",
             onRender: (item: IBox) => {
-                return props.checkoutStatus(item) === CheckoutTypes.request &&
-                    props.requestState.dialogMessage.length === 0 ? (
+                return props.checkoutStatus(item) ===
+                    ItemStatusTypes.available &&
+                    // props.requestState.dialogMessage.length === 0 ? (
+                    item.BoxIdBarCode ===
+                        props.requestState.box.BoxIdBarCode ? (
                     <button
                         onClick={() => props.requestState.addToCart(item)}
                         className={"ms-fontSize-mPlus ms-fontWeight-light"}
@@ -96,7 +99,7 @@ export const BoxList = observer((props: IBoxListProps) => {
                     >
                         {props.selectedBoxId === item.BoxIdBarCode &&
                         props.requestState.dialogMessage.length === 0 &&
-                        props.checkoutStatus(item) === CheckoutTypes.request
+                        props.checkoutStatus(item) === ItemStatusTypes.available
                             ? "Create Folder"
                             : ""}
                     </p>

@@ -21,7 +21,7 @@ export class App extends React.Component<any, any> {
             <Fabric>
                 <div className={"ms-Grid"}>
                     <Greeting
-                        name={this.sessionStore.currentUser.name}
+                        name={this.sessionStore.user.name}
                         switchApp={this.sessionStore.switchApp}
                     />
                     <AppSelector switchApp={this.sessionStore.switchApp} />
