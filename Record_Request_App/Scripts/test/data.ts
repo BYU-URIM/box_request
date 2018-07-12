@@ -1,4 +1,4 @@
-import { DataService } from "../src/services"
+import { IBox } from "../src/models";
 
 export const data = {
     currentUser: {
@@ -48,3 +48,27 @@ export const data = {
         },
     ],
 }
+
+export const Boxes: Array<IBox> = [
+    {
+        BoxIdBarCode: 831084800,
+        Location: "L831038477",
+        DepartmentName: "Department of Defense",
+        DepId: 101,
+        BoxDescription: "Box of Records",
+    },
+    {
+        BoxDescription: "Box of Other Records",
+        BoxIdBarCode: 13884028,
+        DepartmentName: "Department of Stuff",
+        DepId: 102,
+        Location: "102",
+    },
+    {
+        BoxDescription: "Box of Cards",
+        BoxIdBarCode: 1038831,
+        DepartmentName: "Department of Blackjack",
+        DepId: 103,
+        Location: "102",
+    },
+]

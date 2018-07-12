@@ -1,11 +1,10 @@
 import { RequestState } from "../src/stores/"
 import { sessionStore } from "./SessionStore.test"
-import { data } from "./data"
+import { data, Boxes } from "./data"
 
 export const requestState = new RequestState(sessionStore, data.FolderArray, data.BoxArray)
 
 // addToCart
-
 test("Add box from dep 102 to cart", () => {
     requestState.addToCart(data.BoxArray[1])
     expect(requestState.cart).toHaveLength(1)
@@ -35,8 +34,7 @@ test("Returns the cart...", () => {
 })
 
 // sortBoxes
-
-
+// cant get requestState.boxes to return a value
 
 // uniqueDepartments
 test("Get unique dep ids", () => {
@@ -49,6 +47,11 @@ test("Get unique deps for user", () => {
 })
 
 // _closeDialog
+test("Dialog shouldn't show up, so it should be false.", () => {
+    requestState.dialogMessage = ""
+    expect(requestState._closeDialog).toBeTruthy()
+})
+
 // _openDialog
 // dropdownInfo
 // cartContains
