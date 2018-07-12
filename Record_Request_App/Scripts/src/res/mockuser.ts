@@ -7,7 +7,7 @@ export const mockUser: IUser = {
     username: "greggy",
     departments: [
         { id: 5555, name: "Department of Aerophysics" },
-        { id: 5556, name: "Department of Science" },
-        { id: 5557, name: "Department of Agriculture" },
+        // { id: 5556, name: "Department of Science" },
+        // { id: 5557, name: "Department of Agriculture" },
     ],
 }

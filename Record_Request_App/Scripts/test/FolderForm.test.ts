@@ -1,4 +1,4 @@
-import {FolderForm} from "../src/stores/"
+import { FolderForm } from "../src/stores/"
 
 const folderForm = new FolderForm(["folder 1", "folder 2", "folder 3"])
 
@@ -22,10 +22,14 @@ const folderForm = new FolderForm(["folder 1", "folder 2", "folder 3"])
 
 // --------------------------------------------------------------------------------------------------------------------------------------------------
 
-folderForm.folderName = "folder 40000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+folderForm.folderName =
+    "folder 40000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
 
-test("new folder with different name as existing folders is true", () => expect(folderForm.inputIsValid).toBe(false))
+test("new folder with different name as existing folders is true", () =>
+    expect(folderForm.inputIsValid).toBe(false))
 
 test("If not valid because its more than 50 characters, then this message", () => {
-    expect(folderForm.errorMessage).toBe("The new folder name must be less that 50 characters.")
+    expect(folderForm.errorMessage).toBe(
+        "The new folder name must be less that 50 characters."
+    )
 })

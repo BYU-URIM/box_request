@@ -1,4 +1,4 @@
-import {RequestForm} from "../src/stores/"
+import { RequestForm } from "../src/stores/"
 
 const requestForm = new RequestForm()
 
@@ -14,12 +14,15 @@ requestForm.deliveryInstructions = ""
 
 // ---------------------------------------------------------------------------------------------------------------------------------------
 
-requestForm.deliveryInstructions = "Yahoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"
+requestForm.deliveryInstructions =
+    "Yahoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"
 
 test("If text is more than 50 than input is not valid but false", () => {
     expect(requestForm.inputIsValid).toBe(false)
 })
 
 test("If input is invalid, then error message", () => {
-    expect(requestForm.errorMessage).toBe("Input must be less than 50 characters.")
+    expect(requestForm.errorMessage).toBe(
+        "Input must be less than 50 characters."
+    )
 })

@@ -8,22 +8,23 @@ import {
 } from "office-ui-fabric-react"
 import { RequestState } from "../../stores/RequestStore/RequestState"
 import { observer } from "mobx-react"
+import { IBox } from "../../models"
 
 export interface IWarningDialog {
-    requestState: RequestState
+    dialogMessage: string
+    removeParentBox(): void
+    removeChildFolders(): void
 }
 
 export const WarningDialog = observer((props: IWarningDialog) => {
     return (
         <Dialog
-            hidden={props.requestState.hiddenDialog}
-            onDismiss={() =>
-                props.requestState.removeParentBox(props.requestState.box)
-            }
+            hidden={false}
+            onDismiss={() => props.removeParentBox()}
             dialogContentProps={{
                 type: DialogType.normal,
                 title: "Box or Folders",
-                subText: `${props.requestState.dialogMessage}`,
+                subText: `${props.dialogMessage}`,
             }}
             modalProps={{
                 titleAriaId: "myLabelId",
@@ -36,22 +37,8 @@ export const WarningDialog = observer((props: IWarningDialog) => {
                 null /** You can also include null values as the result of conditionals */
             }
             <DialogFooter>
-                <PrimaryButton
-                    onClick={() =>
-                        props.requestState.removeChildFolders(
-                            props.requestState.box
-                        )
-                    }
-                    text="Yes"
-                />
-                <DefaultButton
-                    onClick={() =>
-                        props.requestState.removeParentBox(
-                            props.requestState.box
-                        )
-                    }
-                    text="No"
-                />
+                <PrimaryButton onClick={props.removeChildFolders} text="Yes" />
+                <DefaultButton onClick={props.removeParentBox} text="No" />
             </DialogFooter>
         </Dialog>
     )

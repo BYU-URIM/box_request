@@ -14,7 +14,7 @@ import { observer } from "mobx-react"
 import { RequestForm, RequestState } from "../../stores"
 
 export interface ISubmitModalProps {
-    submit(x): any
+    submit(): void
     requestForm: RequestForm
     requestState: RequestState
 }
@@ -85,10 +85,7 @@ export const SubmitModal = observer((props: ISubmitModalProps) => {
                 />
             </div>
             <div className={"submit-modal-footer"}>
-                <PrimaryButton
-                    text={"Submit"}
-                    onClick={x => props.submit(props.requestState.cart)}
-                />
+                <PrimaryButton text={"Submit"} onClick={props.submit} />
             </div>
         </div>
     )

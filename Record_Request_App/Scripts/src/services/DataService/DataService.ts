@@ -1,6 +1,6 @@
 import { IDataService } from "./"
-import { IUser } from "../../models"
-import { IBoxArr, boxData, folderData, IFolderArr } from "../../res"
+import { IUser, IBox, IFolder } from "../../models"
+import { boxData, folderData } from "../../res"
 
 export class DataService implements IDataService {
     /** USER/AUTH */
@@ -32,11 +32,11 @@ export class DataService implements IDataService {
         const data = await all.json()
         return data
     }
-    fetchBoxesByDepId = (_depId: number): Promise<IBoxArr> => {
+    fetchBoxesByDepId = (_depId: number): Promise<Array<IBox>> => {
         return new Promise(() => boxData.filter(box => box.DepId === _depId))
     }
 
-    fetchFoldersByBoxId = (_boxId: number): Promise<IFolderArr> => {
+    fetchFoldersByBoxId = (_boxId: number): Promise<Array<IFolder>> => {
         return new Promise(() =>
             folderData.filter(folder => folder.BoxIdBarCode === _boxId)
         )

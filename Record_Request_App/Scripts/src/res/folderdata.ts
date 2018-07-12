@@ -1,8 +1,7 @@
 import { IFolder } from "../models/StoreModels"
 
-export interface IFolderArr extends Array<IFolder> {}
 
-export const folderData: IFolderArr = [
+export const folderData: Array<IFolder> = [
     {
         FolderIdBarCode: 537020,
         FolderName: "Traver",
@@ -52,7 +51,7 @@ export const folderData: IFolderArr = [
         FolderName: "Giordano",
         BoxIdBarCode: 520868,
         Folder_Description: "Astigmatism",
-        Location: "520868",
+        Location: "legal",
     },
     {
         FolderIdBarCode: 425096,
@@ -60,7 +59,7 @@ export const folderData: IFolderArr = [
         BoxIdBarCode: 978267,
         Folder_Description:
             "Other specified diabetes mellitus with hypoglycemia",
-        Location: "TESTER",
+        Location: "978267",
     },
     {
         FolderIdBarCode: 425097,

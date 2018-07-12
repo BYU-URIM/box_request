@@ -18,6 +18,7 @@ import { RequestState, RequestStore } from "../../stores"
 
 @inject("rootStore")
 @observer
+// tslint:disable-next-line:no-any
 export class BoxRequest extends React.Component<any, any> {
     render() {
         const requestStore: RequestStore = this.props.rootStore.requestStore
@@ -30,18 +31,27 @@ export class BoxRequest extends React.Component<any, any> {
                             <MsgBar requestState={requestState} />
                         )}
                         {requestState.dialogMessage.length > 0 && (
-                            <WarningDialog requestState={requestState} />
+                            <WarningDialog
+                                removeChildFolders={
+                                    requestState.removeChildFolders
+                                }
+                                removeParentBox={requestState.removeParentBox}
+                                dialogMessage={requestState.dialogMessage}
+                            />
                         )}
                     </div>
                 </div>
                 <div className={"ms-Grid-row"}>
                     <div className={requestState.dropdownInfo.style}>
                         <DepartmentDropdown
-                            changeSelectedDep={(department: number) =>
-                                (requestStore.sessionStore.departmentId = department)
+                            handleChanged={(department: number) =>
+                                (requestStore.sessionStore.department.id = department)
                             }
-                            sessionStore={requestStore.sessionStore}
-                            requestState={requestState}
+                            options={
+                                requestStore.sessionStore
+                                    .userDepartmentsAsOptions
+                            }
+                            dropdownInfo={requestState.dropdownInfo}
                         />
                     </div>
                 </div>
@@ -77,7 +87,7 @@ export class BoxRequest extends React.Component<any, any> {
                                 }
                                 requestState={requestState}
                                 checkoutStatus={item =>
-                                    requestStore.determineCheckoutType(item)
+                                    requestStore.determineItemStatus(item)
                                 }
                                 classNames={
                                     "ms-Grid-col ms-sm4 scroll-container"
@@ -90,12 +100,12 @@ export class BoxRequest extends React.Component<any, any> {
                             />
 
                             <FolderView
-                                cartContains={(item: IFolderOrBox) =>
-                                    requestState.cartContains(item)
+                                canAddItem={(item: IFolderOrBox) =>
+                                    requestStore.canAddItemToCart(item)
                                 }
                                 cart={requestState.cart}
                                 checkoutStatus={item =>
-                                    requestStore.determineCheckoutType(item)
+                                    requestStore.determineItemStatus(item)
                                 }
                                 emptyMessage={
                                     requestStore.sessionStore.department !==
@@ -103,7 +113,10 @@ export class BoxRequest extends React.Component<any, any> {
                                     "Click on a box to view its folders"
                                 }
                                 classNames={"ms-Grid-col ms-sm2"}
-                                requestState={requestState}
+                                addToCart={requestState.addToCart}
+                                box={requestState.box}
+                                folders={requestState.folders}
+                                modal={requestState.modal}
                             />
                             <div className={"ms-Grid-col ms-sm1"} />
 

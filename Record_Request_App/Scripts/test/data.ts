@@ -1,8 +1,8 @@
-import { IBox } from "../src/models";
+import { IBox } from "../src/models"
 
 export const data = {
     currentUser: {
-        departments: [{name: "Department of Defense", id: 101}, {name: "Box of Other Records", id: 102}],
+        departments: [{ name: "Department of Defense", id: 101 }],
         email: "johnson@hotmail.com",
         Id: "User Id what?",
         name: "Jordan Johnson",

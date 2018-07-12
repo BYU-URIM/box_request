@@ -2,7 +2,11 @@ import { RequestState } from "../src/stores/"
 import { sessionStore } from "./SessionStore.test"
 import { data, Boxes } from "./data"
 
-export const requestState = new RequestState(sessionStore, data.FolderArray, data.BoxArray)
+export const requestState = new RequestState(
+    sessionStore,
+    data.FolderArray,
+    data.BoxArray
+)
 
 // addToCart
 test("Add box from dep 102 to cart", () => {
@@ -16,7 +20,6 @@ test("Removes ALL items from the cart", () => {
     expect(requestState.cart).toHaveLength(3)
     requestState.clearCart()
     expect(requestState.cart).toHaveLength(0)
-
 })
 
 // removeFromCart
@@ -36,21 +39,29 @@ test("Returns the cart...", () => {
 // sortBoxes
 // cant get requestState.boxes to return a value
 
-// uniqueDepartments
-test("Get unique dep ids", () => {
-    expect(requestState.uniqueDepartments.map(dep => dep.id)).toEqual([101, 102, 103])
+test("Returns filtered boxes", () => {
+    const boxId: number = requestState.boxes[0].BoxIdBarCode || 0
+    expect(requestState.boxes.length).toBe(1)
+    expect(boxId).toBe(831084800)
 })
+
+// uniqueDepartments
+// test("Get unique dep ids", () => {
+//     expect(requestState.uniqueDepartments.map(dep => dep.id)).toEqual([
+//         101,
+//         102,
+//         103,
+//     ])
+// })
 
 // userDepartments
-test("Get unique deps for user", () => {
-    expect(requestState.userDepartments.map(dep => dep.id)).toEqual([101, 102, 103])
-})
-
-// _closeDialog
-test("Dialog shouldn't show up, so it should be false.", () => {
-    requestState.dialogMessage = ""
-    expect(requestState._closeDialog).toBeTruthy()
-})
+// test("Get unique deps for user", () => {
+//     expect(requestState.userDepartments.map(dep => dep.id)).toEqual([
+//         101,
+//         102,
+//         103,
+//     ])
+// })
 
 // _openDialog
 // dropdownInfo

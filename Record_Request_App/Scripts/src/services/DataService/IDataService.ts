@@ -1,8 +1,7 @@
-import { IUser } from "../../models/StoreModels"
-import { IBoxArr, IFolderArr } from "../../res"
+import { IUser, IBox, IFolder } from "../../models/StoreModels"
 
 export interface IDataService {
     fetchUser(): Promise<IUser>
-    fetchBoxesByDepId(depId: number): Promise<IBoxArr>
-    fetchFoldersByBoxId(boxId: number): Promise<IFolderArr>
+    fetchBoxesByDepId(depId: number): Promise<Array<IBox>>
+    fetchFoldersByBoxId(boxId: number): Promise<Array<IFolder>>
 }

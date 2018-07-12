@@ -1,36 +1,33 @@
 import * as React from "react"
-import { Dropdown } from "office-ui-fabric-react"
+import { Dropdown, IDropdown } from "office-ui-fabric-react"
 import "./styles.scss"
 import { observer } from "mobx-react"
-import { SessionStore, RequestState } from "../../stores"
+import {
+    SessionStore,
+    RequestState,
+    IOption,
+    IDropdownInfo,
+} from "../../stores"
 
 export interface IUserDepsProps {
-    changeSelectedDep(dep: number)
-    sessionStore: SessionStore
-    requestState: RequestState
+    handleChanged(key: number): void
+    options: Array<IOption>
+    dropdownInfo: IDropdownInfo
 }
 
 export const DepartmentDropdown = observer((props: IUserDepsProps) => {
     return (
         <div>
             <h1 className="ms-font-xxl department-dropdown-center">
-                {props.requestState.dropdownInfo.title}
+                {props.dropdownInfo.title}
             </h1>
             <Dropdown
-                placeHolder="Departments"
-                options={props.sessionStore.userDepartments.map(department => {
-                    return {
-                        key: department.id,
-                        text: `${department.id} - ${department.name}`,
-                        value: "not a value",
-                    }
-                })}
-                onChanged={department =>
-                    props.changeSelectedDep(Number(department.key))
-                }
+                placeHolder={props.dropdownInfo.placeHolder}
+                options={props.options}
+                selectedKey={props.dropdownInfo.key}
+                onChanged={item => props.handleChanged(Number(item.key))}
                 id={"test"}
-                disabled={props.requestState.dropdownInfo.disabled}
-                defaultSelectedKey={props.requestState.dropdownInfo.selectedKey}
+                disabled={props.options.length === 1}
             />
         </div>
     )
