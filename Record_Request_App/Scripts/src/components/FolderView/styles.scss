@@ -17,19 +17,12 @@
         cursor: pointer;
     }
 }
-.folderrow-disabled button {
-    border: 0px;
-    background: transparent;
-    outline: none;
-    padding: 0px;
-    font-size: 15px;
-    color: gray;
-    cursor: not-allowed;
-}
 
 .folderrow-disabled p {
     margin: 0px;
     padding: 0px;
+    color: gray;
+    cursor: not-allowed;
 }
 
 .empty-message {

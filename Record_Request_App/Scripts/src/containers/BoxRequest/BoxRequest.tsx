@@ -111,6 +111,7 @@ export class BoxRequest extends React.Component<any, any> {
                                 dialogMessage={requestState.dialogMessage}
                                 sortBoxes={requestState.sortBoxes}
                                 cartContains={(item) => requestState.cartContains(item)}
+                                canAddItemToCart={(item) => requestStore.canAddItemToCart(item)}
                             />
 
                             <FolderView

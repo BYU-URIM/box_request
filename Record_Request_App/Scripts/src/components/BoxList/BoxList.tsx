@@ -24,6 +24,7 @@ export interface IBoxListProps {
     dialogMessage: string
     sortBoxes: Array<IFolderOrBox>
     cartContains(item): boolean
+    canAddItemToCart(item): void
 }
 
 export const BoxList = observer((props: IBoxListProps) => {
@@ -67,10 +68,7 @@ export const BoxList = observer((props: IBoxListProps) => {
             isResizable: true,
             ariaLabel: "Operations for checkoutBox",
             onRender: (item: IBox) => {
-                return props.checkoutStatus(item) ===
-                    ItemStatusTypes.available &&
-                    item.BoxIdBarCode ===
-                        props.box.BoxIdBarCode ? (
+                return props.canAddItemToCart(item) ? (
                     <button
                         onClick={() => props.addToCart(item)}
                         className={"ms-fontSize-mPlus ms-fontWeight-light"}
@@ -78,9 +76,7 @@ export const BoxList = observer((props: IBoxListProps) => {
                         {props.checkoutStatus(item)}
                     </button>
                 ) : (
-                    <p className="boxlist-row-disabled">
-                        {props.checkoutStatus(item)}
-                    </p>
+                    <p>{props.checkoutStatus(item)}</p>
                 )
             },
         },
@@ -138,11 +134,11 @@ export const BoxList = observer((props: IBoxListProps) => {
                                 >
                                     {defaultRender({
                                         ..._props,
-                                        className: props.cartContains(
+                                        className: props.canAddItemToCart(
                                             _props.item
                                         )
-                                            ? "boxlist-row-disabled ms-fontSize-mPlus ms-fontWeight-light"
-                                            : "boxlist-row ms-fontSize-mPlus ms-fontWeight-light",
+                                            ? "boxlist-row ms-fontSize-mPlus ms-fontWeight-light"
+                                            : "boxlist-row-disabled ms-fontSize-mPlus ms-fontWeight-light",
                                     })}
                                 </div>
                             )
