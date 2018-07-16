@@ -14,8 +14,8 @@ export const sessionStore = new SessionStore(data.currentUser, rootStore)
 sessionStore.department = data.currentUser.departments[0]
 
 // switchApp
-// department
 
+// department
 test("Function only pulls departments 101, which the user has.", () => {
     expect(
         sessionStore.userDepartments.map(department => department.id)
