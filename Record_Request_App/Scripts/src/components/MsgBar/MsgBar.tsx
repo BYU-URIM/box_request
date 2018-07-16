@@ -4,11 +4,12 @@ import {
     MessageBarType,
     MessageBarButton,
 } from "office-ui-fabric-react"
-import { RequestState } from "../../stores"
 import { observer } from "mobx-react"
 
 export interface IWarningBar {
-    requestState: RequestState
+    messageBarType: MessageBarType
+    clearMessage(): void
+    message: string
 }
 
 
@@ -17,18 +18,18 @@ export interface IWarningBar {
 export const MsgBar = observer((props: IWarningBar) => {
     return (
         <MessageBar
-            messageBarType={props.requestState.mBarType}
+            messageBarType={props.messageBarType}
             isMultiline={false}
             dismissButtonAriaLabel="Close"
             actions={
                     <MessageBarButton
-                        onClick={() => (props.requestState.clearMessage())}
+                        onClick={() => (props.clearMessage())}
                     >
                         OK
                     </MessageBarButton>             
             }
         >
-        {props.requestState.msgBarMessage}
+        {props.message}
         </MessageBar>
     )
 })

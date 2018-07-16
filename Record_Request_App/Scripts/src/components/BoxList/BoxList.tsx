@@ -19,9 +19,12 @@ export interface IBoxListProps {
     requestState: RequestState
     initializeFolderForm(): void
     selectedBoxId: number
+    addToCart(item): void
+    box: IBox
+    dialogMessage: string
+    sortBoxes: Array<IFolderOrBox>
+    cartContains(item): boolean
 }
-
-// --------------------------------------------------------------------------
 
 export const BoxList = observer((props: IBoxListProps) => {
     const columns: IColumn[] = [
@@ -66,11 +69,10 @@ export const BoxList = observer((props: IBoxListProps) => {
             onRender: (item: IBox) => {
                 return props.checkoutStatus(item) ===
                     ItemStatusTypes.available &&
-                    // props.requestState.dialogMessage.length === 0 ? (
                     item.BoxIdBarCode ===
-                        props.requestState.box.BoxIdBarCode ? (
+                        props.box.BoxIdBarCode ? (
                     <button
-                        onClick={() => props.requestState.addToCart(item)}
+                        onClick={() => props.addToCart(item)}
                         className={"ms-fontSize-mPlus ms-fontWeight-light"}
                     >
                         {props.checkoutStatus(item)}
@@ -98,7 +100,7 @@ export const BoxList = observer((props: IBoxListProps) => {
                         onClick={props.initializeFolderForm}
                     >
                         {props.selectedBoxId === item.BoxIdBarCode &&
-                        props.requestState.dialogMessage.length === 0 &&
+                        props.dialogMessage.length === 0 &&
                         props.checkoutStatus(item) === ItemStatusTypes.available
                             ? "Create Folder"
                             : ""}
@@ -110,11 +112,11 @@ export const BoxList = observer((props: IBoxListProps) => {
 
     return (
         <div className={props.classNames}>
-            {props.requestState.sortBoxes.length > 0 && (
+            {props.sortBoxes.length > 0 && (
                 <>
                     <DetailListHeader title={"Boxes"} />
                     <DetailsList
-                        items={props.requestState.sortBoxes}
+                        items={props.sortBoxes}
                         columns={columns}
                         layoutMode={DetailsListLayoutMode.fixedColumns}
                         checkboxVisibility={CheckboxVisibility.hidden}
@@ -124,17 +126,19 @@ export const BoxList = observer((props: IBoxListProps) => {
                                     key={_props.item.key}
                                     onClick={() => {
                                         if (
-                                            props.requestState.dialogMessage
+                                            props.dialogMessage
                                                 .length === 0
                                         ) {
+                                            /////////////////////////
                                             props.requestState.box = _props.item
                                         }
+                                        //////////////////////////////
                                     }}
                                     className={"boxlist-row"}
                                 >
                                     {defaultRender({
                                         ..._props,
-                                        className: props.requestState.cartContains(
+                                        className: props.cartContains(
                                             _props.item
                                         )
                                             ? "boxlist-row-disabled ms-fontSize-mPlus ms-fontWeight-light"
