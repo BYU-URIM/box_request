@@ -16,7 +16,7 @@ export enum ItemStatusTypes {
 export enum ItemStatusTypes {
     available = "+ Request",
     unavailable = "- Item Unavailable",
-    checkedOutByClient = "- In Your Possession"
+    checkedOutByClient = "- In Your Possession",
 }
 
 export interface IRequestObject {

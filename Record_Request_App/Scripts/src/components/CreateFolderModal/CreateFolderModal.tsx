@@ -39,7 +39,9 @@ export const CreateFolderModal = observer((props: ICreateFolderModalProps) => {
                     type={"text"}
                     description={"Warning: You cannot change this later."}
                     value={props.requestStore.folderForm.folderName}
-                    onChanged={val => (props.requestStore.folderForm.folderName = val)}
+                    onChanged={val =>
+                        (props.requestStore.folderForm.folderName = val)
+                    }
                     required={true}
                     autoFocus={true}
                     label={"Folder Name"}

@@ -11,7 +11,6 @@ export interface IWarningBar {
     requestState: RequestState
 }
 
-
 // ----------------------------------------------
 
 export const MsgBar = observer((props: IWarningBar) => {
@@ -21,14 +20,14 @@ export const MsgBar = observer((props: IWarningBar) => {
             isMultiline={false}
             dismissButtonAriaLabel="Close"
             actions={
-                    <MessageBarButton
-                        onClick={() => (props.requestState.clearMessage())}
-                    >
-                        OK
-                    </MessageBarButton>             
+                <MessageBarButton
+                    onClick={() => props.requestState.clearMessage()}
+                >
+                    OK
+                </MessageBarButton>
             }
         >
-        {props.requestState.msgBarMessage}
+            {props.requestState.msgBarMessage}
         </MessageBar>
     )
 })

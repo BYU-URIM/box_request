@@ -1,6 +1,5 @@
 import { IFolder } from "../models/StoreModels"
 
-
 export const folderData: Array<IFolder> = [
     {
         FolderIdBarCode: 537020,

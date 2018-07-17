@@ -34,12 +34,15 @@ export const Checkout = observer((props: ICheckoutProps) => {
             ariaLabel: "Operations for pendingItemRequests",
             onRender: (item: IFolderOrBox) => (
                 <div>
-                {item.FolderIdBarCode ?
-                    <Icon iconName="FabricFolder"/> :
-                    <Icon iconName="GiftboxSolid"/>
-                }
+                    {item.FolderIdBarCode ? (
+                        <Icon iconName="FabricFolder" />
+                    ) : (
+                        <Icon iconName="GiftboxSolid" />
+                    )}
                     <p>
-                        {item.FolderIdBarCode ? `-  ${item.FolderName}` : item.BoxIdBarCode}
+                        {item.FolderIdBarCode
+                            ? `-  ${item.FolderName}`
+                            : item.BoxIdBarCode}
                     </p>
                 </div>
             ),
@@ -65,7 +68,11 @@ export const Checkout = observer((props: ICheckoutProps) => {
             isResizable: false,
             ariaLabel: "Operations for parentBox",
             onRender: (item: IFolderOrBox) => (
-                <p>{item.FolderIdBarCode ? `Box - ${item.BoxIdBarCode}` : `Dep - ${item.DepId}`}</p>
+                <p>
+                    {item.FolderIdBarCode
+                        ? `Box - ${item.BoxIdBarCode}`
+                        : `Dep - ${item.DepId}`}
+                </p>
             ),
         },
         {
@@ -117,7 +124,9 @@ export const Checkout = observer((props: ICheckoutProps) => {
                         <PrimaryButton
                             text={"Submit Request"}
                             onClick={props.initializeRequestForm}
-                            disabled={props.requestState.dialogMessage.length !== 0}
+                            disabled={
+                                props.requestState.dialogMessage.length !== 0
+                            }
                         />
                     </div>
                 </div>
