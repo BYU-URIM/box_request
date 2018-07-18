@@ -1,5 +1,5 @@
-import { SessionStore, RootStore } from "../src/stores/"
-import { data } from "./data"
+import { SessionStore, RootStore, RequestStore } from "../src/stores/"
+import * as data from "./data"
 import { DataService } from "../src/services"
 
 const rootStore = new RootStore(
@@ -11,11 +11,13 @@ const rootStore = new RootStore(
 
 export const sessionStore = new SessionStore(data.currentUser, rootStore)
 
-// switchApp
-// department
+sessionStore.department = data.currentUser.departments[0]
 
+// switchApp
+
+// department
 test("Function only pulls departments 101, which the user has.", () => {
     expect(
         sessionStore.userDepartments.map(department => department.id)
-    ).toEqual([101])
+    ).toEqual([101, 102])
 })

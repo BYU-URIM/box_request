@@ -1,15 +1,11 @@
 import { ModalTypes, ItemStatusTypes } from "../../models"
 import { observable, computed, action } from "mobx"
 
-import { RequestStore } from "./RequestStore"
 import {
     IBox,
     IFolder,
     IFolderOrBox,
-    IUser,
-    IDepartment,
 } from "../../models/StoreModels"
-import { mockUser } from "../../res"
 import { MessageBarType } from "office-ui-fabric-react"
 import { SessionStore } from "../SessionStore/SessionStore"
 
@@ -151,18 +147,6 @@ export class RequestState {
         )
     }
 
-    // @computed
-    // get uniqueDepartments(): Array<IDepartment> {
-    //     return this.boxes.(boxItem => {
-    //         if (!depList.find(box => box.id === boxItem.DepId)) {
-    //             depList.push({
-    //                 name: boxItem.DepartmentName,
-    //                 id: boxItem.DepId,
-    //             })
-    //         }
-    //     })
-    // }
-
     @computed
     get dropdownInfo(): IDropdownInfo {
         const info: IDropdownInfo = {
@@ -206,7 +190,6 @@ export class RequestState {
                 }. Would you like to remove Box ${
                     box.BoxIdBarCode
                 }'s folder(s) from checkout?`
-                this.mBarType = MessageBarType.warning
             }
         })
     }
@@ -236,7 +219,6 @@ export class RequestState {
             }. We recommend that you checkout the box instead. Would you like to remove these folders and check out Box ${
                 this.box.BoxIdBarCode
             }?`
-            this.mBarType = MessageBarType.warning
         }
     }
 

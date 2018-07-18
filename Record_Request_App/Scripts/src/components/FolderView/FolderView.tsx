@@ -55,7 +55,7 @@ export const FolderView = observer((props: IFolderViewProps) => {
                         {props.checkoutStatus(item)}
                     </button>
                 ) : (
-                    props.checkoutStatus(item)
+                    <p>{props.checkoutStatus(item)}</p>
                 )
             },
         },
@@ -91,7 +91,7 @@ export const FolderView = observer((props: IFolderViewProps) => {
                                         ..._props,
                                         className: props.canAddItem(_props.item)
                                             ? "folderrow ms-fontSize-mPlus ms-fontWeight-light"
-                                            : "folderrow folderrow-disabled ms-fontSize-mPlus ms-fontWeight-light",
+                                            : "folderrow-disabled ms-fontSize-mPlus ms-fontWeight-light",
                                     })}
                                 </div>
                             )}

@@ -100,7 +100,6 @@ export class RequestStore {
 
     @action
     determineFolderStatus = (_folder: IFolder): ItemStatusTypes => {
-        console.log(_folder.Location.toLowerCase() === "legal")
         return _folder.Location === String(_folder.BoxIdBarCode)
             ? this.determineBoxStatus(_folder.BoxIdBarCode)
             : _folder.Location.toLowerCase() === "legal"
@@ -128,8 +127,6 @@ export class RequestStore {
 
     @action
     canAddItemToCart = (item: IFolderOrBox): boolean => {
-        console.log(this.requestState.cartContains(item))
-
         if (this.requestState.cartContains(item)) {
             return false
         }
