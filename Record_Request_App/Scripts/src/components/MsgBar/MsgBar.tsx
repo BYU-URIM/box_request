@@ -12,7 +12,6 @@ export interface IWarningBar {
     message: string
 }
 
-
 // ----------------------------------------------
 
 export const MsgBar = observer((props: IWarningBar) => {
