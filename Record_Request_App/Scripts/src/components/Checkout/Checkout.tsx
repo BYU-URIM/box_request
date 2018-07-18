@@ -11,13 +11,14 @@ import {
 import "./styles.scss"
 import { DetailListHeader } from ".."
 import { observer } from "mobx-react"
-import { RequestState } from "../../stores"
 import { IFolderOrBox } from "../../models/StoreModels"
 
 export interface ICheckoutProps {
-    requestState: RequestState
+    cart: Array<IFolderOrBox>
     classNames: string
+    dialogMessage: string
     initializeRequestForm(): void
+    removeFromCart(item): void
 }
 
 // --------------------------------------------------------------------------
@@ -89,24 +90,24 @@ export const Checkout = observer((props: ICheckoutProps) => {
                     }}
                     className={"delete-icon"}
                     onClick={() =>
-                        props.requestState.removeFromCart(
+                        props.removeFromCart(
                             item.FolderIdBarCode
                                 ? item.FolderIdBarCode
                                 : item.BoxIdBarCode
                         )
                     }
-                    disabled={props.requestState.dialogMessage.length !== 0}
+                    disabled={props.dialogMessage.length !== 0}
                 />
             ),
         },
     ]
     return (
         <div className={`${props.classNames}`}>
-            {props.requestState.cart.length > 0 && (
+            {props.cart.length > 0 && (
                 <div>
                     <DetailListHeader title={"Checkout"} />
                     <DetailsList
-                        items={props.requestState.cart}
+                        items={props.cart}
                         columns={columns}
                         compact={true}
                         layoutMode={DetailsListLayoutMode.fixedColumns}
@@ -124,9 +125,7 @@ export const Checkout = observer((props: ICheckoutProps) => {
                         <PrimaryButton
                             text={"Submit Request"}
                             onClick={props.initializeRequestForm}
-                            disabled={
-                                props.requestState.dialogMessage.length !== 0
-                            }
+                            disabled={props.dialogMessage.length !== 0}
                         />
                     </div>
                 </div>

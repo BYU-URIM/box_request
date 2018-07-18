@@ -23,13 +23,10 @@ export class SessionStore {
                   _department => _department.id === this._departmentId
               )
     }
-    // @computed
-    // get departmentId(): number {
-    //     return this._departmentId
-    // }
-    // set departmentId(_departmentId: number) {
-    //     this._departmentId = _departmentId
-    // }
+    set department(val: IDepartment) {
+        this._departmentId = val.id
+    }
+
     @computed
     get appMode(): AppModes {
         return this._appMode

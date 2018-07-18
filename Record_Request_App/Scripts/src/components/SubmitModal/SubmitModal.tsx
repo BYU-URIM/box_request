@@ -11,12 +11,12 @@ import {
 import { ModalTypes } from "../../models/App"
 import "./styles.scss"
 import { observer } from "mobx-react"
-import { RequestForm, RequestState } from "../../stores"
+import { RequestForm } from "../../stores"
 
 export interface ISubmitModalProps {
     submit(): void
     requestForm: RequestForm
-    requestState: RequestState
+    modal: ModalTypes
 }
 
 // ----------------------------------------------
@@ -28,7 +28,7 @@ export const SubmitModal = observer((props: ISubmitModalProps) => {
                 <label className={"ms-font-xl"}>Item Request</label>
                 <IconButton
                     text={"Cancel"}
-                    onClick={() => (props.requestState.modal = ModalTypes.none)}
+                    onClick={() => (props.modal = ModalTypes.none)}
                     iconProps={{
                         iconName: "cancel",
                         iconType: IconType.default,
