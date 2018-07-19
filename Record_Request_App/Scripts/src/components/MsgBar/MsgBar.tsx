@@ -21,14 +21,14 @@ export const MsgBar = observer((props: IWarningBar) => {
             isMultiline={false}
             dismissButtonAriaLabel="Close"
             actions={
-                    <MessageBarButton
-                        onClick={() => (props.clearMessage())}
-                    >
-                        OK
-                    </MessageBarButton>             
+                <MessageBarButton onClick={() => props.clearMessage()}>
+                    OK
+                </MessageBarButton>
             }
         >
-        {props.message}
+            {props.message}
         </MessageBar>
     )
 })
+
+export default MsgBar

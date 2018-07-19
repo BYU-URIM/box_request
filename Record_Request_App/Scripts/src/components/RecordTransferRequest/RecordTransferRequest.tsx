@@ -7,3 +7,5 @@ export interface IRecordTransferRequestProps {
 export const RecordTransferRequest = (props: IRecordTransferRequestProps) => {
     return <div className={"record-transfer-request-wrapper"} />
 }
+
+export default RecordTransferRequest

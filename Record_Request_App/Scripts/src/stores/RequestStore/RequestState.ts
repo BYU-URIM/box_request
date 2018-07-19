@@ -1,11 +1,7 @@
 import { ModalTypes, ItemStatusTypes } from "../../models"
 import { observable, computed, action } from "mobx"
 
-import {
-    IBox,
-    IFolder,
-    IFolderOrBox,
-} from "../../models/StoreModels"
+import { IBox, IFolder, IFolderOrBox } from "../../models/StoreModels"
 import { MessageBarType } from "office-ui-fabric-react"
 import { SessionStore } from "../SessionStore/SessionStore"
 

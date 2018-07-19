@@ -10,3 +10,5 @@ export const DetailListHeader = (props: IDetailListHeaderProps) => (
         <h2 className={"ms-font-xl center"}>{props.title}</h2>
     </div>
 )
+
+export default DetailListHeader

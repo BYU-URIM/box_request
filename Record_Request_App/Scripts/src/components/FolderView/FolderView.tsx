@@ -106,3 +106,5 @@ export const FolderView = observer((props: IFolderViewProps) => {
         </div>
     )
 })
+
+export default FolderView
