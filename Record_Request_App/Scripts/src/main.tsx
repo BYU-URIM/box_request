@@ -1,7 +1,7 @@
 import * as React from "react"
 import * as ReactDom from "react-dom"
 import { App } from "./containers"
-import { Provider, propTypes } from "mobx-react"
+import { Provider } from "mobx-react"
 import { DataServiceFactory } from "./services"
 
 const root = document.getElementById("root")
