@@ -19,3 +19,4 @@ export const AppSelector = (props: IAppSelectorProps) => {
         </div>
     )
 }
+export default AppSelector

@@ -32,3 +32,5 @@ export const DepartmentDropdown = observer((props: IUserDepsProps) => {
         </div>
     )
 })
+
+export default DepartmentDropdown

@@ -90,3 +90,5 @@ export const SubmitModal = observer((props: ISubmitModalProps) => {
         </div>
     )
 })
+
+export default SubmitModal

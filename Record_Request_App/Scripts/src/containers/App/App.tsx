@@ -24,7 +24,9 @@ export class App extends React.Component<any, any> {
                         name={this.sessionStore.user.name}
                         switchApp={this.sessionStore.switchApp}
                     />
-                    <AppSelector switchApp={this.sessionStore.switchApp} />
+                    <AppSelector
+                        switchApp={this.sessionStore.switchApp}
+                    />
                     {this.sessionStore.appMode === "BoxRequest" && (
                         <BoxRequest />
                     )}

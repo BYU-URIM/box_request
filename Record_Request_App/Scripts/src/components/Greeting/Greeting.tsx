@@ -16,3 +16,5 @@ export const Greeting = (props: IGreetingProps) => (
         </div>
     </div>
 )
+
+export default Greeting

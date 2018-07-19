@@ -4,7 +4,6 @@ import {
     DetailsListLayoutMode,
     IColumn,
     CheckboxVisibility,
-    ConstrainMode,
 } from "office-ui-fabric-react"
 import { IBox, IFolderOrBox } from "../../models"
 import "./styles.scss"
@@ -121,10 +120,7 @@ export const BoxList = observer((props: IBoxListProps) => {
                                 <div
                                     key={_props.item.key}
                                     onClick={() => {
-                                        if (
-                                            props.dialogMessage
-                                                .length === 0
-                                        ) {
+                                        if (props.dialogMessage.length === 0) {
                                             /////////////////////////
                                             props.requestState.box = _props.item
                                         }
@@ -149,3 +145,5 @@ export const BoxList = observer((props: IBoxListProps) => {
         </div>
     )
 })
+
+export default BoxList

@@ -133,3 +133,5 @@ export const Checkout = observer((props: ICheckoutProps) => {
         </div>
     )
 })
+
+export default Checkout

@@ -43,3 +43,5 @@ export const WarningDialog = observer((props: IWarningDialog) => {
         </Dialog>
     )
 })
+
+export default WarningDialog

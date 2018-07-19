@@ -63,3 +63,5 @@ export const CreateFolderModal = observer((props: ICreateFolderModalProps) => {
         </div>
     )
 })
+
+export default CreateFolderModal
