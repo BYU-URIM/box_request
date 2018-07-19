@@ -3,38 +3,31 @@ import * as React from "react"
 import { initializeIcons } from "@uifabric/icons"
 import "./styles.scss"
 import { Fabric } from "office-ui-fabric-react"
-import { SessionStore } from "../../stores"
+import { SessionStore, RootStore } from "../../stores"
 import { inject, observer } from "mobx-react"
 import { BoxCreator, BoxRequest } from ".."
 import { Greeting, AppSelector } from "../../components"
 
 initializeIcons()
-@inject("rootStore")
+@inject("sessionStore")
 @observer
-export class App extends React.Component<any, any> {
-    sessionStore: SessionStore
-    componentWillMount() {
-        this.sessionStore = this.props.rootStore.sessionStore
-    }
+export class App extends React.Component<{ sessionStore?: SessionStore }> {
     render() {
+        const { sessionStore } = this.props
         return (
             <Fabric>
                 <div className={"ms-Grid"}>
                     <Greeting
-                        name={this.sessionStore.user.name}
-                        switchApp={this.sessionStore.switchApp}
+                        name={sessionStore.user.name}
+                        switchApp={sessionStore.switchApp}
                     />
-                    <AppSelector
-                        switchApp={this.sessionStore.switchApp}
-                    />
-                    {this.sessionStore.appMode === "BoxRequest" && (
-                        <BoxRequest />
-                    )}
-                    {this.sessionStore.appMode === "BoxCreate" && (
-                        <BoxCreator />
-                    )}
+                    <AppSelector switchApp={sessionStore.switchApp} />
+                    {sessionStore.appMode === "BoxRequest" && <BoxRequest />}
+                    {sessionStore.appMode === "BoxCreate" && <BoxCreator />}
                 </div>
             </Fabric>
         )
     }
 }
+
+export default App

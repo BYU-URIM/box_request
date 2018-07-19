@@ -22,10 +22,7 @@ export const CreateFolderModal = observer((props: ICreateFolderModalProps) => {
         <div className={"create-modal-wrapper"}>
             <div className="create-modal-header">
                 <label className={"ms-font-xl"}>
-                    {" "}
-                    Create Folder - Box B{
-                        props.box
-                    }{" "}
+                    Create Folder - Box B{props.box}
                 </label>
                 <IconButton
                     text={"Cancel"}

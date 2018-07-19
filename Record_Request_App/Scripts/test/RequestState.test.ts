@@ -1,7 +1,7 @@
 import { RequestState } from "../src/stores/"
 import { sessionStore } from "./SessionStore.test"
 import * as data from "./data"
-import { IBox } from "../src/models";
+import { IBox } from "../src/models"
 
 export const requestState = new RequestState(
     sessionStore,
@@ -39,8 +39,7 @@ test("Returns the cart...", () => {
 
 // sortBoxes
 test("Returns sorted boxes", () => {
-    data.BoxArray.forEach(box => requestState.addToCart(box) )
-    requestState.sortBoxes
+    data.BoxArray.forEach(box => requestState.addToCart(box))
     const boxId: number = requestState.cart[0].BoxIdBarCode || 0
     expect(requestState.cart.length).toBe(4)
     expect(boxId).toBe(123)
@@ -55,15 +54,15 @@ test("Returns filtered boxes", () => {
 
 // cartContains
 test("The cart already contains this item...", () => {
-    data.BoxArray.forEach(box => requestState.addToCart(box))
+    data.BoxArray.forEach(_box => requestState.addToCart(_box))
     expect(requestState.cartContains(data.BoxArray[0])).toBeTruthy()
     const box: IBox = {
         BoxDescription: "Test",
         BoxIdBarCode: 789,
         DepartmentName: "Test Department",
         DepId: 456,
-        Location: "L5466"
-    } 
+        Location: "L5466",
+    }
     expect(requestState.cartContains(box)).toBeFalsy()
 })
 

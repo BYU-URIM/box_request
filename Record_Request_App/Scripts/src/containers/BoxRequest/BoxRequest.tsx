@@ -16,13 +16,14 @@ import { ModalTypes, IFolderOrBox } from "../../models"
 import Modal from "office-ui-fabric-react/lib/Modal"
 import { RequestState, RequestStore } from "../../stores"
 
-@inject("rootStore")
+@inject("requestStore", "requestState")
 @observer
-// tslint:disable-next-line:no-any
-export class BoxRequest extends React.Component<any, any> {
+export class BoxRequest extends React.Component<{
+    requestStore?: RequestStore
+    requestState?: RequestState
+}> {
     render() {
-        const requestStore: RequestStore = this.props.rootStore.requestStore
-        const requestState: RequestState = requestStore.requestState
+        const { requestStore, requestState } = this.props
         return (
             <>
                 <div className={"ms-Grid-row"}>
@@ -30,8 +31,7 @@ export class BoxRequest extends React.Component<any, any> {
                         {requestState.msgBarMessage.length > 0 && (
                             <MsgBar
                                 messageBarType={requestState.mBarType}
-                                clearMessage={() => 
-                                    requestState.clearMessage()}
+                                clearMessage={() => requestState.clearMessage()}
                                 message={requestState.msgBarMessage}
                             />
                         )}
@@ -106,12 +106,16 @@ export class BoxRequest extends React.Component<any, any> {
                                         : 0
                                 }
                                 requestState={requestState}
-                                addToCart={(item) => requestState.addToCart(item)}
+                                addToCart={item => requestState.addToCart(item)}
                                 box={requestState.box}
                                 dialogMessage={requestState.dialogMessage}
                                 sortBoxes={requestState.sortBoxes}
-                                cartContains={(item) => requestState.cartContains(item)}
-                                canAddItemToCart={(item) => requestStore.canAddItemToCart(item)}
+                                cartContains={item =>
+                                    requestState.cartContains(item)
+                                }
+                                canAddItemToCart={item =>
+                                    requestStore.canAddItemToCart(item)
+                                }
                             />
 
                             <FolderView
@@ -142,7 +146,9 @@ export class BoxRequest extends React.Component<any, any> {
                                 }
                                 cart={requestState.cart}
                                 dialogMessage={requestState.dialogMessage}
-                                removeFromCart={(item) => requestState.removeFromCart(item)}
+                                removeFromCart={item =>
+                                    requestState.removeFromCart(item)
+                                }
                             />
                             <div className={"ms-Grid-col ms-sm1"} />
                         </div>
