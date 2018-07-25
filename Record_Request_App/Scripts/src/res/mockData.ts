@@ -4,7 +4,10 @@ export const mockUser: IUser = {
     Id: "12345",
     email: "email@gmail.com",
     username: "greggy",
-    departments: [{ id: 5555, name: "Department of Aerophysics" }],
+    departments: [
+        { id: 5555, name: "Department of Aerophysics" },
+        { id: 5556, name: "Department of Science" },
+    ],
 }
 
 export const mockBoxes: Array<IBox> = [
