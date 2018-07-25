@@ -3,10 +3,12 @@
     "version": "1.0.0",
     "description": "",
     "scripts": {
-        "dev:local": "webpack-dev-server --env.NODE_ENV=local --mode=development --hints=off",
+        "dev:local":
+            "webpack-dev-server --env.NODE_ENV=local --mode=development --hints=off",
         "dev:sharepoint": "webpack --watch --env.NODE_ENV=sharepoint",
         "build": "webpack --env.NODE_ENV=sharepoint",
-        "build:production": "webpack --env.Node_ENV=sharepoint --optimize-minimize",
+        "build:production":
+            "webpack --env.Node_ENV=sharepoint --optimize-minimize",
         "test": "jest",
         "lint": "ts-node --project ./tsconfig.test.json ./tasks/lint.ts",
         "docz:dev": "docz dev",
@@ -56,13 +58,6 @@
             "^.+\\.tsx?$": "ts-jest"
         },
         "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(tsx?)$",
-        "moduleFileExtensions": [
-            "ts",
-            "tsx",
-            "js",
-            "jsx",
-            "json",
-            "node"
-        ]
+        "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"]
     }
 }

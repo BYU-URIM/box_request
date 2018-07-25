@@ -1,6 +1,6 @@
 import { IDataService } from "./"
 import { IUser, IBox, IFolder } from "../../models"
-import { boxData, folderData } from "../../res"
+import { mockBoxes, mockFolders } from "../../res"
 
 export class DataService implements IDataService {
     /** USER/AUTH */
@@ -33,12 +33,12 @@ export class DataService implements IDataService {
         return data
     }
     fetchBoxesByDepId = (_depId: number): Promise<Array<IBox>> => {
-        return new Promise(() => boxData.filter(box => box.DepId === _depId))
+        return new Promise(() => mockBoxes.filter(box => box.DepId === _depId))
     }
 
     fetchFoldersByBoxId = (_boxId: number): Promise<Array<IFolder>> => {
         return new Promise(() =>
-            folderData.filter(folder => folder.BoxIdBarCode === _boxId)
+            mockFolders.filter(folder => folder.BoxIdBarCode === _boxId)
         )
     }
 }

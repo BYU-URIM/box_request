@@ -1,3 +1,2 @@
-export * from "./boxdata"
-export * from "./folderdata"
-export * from "./mockuser"
+export * from "./mockData"
+export * from "./testData"

@@ -1,123 +1,64 @@
-import { RequestState } from "../src/stores/"
-import { sessionStore } from "./SessionStore.test"
-import * as data from "./data"
 import { IBox } from "../src/models"
+import { requestState } from "."
 
-export const requestState = new RequestState(
-    sessionStore,
-    data.FolderArray,
-    data.BoxArray
-)
-
-// addToCart
-test("Add box from dep 102 to cart", () => {
-    requestState.addToCart(data.BoxArray[1])
+test("Tests addToCart by adding box 1000 from dep 1 to cart", () => {
+    requestState.addToCart(requestState.boxes[0])
     expect(requestState.cart).toHaveLength(1)
 })
 
-// clearCart
-test("Removes ALL items from the cart", () => {
-    data.BoxArray.map(box => requestState.addToCart(box))
-    expect(requestState.cart.length).toBe(4)
+test("Tests clearCart by removing all items from cart", () => {
     requestState.clearCart()
     expect(requestState.cart).toHaveLength(0)
 })
 
-// removeFromCart
-test("Removes the item from the cart", () => {
-    requestState.addToCart(data.BoxArray[1])
+test("Tests removeFromCart by adding and removing an item from the cart", () => {
+    requestState.addToCart(requestState.boxes[0])
     expect(requestState.cart).toHaveLength(1)
-    requestState.removeFromCart(data.BoxArray[1].BoxIdBarCode)
+    requestState.removeFromCart(requestState.boxes[0].BoxIdBarCode)
     expect(requestState.cart).toHaveLength(0)
 })
 
-// cart
-test("Returns the cart...", () => {
-    requestState.addToCart(data.BoxArray[0])
-    expect(requestState.cart).toEqual([data.BoxArray[0]])
-})
-
-// sortBoxes
-test("Returns sorted boxes", () => {
-    data.BoxArray.forEach(box => requestState.addToCart(box))
-    const boxId: number = requestState.cart[0].BoxIdBarCode || 0
-    expect(requestState.cart.length).toBe(4)
-    expect(boxId).toBe(123)
-})
-
-// filterBoxes
-test("Returns filtered boxes", () => {
-    const boxId: number = requestState.boxes[0].BoxIdBarCode || 0
-    expect(requestState.boxes.length).toBe(2)
-    expect(boxId).toBe(831084800)
-})
-
-// cartContains
-test("The cart already contains this item...", () => {
-    data.BoxArray.forEach(_box => requestState.addToCart(_box))
-    expect(requestState.cartContains(data.BoxArray[0])).toBeTruthy()
-    const box: IBox = {
+test("Tests if the cart already contains an item", () => {
+    requestState.addToCart(requestState.boxes[0])
+    expect(requestState.cartContains(requestState.boxes[0])).toBeTruthy()
+    const testBox: IBox = {
         BoxDescription: "Test",
         BoxIdBarCode: 789,
         DepartmentName: "Test Department",
         DepId: 456,
         Location: "L5466",
     }
-    expect(requestState.cartContains(box)).toBeFalsy()
+    expect(requestState.cartContains(testBox)).toBeFalsy()
 })
 
-// removeChildFoldersMessage
-test("Message for removing child folders...", () => {
-    requestState.addToCart(data.BoxArray[0])
-    expect(requestState.dialogMessage.length).toBeGreaterThan(0)
+test("Tests adding and clearing a dialog message", () => {
+    requestState.dialogMessage = "test message"
+    expect(requestState.dialogMessage).toBe("test message")
     requestState.clearMessage()
     expect(requestState.dialogMessage.length).toBe(0)
 })
 
-// clearMessage
-test("Adds message and this function clears the message...", () => {
-    requestState.dialogMessage = "Hello world."
-    requestState.clearMessage()
-    expect(requestState.dialogMessage).toHaveLength(0)
-})
-
-// removeChildFolders
-test("If I add Box 831084800, its child folders are removed from cart...", () => {
+test("Tests removeChildFolders by adding box 1001 and removing it's child folders", () => {
     requestState.clearCart()
-    requestState.addToCart(data.FolderArray[0])
-    requestState.addToCart(data.FolderArray[1])
-    requestState.box = data.BoxArray[0]
-    requestState.removeChildFolders()
+    requestState.box = requestState.boxes[0]
+    requestState.addToCart(requestState.folders[0])
+    requestState.addToCart(requestState.folders[1])
+    requestState.box = requestState.boxes[0]
     requestState.addToCart(requestState.box)
+    requestState.removeChildFolders()
     expect(requestState.cart).toHaveLength(1)
 })
-test("Adding 5 folders from one box clears folders and adds box...", () => {
+test("Tests removeChildFolders that adding 5 folders from a single box removes the folders and adds the box", () => {
     requestState.clearCart()
-    data.FolderArray.forEach(folder => requestState.addToCart(folder))
-    requestState.box = data.BoxArray[3]
+    requestState.box = requestState.boxes[0]
+    requestState.folders.forEach(folder => requestState.addToCart(folder))
     requestState.removeChildFolders()
-    expect(requestState.cart.map(item => item.BoxIdBarCode)).toHaveLength(3)
+    expect(requestState.cart).toHaveLength(1)
 })
 
-// removeGroupedFoldersMessage
-test("Message for removing 5 or more folders...", () => {
-    data.FolderArray.forEach(folder => requestState.addToCart(folder))
-    requestState.removeGroupedFoldersMessage(data.FolderArray[4])
-    expect(requestState.dialogMessage).not.toHaveLength(0)
-})
-
-// countChildFolders
-test("Counts 2 Folders in Box 831084800", () => {
+test("Tests countChildFolders to count the 6 folders from box 1001", () => {
     requestState.clearCart()
-    data.FolderArray.forEach(folder => requestState.addToCart(folder))
-    expect(requestState.countChildFolders(data.BoxArray[0])).toBe(2)
-})
-
-// removeParentBox
-test("Adds all folders, adds box that makes message appear, removes box and message...", () => {
-    data.FolderArray.forEach(folder => requestState.addToCart(folder))
-    requestState.removeGroupedFoldersMessage(data.FolderArray[4])
-    requestState.box = data.BoxArray[3]
-    requestState.removeParentBox()
-    expect(requestState.dialogMessage).toHaveLength(0)
+    requestState.box = requestState.boxes[0]
+    requestState.folders.forEach(folder => requestState.addToCart(folder))
+    expect(requestState.countChildFolders(requestState.boxes[0])).toBe(6)
 })
