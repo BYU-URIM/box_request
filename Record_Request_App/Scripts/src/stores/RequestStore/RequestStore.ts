@@ -24,15 +24,14 @@ export class RequestStore {
         this.boxes = boxes
         this.folders = folders
         this.sessionStore = root.sessionStore
-    }
-
-    init = async () => {
-        this.requestState = await new RequestState(
+        this.requestState = new RequestState(
             this.sessionStore,
             this.folders,
             this.boxes
         )
+    }
 
+    init = async () => {
         return
     }
 

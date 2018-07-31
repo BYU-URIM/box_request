@@ -49,8 +49,8 @@ export class BoxRequest extends React.Component<{
                 <div className={"ms-Grid-row"}>
                     <div className={requestState.dropdownInfo.style}>
                         <DepartmentDropdown
-                            handleChanged={(department: number) =>
-                                (requestStore.sessionStore.department.id = department)
+                            handleChanged={(id: number) =>
+                                (requestStore.sessionStore.departmentId = id)
                             }
                             options={
                                 requestStore.sessionStore

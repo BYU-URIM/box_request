@@ -18,7 +18,7 @@ export class FolderForm {
         return this.inputIsValid
             ? undefined
             : this.folderName.length > 50
-                ? "The new folder name must be less that 50 characters."
+                ? "The new folder name must be less than 50 characters."
                 : "Please use a Folder Name that does not already exist."
     }
 
