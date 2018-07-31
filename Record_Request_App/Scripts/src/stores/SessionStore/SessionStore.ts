@@ -10,10 +10,18 @@ export interface IOption {
 export class SessionStore {
     constructor(_user: IUser, private _root: RootStore) {
         this.user = _user
+        this._departmentId = this.userDepartments[0].id
     }
     user: IUser
     @observable private _appMode: AppModes
     @observable private _departmentId: number
+    @computed
+    get departmentId(): number {
+        return this._departmentId
+    }
+    set departmentId(value: number) {
+        this._departmentId = value
+    }
 
     @computed
     get department(): IDepartment {
@@ -24,6 +32,8 @@ export class SessionStore {
               )
     }
     set department(val: IDepartment) {
+        console.log(val)
+
         this._departmentId = val.id
     }
 
