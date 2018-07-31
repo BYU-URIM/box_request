@@ -1,9 +1,12 @@
 import { observable, computed } from "mobx"
 
 export class RequestForm {
-    @observable private _deliveryInstructions: string = ""
-    @observable private _urgent: boolean = false
-    @observable private _permanent: boolean = false
+    @observable
+    private _deliveryInstructions: string = ""
+    @observable
+    private _urgent: boolean = false
+    @observable
+    private _permanent: boolean = false
 
     @computed
     get urgent(): boolean {
