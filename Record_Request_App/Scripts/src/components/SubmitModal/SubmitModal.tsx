@@ -17,9 +17,8 @@ export interface ISubmitModalProps {
     submit(): void
     requestForm: RequestForm
     modal: ModalTypes
+    close(): void
 }
-
-// ----------------------------------------------
 
 export const SubmitModal = observer((props: ISubmitModalProps) => {
     return (
@@ -28,7 +27,7 @@ export const SubmitModal = observer((props: ISubmitModalProps) => {
                 <label className={"ms-font-xl"}>Item Request</label>
                 <IconButton
                     text={"Cancel"}
-                    onClick={() => (props.modal = ModalTypes.none)}
+                    onClick={props.close}
                     iconProps={{
                         iconName: "cancel",
                         iconType: IconType.default,
