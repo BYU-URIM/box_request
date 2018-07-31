@@ -13,7 +13,7 @@ import {
 import "./styles.scss"
 import { inject, observer } from "mobx-react"
 import { ModalTypes, IFolderOrBox } from "../../models"
-import Modal from "office-ui-fabric-react/lib/Modal"
+import { Modal } from "office-ui-fabric-react/lib/Modal"
 import { RequestState, RequestStore } from "../../stores"
 
 @inject("requestStore", "requestState")
@@ -75,11 +75,13 @@ export class BoxRequest extends React.Component<{
                                     submit={requestStore.submitRequest}
                                     modal={requestState.modal}
                                     requestForm={requestStore.requestForm}
+                                    close={requestState.clearModal}
                                 />
                             )}
                             {requestState.modal === ModalTypes.create && (
                                 <CreateFolderModal
                                     modal={requestState.modal}
+                                    close={requestState.clearModal}
                                     box={requestState.box.BoxIdBarCode}
                                     folderForm={requestStore.folderForm}
                                     createFolder={() =>

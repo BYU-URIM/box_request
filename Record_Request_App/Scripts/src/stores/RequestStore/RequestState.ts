@@ -93,6 +93,7 @@ export class RequestState {
     set modal(val: ModalTypes) {
         this._modal = val
     }
+    @action clearModal = () => (this._modal = ModalTypes.none)
 
     @computed
     get box(): IBox {
