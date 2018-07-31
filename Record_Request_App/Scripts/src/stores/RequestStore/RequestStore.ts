@@ -9,12 +9,17 @@ import { MessageBarType } from "office-ui-fabric-react"
 import { SessionStore } from "../SessionStore/SessionStore"
 export class RequestStore {
     sessionStore: SessionStore
-    @observable boxes: Array<IBox>
-    @observable folders: Array<IFolder>
+    @observable
+    boxes: Array<IBox>
+    @observable
+    folders: Array<IFolder>
 
-    @observable folderForm: FolderForm
-    @observable requestForm: RequestForm
-    @observable requestState: RequestState
+    @observable
+    folderForm: FolderForm
+    @observable
+    requestForm: RequestForm
+    @observable
+    requestState: RequestState
 
     constructor(
         folders: Array<IFolder>,

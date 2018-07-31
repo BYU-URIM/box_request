@@ -1,7 +1,8 @@
 import { observable, computed } from "mobx"
 
 export class FolderForm {
-    @observable private _folderInput: string = ""
+    @observable
+    private _folderInput: string = ""
 
     constructor(private _existingNames: Array<string>) {}
 

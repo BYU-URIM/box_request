@@ -21,13 +21,20 @@ export class RequestState {
         this.sessionStore = _sessionStore
     }
 
-    @observable private _modal: ModalTypes = ModalTypes.none
-    @observable private _box: IBox = undefined
-    @observable private _folder: IFolder = undefined
-    @observable private _dialogMessage: string = ""
-    @observable private _msgBarMessage: string = ""
-    @observable private _mBarType: MessageBarType = undefined
-    @observable private _itemStatus: ItemStatusTypes = ItemStatusTypes.available
+    @observable
+    private _modal: ModalTypes = ModalTypes.none
+    @observable
+    private _box: IBox = undefined
+    @observable
+    private _folder: IFolder = undefined
+    @observable
+    private _dialogMessage: string = ""
+    @observable
+    private _msgBarMessage: string = ""
+    @observable
+    private _mBarType: MessageBarType = undefined
+    @observable
+    private _itemStatus: ItemStatusTypes = ItemStatusTypes.available
     @observable
     private _cart: Map<number, IFolderOrBox> = observable.map<
         number,
@@ -44,8 +51,10 @@ export class RequestState {
         )
         this.removeGroupedFoldersMessage(item)
     }
-    @action clearCart = () => this._cart.clear()
-    @action removeFromCart = (itemKey: number) => this._cart.delete(itemKey)
+    @action
+    clearCart = () => this._cart.clear()
+    @action
+    removeFromCart = (itemKey: number) => this._cart.delete(itemKey)
 
     @computed
     get dialogMessage(): string {
@@ -93,7 +102,8 @@ export class RequestState {
     set modal(val: ModalTypes) {
         this._modal = val
     }
-    @action clearModal = () => (this._modal = ModalTypes.none)
+    @action
+    clearModal = () => (this._modal = ModalTypes.none)
 
     @computed
     get box(): IBox {
