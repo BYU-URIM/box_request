@@ -1,0 +1,28 @@
+---
+name: CreateFolderModal
+---
+import { CreateFolderModal } from "./CreateFolderModal"
+import { Playground, PropsTable } from "docz"
+import { requestStore, requestState } from "../../docz"
+import { mockFolders } from "../../res/index"
+
+# CreateFolderModal
+
+## Component
+
+### This component is used to display a modal with a folder create form for a particular box.
+
+<Playground>
+    <CreateFolderModal
+        modal={requestState.modal}
+        box={requestState.boxes[0].BoxIdBarCode}
+        folderForm={mockFolders[0]}
+        createFolder={() =>
+            requestStore.createFolder()
+        }
+    />
+</Playground>
+
+## Props Interface
+
+<PropsTable of={CreateFolderModal} /> 
