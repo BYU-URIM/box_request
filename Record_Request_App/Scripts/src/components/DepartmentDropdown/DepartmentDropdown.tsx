@@ -1,10 +1,8 @@
 import * as React from "react"
-import { Dropdown, IDropdown } from "office-ui-fabric-react"
+import { Dropdown } from "office-ui-fabric-react"
 import "./styles.scss"
 import { observer } from "mobx-react"
 import {
-    SessionStore,
-    RequestState,
     IOption,
     IDropdownInfo,
 } from "../../stores"

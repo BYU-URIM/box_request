@@ -29,7 +29,8 @@
         "jsx-no-bind": true,
         "no-submodule-imports": false,
         "no-any": true,
-        "no-implicit-dependencies": false
+        "no-implicit-dependencies": false,
+        "no-unused-expression": true
     },
     "exclude": ["node_modules", "**/node_modules/*", "static", "dist"],
     "rulesDirectory": []
