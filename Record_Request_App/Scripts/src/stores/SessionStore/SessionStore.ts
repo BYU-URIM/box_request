@@ -34,8 +34,6 @@ export class SessionStore {
               )
     }
     set department(val: IDepartment) {
-        console.log(val)
-
         this._departmentId = val.id
     }
 

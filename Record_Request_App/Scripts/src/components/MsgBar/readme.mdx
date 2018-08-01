@@ -1,0 +1,24 @@
+---
+name: MsgBar
+---
+import { MsgBar } from "./MsgBar"
+import { Playground, PropsTable } from "docz"
+import { requestState } from "../../docz"
+
+# MsgBar
+
+## Component
+
+### This component is used after the checkout list has been submitted successfully.
+
+<Playground>
+    <MsgBar
+        messageBarType={4}
+        clearMessage={() => requestState.clearMessage()}
+        message={"This is a success message bar"}
+    />
+</Playground>
+
+## Props Interface
+
+<PropsTable of={MsgBar} /> 
