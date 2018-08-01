@@ -1,0 +1,24 @@
+---
+name: Greeting
+---
+import { Greeting } from "./Greeting"
+import { Playground, PropsTable } from "docz"
+import { requestStore, requestState, sessionStore } from "../../docz"
+import { mockFolders } from "../../res/index"
+
+# Greeting
+
+## Component
+
+### This component is used to let the user know they are logged in.
+
+<Playground>
+    <Greeting
+        name={sessionStore.user.name}
+        switchApp={sessionStore.switchApp}
+    />
+</Playground>
+
+## Props Interface
+
+<PropsTable of={Greeting} /> 

@@ -100,7 +100,7 @@ export class BoxRequest extends React.Component<{
                                     requestStore.determineItemStatus(item)
                                 }
                                 classNames={
-                                    "ms-Grid-col ms-sm4 scroll-container"
+                                    "ms-Grid-col ms-sm5 scroll-container"
                                 }
                                 selectedBoxId={
                                     requestState.box
@@ -139,7 +139,6 @@ export class BoxRequest extends React.Component<{
                                 folders={requestState.folders}
                                 modal={requestState.modal}
                             />
-                            <div className={"ms-Grid-col ms-sm1"} />
 
                             <Checkout
                                 classNames={"ms-Grid-col ms-sm3"}

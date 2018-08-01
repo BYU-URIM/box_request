@@ -6,9 +6,7 @@ import {
     DefaultButton,
     DialogType,
 } from "office-ui-fabric-react"
-import { RequestState } from "../../stores/RequestStore/RequestState"
 import { observer } from "mobx-react"
-import { IBox } from "../../models"
 
 export interface IWarningDialog {
     dialogMessage: string
