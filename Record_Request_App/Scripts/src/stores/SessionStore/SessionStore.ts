@@ -13,8 +13,10 @@ export class SessionStore {
         this._departmentId = this.userDepartments[0].id
     }
     user: IUser
-    @observable private _appMode: AppModes
-    @observable private _departmentId: number
+    @observable
+    private _appMode: AppModes
+    @observable
+    private _departmentId: number
     @computed
     get departmentId(): number {
         return this._departmentId
@@ -32,8 +34,6 @@ export class SessionStore {
               )
     }
     set department(val: IDepartment) {
-        console.log(val)
-
         this._departmentId = val.id
     }
 

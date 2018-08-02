@@ -2,11 +2,11 @@ import * as React from "react"
 import {
     PrimaryButton,
     DetailsList,
-    DetailsListLayoutMode,
     IColumn,
     CheckboxVisibility,
     IconButton,
     Icon,
+    DetailsListLayoutMode,
 } from "office-ui-fabric-react"
 import "./styles.scss"
 import { DetailListHeader } from ".."

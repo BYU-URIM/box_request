@@ -15,6 +15,7 @@ export interface ICreateFolderModalProps {
     box: number
     createFolder(): void
     folderForm: FolderForm
+    close(): void
 }
 
 export const CreateFolderModal = observer((props: ICreateFolderModalProps) => {
@@ -26,7 +27,7 @@ export const CreateFolderModal = observer((props: ICreateFolderModalProps) => {
                 </label>
                 <IconButton
                     text={"Cancel"}
-                    onClick={() => (props.modal = ModalTypes.none)}
+                    onClick={props.close}
                     iconProps={{
                         iconName: "cancel",
                         iconType: IconType.default,

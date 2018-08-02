@@ -13,7 +13,7 @@ import {
 import "./styles.scss"
 import { inject, observer } from "mobx-react"
 import { ModalTypes, IFolderOrBox } from "../../models"
-import Modal from "office-ui-fabric-react/lib/Modal"
+import { Modal } from "office-ui-fabric-react/lib/Modal"
 import { RequestState, RequestStore } from "../../stores"
 
 @inject("requestStore", "requestState")
@@ -75,11 +75,13 @@ export class BoxRequest extends React.Component<{
                                     submit={requestStore.submitRequest}
                                     modal={requestState.modal}
                                     requestForm={requestStore.requestForm}
+                                    close={requestState.clearModal}
                                 />
                             )}
                             {requestState.modal === ModalTypes.create && (
                                 <CreateFolderModal
                                     modal={requestState.modal}
+                                    close={requestState.clearModal}
                                     box={requestState.box.BoxIdBarCode}
                                     folderForm={requestStore.folderForm}
                                     createFolder={() =>
@@ -98,7 +100,7 @@ export class BoxRequest extends React.Component<{
                                     requestStore.determineItemStatus(item)
                                 }
                                 classNames={
-                                    "ms-Grid-col ms-sm4 scroll-container"
+                                    "ms-Grid-col ms-sm5 scroll-container"
                                 }
                                 selectedBoxId={
                                     requestState.box
@@ -137,7 +139,6 @@ export class BoxRequest extends React.Component<{
                                 folders={requestState.folders}
                                 modal={requestState.modal}
                             />
-                            <div className={"ms-Grid-col ms-sm1"} />
 
                             <Checkout
                                 classNames={"ms-Grid-col ms-sm3"}

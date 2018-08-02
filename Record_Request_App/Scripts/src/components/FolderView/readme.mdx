@@ -1,0 +1,39 @@
+---
+name: FolderView
+---
+import { FolderView } from "./FolderView"
+import { Playground, PropsTable } from "docz"
+import { requestStore, requestState } from "../../docz"
+import { mockFolders } from "../../res/index"
+
+# FolderView
+
+## Component
+
+### This component is used to show the list of folders inside of a single box.  From here, you can request individual folders to checkout.  If there is no selected box, then it will show its empty message.
+
+<Playground>
+    <FolderView
+        canAddItem={(item) =>
+            requestStore.canAddItemToCart(item)
+        }
+        cart={requestState.cart}
+        checkoutStatus={item =>
+            requestStore.determineItemStatus(item)
+        }
+        emptyMessage={
+            requestStore.sessionStore.department !==
+                undefined &&
+            "Click on a box to view its folders"
+        }
+        classNames={"ms-Grid-col ms-sm2"}
+        addToCart={requestState.addToCart}
+        box={requestState.box}
+        folders={requestState.folders}
+        modal={requestState.modal}
+    />
+</Playground>
+
+## Props Interface
+
+<PropsTable of={FolderView} /> 

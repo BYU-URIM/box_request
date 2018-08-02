@@ -9,12 +9,17 @@ import { MessageBarType } from "office-ui-fabric-react"
 import { SessionStore } from "../SessionStore/SessionStore"
 export class RequestStore {
     sessionStore: SessionStore
-    @observable boxes: Array<IBox>
-    @observable folders: Array<IFolder>
+    @observable
+    boxes: Array<IBox>
+    @observable
+    folders: Array<IFolder>
 
-    @observable folderForm: FolderForm
-    @observable requestForm: RequestForm
-    @observable requestState: RequestState
+    @observable
+    folderForm: FolderForm
+    @observable
+    requestForm: RequestForm
+    @observable
+    requestState: RequestState
 
     constructor(
         folders: Array<IFolder>,
@@ -63,10 +68,12 @@ export class RequestStore {
             BoxIdBarCode: this.requestState.box.BoxIdBarCode,
             FolderName: this.folderForm.folderName,
             FolderIdBarCode: this.folders.length + 1,
-            Location: this.requestState.box.Location,
+            Location: String(this.requestState.box.BoxIdBarCode),
             Folder_Description: "",
         })
-        this.requestState.addToCart(this.folders[this.folders.length - 1])
+        if (!this.requestState.cartContains(this.requestState.box)) {
+            this.requestState.addToCart(this.folders[this.folders.length - 1])
+        }
         this.requestState.modal = ModalTypes.none
     }
 
@@ -99,11 +106,19 @@ export class RequestStore {
 
     @action
     determineFolderStatus = (_folder: IFolder): ItemStatusTypes => {
-        return _folder.Location === String(_folder.BoxIdBarCode)
-            ? this.determineBoxStatus(_folder.BoxIdBarCode)
-            : _folder.Location.toLowerCase() === "legal"
-                ? ItemStatusTypes.unavailable
-                : ItemStatusTypes.checkedOutByClient
+        if (_folder.Location === String(_folder.BoxIdBarCode)) {
+            return this.determineBoxStatus(_folder.BoxIdBarCode) ===
+                ItemStatusTypes.available
+                ? ItemStatusTypes.available
+                : this.determineBoxStatus(_folder.BoxIdBarCode) ===
+                  ItemStatusTypes.notAvailable
+                    ? ItemStatusTypes.notAvailable
+                    : ItemStatusTypes.checkedOutByClient
+        } else if (_folder.Location.toLowerCase() === "legal") {
+            return ItemStatusTypes.unavailable
+        } else {
+            return ItemStatusTypes.checkedOutByClient
+        }
     }
 
     @action

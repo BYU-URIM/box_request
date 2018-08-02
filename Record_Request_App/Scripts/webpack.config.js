@@ -7,6 +7,7 @@ module.exports = function(env) {
         devServer: {
             contentBase: "dist",
         },
+        devtool:"source-maps",
         entry: "./src/main.tsx",
         output: {
             filename: "bundle.js",

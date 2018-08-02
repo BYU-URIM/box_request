@@ -16,7 +16,8 @@ export class RootStore {
         private _dataService?: IDataService
     ) {}
 
-    @observable public initialized: boolean = false
+    @observable
+    public initialized: boolean = false
 
     @action
     async init(): Promise<void> {
