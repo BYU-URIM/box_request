@@ -1,0 +1,29 @@
+---
+name: DepartmentDropdown
+---
+import { DepartmentDropdown } from "./DepartmentDropdown"
+import { Playground, PropsTable } from "docz"
+import { requestState, requestStore } from "../../docz"
+
+# DepartmentDropdown
+
+## Component
+
+### This component is used to select the user's department. Boxes that appear in the BoxList component depend on which department is selected.
+
+<Playground>
+    <DepartmentDropdown
+        handleChanged={(id) =>
+            (requestStore.sessionStore.departmentId = id)
+        }
+        options={
+            requestStore.sessionStore
+                .userDepartmentsAsOptions
+        }
+        dropdownInfo={requestState.dropdownInfo}
+    />
+</Playground>
+
+## Props Interface
+
+<PropsTable of={DepartmentDropdown} /> 
