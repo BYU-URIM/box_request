@@ -2,10 +2,7 @@ import * as React from "react"
 import { Dropdown } from "office-ui-fabric-react"
 import "./styles.scss"
 import { observer } from "mobx-react"
-import {
-    IOption,
-    IDropdownInfo,
-} from "../../stores"
+import { IOption, IDropdownInfo } from "../../stores"
 
 export interface IUserDepsProps {
     handleChanged(key: number): void
