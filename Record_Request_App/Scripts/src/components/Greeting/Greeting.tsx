@@ -1,6 +1,5 @@
 import * as React from "react"
 import "./styles.scss"
-import { AppModes } from "../../stores"
 
 export interface IGreetingProps {
     name: string

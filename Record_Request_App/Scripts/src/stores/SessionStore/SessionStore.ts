@@ -2,7 +2,6 @@ import { RootStore } from "../RootStore/RootStore"
 import { IUser, IDepartment } from "../../models/StoreModels"
 import { computed, observable, action } from "mobx"
 
-export type AppModes = "BoxRequest" | "BoxCreate"
 export interface IOption {
     key: number
     text: string
@@ -13,8 +12,6 @@ export class SessionStore {
         this._departmentId = this.userDepartments[0].id
     }
     user: IUser
-    @observable
-    private _appMode: AppModes
     @observable
     private _departmentId: number
     @computed
