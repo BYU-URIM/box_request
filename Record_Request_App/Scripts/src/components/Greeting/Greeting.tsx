@@ -4,7 +4,6 @@ import { AppModes } from "../../stores"
 
 export interface IGreetingProps {
     name: string
-    switchApp(mode: AppModes): void
 }
 
 export const Greeting = (props: IGreetingProps) => (

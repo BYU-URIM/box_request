@@ -15,7 +15,6 @@ const init = async () => {
                 rootStore={rootStore}
                 sessionStore={rootStore.sessionStore}
                 requestStore={rootStore.requestStore}
-                creatorStore={rootStore.creatorStore}
                 requestState={rootStore.requestStore.requestState}
             >
                 <App />

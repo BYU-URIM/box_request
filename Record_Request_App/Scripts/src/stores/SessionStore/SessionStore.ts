@@ -38,25 +38,8 @@ export class SessionStore {
     }
 
     @computed
-    get appMode(): AppModes {
-        return this._appMode
-    }
-    set appMode(value: AppModes) {
-        this._appMode = value
-    }
-
-    @computed
     get userDepartments(): Array<IDepartment> {
         return this.user.departments
-    }
-
-    @action
-    switchApp = async (mode: AppModes) => {
-        if (this._appMode !== mode) {
-            if (mode === "BoxRequest") await this._root.requestStore.init()
-            if (mode === "BoxCreate") await this._root.creatorStore.init()
-            this.appMode = mode
-        }
     }
 
     @computed

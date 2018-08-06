@@ -4,8 +4,8 @@ import "./styles.scss"
 import { Fabric } from "office-ui-fabric-react"
 import { SessionStore } from "../../stores"
 import { inject, observer } from "mobx-react"
-import { BoxCreator, BoxRequest } from ".."
-import { Greeting, AppSelector } from "../../components"
+import { BoxRequest } from ".."
+import { Greeting } from "../../components"
 
 initializeIcons()
 @inject("sessionStore")
@@ -18,11 +18,8 @@ export class App extends React.Component<{ sessionStore?: SessionStore }> {
                 <div className={"ms-Grid"}>
                     <Greeting
                         name={sessionStore.user.name}
-                        switchApp={sessionStore.switchApp}
                     />
-                    <AppSelector switchApp={sessionStore.switchApp} />
-                    {sessionStore.appMode === "BoxRequest" && <BoxRequest />}
-                    {sessionStore.appMode === "BoxCreate" && <BoxCreator />}
+                    <BoxRequest />
                 </div>
             </Fabric>
         )
