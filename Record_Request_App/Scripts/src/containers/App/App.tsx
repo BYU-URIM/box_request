@@ -16,9 +16,7 @@ export class App extends React.Component<{ sessionStore?: SessionStore }> {
         return (
             <Fabric>
                 <div className={"ms-Grid"}>
-                    <Greeting
-                        name={sessionStore.user.name}
-                    />
+                    <Greeting name={sessionStore.user.name} />
                     <BoxRequest />
                 </div>
             </Fabric>
