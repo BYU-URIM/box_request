@@ -1,9 +1,8 @@
 import * as React from "react"
-// tslint:disable-next-line:no-implicit-dependencies
 import { initializeIcons } from "@uifabric/icons"
 import "./styles.scss"
 import { Fabric } from "office-ui-fabric-react"
-import { SessionStore, RootStore } from "../../stores"
+import { SessionStore } from "../../stores"
 import { inject, observer } from "mobx-react"
 import { BoxCreator, BoxRequest } from ".."
 import { Greeting, AppSelector } from "../../components"

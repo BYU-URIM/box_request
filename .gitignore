@@ -260,4 +260,4 @@ paket-files/
 __pycache__/
 *.pyc
 Record_Request_App/Scripts/backup.txt
-Record_Request_App/Scripts/.vscode/settings.json
+Record_Request_App/Scripts/.vscode/

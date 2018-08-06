@@ -1,5 +1,5 @@
 import { DataServiceFactory } from "../src/services"
-import { RootStore, SessionStore } from "../src/stores"
+import { SessionStore } from "../src/stores"
 
 const rootStore = DataServiceFactory.getTestRootStore()
 rootStore.init()

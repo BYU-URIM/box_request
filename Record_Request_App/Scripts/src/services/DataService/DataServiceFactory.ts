@@ -1,5 +1,5 @@
 import { RootStore } from "../../stores/RootStore/RootStore"
-import { ENVIRONMENT, EnvType } from "../../env"
+// import { ENVIRONMENT, EnvType } from "../../env"
 import { DataService } from "./DataService"
 import { mockFolders, mockBoxes, mockUser, mockData } from "../../res"
 
