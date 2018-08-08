@@ -63,7 +63,7 @@ export const FolderView = observer((props: IFolderViewProps) => {
         props.box &&
         props.folders.map((folder: IFolder) => {
             return {
-                key: folder.FolderIdBarCode,
+                key: folder.FolderId,
                 checkoutFolder: () => props.addToCart(folder),
                 createFolder: () => (props.modal = ModalTypes.create),
                 ...folder,
@@ -75,7 +75,7 @@ export const FolderView = observer((props: IFolderViewProps) => {
             {props.box ? (
                 <>
                     <DetailListHeader
-                        title={`Folders in Box B${props.box.BoxIdBarCode}`}
+                        title={`Folders in Box B${props.box.BoxId}`}
                     />
                     <div>
                         <DetailsList

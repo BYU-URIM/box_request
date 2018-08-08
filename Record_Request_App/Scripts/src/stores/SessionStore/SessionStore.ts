@@ -6,6 +6,14 @@ export interface IOption {
     key: number
     text: string
 }
+
+export interface IDropdownInfo {
+    title: string
+    key: number
+    style: string
+    placeHolder: string
+}
+
 export class SessionStore {
     constructor(_user: IUser, private _root: RootStore) {
         this.user = _user

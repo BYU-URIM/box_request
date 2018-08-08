@@ -45,7 +45,7 @@ export class RequestStore {
         return this.folders
             .filter(
                 (folder: IFolder) =>
-                    folder.BoxIdBarCode === this.requestState.box.BoxIdBarCode
+                    folder.BoxId === this.requestState.box.BoxId
             )
             .map(folder => folder.FolderName.toLowerCase())
     }
@@ -65,11 +65,11 @@ export class RequestStore {
     @action
     createFolder = (): void => {
         this.folders.push({
-            BoxIdBarCode: this.requestState.box.BoxIdBarCode,
+            BoxId: this.requestState.box.BoxId,
             FolderName: this.folderForm.folderName,
-            FolderIdBarCode: this.folders.length + 1,
-            Location: String(this.requestState.box.BoxIdBarCode),
-            Folder_Description: "",
+            FolderId: this.folders.length + 1,
+            CurrentFolderLocation: String(this.requestState.box.BoxId),
+            FolderDescription: "",
         })
         if (!this.requestState.cartContains(this.requestState.box)) {
             this.requestState.addToCart(this.folders[this.folders.length - 1])
@@ -88,33 +88,33 @@ export class RequestStore {
 
     @action
     determineItemStatus = (item: IFolderOrBox): string => {
-        return !!item.FolderIdBarCode
+        return !!item.FolderId
             ? this.determineFolderStatus(item as IFolder)
-            : this.determineBoxStatus(item.BoxIdBarCode)
+            : this.determineBoxStatus(item.BoxId)
     }
 
     @action
     determineBoxStatus = (_boxId?: number): ItemStatusTypes => {
-        const box = this.boxes.find(_b => _b.BoxIdBarCode === _boxId)
-        return box.Location === String(box.DepId)
+        const box = this.boxes.find(_b => _b.BoxId === _boxId)
+        return box.CurrentLocation === String(box.DeptId)
             ? ItemStatusTypes.checkedOutByClient
-            : box.Location.toLowerCase().startsWith("l") &&
-              box.Location.toLowerCase() !== "legal"
+            : box.CurrentLocation.toLowerCase().startsWith("l") &&
+              box.CurrentLocation.toLowerCase() !== "legal"
                 ? ItemStatusTypes.available
                 : ItemStatusTypes.unavailable
     }
 
     @action
     determineFolderStatus = (_folder: IFolder): ItemStatusTypes => {
-        if (_folder.Location === String(_folder.BoxIdBarCode)) {
-            return this.determineBoxStatus(_folder.BoxIdBarCode) ===
+        if (_folder.CurrentFolderLocation === String(_folder.BoxId)) {
+            return this.determineBoxStatus(_folder.BoxId) ===
                 ItemStatusTypes.available
                 ? ItemStatusTypes.available
-                : this.determineBoxStatus(_folder.BoxIdBarCode) ===
+                : this.determineBoxStatus(_folder.BoxId) ===
                   ItemStatusTypes.notAvailable
                     ? ItemStatusTypes.notAvailable
                     : ItemStatusTypes.checkedOutByClient
-        } else if (_folder.Location.toLowerCase() === "legal") {
+        } else if (_folder.CurrentFolderLocation.toLowerCase() === "legal") {
             return ItemStatusTypes.unavailable
         } else {
             return ItemStatusTypes.checkedOutByClient
@@ -125,8 +125,8 @@ export class RequestStore {
     checkParentBox = (item: IFolderOrBox): boolean => {
         let x: boolean
         this.boxes.map(box => {
-            if (box.BoxIdBarCode === item.BoxIdBarCode) {
-                box.Location.startsWith("L") ? (x = true) : (x = false)
+            if (box.BoxId === item.BoxId) {
+                box.CurrentLocation.startsWith("L") ? (x = true) : (x = false)
             }
         })
         return x
@@ -134,8 +134,8 @@ export class RequestStore {
 
     canAddItem = (item: IFolderOrBox): boolean => {
         return (
-            item.Location.startsWith("L") ||
-            item.BoxIdBarCode === Number(item.Location)
+            item.CurrentLocation.startsWith("L") ||
+            item.BoxId === Number(item.CurrentLocation)
         )
     }
 
@@ -144,12 +144,14 @@ export class RequestStore {
         if (this.requestState.cartContains(item)) {
             return false
         }
-        if (this.determineItemStatus(item) === ItemStatusTypes.available) {
+        if (
+            this.determineItemStatus(item) === ItemStatusTypes.available
+        ) {
             return true
         }
         return false
     }
     inYourPossession = (item: IFolderOrBox): boolean => {
-        return item.Location === String(this.sessionStore.department)
+        return item.CurrentLocation === String(this.sessionStore.department)
     }
 }

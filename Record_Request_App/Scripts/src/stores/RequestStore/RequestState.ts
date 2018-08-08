@@ -5,12 +5,7 @@ import { IBox, IFolder, IFolderOrBox } from "../../models/StoreModels"
 import { MessageBarType } from "office-ui-fabric-react"
 import { SessionStore } from "../SessionStore/SessionStore"
 
-export interface IDropdownInfo {
-    title: string
-    key: number
-    style: string
-    placeHolder: string
-}
+
 export class RequestState {
     sessionStore: SessionStore
     constructor(
@@ -43,10 +38,10 @@ export class RequestState {
 
     @action
     addToCart = (item: IFolderOrBox) => {
-        if (!item.FolderIdBarCode) this.removeChildFoldersMessage(item)
+        if (!item.FolderId) this.removeChildFoldersMessage(item)
 
         this._cart.set(
-            item.FolderIdBarCode ? item.FolderIdBarCode : item.BoxIdBarCode,
+            item.FolderId ? item.FolderId : item.BoxId,
             item
         )
         this.removeGroupedFoldersMessage(item)
@@ -83,7 +78,7 @@ export class RequestState {
     @computed
     get cart(): Array<IFolderOrBox> {
         return Array.from(this._cart.values()).sort(
-            (a, b) => a.BoxIdBarCode - b.BoxIdBarCode
+            (a, b) => a.BoxId - b.BoxId
         )
     }
 
@@ -126,7 +121,7 @@ export class RequestState {
     @computed
     get boxes(): Array<IBox> {
         return this._boxes
-            .filter(box => box.DepId === this.sessionStore.department.id)
+            .filter(box => box.DeptId === this.sessionStore.department.id)
             .map(box => ({
                 ...box,
                 inCart: this.cartContains(box),
@@ -135,7 +130,7 @@ export class RequestState {
 
     @computed
     get sortBoxes(): Array<IBox> {
-        return this.boxes.sort((a, b) => a.BoxIdBarCode - b.BoxIdBarCode)
+        return this.boxes.sort((a, b) => a.BoxId - b.BoxId)
     }
 
     @computed
@@ -145,7 +140,7 @@ export class RequestState {
             this._folders
                 .filter(
                     (folder: IFolder) =>
-                        folder.BoxIdBarCode === this.box.BoxIdBarCode
+                        folder.BoxId === this.box.BoxId
                 )
                 .map(folder => ({
                     ...folder,
@@ -154,34 +149,34 @@ export class RequestState {
         )
     }
 
-    @computed
-    get dropdownInfo(): IDropdownInfo {
-        const info: IDropdownInfo = {
-            title: "",
-            key: this.sessionStore.department.id || undefined,
-            style: "",
-            placeHolder: "Departments",
-        }
-        if (this.sessionStore.department) {
-            info.style = "ms-Grid-col ms-sm2  ms-smPush1"
-            info.title = "Your Department:"
-        } else {
-            info.style = "ms-Grid-col ms-sm4 ms-smPush4"
-            info.title = "Select one of your available departments:"
-        }
+    // @computed
+    // get dropdownInfo(): IDropdownInfo {
+    //     const info: IDropdownInfo = {
+    //         title: "",
+    //         key: this.sessionStore.department.id || undefined,
+    //         style: "",
+    //         placeHolder: "Departments",
+    //     }
+    //     if (this.sessionStore.department) {
+    //         info.style = "ms-Grid-col ms-sm2  ms-smPush1"
+    //         info.title = "Your Department:"
+    //     } else {
+    //         info.style = "ms-Grid-col ms-sm4 ms-smPush4"
+    //         info.title = "Select one of your available departments:"
+    //     }
 
-        return info
-    }
+    //     return info
+    // }
 
     @action
     cartContains = (item: IFolderOrBox): boolean => {
-        if (item.FolderIdBarCode) {
+        if (item.FolderId) {
             return (
-                this._cart.has(item.BoxIdBarCode) ||
-                this._cart.has(item.FolderIdBarCode)
+                this._cart.has(item.BoxId) ||
+                this._cart.has(item.FolderId)
             )
         } else {
-            return this._cart.has(item.BoxIdBarCode)
+            return this._cart.has(item.BoxId)
         }
     }
 
@@ -189,13 +184,13 @@ export class RequestState {
     removeChildFoldersMessage = (box: IFolderOrBox) => {
         this.cart.forEach(item => {
             if (
-                item.BoxIdBarCode !== undefined &&
-                item.BoxIdBarCode === box.BoxIdBarCode
+                item.BoxId !== undefined &&
+                item.BoxId === box.BoxId
             ) {
                 this.dialogMessage = `You just added Box ${
-                    box.BoxIdBarCode
+                    box.BoxId
                 }. Would you like to remove Box ${
-                    box.BoxIdBarCode
+                    box.BoxId
                 }'s folder(s) from checkout?`
             }
         })
@@ -212,8 +207,8 @@ export class RequestState {
         if (this.countChildFolders(this.box) >= 5) this.addToCart(this.box)
 
         this.cart.forEach(checkedItem => {
-            if (checkedItem.BoxIdBarCode === this.box.BoxIdBarCode)
-                this.removeFromCart(checkedItem.FolderIdBarCode)
+            if (checkedItem.BoxId === this.box.BoxId)
+                this.removeFromCart(checkedItem.FolderId)
         })
         this.clearMessage()
     }
@@ -222,9 +217,9 @@ export class RequestState {
     removeGroupedFoldersMessage = (folder: IFolderOrBox) => {
         if (this.countChildFolders(folder) >= 5) {
             this.dialogMessage = `You just added 5 folders from Box ${
-                this.box.BoxIdBarCode
+                this.box.BoxId
             }. We recommend that you checkout the box instead. Would you like to remove these folders and check out Box ${
-                this.box.BoxIdBarCode
+                this.box.BoxId
             }?`
         }
     }
@@ -232,13 +227,13 @@ export class RequestState {
     @action
     countChildFolders = (parentBox: IFolderOrBox): number => {
         return this.cart.filter(
-            item => item.BoxIdBarCode === parentBox.BoxIdBarCode
+            item => item.BoxId === parentBox.BoxId
         ).length
     }
 
     @action
     removeParentBox = () => {
         this.clearMessage()
-        this.removeFromCart(this.box.BoxIdBarCode)
+        this.removeFromCart(this.box.BoxId)
     }
 }

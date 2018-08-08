@@ -35,15 +35,13 @@ export const Checkout = observer((props: ICheckoutProps) => {
             ariaLabel: "Operations for pendingItemRequests",
             onRender: (item: IFolderOrBox) => (
                 <div>
-                    {item.FolderIdBarCode ? (
+                    {item.FolderId ? (
                         <Icon iconName="FabricFolder" />
                     ) : (
                         <Icon iconName="GiftboxSolid" />
                     )}
                     <p>
-                        {item.FolderIdBarCode
-                            ? `-  ${item.FolderName}`
-                            : item.BoxIdBarCode}
+                        {item.FolderId ? `-  ${item.FolderName}` : item.BoxId}
                     </p>
                 </div>
             ),
@@ -57,7 +55,7 @@ export const Checkout = observer((props: ICheckoutProps) => {
             isResizable: false,
             ariaLabel: "Operations for type",
             onRender: (item: IFolderOrBox) => (
-                <p>{item.FolderIdBarCode ? "Folder" : "Box"}</p>
+                <p>{item.FolderId ? "Folder" : "Box"}</p>
             ),
         },
         {
@@ -70,9 +68,9 @@ export const Checkout = observer((props: ICheckoutProps) => {
             ariaLabel: "Operations for parentBox",
             onRender: (item: IFolderOrBox) => (
                 <p>
-                    {item.FolderIdBarCode
-                        ? `Box - ${item.BoxIdBarCode}`
-                        : `Dep - ${item.DepId}`}
+                    {item.FolderId
+                        ? `Box - ${item.BoxId}`
+                        : `Dep - ${item.DeptId}`}
                 </p>
             ),
         },
@@ -91,9 +89,7 @@ export const Checkout = observer((props: ICheckoutProps) => {
                     className={"delete-icon"}
                     onClick={() =>
                         props.removeFromCart(
-                            item.FolderIdBarCode
-                                ? item.FolderIdBarCode
-                                : item.BoxIdBarCode
+                            item.FolderId ? item.FolderId : item.BoxId
                         )
                     }
                     disabled={props.dialogMessage.length !== 0}
