@@ -33,12 +33,12 @@ export class DataService implements IDataService {
         return data
     }
     fetchBoxesByDepId = (_depId: number): Promise<Array<IBox>> => {
-        return new Promise(() => mockBoxes.filter(box => box.DepId === _depId))
+        return new Promise(() => mockBoxes.filter(box => box.DeptId === _depId))
     }
 
     fetchFoldersByBoxId = (_boxId: number): Promise<Array<IFolder>> => {
         return new Promise(() =>
-            mockFolders.filter(folder => folder.BoxIdBarCode === _boxId)
+            mockFolders.filter(folder => folder.BoxId === _boxId)
         )
     }
 }

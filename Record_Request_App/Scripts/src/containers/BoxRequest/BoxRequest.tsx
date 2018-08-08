@@ -15,15 +15,17 @@ import { inject, observer } from "mobx-react"
 import { ModalTypes, IFolderOrBox } from "../../models"
 import { Modal } from "office-ui-fabric-react/lib/Modal"
 import { RequestState, RequestStore } from "../../stores"
+import { RecordsStore } from "../../stores/RecordsStore"
 
-@inject("requestStore", "requestState")
+@inject("requestStore", "requestState", "recordsStore")
 @observer
 export class BoxRequest extends React.Component<{
     requestStore?: RequestStore
     requestState?: RequestState
+    recordsStore?: RecordsStore
 }> {
     render() {
-        const { requestStore, requestState } = this.props
+        const { requestStore, requestState, recordsStore } = this.props
         return (
             <>
                 <div className={"ms-Grid-row"}>
@@ -47,16 +49,15 @@ export class BoxRequest extends React.Component<{
                     </div>
                 </div>
                 <div className={"ms-Grid-row"}>
-                    <div className={requestState.dropdownInfo.style}>
+                    <div className={recordsStore.dropdownInfo.style}>
                         <DepartmentDropdown
                             handleChanged={(id: number) =>
-                                (requestStore.sessionStore.departmentId = id)
+                                (recordsStore.selectedDepartment = recordsStore.departments.find(
+                                    _dep => _dep.id === id
+                                ))
                             }
-                            options={
-                                requestStore.sessionStore
-                                    .userDepartmentsAsOptions
-                            }
-                            dropdownInfo={requestState.dropdownInfo}
+                            options={recordsStore.userDepartmentsAsOptions}
+                            dropdownInfo={recordsStore.dropdownInfo}
                         />
                     </div>
                 </div>
@@ -82,7 +83,7 @@ export class BoxRequest extends React.Component<{
                                 <CreateFolderModal
                                     modal={requestState.modal}
                                     close={requestState.clearModal}
-                                    box={requestState.box.BoxIdBarCode}
+                                    box={requestState.box.BoxId}
                                     folderForm={requestStore.folderForm}
                                     createFolder={() =>
                                         requestStore.createFolder()
@@ -103,8 +104,10 @@ export class BoxRequest extends React.Component<{
                                     "ms-Grid-col ms-sm5 scroll-container"
                                 }
                                 selectedBoxId={
-                                    requestState.box
-                                        ? requestState.box.BoxIdBarCode
+                                    recordsStore.selectedDepartment &&
+                                    recordsStore.selectedDepartment.selectedBox
+                                        ? recordsStore.selectedDepartment
+                                              .selectedBox.BoxId
                                         : 0
                                 }
                                 requestState={requestState}

@@ -4,16 +4,16 @@ import { mockUser, mockBoxes, mockFolders } from "../../res"
 
 export class MockDataService implements IDataService {
     fetchUser = (): Promise<IUser> => {
-        return new Promise(() => mockUser)
+        return Promise.resolve(mockUser)
     }
 
     fetchBoxesByDepId = (_depId: number): Promise<Array<IBox>> => {
-        return new Promise(() => mockBoxes.filter(box => box.DepId === _depId))
+        return Promise.resolve(mockBoxes.filter(box => box.DeptId === _depId))
     }
 
     fetchFoldersByBoxId = (_boxId: number): Promise<Array<IFolder>> => {
-        return new Promise(() =>
-            mockFolders.filter(folder => folder.BoxIdBarCode === _boxId)
+        return Promise.resolve(
+            mockFolders.filter(folder => folder.BoxId === _boxId)
         )
     }
 }

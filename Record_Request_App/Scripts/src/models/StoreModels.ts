@@ -7,31 +7,40 @@ export interface IUser {
 }
 
 export interface IFolder {
-    FolderIdBarCode: number
+    FolderId: number
     FolderName: string
-    BoxIdBarCode: number
-    Folder_Description: string
-    Location: string
+    BoxId: number
+    FolderDescription: string
+    CurrentFolderLocation: string
     inCart?: boolean
+    PCODate?: string
+    DateCreated?: string
 }
 
 export interface IBox {
-    BoxIdBarCode: number
-    Location: string
-    DepartmentName: string
-    DepId: number
-    inCart?: boolean
+    BoxId: number
     BoxDescription: string
+    CurrentLocation: string
+    DepartmentName: string
+    DeptId: number
+    inCart?: boolean
+    BeginDate?: string
+    EndDate?: string
+    ReviewDate?: string
+    PERM?: string
+    College?: string
+    RetentionPeriod?: string
+    ToBeArchived?: string
 }
 
 export interface IFolderOrBox {
-    FolderIdBarCode?: number
+    FolderId?: number
     FolderName?: string
-    Folder_Description?: string
-    Location?: string
-    BoxIdBarCode?: number
+    FolderDescription?: string
+    CurrentLocation?: string
+    BoxId?: number
     DepartmentName?: string
-    DepId?: number
+    DeptId?: number
     inCart?: boolean
 }
 
