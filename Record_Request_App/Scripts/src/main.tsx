@@ -16,6 +16,7 @@ const init = async () => {
                 sessionStore={rootStore.sessionStore}
                 requestStore={rootStore.requestStore}
                 requestState={rootStore.requestStore.requestState}
+                recordsStore={rootStore.recordsStore}
             >
                 <App />
             </Provider>,
