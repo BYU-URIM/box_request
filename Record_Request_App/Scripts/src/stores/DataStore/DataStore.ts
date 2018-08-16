@@ -1,22 +1,43 @@
-import { RootStore } from "../RootStore/RootStore"
-import { IUser, IDepartment } from "../../models/StoreModels"
+import { IUser, IDepartment } from "../../models"
 import { computed, observable, action } from "mobx"
 import { IDataService } from "../../services"
-import { Department } from "."
-import { IOption, IDropdownInfo } from ".."
+import { Department, Box } from "."
+import { IOption, RootStore, CheckoutStore } from ".."
+import { IDropdownInfo } from "../SessionStore"
+import { Folder } from "./Folder"
 
-export class RecordsStore {
+export class DataStore {
+    @observable
+    private _selectedDepartment: Department = undefined
+    
     @observable
     departments: Array<Department> = []
-    @observable
-    isLoading: boolean = true
-    @observable
-    selectedDepartment?: Department = undefined
+    @computed
+    get selectedDepartment(): Department {
+        return this._selectedDepartment
+    }
+    set selectedDepartment(value: Department) {
+        this._selectedDepartment = value
+    }
+
+    @computed
+    get selectedBox(): Box {
+        return this.selectedDepartment && this.selectedDepartment.selectedBox
+    }
+
+    @computed
+    get selectedFolder(): Folder {
+        return (
+            this.selectedBox &&
+            this.selectedDepartment.selectedBox.selectedFolder
+        )
+    }
 
     constructor(
         private _root: RootStore,
         private _user: IUser,
-        private _dataService: IDataService
+        private _dataService: IDataService,
+        private _checkoutStore: CheckoutStore
     ) {
         this.init()
     }
@@ -24,14 +45,16 @@ export class RecordsStore {
     @action
     init = async () => {
         this.departments = []
-        this.isLoading = true
         await this.loadDepartments()
-        this.isLoading = false
     }
     @action
     loadDepartments = async (): Promise<void> => {
         for (const _department of this._user.departments) {
-            const dep = new Department(this._dataService, _department)
+            const dep = new Department(
+                this._dataService,
+                this._checkoutStore,
+                _department
+            )
             this.departments.push(dep)
         }
     }
@@ -48,9 +71,7 @@ export class RecordsStore {
     get dropdownInfo(): IDropdownInfo {
         const info: IDropdownInfo = {
             title: "",
-            key: this.selectedDepartment
-                ? this.selectedDepartment.id
-                : 0,
+            key: this.selectedDepartment ? this.selectedDepartment.id : 0,
             style: "",
             placeHolder: "Departments",
         }

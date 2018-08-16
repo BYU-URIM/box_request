@@ -2,6 +2,7 @@ import { IBox, IDepartment } from "../../models"
 import { IDataService } from "../../services"
 import { Box } from "."
 import { action, observable } from "mobx"
+import { CheckoutStore } from "../CheckoutStore"
 
 export class Department {
     @observable
@@ -13,7 +14,11 @@ export class Department {
     @observable
     selectedBox?: Box = undefined
 
-    constructor(private _dataService: IDataService, _department: IDepartment) {
+    constructor(
+        private _dS: IDataService,
+        private _checkoutStore: CheckoutStore,
+        _department: IDepartment
+    ) {
         this.id = _department.id
         this.name = _department.name
         this.loadBoxes()
@@ -21,11 +26,9 @@ export class Department {
 
     @action
     loadBoxes = async () => {
-        this._dataService.fetchBoxesByDepId(this.id).then(async boxData => {
+        this._dS.fetchBoxesByDepId(this.id).then(async boxData => {
             for (const _box of boxData) {
-                const box = new Box(this._dataService, _box)
-                await box.loadFolders()
-                this.boxes.push(box)
+                this.boxes.push(new Box(this._dS, this._checkoutStore, this, _box))
             }
         })
     }

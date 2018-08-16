@@ -1,3 +1,3 @@
 export * from "./Department"
-export * from "./RecordsStore"
+export * from "./DataStore"
 export * from "./Box"
