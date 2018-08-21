@@ -1,4 +1,4 @@
-import { RootStore } from "../../stores/RootStore/RootStore"
+import { RootStore } from "../../stores"
 // import { ENVIRONMENT, EnvType } from "../../env"
 import { DataService } from "./DataService"
 import { mockFolders, mockBoxes, mockUser, mockData } from "../../res"
@@ -11,20 +11,10 @@ export class DataServiceFactory {
             ENVIRONMENT === EnvType.LOCAL
                 ? new MockDataService()
                 : new DataService()
-        return new RootStore(
-            mockUser,
-            mockFolders,
-            mockBoxes,
-            ds
-        )
+        return new RootStore(mockUser, ds)
     }
 
     static getTestRootStore(): RootStore {
-        return new RootStore(
-            mockData.currentUser,
-            mockData.folders,
-            mockData.boxes,
-            new DataService()
-        )
+        return new RootStore(mockData.currentUser, new DataService())
     }
 }

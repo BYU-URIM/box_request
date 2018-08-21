@@ -3,6 +3,9 @@ import { IUser, IBox, IFolder } from "../../models/StoreModels"
 import { mockUser, mockBoxes, mockFolders } from "../../res"
 
 export class MockDataService implements IDataService {
+    createFolder(_folder: IFolder): Promise<{}> {
+        throw new Error("Method not implemented.")
+    }
     fetchUser = (): Promise<IUser> => {
         return Promise.resolve(mockUser)
     }

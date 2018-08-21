@@ -1,8 +1,11 @@
-import { IDataService } from "./"
+import { IDataService } from "."
 import { IUser, IBox, IFolder } from "../../models"
 import { mockBoxes, mockFolders } from "../../res"
 
 export class DataService implements IDataService {
+    createFolder(_folder: IFolder): Promise<{}> {
+        throw new Error("Method not implemented.")
+    }
     /** USER/AUTH */
 
     fetchUser(): Promise<IUser> {
