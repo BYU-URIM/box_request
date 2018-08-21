@@ -7,4 +7,3 @@ rootStore.sessionStore.department = { id: 2, name: "Department 2" }
 
 export const sessionStore: SessionStore = rootStore.sessionStore
 export const requestStore = rootStore.requestStore
-export const requestState = rootStore.requestStore.requestState

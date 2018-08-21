@@ -6,12 +6,10 @@ initializeIcons()
 export const rootStore: RootStore = DataServiceFactory.getRootStore()
 const init = async () => {
     await rootStore.init()
-    await rootStore.requestStore.initializeFolderForm()
-    await rootStore.requestStore.initializeRequestForm()
+    await rootStore.uiStore.initializeFolderForm()
+    await rootStore.checkoutStore.initializeRequestForm()
 }
 init()
 
-export const sessionStore = rootStore.sessionStore
-export const requestStore = rootStore.requestStore
-export const requestForm = rootStore.requestStore.requestForm
-export const requestState = requestStore.requestState
+export const requestStore = rootStore.uiStore
+export const requestForm = rootStore.uiStore.requestForm

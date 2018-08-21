@@ -13,10 +13,9 @@ const init = async () => {
         ReactDom.render(
             <Provider
                 rootStore={rootStore}
-                sessionStore={rootStore.sessionStore}
-                requestStore={rootStore.requestStore}
-                requestState={rootStore.requestStore.requestState}
-                recordsStore={rootStore.recordsStore}
+                uiStore={rootStore.uiStore}
+                checkoutStore={rootStore.checkoutStore}
+                dataStore={rootStore.dataStore}
             >
                 <App />
             </Provider>,
