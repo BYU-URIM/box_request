@@ -1,4 +1,4 @@
-import { FolderForm } from "../src/stores/"
+import { FolderForm } from "../src/stores"
 
 const folderForm = new FolderForm(["folder 1", "folder 2", "folder 3"])
 

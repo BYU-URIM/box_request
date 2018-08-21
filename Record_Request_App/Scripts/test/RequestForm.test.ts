@@ -1,4 +1,4 @@
-import { RequestForm } from "../src/stores/"
+import { RequestForm } from "../src/stores"
 
 const requestForm = new RequestForm()
 
