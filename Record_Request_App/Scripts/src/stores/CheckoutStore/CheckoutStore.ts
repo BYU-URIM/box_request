@@ -1,19 +1,17 @@
 import { computed, observable, action } from "mobx"
-import { IBox, IFolder, IFolderOrBox } from "../../models"
-import { Box } from ".."
-import { Folder } from "../DataStore/Folder"
+import { IFolderOrBox, ModalTypes } from "../../models"
+import { RootStore } from "../RootStore"
+import { RequestForm } from ".."
 
 export class CheckoutStore {
-    @observable
-    private _boxes: Array<Box> = []
-    @observable
-    private _folders: Array<Folder> = []
+    constructor(_root: RootStore) {
+        this.root = _root
+    }
+
+    root: RootStore
 
     @observable
-    private _items: Map<number, IFolderOrBox> = observable.map<
-        number,
-        IFolderOrBox
-    >()
+    private _items: Map<number, IFolderOrBox> = observable.map()
 
     @computed
     get cart(): Array<IFolderOrBox> {
@@ -24,40 +22,19 @@ export class CheckoutStore {
     get items(): Map<number, IFolderOrBox> {
         return this._items
     }
+
     set items(value: Map<number, IFolderOrBox>) {
         this._items = value
-    }
-    @computed
-    get boxes(): Array<Box> {
-        return this._boxes
-    }
-
-    set boxes(value: Array<Box>) {
-        this._boxes = value
-    }
-
-    @computed
-    get folders(): Array<Folder> {
-        return this._folders
-    }
-
-    set folders(value: Array<Folder>) {
-        this._folders = value
     }
 
     @action
     clearCart = () => {
-        this.boxes = []
-        this.folders = []
+        this.items.clear()
     }
 
     @action
-    addToCart = (key: number, item: IFolderOrBox) => {
-        // if (!item.FolderId) this.removeChildFoldersMessage(item)
-        this.items = this.items.set(key, item)
-        // this.removeGroupedFoldersMessage(item)
+    initializeRequestForm = (): void => {
+        this.root.uiStore.modal = ModalTypes.submit
+        this.root.uiStore.requestForm = new RequestForm()
     }
-
-    @action
-    removeFromCart = (itemKey: number) => this._items.delete(itemKey)
 }

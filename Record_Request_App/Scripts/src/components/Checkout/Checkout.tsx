@@ -12,13 +12,12 @@ import "./styles.scss"
 import { DetailListHeader } from ".."
 import { observer } from "mobx-react"
 import { IFolderOrBox } from "../../models/StoreModels"
+import { CheckoutStore, Box } from "../../stores"
+import { Folder } from "../../stores/DataStore/Folder"
 
 export interface ICheckoutProps {
-    cart: Array<IFolderOrBox>
-    classNames: string
     dialogMessage: string
-    initializeRequestForm(): void
-    removeFromCart(item): void
+    checkoutStore: CheckoutStore
 }
 
 // --------------------------------------------------------------------------
@@ -81,29 +80,25 @@ export const Checkout = observer((props: ICheckoutProps) => {
             minWidth: 40,
             isResizable: false,
             ariaLabel: "Operations for removeItem",
-            onRender: (item: IFolderOrBox) => (
+            onRender: (item: Folder | Box) => (
                 <IconButton
                     iconProps={{
                         iconName: "cancel",
                     }}
                     className={"delete-icon"}
-                    onClick={() =>
-                        props.removeFromCart(
-                            item.FolderId ? item.FolderId : item.BoxId
-                        )
-                    }
+                    onClick={item.remove}
                     disabled={props.dialogMessage.length !== 0}
                 />
             ),
         },
     ]
     return (
-        <div className={`${props.classNames}`}>
-            {props.cart.length > 0 && (
+        <div className={`ms-Grid-col ms-sm3`}>
+            {props.checkoutStore.cart.length > 0 && (
                 <div>
                     <DetailListHeader title={"Checkout"} />
                     <DetailsList
-                        items={props.cart}
+                        items={props.checkoutStore.cart}
                         columns={columns}
                         compact={true}
                         layoutMode={DetailsListLayoutMode.fixedColumns}
@@ -120,7 +115,7 @@ export const Checkout = observer((props: ICheckoutProps) => {
                     <div className={"checkout-submit"}>
                         <PrimaryButton
                             text={"Submit Request"}
-                            onClick={props.initializeRequestForm}
+                            onClick={props.checkoutStore.initializeRequestForm}
                             disabled={props.dialogMessage.length !== 0}
                         />
                     </div>
