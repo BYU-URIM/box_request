@@ -2,15 +2,15 @@ import * as React from "react"
 import { Dropdown } from "office-ui-fabric-react"
 import "./styles.scss"
 import { observer } from "mobx-react"
-import { IOption, IDropdownInfo } from "../../stores"
+import { IOption, IDropdownInfo } from "../../models"
 
-export interface IUserDepsProps {
+export interface IDepartmentDropdownProps {
     handleChanged(key: number): void
     options: Array<IOption>
     dropdownInfo: IDropdownInfo
 }
 
-export const DepartmentDropdown = observer((props: IUserDepsProps) => {
+export const DepartmentDropdown = observer((props: IDepartmentDropdownProps) => {
     return (
         <div>
             <h1 className="ms-font-xxl department-dropdown-center">

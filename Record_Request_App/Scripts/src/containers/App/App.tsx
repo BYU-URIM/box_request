@@ -2,22 +2,24 @@ import * as React from "react"
 import { initializeIcons } from "@uifabric/icons"
 import "./styles.scss"
 import { Fabric } from "office-ui-fabric-react"
-import { SessionStore } from "../../stores"
+import { RootStore } from "../../stores"
 import { inject, observer } from "mobx-react"
 import { BoxRequest } from ".."
 import { Greeting } from "../../components"
+import DevTools from "mobx-react-devtools"
 
 initializeIcons()
-@inject("sessionStore")
+@inject("rootStore")
 @observer
-export class App extends React.Component<{ sessionStore?: SessionStore }> {
+export class App extends React.Component<{ rootStore?: RootStore }> {
     render() {
-        const { sessionStore } = this.props
+        const { rootStore } = this.props
         return (
             <Fabric>
                 <div className={"ms-Grid"}>
-                    <Greeting name={sessionStore.user.name} />
+                    <Greeting name={rootStore.user.name} />
                     <BoxRequest />
+                    <DevTools />
                 </div>
             </Fabric>
         )
