@@ -1,21 +1,22 @@
-import { IUser, IDepartment } from "../../models"
+import { IDepartment, IOption, IDropdownInfo } from "../../models"
 import { computed, observable, action } from "mobx"
-import { IDataService } from "../../services"
 import { Department, Box } from "."
-import { IOption, RootStore, CheckoutStore } from ".."
-import { IDropdownInfo } from "../SessionStore"
-import { Folder } from "./Folder"
+import { RootStore } from ".."
 
 export class DataStore {
+    root: RootStore
+
     @observable
     private _selectedDepartment: Department = undefined
-    
+
     @observable
     departments: Array<Department> = []
+
     @computed
     get selectedDepartment(): Department {
         return this._selectedDepartment
     }
+
     set selectedDepartment(value: Department) {
         this._selectedDepartment = value
     }
@@ -23,40 +24,6 @@ export class DataStore {
     @computed
     get selectedBox(): Box {
         return this.selectedDepartment && this.selectedDepartment.selectedBox
-    }
-
-    @computed
-    get selectedFolder(): Folder {
-        return (
-            this.selectedBox &&
-            this.selectedDepartment.selectedBox.selectedFolder
-        )
-    }
-
-    constructor(
-        private _root: RootStore,
-        private _user: IUser,
-        private _dataService: IDataService,
-        private _checkoutStore: CheckoutStore
-    ) {
-        this.init()
-    }
-
-    @action
-    init = async () => {
-        this.departments = []
-        await this.loadDepartments()
-    }
-    @action
-    loadDepartments = async (): Promise<void> => {
-        for (const _department of this._user.departments) {
-            const dep = new Department(
-                this._dataService,
-                this._checkoutStore,
-                _department
-            )
-            this.departments.push(dep)
-        }
     }
 
     @computed
@@ -84,5 +51,28 @@ export class DataStore {
         }
 
         return info
+    }
+
+    constructor(_root: RootStore) {
+        this.root = _root
+        this.init()
+    }
+
+    @action
+    init = async () => {
+        this.departments = []
+        await this.loadDepartments()
+    }
+    @action
+    loadDepartments = async (): Promise<void> => {
+        for (const _department of this.root.user.departments) {
+            const dep = new Department(
+                this.root.dataService,
+                this.root.checkoutStore,
+                this,
+                _department
+            )
+            this.departments.push(dep)
+        }
     }
 }

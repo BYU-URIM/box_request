@@ -1,3 +1,5 @@
+import { ItemStatusTypes } from "./App"
+
 export interface IUser {
     name: string
     username: string
@@ -7,14 +9,27 @@ export interface IUser {
 }
 
 export interface IFolder {
-    FolderId: number
+    FolderId?: number
     FolderName: string
     BoxId: number
     FolderDescription: string
     CurrentFolderLocation: string
-    inCart?: boolean
+    // addable?: boolean
+    // status?: ItemStatusTypes
     PCODate?: string
     DateCreated?: string
+}
+
+export interface IOption {
+    key: number
+    text: string
+}
+
+export interface IDropdownInfo {
+    title: string
+    key: number
+    style: string
+    placeHolder: string
 }
 
 export interface IBox {
@@ -23,7 +38,8 @@ export interface IBox {
     CurrentLocation: string
     DepartmentName: string
     DeptId: number
-    inCart?: boolean
+    // addable?: boolean
+    // status?: ItemStatusTypes
     BeginDate?: string
     EndDate?: string
     ReviewDate?: string
@@ -41,7 +57,7 @@ export interface IFolderOrBox {
     BoxId?: number
     DepartmentName?: string
     DeptId?: number
-    inCart?: boolean
+    addable?: boolean
 }
 
 export interface IDepartment {

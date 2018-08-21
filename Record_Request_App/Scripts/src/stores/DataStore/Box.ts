@@ -1,49 +1,55 @@
 import { IBox, IFolder, ItemStatusTypes } from "../../models"
 import { IDataService } from "../../services"
-import { action, observable, computed } from "mobx"
+import { action, observable, computed, reaction, autorun } from "mobx"
 import { Folder } from "./Folder"
 import { CheckoutStore } from ".."
 import { Department } from "./Department"
+import { request } from "http"
 
 export class Box implements IBox {
-    @computed
-    get checkoutStore(): CheckoutStore {
-        return this._checkoutStore
+    constructor(
+        private _dS: IDataService,
+        private _checkoutStore: CheckoutStore,
+        private _department: Department,
+        _box: IBox
+    ) {
+        Object.assign(this, _box)
+        this.key = _box.BoxId.toString()
+        this.loadFolders()
     }
-    set checkoutStore(value: CheckoutStore) {
-        this._checkoutStore = value
-    }
+
     BoxId: number
-    CurrentLocation: string
+    CurrentLocation: string = ""
     DepartmentName: string
     DeptId: number
     BoxDescription: string
+    key: string
+    objectType= "box"
 
     @observable
-    folders: Array<Folder> = []
-
-    @observable
-    private _selectedFolder: Folder = undefined
+    private _folders: Array<Folder> = []
 
     @computed
-    get selectedFolder(): Folder {
-        return this._selectedFolder
+    get folders(): Array<Folder> {
+        return this._folders
     }
-    set selectedFolder(value: Folder) {
-        this._selectedFolder = value
+
+    @computed
+    get dataFromFolders(): Array<Folder> {
+        return this.folders.map(_folder => {
+            // tslint:disable-next-line:no-unused-expression
+            _folder.addable
+            return _folder
+        })
     }
 
     @computed
     get addable(): boolean {
-        console.log(`box ${this.BoxId} addable`)
-        
-        return !this.checkoutStore.items.has(this.BoxId)
+        return !this._checkoutStore.items.has(this.BoxId)
     }
 
     @computed
     get status(): ItemStatusTypes {
-        console.log(`box ${this.BoxId} status`)
-
         return this.CurrentLocation === String(this.DeptId)
             ? ItemStatusTypes.checkedOutByClient
             : this.CurrentLocation.toLowerCase().startsWith("l") &&
@@ -52,41 +58,29 @@ export class Box implements IBox {
                 : ItemStatusTypes.unavailable
     }
 
-    @computed
-    get department(): Department {
-        return this._department
-    }
-    set department(value: Department) {
-        this._department = value
-    }
-
-    constructor(
-        private _dataService: IDataService,
-        private _checkoutStore: CheckoutStore,
-        private _department: Department,
-        _box: IBox
-    ) {
-        Object.assign(this, _box)
-        this.loadFolders()
+    @action
+    select = () => {
+        this._department.selectedBox = this as Box
     }
 
     @action
-    loadFolders = async () => {
-        this._dataService.fetchFoldersByBoxId(this.BoxId).then(_folders => {
+    request = () => {
+        this._checkoutStore.items.set(this.BoxId, this)
+    }
+
+    @action
+    remove = () => {
+        this._checkoutStore.items.delete(this.BoxId)
+    }
+
+    @action
+    loadFolders = () => {
+        this._dS.fetchFoldersByBoxId(this.BoxId).then(_folders => {
             for (const _folder of _folders) {
-                const folder = new Folder(
-                    this._dataService,
-                    this._checkoutStore,
-                    this,
-                    _folder
+                this._folders.push(
+                    new Folder(this._dS, this._checkoutStore, this, _folder)
                 )
-                this.folders.push(folder)
             }
         })
-    }
-
-    @action
-    addToCart = () => {
-        this.checkoutStore.addToCart(this.BoxId, this)
     }
 }

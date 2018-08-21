@@ -4,6 +4,15 @@ import { action, observable, computed } from "mobx"
 import { CheckoutStore } from "../CheckoutStore"
 import { Box } from "."
 export class Folder implements IFolder {
+    constructor(
+        private _dS: IDataService,
+        private _checkoutStore: CheckoutStore,
+        private _box: Box,
+        _folder: IFolder
+    ) {
+        Object.assign(this, _folder)
+    }
+    
     FolderId: number
     FolderName: string
     BoxId: number
@@ -11,6 +20,7 @@ export class Folder implements IFolder {
     CurrentFolderLocation: string
     PCODate?: string
     DateCreated?: string
+    objectType= "folder"
 
     @computed
     get addable(): boolean {
@@ -31,17 +41,13 @@ export class Folder implements IFolder {
         }
     }
 
-    constructor(
-        private _dataService: IDataService,
-        private _checkoutStore: CheckoutStore,
-        private _box: Box,
-        _folder: IFolder
-    ) {
-        Object.assign(this, _folder)
+    @action
+    request = () => {
+        this._checkoutStore.items.set(this.FolderId, this)
     }
 
     @action
-    addToCart = () => {
-        this._checkoutStore.addToCart(this.FolderId, this)
+    remove = () => {
+        this._checkoutStore.items.delete(this.FolderId)
     }
 }
