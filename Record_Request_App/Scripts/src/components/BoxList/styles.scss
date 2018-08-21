@@ -14,7 +14,20 @@
     font-size: 15px;
     cursor: pointer;
 }
+.boxlist-row-disabled button {
+    margin: 0px;
+    padding: 0px;
+    color: gray;
+    cursor: not-allowed;
+}
 .boxlist-row-disabled p {
+    margin: 0px;
+    padding: 0px;
+    color: gray;
+    cursor: not-allowed;
+}
+
+.boxlist-row-disabled {
     margin: 0px;
     padding: 0px;
     color: gray;
