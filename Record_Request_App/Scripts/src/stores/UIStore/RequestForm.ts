@@ -4,29 +4,15 @@ export class RequestForm {
     @observable
     private _deliveryInstructions: string = ""
     @observable
-    private _urgent: boolean = false
+    urgent: boolean = false
     @observable
-    private _permanent: boolean = false
-
-    @computed
-    get urgent(): boolean {
-        return this._urgent
-    }
-    set urgent(value: boolean) {
-        this._urgent = value
-    }
-    @computed
-    get permanent(): boolean {
-        return this._permanent
-    }
-    set permanent(value: boolean) {
-        this._permanent = value
-    }
+    permanent: boolean = false
 
     @computed
     get deliveryInstructions(): string {
         return this._deliveryInstructions
     }
+
     set deliveryInstructions(_newInstructions: string) {
         this._deliveryInstructions = _newInstructions.trim()
     }
