@@ -979,7 +979,16 @@
   dependencies:
     tslib "^1.7.1"
 
-"@uifabric/styling@>=6.13.0 <7.0.0", "@uifabric/styling@>=6.3.0 <7.0.0":
+"@uifabric/styling@>=6.12.0 <7.0.0":
+  version "6.14.0"
+  resolved "https://registry.yarnpkg.com/@uifabric/styling/-/styling-6.14.0.tgz#72e6f7fb0c456756ece4d4b3fc6c42d1d847190c"
+  dependencies:
+    "@microsoft/load-themed-styles" "^1.7.13"
+    "@uifabric/merge-styles" ">=6.7.0 <7.0.0"
+    "@uifabric/utilities" ">=6.12.1 <7.0.0"
+    tslib "^1.7.1"
+
+"@uifabric/styling@>=6.3.0 <7.0.0":
   version "6.13.0"
   resolved "https://registry.yarnpkg.com/@uifabric/styling/-/styling-6.13.0.tgz#b74c50b25cc458bc7473ae18d208aa8baeec86c9"
   dependencies:
@@ -3827,8 +3836,8 @@ external-editor@^2.0.4:
     tmp "^0.0.33"
 
 external-editor@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/external-editor/-/external-editor-3.0.0.tgz#dc35c48c6f98a30ca27a20e9687d7f3c77704bb6"
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/external-editor/-/external-editor-3.0.1.tgz#fc9638c4d7cde4f0bb82b12307a1a23912c492e3"
   dependencies:
     chardet "^0.5.0"
     iconv-lite "^0.4.22"
@@ -4945,8 +4954,8 @@ inquirer@3.3.0:
     through "^2.3.6"
 
 inquirer@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-6.0.0.tgz#e8c20303ddc15bbfc2c12a6213710ccd9e1413d8"
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-6.1.0.tgz#8f65c7b31c498285f4ddf3b742ad8c487892040b"
   dependencies:
     ansi-escapes "^3.0.0"
     chalk "^2.0.0"
@@ -6615,6 +6624,10 @@ mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
     minimist "0.0.8"
+
+mobx-react-devtools@^6.0.2:
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/mobx-react-devtools/-/mobx-react-devtools-6.0.2.tgz#a940b32701625dd8b6659bae6234b192bd17a37b"
 
 mobx-react@^5.2.3:
   version "5.2.3"
@@ -9877,7 +9890,7 @@ ts-jest@^23.0.0:
     pkg-dir "^3.0.0"
     yargs "^12.0.1"
 
-ts-loader@^4.4.1:
+ts-loader@^4.4.2:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-4.4.2.tgz#778d4464b24436873c78f7f9e914d88194c2a248"
   dependencies:
@@ -10501,7 +10514,7 @@ webpack-chain@^4.8.0:
     deepmerge "^1.5.2"
     javascript-stringify "^1.6.0"
 
-webpack-cli@^3.0.6:
+webpack-cli@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/webpack-cli/-/webpack-cli-3.1.0.tgz#d71a83687dcfeb758fdceeb0fe042f96bcf62994"
   dependencies:

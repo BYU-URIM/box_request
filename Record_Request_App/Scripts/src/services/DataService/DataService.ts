@@ -1,8 +1,11 @@
-import { IDataService } from "./"
+import { IDataService } from "."
 import { IUser, IBox, IFolder } from "../../models"
 import { mockBoxes, mockFolders } from "../../res"
 
 export class DataService implements IDataService {
+    createFolder(_folder: IFolder): Promise<{}> {
+        throw new Error("Method not implemented.")
+    }
     /** USER/AUTH */
 
     fetchUser(): Promise<IUser> {
@@ -33,12 +36,12 @@ export class DataService implements IDataService {
         return data
     }
     fetchBoxesByDepId = (_depId: number): Promise<Array<IBox>> => {
-        return new Promise(() => mockBoxes.filter(box => box.DepId === _depId))
+        return new Promise(() => mockBoxes.filter(box => box.DeptId === _depId))
     }
 
     fetchFoldersByBoxId = (_boxId: number): Promise<Array<IFolder>> => {
         return new Promise(() =>
-            mockFolders.filter(folder => folder.BoxIdBarCode === _boxId)
+            mockFolders.filter(folder => folder.BoxId === _boxId)
         )
     }
 }

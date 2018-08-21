@@ -5,9 +5,12 @@ const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin")
 module.exports = function(env) {
     return {
         devServer: {
-            contentBase: "dist"
+            contentBase: "dist",
+            stats: {
+                warningsFilter: /export .* was not found in/,
+            },
         },
-        devtool:"source-maps",
+        devtool: "source-maps",
         entry: "./src/main.tsx",
         output: {
             filename: "bundle.js",
@@ -36,7 +39,7 @@ module.exports = function(env) {
             new webpack.DefinePlugin({
                 NODE_ENV: JSON.stringify(env.NODE_ENV),
             }),
-            new ForkTsCheckerWebpackPlugin(),
+            new ForkTsCheckerWebpackPlugin({ checkSyntacticErrors: true }),
         ],
     }
 }

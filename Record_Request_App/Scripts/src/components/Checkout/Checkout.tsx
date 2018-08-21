@@ -12,13 +12,12 @@ import "./styles.scss"
 import { DetailListHeader } from ".."
 import { observer } from "mobx-react"
 import { IFolderOrBox } from "../../models/StoreModels"
+import { CheckoutStore, Box } from "../../stores"
+import { Folder } from "../../stores/DataStore/Folder"
 
 export interface ICheckoutProps {
-    cart: Array<IFolderOrBox>
-    classNames: string
     dialogMessage: string
-    initializeRequestForm(): void
-    removeFromCart(item): void
+    checkoutStore: CheckoutStore
 }
 
 // --------------------------------------------------------------------------
@@ -35,15 +34,13 @@ export const Checkout = observer((props: ICheckoutProps) => {
             ariaLabel: "Operations for pendingItemRequests",
             onRender: (item: IFolderOrBox) => (
                 <div>
-                    {item.FolderIdBarCode ? (
+                    {item.FolderId ? (
                         <Icon iconName="FabricFolder" />
                     ) : (
                         <Icon iconName="GiftboxSolid" />
                     )}
                     <p>
-                        {item.FolderIdBarCode
-                            ? `-  ${item.FolderName}`
-                            : item.BoxIdBarCode}
+                        {item.FolderId ? `-  ${item.FolderName}` : item.BoxId}
                     </p>
                 </div>
             ),
@@ -57,7 +54,7 @@ export const Checkout = observer((props: ICheckoutProps) => {
             isResizable: false,
             ariaLabel: "Operations for type",
             onRender: (item: IFolderOrBox) => (
-                <p>{item.FolderIdBarCode ? "Folder" : "Box"}</p>
+                <p>{item.FolderId ? "Folder" : "Box"}</p>
             ),
         },
         {
@@ -70,9 +67,9 @@ export const Checkout = observer((props: ICheckoutProps) => {
             ariaLabel: "Operations for parentBox",
             onRender: (item: IFolderOrBox) => (
                 <p>
-                    {item.FolderIdBarCode
-                        ? `Box - ${item.BoxIdBarCode}`
-                        : `Dep - ${item.DepId}`}
+                    {item.FolderId
+                        ? `Box - ${item.BoxId}`
+                        : `Dep - ${item.DeptId}`}
                 </p>
             ),
         },
@@ -83,31 +80,25 @@ export const Checkout = observer((props: ICheckoutProps) => {
             minWidth: 40,
             isResizable: false,
             ariaLabel: "Operations for removeItem",
-            onRender: (item: IFolderOrBox) => (
+            onRender: (item: Folder | Box) => (
                 <IconButton
                     iconProps={{
                         iconName: "cancel",
                     }}
                     className={"delete-icon"}
-                    onClick={() =>
-                        props.removeFromCart(
-                            item.FolderIdBarCode
-                                ? item.FolderIdBarCode
-                                : item.BoxIdBarCode
-                        )
-                    }
+                    onClick={item.remove}
                     disabled={props.dialogMessage.length !== 0}
                 />
             ),
         },
     ]
     return (
-        <div className={`${props.classNames}`}>
-            {props.cart.length > 0 && (
+        <div className={`ms-Grid-col ms-sm3`}>
+            {props.checkoutStore.cart.length > 0 && (
                 <div>
                     <DetailListHeader title={"Checkout"} />
                     <DetailsList
-                        items={props.cart}
+                        items={props.checkoutStore.cart}
                         columns={columns}
                         compact={true}
                         layoutMode={DetailsListLayoutMode.fixedColumns}
@@ -124,7 +115,7 @@ export const Checkout = observer((props: ICheckoutProps) => {
                     <div className={"checkout-submit"}>
                         <PrimaryButton
                             text={"Submit Request"}
-                            onClick={props.initializeRequestForm}
+                            onClick={props.checkoutStore.initializeRequestForm}
                             disabled={props.dialogMessage.length !== 0}
                         />
                     </div>

@@ -14,7 +14,7 @@ test("Tests clearCart by removing all items from cart", () => {
 test("Tests removeFromCart by adding and removing an item from the cart", () => {
     requestState.addToCart(requestState.boxes[0])
     expect(requestState.cart).toHaveLength(1)
-    requestState.removeFromCart(requestState.boxes[0].BoxIdBarCode)
+    requestState.removeFromCart(requestState.boxes[0].BoxId)
     expect(requestState.cart).toHaveLength(0)
 })
 
@@ -23,10 +23,10 @@ test("Tests if the cart already contains an item", () => {
     expect(requestState.cartContains(requestState.boxes[0])).toBeTruthy()
     const testBox: IBox = {
         BoxDescription: "Test",
-        BoxIdBarCode: 789,
+        BoxId: 789,
         DepartmentName: "Test Department",
-        DepId: 456,
-        Location: "L5466",
+        DeptId: 456,
+        CurrentLocation: "L5466",
     }
     expect(requestState.cartContains(testBox)).toBeFalsy()
 })

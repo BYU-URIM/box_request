@@ -1,10 +1,8 @@
 import * as React from "react"
 import "./styles.scss"
-import { AppModes } from "../../stores"
 
 export interface IGreetingProps {
     name: string
-    switchApp(mode: AppModes): void
 }
 
 export const Greeting = (props: IGreetingProps) => (

@@ -12,77 +12,76 @@ import {
 
 import "./styles.scss"
 import { inject, observer } from "mobx-react"
-import { ModalTypes, IFolderOrBox } from "../../models"
+import { ModalTypes } from "../../models"
 import { Modal } from "office-ui-fabric-react/lib/Modal"
-import { RequestState, RequestStore } from "../../stores"
+import { UIStore, CheckoutStore } from "../../stores"
+import { DataStore } from "../../stores/DataStore"
 
-@inject("requestStore", "requestState")
+@inject("requestStore", "checkoutStore", "dataStore")
 @observer
 export class BoxRequest extends React.Component<{
-    requestStore?: RequestStore
-    requestState?: RequestState
+    checkoutStore?: CheckoutStore
+    dataStore?: DataStore
+    requestStore?: UIStore
 }> {
     render() {
-        const { requestStore, requestState } = this.props
+        const { requestStore, dataStore, checkoutStore } = this.props
         return (
             <>
                 <div className={"ms-Grid-row"}>
                     <div className={"ms-Grid-col ms-sm12"}>
-                        {requestState.msgBarMessage.length > 0 && (
+                        {requestStore.msgBarMessage.length > 0 && (
                             <MsgBar
-                                messageBarType={requestState.mBarType}
-                                clearMessage={() => requestState.clearMessage()}
-                                message={requestState.msgBarMessage}
+                                messageBarType={requestStore.mBarType}
+                                clearMessage={() => requestStore.clearMessage()}
+                                message={requestStore.msgBarMessage}
                             />
                         )}
-                        {requestState.dialogMessage.length > 0 && (
+                        {requestStore.dialogMessage.length > 0 && (
                             <WarningDialog
                                 removeChildFolders={
-                                    requestState.removeChildFolders
+                                    requestStore.removeChildFolders
                                 }
-                                removeParentBox={requestState.removeParentBox}
-                                dialogMessage={requestState.dialogMessage}
+                                removeParentBox={requestStore.removeParentBox}
+                                dialogMessage={requestStore.dialogMessage}
                             />
                         )}
                     </div>
                 </div>
                 <div className={"ms-Grid-row"}>
-                    <div className={requestState.dropdownInfo.style}>
+                    <div className={dataStore.dropdownInfo.style}>
                         <DepartmentDropdown
                             handleChanged={(id: number) =>
-                                (requestStore.sessionStore.departmentId = id)
+                                (dataStore.selectedDepartment = dataStore.departments.find(
+                                    _dep => _dep.id === id
+                                ))
                             }
-                            options={
-                                requestStore.sessionStore
-                                    .userDepartmentsAsOptions
-                            }
-                            dropdownInfo={requestState.dropdownInfo}
+                            options={dataStore.userDepartmentsAsOptions}
+                            dropdownInfo={dataStore.dropdownInfo}
                         />
                     </div>
                 </div>
                 <div className={"ms-Grid-row box-request-row"}>
                     <div>
                         <Modal
-                            isOpen={requestState.modal !== ModalTypes.none}
-                            onDismiss={() =>
-                                (requestState.modal = ModalTypes.none)
-                            }
+                            isOpen={requestStore.modal !== ModalTypes.none}
+                            onDismiss={requestStore.clearModal}
                             isBlocking={false}
                             isDarkOverlay={false}
                         >
-                            {requestState.modal === ModalTypes.submit && (
+                            {requestStore.modal === ModalTypes.submit && (
                                 <SubmitModal
                                     submit={requestStore.submitRequest}
-                                    modal={requestState.modal}
+                                    modal={requestStore.modal}
                                     requestForm={requestStore.requestForm}
-                                    close={requestState.clearModal}
+                                    close={requestStore.clearModal}
                                 />
                             )}
-                            {requestState.modal === ModalTypes.create && (
+                            {requestStore.modal === ModalTypes.create && (
                                 <CreateFolderModal
-                                    modal={requestState.modal}
-                                    close={requestState.clearModal}
-                                    box={requestState.box.BoxIdBarCode}
+                                    modal={requestStore.modal}
+                                    close={requestStore.clearModal}
+                                    box={dataStore.selectedBox.BoxId}
                                     folderForm={requestStore.folderForm}
                                     createFolder={() =>
                                         requestStore.createFolder()
@@ -96,60 +95,19 @@ export class BoxRequest extends React.Component<{
                                 initializeFolderForm={
                                     requestStore.initializeFolderForm
                                 }
-                                checkoutStatus={item =>
-                                    requestStore.determineItemStatus(item)
-                                }
-                                classNames={
-                                    "ms-Grid-col ms-sm5 scroll-container"
-                                }
-                                selectedBoxId={
-                                    requestState.box
-                                        ? requestState.box.BoxIdBarCode
-                                        : 0
-                                }
-                                requestState={requestState}
-                                addToCart={item => requestState.addToCart(item)}
-                                box={requestState.box}
-                                dialogMessage={requestState.dialogMessage}
-                                sortBoxes={requestState.sortBoxes}
-                                cartContains={item =>
-                                    requestState.cartContains(item)
-                                }
-                                canAddItemToCart={item =>
-                                    requestStore.canAddItemToCart(item)
-                                }
+                                ds={dataStore}
                             />
 
                             <FolderView
-                                canAddItem={(item: IFolderOrBox) =>
-                                    requestStore.canAddItemToCart(item)
-                                }
-                                cart={requestState.cart}
-                                checkoutStatus={item =>
-                                    requestStore.determineItemStatus(item)
-                                }
                                 emptyMessage={
-                                    requestStore.sessionStore.department !==
-                                        undefined &&
+                                    dataStore.selectedDepartment &&
                                     "Click on a box to view its folders"
                                 }
-                                classNames={"ms-Grid-col ms-sm2"}
-                                addToCart={requestState.addToCart}
-                                box={requestState.box}
-                                folders={requestState.folders}
-                                modal={requestState.modal}
+                                ds={dataStore}
                             />
-
                             <Checkout
-                                classNames={"ms-Grid-col ms-sm3"}
-                                initializeRequestForm={
-                                    requestStore.initializeRequestForm
-                                }
-                                cart={requestState.cart}
-                                dialogMessage={requestState.dialogMessage}
-                                removeFromCart={item =>
-                                    requestState.removeFromCart(item)
-                                }
+                                dialogMessage={requestStore.dialogMessage}
+                                checkoutStore={checkoutStore}
                             />
                             <div className={"ms-Grid-col ms-sm1"} />
                         </div>

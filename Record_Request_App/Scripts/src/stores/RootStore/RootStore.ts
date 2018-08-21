@@ -1,20 +1,20 @@
 import { action, observable, runInAction } from "mobx"
-import { SessionStore } from "../SessionStore/SessionStore"
 import { IUser } from "../../models/StoreModels"
-import { RequestStore } from "../RequestStore/RequestStore"
+import { UIStore } from "../UIStore/UIStore"
 import { IDataService } from "../../services/DataService/IDataService"
-import { CreatorStore } from "../CreatorStore/CreatorStore"
+import { DataStore } from "../DataStore"
+import { CheckoutStore } from "../CheckoutStore"
 
 export class RootStore {
-    sessionStore: SessionStore
-    requestStore: RequestStore
-    creatorStore: CreatorStore
-    constructor(
-        private _currentUser: IUser,
-        private _folderData,
-        private _boxData,
-        private _dataService?: IDataService
-    ) {}
+    uiStore: UIStore
+    checkoutStore: CheckoutStore
+    dataStore: DataStore
+    user: IUser
+    dataService: IDataService
+    constructor(_currentUser: IUser, _dataService: IDataService) {
+        this.dataService = _dataService
+        this.user = _currentUser
+    }
 
     @observable
     public initialized: boolean = false
@@ -22,16 +22,11 @@ export class RootStore {
     @action
     async init(): Promise<void> {
         if (!this.initialized) {
-            this.sessionStore = new SessionStore(this._currentUser, this)
-            this.requestStore = new RequestStore(
-                this._folderData,
-                this._boxData,
-                this
-            )
-            this.creatorStore = new CreatorStore(this)
-            await this.sessionStore.init()
-            await this.requestStore.init()
-            this.sessionStore.switchApp("BoxCreate")
+            this.checkoutStore = new CheckoutStore(this)
+            this.dataStore = new DataStore(this)
+            this.uiStore = new UIStore(this)
+            await this.uiStore.init()
+            await this.dataStore.init()
             runInAction(() => (this.initialized = true))
         }
     }
