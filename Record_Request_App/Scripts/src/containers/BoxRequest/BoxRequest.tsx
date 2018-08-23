@@ -17,33 +17,31 @@ import { Modal } from "office-ui-fabric-react/lib/Modal"
 import { UIStore, CheckoutStore } from "../../stores"
 import { DataStore } from "../../stores/DataStore"
 
-@inject("requestStore", "checkoutStore", "dataStore")
+@inject("uiStore", "checkoutStore", "dataStore")
 @observer
 export class BoxRequest extends React.Component<{
     checkoutStore?: CheckoutStore
     dataStore?: DataStore
-    requestStore?: UIStore
+    uiStore?: UIStore
 }> {
     render() {
-        const { requestStore, dataStore, checkoutStore } = this.props
+        const { uiStore, dataStore, checkoutStore } = this.props
         return (
             <>
                 <div className={"ms-Grid-row"}>
                     <div className={"ms-Grid-col ms-sm12"}>
-                        {requestStore.msgBarMessage.length > 0 && (
+                        {uiStore.msgBarMessage.length > 0 && (
                             <MsgBar
-                                messageBarType={requestStore.mBarType}
-                                clearMessage={() => requestStore.clearMessage()}
-                                message={requestStore.msgBarMessage}
+                                messageBarType={uiStore.mBarType}
+                                clearMessage={() => uiStore.clearMessage()}
+                                message={uiStore.msgBarMessage}
                             />
                         )}
-                        {requestStore.dialogMessage.length > 0 && (
+                        {uiStore.dialogMessage.length > 0 && (
                             <WarningDialog
-                                removeChildFolders={
-                                    requestStore.removeChildFolders
-                                }
-                                removeParentBox={requestStore.removeParentBox}
-                                dialogMessage={requestStore.dialogMessage}
+                                removeChildFolders={uiStore.removeChildFolders}
+                                removeParentBox={uiStore.removeParentBox}
+                                dialogMessage={uiStore.dialogMessage}
                             />
                         )}
                     </div>
@@ -64,28 +62,26 @@ export class BoxRequest extends React.Component<{
                 <div className={"ms-Grid-row box-request-row"}>
                     <div>
                         <Modal
-                            isOpen={requestStore.modal !== ModalTypes.none}
-                            onDismiss={requestStore.clearModal}
+                            isOpen={uiStore.modal !== ModalTypes.none}
+                            onDismiss={uiStore.clearModal}
                             isBlocking={false}
                             isDarkOverlay={false}
                         >
-                            {requestStore.modal === ModalTypes.submit && (
+                            {uiStore.modal === ModalTypes.submit && (
                                 <SubmitModal
-                                    submit={requestStore.submitRequest}
-                                    modal={requestStore.modal}
-                                    requestForm={requestStore.requestForm}
-                                    close={requestStore.clearModal}
+                                    submit={uiStore.submitRequest}
+                                    modal={uiStore.modal}
+                                    requestForm={uiStore.requestForm}
+                                    close={uiStore.clearModal}
                                 />
                             )}
-                            {requestStore.modal === ModalTypes.create && (
+                            {uiStore.modal === ModalTypes.create && (
                                 <CreateFolderModal
-                                    modal={requestStore.modal}
-                                    close={requestStore.clearModal}
+                                    modal={uiStore.modal}
+                                    close={uiStore.clearModal}
                                     box={dataStore.selectedBox.BoxId}
-                                    folderForm={requestStore.folderForm}
-                                    createFolder={() =>
-                                        requestStore.createFolder()
-                                    }
+                                    folderForm={uiStore.folderForm}
+                                    createFolder={() => uiStore.createFolder()}
                                 />
                             )}
                         </Modal>
@@ -93,7 +89,7 @@ export class BoxRequest extends React.Component<{
                             <div className={"ms-Grid-col ms-sm1"} />
                             <BoxList
                                 initializeFolderForm={
-                                    requestStore.initializeFolderForm
+                                    uiStore.initializeFolderForm
                                 }
                                 ds={dataStore}
                             />
@@ -106,7 +102,7 @@ export class BoxRequest extends React.Component<{
                                 ds={dataStore}
                             />
                             <Checkout
-                                dialogMessage={requestStore.dialogMessage}
+                                dialogMessage={uiStore.dialogMessage}
                                 checkoutStore={checkoutStore}
                             />
                             <div className={"ms-Grid-col ms-sm1"} />

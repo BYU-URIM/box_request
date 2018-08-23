@@ -20,8 +20,6 @@ export interface ICheckoutProps {
     checkoutStore: CheckoutStore
 }
 
-// --------------------------------------------------------------------------
-
 export const Checkout = observer((props: ICheckoutProps) => {
     const columns: IColumn[] = [
         {
