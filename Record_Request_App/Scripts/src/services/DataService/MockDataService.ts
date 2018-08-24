@@ -3,20 +3,27 @@ import { IUser, IBox, IFolder } from "../../models/StoreModels"
 import { mockUser, mockBoxes, mockFolders } from "../../res"
 
 export class MockDataService implements IDataService {
-    createFolder(_folder: IFolder): Promise<{}> {
-        throw new Error("Method not implemented.")
+    _user: IUser = mockUser
+    _boxes: Array<IBox> = mockBoxes
+    _folders: Array<IFolder> = mockFolders
+
+    createFolder(_folder: IFolder): Promise<void> {
+        this._folders.push({ ..._folder, FolderId: Math.random() })
+        console.log(this._folders)
+
+        return Promise.resolve()
     }
     fetchUser = (): Promise<IUser> => {
-        return Promise.resolve(mockUser)
+        return Promise.resolve(this._user)
     }
 
     fetchBoxesByDepId = (_depId: number): Promise<Array<IBox>> => {
-        return Promise.resolve(mockBoxes.filter(box => box.DeptId === _depId))
+        return Promise.resolve(this._boxes.filter(box => box.DeptId === _depId))
     }
 
     fetchFoldersByBoxId = (_boxId: number): Promise<Array<IFolder>> => {
         return Promise.resolve(
-            mockFolders.filter(folder => folder.BoxId === _boxId)
+            this._folders.filter(folder => folder.BoxId === _boxId)
         )
     }
 }

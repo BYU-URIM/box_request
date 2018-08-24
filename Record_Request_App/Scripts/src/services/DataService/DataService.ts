@@ -3,7 +3,7 @@ import { IUser, IBox, IFolder } from "../../models"
 import { mockBoxes, mockFolders } from "../../res"
 
 export class DataService implements IDataService {
-    createFolder(_folder: IFolder): Promise<{}> {
+    createFolder(_folder: IFolder): Promise<void> {
         throw new Error("Method not implemented.")
     }
     /** USER/AUTH */
