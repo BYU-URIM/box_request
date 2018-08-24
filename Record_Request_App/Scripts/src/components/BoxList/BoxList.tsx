@@ -4,7 +4,7 @@ import {
     DetailsListLayoutMode,
     IColumn,
     CheckboxVisibility,
-    IDetailsRowProps
+    IDetailsRowProps,
 } from "office-ui-fabric-react"
 import "./styles.scss"
 import { DetailListHeader } from ".."
