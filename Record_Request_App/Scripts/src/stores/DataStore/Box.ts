@@ -24,7 +24,7 @@ export class Box implements IBox {
     DeptId: number
     BoxDescription: string
     key: string
-    objectType= "box"
+    objectType = "box"
 
     @observable
     private _folders: Array<Folder> = []
@@ -75,6 +75,7 @@ export class Box implements IBox {
 
     @action
     loadFolders = () => {
+        this._folders = []
         this._dS.fetchFoldersByBoxId(this.BoxId).then(_folders => {
             for (const _folder of _folders) {
                 this._folders.push(
