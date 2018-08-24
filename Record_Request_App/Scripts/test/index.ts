@@ -1,9 +1,10 @@
-import { DataServiceFactory } from "../src/services"
-import { SessionStore } from "../src/stores"
+import { DataServiceFactory, MockDataService } from "../src/services"
+import { RootStore } from "../src/stores"
+import { mockUser } from "../src/res"
 
-const rootStore = DataServiceFactory.getTestRootStore()
-rootStore.init()
-rootStore.sessionStore.department = { id: 2, name: "Department 2" }
-
-export const sessionStore: SessionStore = rootStore.sessionStore
-export const requestStore = rootStore.requestStore
+const getRootStore = (): RootStore => {
+    const _rootStore = new RootStore(mockUser, new MockDataService())
+    _rootStore.init()
+    return _rootStore
+}
+export const rootStore = getRootStore()

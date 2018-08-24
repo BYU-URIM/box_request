@@ -1,18 +1,18 @@
-import { action, observable, computed } from "mobx"
-import { IFolder, IFolderOrBox, IBox } from "../../models/StoreModels"
-import { ModalTypes, ItemStatusTypes } from "../../models"
-import { RootStore } from "../RootStore/RootStore"
-import { FolderForm } from "./FolderForm"
-import { RequestForm } from "./RequestForm"
+import { action, observable } from "mobx"
+import { IFolderOrBox } from "../../models/StoreModels"
+import { ModalTypes } from "../../models"
 import { MessageBarType } from "office-ui-fabric-react"
-import { CheckoutStore } from "../CheckoutStore"
-import { DataStore } from "../DataStore"
+import { RootStore, FolderForm, RequestForm } from ".."
 export class UIStore {
     constructor(_root: RootStore) {
         this.root = _root
+        this.init()
     }
 
     root: RootStore
+
+    @observable
+    initialized: boolean = false
 
     @observable
     folderForm: FolderForm
@@ -33,6 +33,7 @@ export class UIStore {
     mBarType: MessageBarType = undefined
 
     init = async () => {
+        this.initialized = true
         return
     }
 
@@ -69,6 +70,8 @@ export class UIStore {
         //     this.checkoutStore.addToCart(this.folders[this.folders.length - 1])
         // }
         this.modal = ModalTypes.none
+        /* reload folders for this box so that the folderList reflects the new folder */
+        this.root.dataStore.selectedBox.loadFolders()
     }
 
     @action
@@ -82,12 +85,12 @@ export class UIStore {
     @action
     removeParentBox = () => {
         this.clearMessage()
-        this.removeFromCart(this.root.dataStore.selectedBox.BoxId)
+        // this.removeFromCart(this.root.dataStore.selectedBox.BoxId)
     }
 
-    @action
-    removeFromCart = (itemKey: number) =>
-        this.root.checkoutStore.items.delete(itemKey)
+    // @action
+    // removeFromCart = (itemKey: number) =>
+    //     this.root.checkoutStore.items.delete(itemKey)
 
     @action
     removeChildFolders = () => {
@@ -96,14 +99,14 @@ export class UIStore {
             //     this.root.dataStore.selectedDepartment.selectedBox
             // )
 
-            this.root.checkoutStore.cart.forEach(checkedItem => {
-                if (
-                    checkedItem.BoxId ===
-                    this.root.dataStore.selectedDepartment.selectedBox.BoxId
-                )
-                    this.removeFromCart(checkedItem.FolderId)
-            })
-        this.clearMessage()
+            // this.root.checkoutStore.cart.forEach(checkedItem => {
+            //     if (
+            //         checkedItem.BoxId ===
+            //         this.root.dataStore.selectedDepartment.selectedBox.BoxId
+            //     )
+            //         this.removeFromCart(checkedItem.FolderId)
+            // })
+            this.clearMessage()
     }
 
     @action

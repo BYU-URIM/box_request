@@ -12,7 +12,7 @@ export class Folder implements IFolder {
     ) {
         Object.assign(this, _folder)
     }
-    
+
     FolderId: number
     FolderName: string
     BoxId: number
@@ -20,7 +20,7 @@ export class Folder implements IFolder {
     CurrentFolderLocation: string
     PCODate?: string
     DateCreated?: string
-    objectType= "folder"
+    objectType = "folder"
 
     @computed
     get addable(): boolean {

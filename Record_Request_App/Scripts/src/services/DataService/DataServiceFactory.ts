@@ -8,13 +8,9 @@ import { MockDataService } from "./MockDataService"
 export class DataServiceFactory {
     static getRootStore(): RootStore {
         const ds =
-            ENVIRONMENT === EnvType.LOCAL
+            ENVIRONMENT && ENVIRONMENT === EnvType.LOCAL
                 ? new MockDataService()
                 : new DataService()
         return new RootStore(mockUser, ds)
-    }
-
-    static getTestRootStore(): RootStore {
-        return new RootStore(mockData.currentUser, new DataService())
     }
 }

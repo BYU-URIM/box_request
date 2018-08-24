@@ -10,22 +10,24 @@ export interface IDepartmentDropdownProps {
     dropdownInfo: IDropdownInfo
 }
 
-export const DepartmentDropdown = observer((props: IDepartmentDropdownProps) => {
-    return (
-        <div>
-            <h1 className="ms-font-xxl department-dropdown-center">
-                {props.dropdownInfo.title}
-            </h1>
-            <Dropdown
-                placeHolder={props.dropdownInfo.placeHolder}
-                options={props.options}
-                selectedKey={props.dropdownInfo.key}
-                onChanged={item => props.handleChanged(Number(item.key))}
-                id={"test"}
-                disabled={props.options.length === 1}
-            />
-        </div>
-    )
-})
+export const DepartmentDropdown = observer(
+    (props: IDepartmentDropdownProps) => {
+        return (
+            <div>
+                <h1 className="ms-font-xxl department-dropdown-center">
+                    {props.dropdownInfo.title}
+                </h1>
+                <Dropdown
+                    placeHolder={props.dropdownInfo.placeHolder}
+                    options={props.options}
+                    selectedKey={props.dropdownInfo.key}
+                    onChanged={(item: IOption) => props.handleChanged(item.key)}
+                    id={"dep_dropdown"}
+                    disabled={props.options.length === 1}
+                />
+            </div>
+        )
+    }
+)
 
 export default DepartmentDropdown
