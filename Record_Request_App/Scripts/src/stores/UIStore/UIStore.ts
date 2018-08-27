@@ -1,5 +1,5 @@
-import { action, observable } from "mobx"
-import { IFolderOrBox } from "../../models/StoreModels"
+import { action, observable, computed } from "mobx"
+import { IFolderOrBox, IOption } from "../../models/StoreModels"
 import { ModalTypes } from "../../models"
 import { MessageBarType } from "office-ui-fabric-react"
 import { RootStore, FolderForm, RequestForm } from ".."
@@ -32,9 +32,15 @@ export class UIStore {
     @observable
     mBarType: MessageBarType = undefined
 
+    @action
     init = async () => {
         this.initialized = true
         return
+    }
+
+    @computed
+    get departmentDropdownOptions(): Array<IOption> {
+        return this.root.dataStore.userDepartmentsAsOptions
     }
 
     @action

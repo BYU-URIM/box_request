@@ -1,4 +1,4 @@
-import { IBox, IUser, IFolder } from "../models"
+import { IUser, IFolder, IBox } from "../stores"
 
 export interface IMockData {
     currentUser: IUser

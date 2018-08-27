@@ -1,5 +1,3 @@
-import { IBox, IFolder } from "./StoreModels"
-
 export enum ModalTypes {
     warning = "warning",
     submit = "submit",
@@ -18,18 +16,3 @@ export enum ItemStatusTypes {
     unavailable = "- Item Unavailable",
     checkedOutByClient = "- In Your Possession",
 }
-
-export interface IRequestObject {
-    type: string
-    boxNumber?: void[]
-    requestingDepartment: void[]
-    parentBox?: ""
-    location: void[]
-    requestType: string
-    deliveryPriority: string
-    requestStatus: string
-    deliveryInstructions: string
-    folderNumber?: string
-}
-
-export type IFolderAndBox = IFolder | IBox

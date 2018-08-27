@@ -1,4 +1,4 @@
-import { IBox, IFolder, IUser } from "../models/StoreModels"
+import { IUser, IBox, IFolder } from "../stores"
 export const mockUser: IUser = {
     name: "Greg Anderson",
     Id: "12345",

@@ -1,9 +1,14 @@
-import { IDepartment, IOption, IDropdownInfo } from "../../models"
+import { IOption, IDropdownInfo } from "../../models"
 import { computed, observable, action } from "mobx"
-import { Department, Box } from "."
+import { Department, Box, IDepartment } from "."
 import { RootStore } from ".."
 
 export class DataStore {
+    constructor(_root: RootStore) {
+        this.root = _root
+        this.init()
+    }
+
     root: RootStore
 
     @observable
@@ -28,9 +33,9 @@ export class DataStore {
 
     @computed
     get userDepartmentsAsOptions(): Array<IOption> {
-        return this.departments.map((department: IDepartment) => ({
-            key: department.id,
-            text: `${department.id} - ${department.name}`,
+        return this.departments.map((_department: IDepartment) => ({
+            key: _department.id,
+            text: `${_department.id} - ${_department.name}`,
         }))
     }
 
@@ -53,15 +58,12 @@ export class DataStore {
         return info
     }
 
-    constructor(_root: RootStore) {
-        this.root = _root
-        this.init()
-    }
-
     @action
     init = async () => {
         this.departments = []
         await this.loadDepartments()
+        if (this.departments.length === 1)
+            this.selectedDepartment = this.departments[0]
     }
     @action
     loadDepartments = async (): Promise<void> => {

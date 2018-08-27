@@ -5,13 +5,11 @@ import {
     IColumn,
     CheckboxVisibility,
 } from "office-ui-fabric-react"
-import { IFolder, IFolderOrBox, IBox } from "../../models/StoreModels"
 import { ItemStatusTypes } from "../../models"
 import "./styles.scss"
 import { DetailListHeader } from ".."
 import { observer } from "mobx-react"
-import { Box, DataStore } from "../../stores"
-import { Folder } from "../../stores/DataStore/Folder"
+import { DataStore, Folder } from "../../stores"
 
 export interface IFolderViewProps {
     emptyMessage: string
