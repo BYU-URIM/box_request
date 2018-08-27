@@ -1,19 +1,16 @@
 import { action, observable, runInAction } from "mobx"
-import { IUser } from "../../models/StoreModels"
-import { UIStore } from "../UIStore/UIStore"
-import { IDataService } from "../../services/DataService/IDataService"
-import { DataStore } from "../DataStore"
-import { CheckoutStore } from "../CheckoutStore"
+import { IDataService } from "../../services/"
+import { UIStore, CheckoutStore, DataStore, User, IUser } from ".."
 
 export class RootStore {
     uiStore: UIStore
     checkoutStore: CheckoutStore
     dataStore: DataStore
-    user: IUser
+    user: User
     dataService: IDataService
-    constructor(_currentUser: IUser, _dataService: IDataService) {
+    constructor(_user: IUser, _dataService: IDataService) {
         this.dataService = _dataService
-        this.user = _currentUser
+        this.user = new User(_user)
     }
 
     @observable

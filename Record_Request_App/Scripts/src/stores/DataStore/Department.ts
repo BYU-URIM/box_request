@@ -1,10 +1,13 @@
-import { IBox, IDepartment } from "../../models"
-import { IDataService, DataService } from "../../services"
+import { IDataService } from "../../services"
 import { Box } from "."
 import { action, observable, computed } from "mobx"
 import { CheckoutStore } from "../CheckoutStore"
 import { DataStore } from "./DataStore"
-import { Selection, SelectionZone } from "office-ui-fabric-react"
+
+export interface IDepartment {
+    name: string
+    id: number
+}
 
 export class Department {
     id: number

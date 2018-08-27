@@ -1,6 +1,6 @@
 import { IDataService } from "."
-import { IUser, IBox, IFolder } from "../../models"
 import { mockBoxes, mockFolders } from "../../res"
+import { IFolder, IUser, IBox } from "../../stores"
 
 export class DataService implements IDataService {
     createFolder(_folder: IFolder): Promise<void> {

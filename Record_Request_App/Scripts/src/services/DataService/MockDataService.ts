@@ -1,6 +1,6 @@
 import { IDataService } from "./IDataService"
-import { IUser, IBox, IFolder } from "../../models/StoreModels"
 import { mockUser, mockBoxes, mockFolders } from "../../res"
+import { IUser, IBox, IFolder } from "../../stores"
 
 export class MockDataService implements IDataService {
     _user: IUser = mockUser

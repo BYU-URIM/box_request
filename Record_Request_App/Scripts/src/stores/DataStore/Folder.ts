@@ -1,8 +1,19 @@
-import { IFolder, ItemStatusTypes } from "../../models"
+import { ItemStatusTypes } from "../../models"
 import { IDataService } from "../../services"
 import { action, observable, computed } from "mobx"
 import { CheckoutStore } from "../CheckoutStore"
 import { Box } from "."
+
+export interface IFolder {
+    FolderId?: number
+    FolderName: string
+    BoxId: number
+    FolderDescription: string
+    CurrentFolderLocation: string
+    PCODate?: string
+    DateCreated?: string
+}
+
 export class Folder implements IFolder {
     constructor(
         private _dS: IDataService,
@@ -20,7 +31,6 @@ export class Folder implements IFolder {
     CurrentFolderLocation: string
     PCODate?: string
     DateCreated?: string
-    objectType = "folder"
 
     @computed
     get addable(): boolean {

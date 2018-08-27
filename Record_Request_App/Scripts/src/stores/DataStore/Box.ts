@@ -1,10 +1,23 @@
-import { IBox, IFolder, ItemStatusTypes } from "../../models"
+import { ItemStatusTypes } from "../../models"
 import { IDataService } from "../../services"
-import { action, observable, computed, reaction, autorun } from "mobx"
+import { action, observable, computed } from "mobx"
 import { Folder } from "./Folder"
 import { CheckoutStore } from ".."
 import { Department } from "./Department"
-import { request } from "http"
+export interface IBox {
+    BoxId: number
+    BoxDescription: string
+    CurrentLocation: string
+    DepartmentName: string
+    DeptId: number
+    BeginDate?: string
+    EndDate?: string
+    ReviewDate?: string
+    PERM?: string
+    College?: string
+    RetentionPeriod?: string
+    ToBeArchived?: string
+}
 
 export class Box implements IBox {
     constructor(
@@ -17,6 +30,7 @@ export class Box implements IBox {
         this.key = _box.BoxId.toString()
         this.loadFolders()
     }
+    info: IBox
 
     BoxId: number
     CurrentLocation: string = ""
@@ -24,7 +38,6 @@ export class Box implements IBox {
     DeptId: number
     BoxDescription: string
     key: string
-    objectType = "box"
 
     @observable
     private _folders: Array<Folder> = []
