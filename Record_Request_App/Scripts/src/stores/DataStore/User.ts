@@ -11,7 +11,6 @@ export interface IUser {
 export class User {
     constructor(_user: IUser) {
         Object.assign(this, _user)
-        console.log(this)
     }
 
     name: string
