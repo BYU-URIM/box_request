@@ -1,8 +1,7 @@
 import { ItemStatusTypes } from "../../models"
-import { IDataService } from "../../services"
-import { action, observable, computed } from "mobx"
-import { CheckoutStore } from "../CheckoutStore"
+import { action, computed } from "mobx"
 import { Box } from "."
+import { RootStore } from "../RootStore"
 
 export interface IFolder {
     FolderId?: number
@@ -15,12 +14,7 @@ export interface IFolder {
 }
 
 export class Folder implements IFolder {
-    constructor(
-        private _dS: IDataService,
-        private _checkoutStore: CheckoutStore,
-        private _box: Box,
-        _folder: IFolder
-    ) {
+    constructor(private _box: Box, _folder: IFolder, private _root: RootStore) {
         Object.assign(this, _folder)
     }
 
@@ -34,8 +28,8 @@ export class Folder implements IFolder {
 
     @computed
     get addable(): boolean {
-        return this._checkoutStore.items.has(this.BoxId) ||
-            this._checkoutStore.items.has(this.FolderId)
+        return this._root.checkoutStore.items.has(this.BoxId) ||
+            this._root.checkoutStore.items.has(this.FolderId)
             ? false
             : true
     }
@@ -51,13 +45,26 @@ export class Folder implements IFolder {
         }
     }
 
+    @computed
+    get siblingFoldersInCart(): Array<Folder> {
+        return this._root.checkoutStore.folders.filter(_item => {
+            return _item.BoxId === this.BoxId
+        })
+    }
+    @computed
+    get fiveOrMoreSiblingFolders(): boolean {
+        return this.siblingFoldersInCart.length > 4
+    }
+
     @action
     request = () => {
-        this._checkoutStore.items.set(this.FolderId, this)
+        this._root.checkoutStore.items.set(this.FolderId, this)
+        if (this.fiveOrMoreSiblingFolders)
+            this._root.uiStore.message = "five-folders"
     }
 
     @action
     remove = () => {
-        this._checkoutStore.items.delete(this.FolderId)
+        this._root.checkoutStore.items.delete(this.FolderId)
     }
 }

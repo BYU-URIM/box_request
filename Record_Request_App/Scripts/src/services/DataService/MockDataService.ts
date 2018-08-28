@@ -9,8 +9,6 @@ export class MockDataService implements IDataService {
 
     createFolder(_folder: IFolder): Promise<void> {
         this._folders.push({ ..._folder, FolderId: Math.random() })
-        console.log(this._folders)
-
         return Promise.resolve()
     }
     fetchUser = (): Promise<IUser> => {

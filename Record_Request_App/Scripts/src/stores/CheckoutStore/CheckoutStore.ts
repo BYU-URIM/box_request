@@ -1,14 +1,10 @@
 import { computed, observable, action } from "mobx"
 import { IFolderOrBox, ModalTypes } from "../../models"
 import { RootStore } from "../RootStore"
-import { RequestForm } from ".."
+import { RequestForm, Folder } from ".."
 
 export class CheckoutStore {
-    constructor(_root: RootStore) {
-        this.root = _root
-    }
-
-    root: RootStore
+    constructor(private _root: RootStore) {}
 
     @observable
     private _items: Map<number, IFolderOrBox> = observable.map()
@@ -16,6 +12,11 @@ export class CheckoutStore {
     @computed
     get cart(): Array<IFolderOrBox> {
         return Array.from(this.items.values()).sort((a, b) => a.BoxId - b.BoxId)
+    }
+
+    @computed
+    get folders(): Array<Folder> {
+        return this.cart.filter(_item => _item.FolderId) as Array<Folder>
     }
 
     @computed
@@ -34,7 +35,7 @@ export class CheckoutStore {
 
     @action
     initializeRequestForm = (): void => {
-        this.root.uiStore.modal = ModalTypes.submit
-        this.root.uiStore.requestForm = new RequestForm()
+        this._root.uiStore.modal = ModalTypes.submit
+        this._root.uiStore.requestForm = new RequestForm()
     }
 }

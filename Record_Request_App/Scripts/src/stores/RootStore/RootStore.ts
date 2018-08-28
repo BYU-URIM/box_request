@@ -1,5 +1,5 @@
 import { action, observable, runInAction } from "mobx"
-import { IDataService } from "../../services/"
+import { IDataService } from "../../services"
 import { UIStore, CheckoutStore, DataStore, User, IUser } from ".."
 
 export class RootStore {
