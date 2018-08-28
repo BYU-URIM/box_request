@@ -2,7 +2,7 @@ import { ItemStatusTypes } from "../../models"
 import { IDataService } from "../../services"
 import { action, observable, computed } from "mobx"
 import { Folder } from "./Folder"
-import { CheckoutStore } from ".."
+import { CheckoutStore, RootStore } from ".."
 import { Department } from "./Department"
 export interface IBox {
     BoxId: number
@@ -20,17 +20,14 @@ export interface IBox {
 }
 
 export class Box implements IBox {
-    constructor(
-        private _dS: IDataService,
-        private _checkoutStore: CheckoutStore,
-        private _department: Department,
-        _box: IBox
-    ) {
+    constructor(_department: Department, _box: IBox, private _root: RootStore) {
         Object.assign(this, _box)
+        this.department = _department
         this.key = _box.BoxId.toString()
         this.loadFolders()
     }
-    info: IBox
+
+    department: Department
 
     BoxId: number
     CurrentLocation: string = ""
@@ -58,7 +55,17 @@ export class Box implements IBox {
 
     @computed
     get addable(): boolean {
-        return !this._checkoutStore.items.has(this.BoxId)
+        return this.boxInCart && this.fiveChildFolder
+    }
+
+    @computed
+    get boxInCart(): boolean {
+        return !this._root.checkoutStore.items.has(this.BoxId)
+    }
+
+    @computed
+    get fiveChildFolder(): boolean {
+        return !(this._root.checkoutStore.folders.length > 0)
     }
 
     @computed
@@ -73,28 +80,28 @@ export class Box implements IBox {
 
     @action
     select = () => {
-        this._department.selectedBox = this as Box
+        this.department.selectedBox = this as Box
     }
 
     @action
     request = () => {
-        this._checkoutStore.items.set(this.BoxId, this)
+        this._root.checkoutStore.items.set(this.BoxId, this)
     }
 
     @action
     remove = () => {
-        this._checkoutStore.items.delete(this.BoxId)
+        this._root.checkoutStore.items.delete(this.BoxId)
     }
 
     @action
     loadFolders = () => {
         this._folders = []
-        this._dS.fetchFoldersByBoxId(this.BoxId).then(_folders => {
-            for (const _folder of _folders) {
-                this._folders.push(
-                    new Folder(this._dS, this._checkoutStore, this, _folder)
-                )
-            }
-        })
+        this._root.dataService
+            .fetchFoldersByBoxId(this.BoxId)
+            .then(_folders => {
+                for (const _folder of _folders) {
+                    this._folders.push(new Folder(this, _folder, this._root))
+                }
+            })
     }
 }

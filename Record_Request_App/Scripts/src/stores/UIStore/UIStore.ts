@@ -1,15 +1,16 @@
 import { action, observable, computed } from "mobx"
 import { IFolderOrBox, IOption } from "../../models/StoreModels"
 import { ModalTypes } from "../../models"
-import { MessageBarType } from "office-ui-fabric-react"
 import { RootStore, FolderForm, RequestForm } from ".."
+import { messages } from "."
+import { Message, MessageTypes } from "./Message"
 export class UIStore {
-    constructor(_root: RootStore) {
-        this.root = _root
+    constructor(private _root: RootStore) {
         this.init()
+        this.message = "five-folders"
     }
 
-    root: RootStore
+    messages: Array<Message> = messages
 
     @observable
     initialized: boolean = false
@@ -27,10 +28,20 @@ export class UIStore {
     dialogMessage: string = ""
 
     @observable
-    msgBarMessage: string = ""
+    private _message: MessageTypes
 
-    @observable
-    mBarType: MessageBarType = undefined
+    @computed
+    get message(): MessageTypes {
+        return this._message
+    }
+    set message(value: MessageTypes) {
+        this._message = value
+    }
+
+    @computed
+    get messageInfo(): Message {
+        return this.messages.filter(_msg => _msg.name === this.message)[0]
+    }
 
     @action
     init = async () => {
@@ -40,7 +51,7 @@ export class UIStore {
 
     @computed
     get departmentDropdownOptions(): Array<IOption> {
-        return this.root.dataStore.userDepartmentsAsOptions
+        return this._root.dataStore.userDepartmentsAsOptions
     }
 
     @action
@@ -50,7 +61,7 @@ export class UIStore {
     initializeFolderForm = (): void => {
         this.modal = ModalTypes.create
         this.folderForm = new FolderForm(
-            this.root.dataStore.selectedBox.folders.map(_folder =>
+            this._root.dataStore.selectedBox.folders.map(_folder =>
                 _folder.FolderName.toLowerCase()
             )
         )
@@ -59,16 +70,16 @@ export class UIStore {
     @action
     clearMessage = () => {
         this.dialogMessage = ""
-        this.msgBarMessage = ""
+        this.message = undefined
     }
 
     @action
     createFolder = (): void => {
-        this.root.dataService.createFolder({
-            BoxId: this.root.dataStore.selectedBox.BoxId,
+        this._root.dataService.createFolder({
+            BoxId: this._root.dataStore.selectedBox.BoxId,
             FolderName: this.folderForm.folderName,
             CurrentFolderLocation: String(
-                this.root.dataStore.selectedBox.BoxId
+                this._root.dataStore.selectedBox.BoxId
             ),
             FolderDescription: "",
         })
@@ -77,38 +88,39 @@ export class UIStore {
         // }
         this.modal = ModalTypes.none
         /* reload folders for this box so that the folderList reflects the new folder */
-        this.root.dataStore.selectedBox.loadFolders()
+        this._root.dataStore.selectedBox.loadFolders()
     }
 
     @action
     submitRequest = (): void => {
-        this.root.checkoutStore.clearCart()
+        this._root.checkoutStore.clearCart()
         this.modal = ModalTypes.none
-        this.mBarType = MessageBarType.success
-        this.msgBarMessage = "Thank you. Your order has been submitted."
+        this.message = "cart-submit-success"
+        // this.mBarType = MessageBarType.success
+        // this.msgBarMessage = "Thank you. Your order has been submitted."
     }
 
     @action
     removeParentBox = () => {
         this.clearMessage()
-        // this.removeFromCart(this.root.dataStore.selectedBox.BoxId)
+        // this.removeFromCart(this._root.dataStore.selectedBox.BoxId)
     }
 
     // @action
     // removeFromCart = (itemKey: number) =>
-    //     this.root.checkoutStore.items.delete(itemKey)
+    //     this._root.checkoutStore.items.delete(itemKey)
 
     @action
     removeChildFolders = () => {
-        if (this.countChildFolders(this.root.dataStore.selectedBox) >= 5)
+        if (this.countChildFolders(this._root.dataStore.selectedBox) >= 5)
             // this.checkoutStore.addToCart(
-            //     this.root.dataStore.selectedDepartment.selectedBox
+            //     this._root.dataStore.selectedDepartment.selectedBox
             // )
 
-            // this.root.checkoutStore.cart.forEach(checkedItem => {
+            // this._root.checkoutStore.cart.forEach(checkedItem => {
             //     if (
             //         checkedItem.BoxId ===
-            //         this.root.dataStore.selectedDepartment.selectedBox.BoxId
+            //         this._root.dataStore.selectedDepartment.selectedBox.BoxId
             //     )
             //         this.removeFromCart(checkedItem.FolderId)
             // })
@@ -117,7 +129,7 @@ export class UIStore {
 
     @action
     countChildFolders = (parentBox: IFolderOrBox): number => {
-        return this.root.checkoutStore.cart.filter(
+        return this._root.checkoutStore.cart.filter(
             item => item.BoxId === parentBox.BoxId
         ).length
     }

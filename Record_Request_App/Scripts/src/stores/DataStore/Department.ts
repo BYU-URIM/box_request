@@ -1,8 +1,6 @@
-import { IDataService } from "../../services"
 import { Box } from "."
 import { action, observable, computed } from "mobx"
-import { CheckoutStore } from "../CheckoutStore"
-import { DataStore } from "./DataStore"
+import { RootStore } from "../RootStore"
 
 export interface IDepartment {
     name: string
@@ -10,6 +8,10 @@ export interface IDepartment {
 }
 
 export class Department {
+    constructor(private _root: RootStore, _department: IDepartment) {
+        Object.assign(this, _department)
+        this.loadBoxes()
+    }
     id: number
     name: string
     @observable
@@ -38,27 +40,15 @@ export class Department {
 
     @action
     select = () => {
-        this._dataStore.selectedDepartment = this
-    }
-
-    constructor(
-        private _dS: IDataService,
-        private _checkoutStore: CheckoutStore,
-        private _dataStore: DataStore,
-        _department: IDepartment
-    ) {
-        Object.assign(this, _department)
-        this.loadBoxes()
+        this._root.dataStore.selectedDepartment = this
     }
 
     @action
     loadBoxes = () => {
         this._boxes = []
-        this._dS.fetchBoxesByDepId(this.id).then(_boxes => {
+        this._root.dataService.fetchBoxesByDepId(this.id).then(_boxes => {
             for (const _box of _boxes) {
-                this._boxes.push(
-                    new Box(this._dS, this._checkoutStore, this, _box)
-                )
+                this._boxes.push(new Box(this, _box, this._root))
             }
         })
     }

@@ -4,12 +4,9 @@ import { Department, Box, IDepartment } from "."
 import { RootStore } from ".."
 
 export class DataStore {
-    constructor(_root: RootStore) {
-        this.root = _root
+    constructor(private _root: RootStore) {
         this.init()
     }
-
-    root: RootStore
 
     @observable
     private _selectedDepartment: Department = undefined
@@ -67,13 +64,8 @@ export class DataStore {
     }
     @action
     loadDepartments = async (): Promise<void> => {
-        for (const _department of this.root.user.departments) {
-            const dep = new Department(
-                this.root.dataService,
-                this.root.checkoutStore,
-                this,
-                _department
-            )
+        for (const _department of this._root.user.departments) {
+            const dep = new Department(this._root, _department)
             this.departments.push(dep)
         }
     }
