@@ -1,32 +1,31 @@
 import * as React from "react"
-import {
-    MessageBar,
-    MessageBarType,
-    MessageBarButton,
-} from "office-ui-fabric-react"
+import { MessageBar, MessageBarButton } from "office-ui-fabric-react"
 import { observer } from "mobx-react"
+import { Message } from "../../stores"
 
 export interface IWarningBar {
-    messageBarType: MessageBarType
     clearMessage(): void
-    message: string
+    message: Message
 }
-
-// ----------------------------------------------
 
 export const MsgBar = observer((props: IWarningBar) => {
     return (
         <MessageBar
-            messageBarType={props.messageBarType}
+            messageBarType={props.message.type}
             isMultiline={false}
             dismissButtonAriaLabel="Close"
+            onDismiss={props.clearMessage}
             actions={
-                <MessageBarButton onClick={() => props.clearMessage()}>
-                    OK
-                </MessageBarButton>
+                <>
+                    {props.message.buttons.map(_button => (
+                        <MessageBarButton key={_button}>
+                            {_button}
+                        </MessageBarButton>
+                    ))}
+                </>
             }
         >
-            {props.message}
+            {props.message.text}
         </MessageBar>
     )
 })
