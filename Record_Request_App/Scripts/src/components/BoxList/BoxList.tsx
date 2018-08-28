@@ -4,13 +4,15 @@ import {
     DetailsListLayoutMode,
     IColumn,
     CheckboxVisibility,
-    IDetailsRowProps,
+    CommandBar,
+    ScrollablePane,
+    Sticky,
+    StickyPositionType,
 } from "office-ui-fabric-react"
 import "./styles.scss"
 import { DetailListHeader } from ".."
 import { observer } from "mobx-react"
 import { Box, DataStore } from "../../stores"
-import { ItemStatusTypes } from "../../models/App"
 
 export interface IBoxListProps {
     initializeFolderForm(): void
@@ -21,12 +23,12 @@ export const BoxList = observer((props: IBoxListProps) => {
     const columns: IColumn[] = [
         {
             key: "column1",
-            name: "Box Number",
+            name: "Box ID",
             fieldName: "boxNumber",
             className: "boxlist-row",
-            minWidth: 80,
+            minWidth: 40,
             maxWidth: 80,
-            isResizable: true,
+            isResizable: false,
             ariaLabel: "Operations for name",
             onRender: (item: Box) => <p>{item.BoxId}</p>,
         },
@@ -35,62 +37,13 @@ export const BoxList = observer((props: IBoxListProps) => {
             name: "Description",
             className: "boxlist-row",
             fieldName: "checkoutBox",
-            minWidth: 450,
-            maxWidth: 450,
-            isResizable: true,
-            isMultiline: true,
+            minWidth: 80,
+            maxWidth: 120,
             ariaLabel: "Operations for checkoutBox",
             onRender: (item: Box) => {
                 return (
-                    <p className={"ms-fontSize-mPlus ms-fontWeight-light"}>
+                    <p className={"ms-fontSize-sPlus ms-fontWeight-light"}>
                         {item.BoxDescription}
-                    </p>
-                )
-            },
-        },
-        {
-            key: "column3",
-            name: "",
-            fieldName: "checkoutBox",
-            minWidth: 110,
-            maxWidth: 110,
-            isResizable: true,
-            className: "boxlist-row",
-            ariaLabel: "Operations for checkoutBox",
-            onRender: (item: Box) => {
-                return item.status === ItemStatusTypes.available &&
-                    item.addable ? (
-                    <button
-                        onClick={item.request}
-                        className="ms-fontSize-mPlus ms-fontWeight-light"
-                    >
-                        {item.status}
-                    </button>
-                ) : (
-                    <p className="ms-fontSize-mPlus ms-fontWeight-light">
-                        {item.status}
-                    </p>
-                )
-            },
-        },
-        {
-            key: "column4",
-            name: "",
-            fieldName: "createFolder",
-            className: "boxlist-row-createfolder",
-            minWidth: 140,
-            maxWidth: 160,
-            isResizable: true,
-            ariaLabel: "Operations for createFolder",
-            onRender: (item: Box) => {
-                return (
-                    <p
-                        className={"ms-fontSize-mPlus ms-fontWeight-light"}
-                        onClick={props.initializeFolderForm}
-                    >
-                        {item.status === ItemStatusTypes.available
-                            ? "Create Folder"
-                            : ""}
                     </p>
                 )
             },
@@ -100,34 +53,67 @@ export const BoxList = observer((props: IBoxListProps) => {
     return (
         <div
             className={
-                "ms-Grid-col ms-sm5 scroll-container ms-fontSize-mPlus ms-fontWeight-light"
+                "ms-Grid-col ms-sm4 scroll-container ms-fontSize-sPlus ms-fontWeight-light"
             }
         >
             {props.ds.selectedDepartment && (
-                <>
+                <ScrollablePane>
                     <DetailListHeader title={"Boxes"} />
+                    <Sticky stickyPosition={StickyPositionType.Header}>
+                        <CommandBar
+                            farItems={
+                                props.ds.selectedDepartment.selectedBox && [
+                                    {
+                                        key: "requestBox",
+                                        iconProps: {
+                                            iconName: "add",
+                                        },
+                                        onClick: props.ds.selectedBox.request,
+                                        text: "Request",
+                                        disabled: !props.ds.selectedBox.addable,
+                                        style: {
+                                            fontSize: 12,
+                                        },
+                                    },
+                                    {
+                                        key: "createFolder",
+                                        iconProps: {
+                                            iconName: "FabricNewFolder",
+                                        },
+                                        onClick: props.initializeFolderForm,
+                                        text: "New Folder",
+                                        style: {
+                                            fontSize: 12,
+                                        },
+                                    },
+                                ]
+                            }
+                            items={
+                                props.ds.selectedDepartment.selectedBox && [
+                                    {
+                                        key: "boxStatus",
+                                        text: `Box Status: ${
+                                            props.ds.selectedBox.status
+                                        }`,
+                                        style: {
+                                            fontSize: 12,
+                                        },
+                                    },
+                                ]
+                            }
+                        />
+                    </Sticky>
                     <DetailsList
                         items={props.ds.selectedDepartment.boxes || []}
                         columns={columns}
-                        layoutMode={DetailsListLayoutMode.fixedColumns}
+                        layoutMode={DetailsListLayoutMode.justified}
                         checkboxVisibility={CheckboxVisibility.hidden}
                         compact={true}
-                        onRenderRow={(
-                            _props: IDetailsRowProps,
-                            defaultRender
-                        ) => {
-                            return (
-                                <div
-                                    key={_props.item.key}
-                                    onClick={_props.item.select}
-                                    className={"boxlist-row"}
-                                >
-                                    {defaultRender(_props)}
-                                </div>
-                            )
+                        onActiveItemChanged={(_box: Box) => {
+                            _box.select()
                         }}
                     />
-                </>
+                </ScrollablePane>
             )}
         </div>
     )
