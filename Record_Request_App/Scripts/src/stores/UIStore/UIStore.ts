@@ -7,7 +7,6 @@ import { Message, MessageTypes } from "./Message"
 export class UIStore {
     constructor(private _root: RootStore) {
         this.init()
-        this.message = "five-folders"
     }
 
     messages: Array<Message> = messages

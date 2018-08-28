@@ -12,7 +12,7 @@ export enum ItemStatusTypes {
 }
 
 export enum ItemStatusTypes {
-    available = "+ Request",
-    unavailable = "- Item Unavailable",
-    checkedOutByClient = "- In Your Possession",
+    available = "Available",
+    unavailable = "Unavailable",
+    checkedOutByClient = "In Your Possession",
 }

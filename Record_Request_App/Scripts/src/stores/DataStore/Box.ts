@@ -1,9 +1,9 @@
 import { ItemStatusTypes } from "../../models"
-import { IDataService } from "../../services"
 import { action, observable, computed } from "mobx"
 import { Folder } from "./Folder"
-import { CheckoutStore, RootStore } from ".."
-import { Department } from "./Department"
+import { RootStore } from ".."
+import { Department } from "."
+import { IObjectWithKey } from "office-ui-fabric-react"
 export interface IBox {
     BoxId: number
     BoxDescription: string
@@ -19,7 +19,7 @@ export interface IBox {
     ToBeArchived?: string
 }
 
-export class Box implements IBox {
+export class Box implements IBox, IObjectWithKey {
     constructor(_department: Department, _box: IBox, private _root: RootStore) {
         Object.assign(this, _box)
         this.department = _department
@@ -39,6 +39,18 @@ export class Box implements IBox {
     @observable
     private _folders: Array<Folder> = []
 
+    @observable
+    private _selectedFolder?: Folder = undefined
+
+    @computed
+    get selectedFolder(): Folder {
+        return this._selectedFolder
+    }
+
+    set selectedFolder(_folder: Folder) {
+        this._selectedFolder = _folder
+    }
+
     @computed
     get folders(): Array<Folder> {
         return this._folders
@@ -55,17 +67,19 @@ export class Box implements IBox {
 
     @computed
     get addable(): boolean {
-        return this.boxInCart && this.fiveChildFolder
+        return this.boxNotInCart && this.boxIsAvailable
     }
 
+    /* Addable Condtions */
+
     @computed
-    get boxInCart(): boolean {
+    get boxNotInCart(): boolean {
         return !this._root.checkoutStore.items.has(this.BoxId)
     }
 
     @computed
-    get fiveChildFolder(): boolean {
-        return !(this._root.checkoutStore.folders.length > 0)
+    get boxIsAvailable(): boolean {
+        return this.status === ItemStatusTypes.available
     }
 
     @computed
@@ -80,11 +94,15 @@ export class Box implements IBox {
 
     @action
     select = () => {
-        this.department.selectedBox = this as Box
+        this.selectedFolder = undefined
+        this.department.selectedBox = this
     }
 
     @action
     request = () => {
+        this.folders.forEach(_folder => {
+            _folder.remove()
+        })
         this._root.checkoutStore.items.set(this.BoxId, this)
     }
 

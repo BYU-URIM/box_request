@@ -1,6 +1,6 @@
 import { IOption, IDropdownInfo } from "../../models"
 import { computed, observable, action } from "mobx"
-import { Department, Box, IDepartment } from "."
+import { Department, Box, IDepartment, Folder } from "."
 import { RootStore } from ".."
 
 export class DataStore {
@@ -26,6 +26,15 @@ export class DataStore {
     @computed
     get selectedBox(): Box {
         return this.selectedDepartment && this.selectedDepartment.selectedBox
+    }
+
+    @computed
+    get selectedFolder(): Folder {
+        return (
+            this.selectedDepartment &&
+            this.selectedDepartment.selectedBox &&
+            this.selectedDepartment.selectedBox.selectedFolder
+        )
     }
 
     @computed

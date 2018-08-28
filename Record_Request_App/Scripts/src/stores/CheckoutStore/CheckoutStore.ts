@@ -24,8 +24,8 @@ export class CheckoutStore {
         return this._items
     }
 
-    set items(value: Map<number, IFolderOrBox>) {
-        this._items = value
+    set items(_items: Map<number, IFolderOrBox>) {
+        this._items = _items
     }
 
     @action

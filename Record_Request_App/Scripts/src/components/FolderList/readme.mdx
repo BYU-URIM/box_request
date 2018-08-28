@@ -1,19 +1,19 @@
 ---
-name: FolderView
+name: FolderList
 ---
-import { FolderView } from "./FolderView"
+import { FolderList } from "./FolderList"
 import { Playground, PropsTable } from "docz"
 import { requestStore, requestState } from "../../docz"
 import { mockFolders } from "../../res/index"
 
-# FolderView
+# FolderList
 
 ## Component
 
 ### This component is used to show the list of folders inside of a single box.  From here, you can request individual folders to checkout.  If there is no selected box, then it will show its empty message.
 
 <Playground>
-    <FolderView
+    <FolderList
         canAddItem={(item) =>
             requestStore.canAddItemToCart(item)
         }
@@ -36,4 +36,4 @@ import { mockFolders } from "../../res/index"
 
 ## Props Interface
 
-<PropsTable of={FolderView} /> 
+<PropsTable of={FolderList} /> 

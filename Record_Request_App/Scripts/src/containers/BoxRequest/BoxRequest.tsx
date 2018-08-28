@@ -4,7 +4,7 @@ import {
     SubmitModal,
     CreateFolderModal,
     BoxList,
-    FolderView,
+    FolderList,
     Checkout,
     MsgBar,
     WarningDialog,
@@ -93,7 +93,7 @@ export class BoxRequest extends React.Component<{
                                 ds={dataStore}
                             />
 
-                            <FolderView
+                            <FolderList
                                 emptyMessage={
                                     dataStore.selectedDepartment &&
                                     "Click on a box to view its folders"
@@ -104,7 +104,7 @@ export class BoxRequest extends React.Component<{
                                 dialogMessage={uiStore.dialogMessage}
                                 checkoutStore={checkoutStore}
                             />
-                            <div className={"ms-Grid-col ms-sm1"} />
+                            {/* <div className={"ms-Grid-col ms-sm1"} /> */}
                         </div>
                     </div>
                 </div>
