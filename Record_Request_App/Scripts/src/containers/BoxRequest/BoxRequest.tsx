@@ -30,11 +30,10 @@ export class BoxRequest extends React.Component<{
             <>
                 <div className={"ms-Grid-row"}>
                     <div className={"ms-Grid-col ms-sm12"}>
-                        {uiStore.msgBarMessage.length > 0 && (
+                        {uiStore.message && (
                             <MsgBar
-                                messageBarType={uiStore.mBarType}
-                                clearMessage={() => uiStore.clearMessage()}
-                                message={uiStore.msgBarMessage}
+                                clearMessage={uiStore.clearMessage}
+                                message={uiStore.messageInfo}
                             />
                         )}
                         {uiStore.dialogMessage.length > 0 && (
