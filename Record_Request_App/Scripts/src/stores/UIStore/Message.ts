@@ -1,4 +1,4 @@
-import { MessageBarType} from "office-ui-fabric-react"
+import { MessageBarType } from "office-ui-fabric-react"
 
 export class Message {
     name: MessageTypes

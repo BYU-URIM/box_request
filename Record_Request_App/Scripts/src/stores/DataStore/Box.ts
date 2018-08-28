@@ -94,8 +94,6 @@ export class Box implements IBox, IObjectWithKey {
 
     @action
     select = () => {
-        console.log(this.status)
-        
         this.selectedFolder = undefined
         this.department.selectedBox = this
     }
