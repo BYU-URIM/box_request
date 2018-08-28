@@ -40,6 +40,7 @@ export class Department {
 
     @action
     select = () => {
+        this.selectedBox = undefined
         this._root.dataStore.selectedDepartment = this
     }
 

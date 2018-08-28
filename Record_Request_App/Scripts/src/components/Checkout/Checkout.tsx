@@ -44,18 +44,6 @@ export const Checkout = observer((props: ICheckoutProps) => {
             ),
         },
         {
-            key: "column2",
-            name: "Type",
-            fieldName: "type",
-            minWidth: 20,
-            maxWidth: 70,
-            isResizable: false,
-            ariaLabel: "Operations for type",
-            onRender: (item: IFolderOrBox) => (
-                <p>{item.FolderId ? "Folder" : "Box"}</p>
-            ),
-        },
-        {
             key: "column3",
             name: "Parent Box/Dep",
             fieldName: "parentBox",

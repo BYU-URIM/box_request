@@ -2,6 +2,7 @@ import { ItemStatusTypes } from "../../models"
 import { action, computed } from "mobx"
 import { Box } from "."
 import { RootStore } from "../RootStore"
+import { CheckoutStore } from "../CheckoutStore"
 
 export interface IFolder {
     FolderId?: number
@@ -16,6 +17,7 @@ export interface IFolder {
 export class Folder implements IFolder {
     constructor(private _box: Box, _folder: IFolder, private _root: RootStore) {
         Object.assign(this, _folder)
+        this.checkoutStore = this._root.checkoutStore
     }
 
     FolderId: number
@@ -25,13 +27,11 @@ export class Folder implements IFolder {
     CurrentFolderLocation: string
     PCODate?: string
     DateCreated?: string
+    checkoutStore: CheckoutStore
 
     @computed
     get addable(): boolean {
-        return this._root.checkoutStore.items.has(this.BoxId) ||
-            this._root.checkoutStore.items.has(this.FolderId)
-            ? false
-            : true
+        return this.folderNotInCart && this.folderIsAvailable
     }
 
     @computed
@@ -47,24 +47,48 @@ export class Folder implements IFolder {
 
     @computed
     get siblingFoldersInCart(): Array<Folder> {
-        return this._root.checkoutStore.folders.filter(_item => {
+        return this.checkoutStore.folders.filter(_item => {
             return _item.BoxId === this.BoxId
         })
     }
+
     @computed
     get fiveOrMoreSiblingFolders(): boolean {
         return this.siblingFoldersInCart.length > 4
     }
 
+    /* Addable Condtions */
+
+    @computed
+    get folderNotInCart(): boolean {
+        return (
+            this._box.boxNotInCart &&
+            !this.checkoutStore.items.has(this.FolderId)
+        )
+    }
+
+    @computed
+    get folderIsAvailable(): boolean {
+        return (
+            this._box.boxIsAvailable &&
+            this.status === ItemStatusTypes.available
+        )
+    }
+
+    @action
+    select = () => {
+        this._box.selectedFolder = this
+    }
+
     @action
     request = () => {
-        this._root.checkoutStore.items.set(this.FolderId, this)
+        this.checkoutStore.items.set(this.FolderId, this)
         if (this.fiveOrMoreSiblingFolders)
             this._root.uiStore.message = "five-folders"
     }
 
     @action
     remove = () => {
-        this._root.checkoutStore.items.delete(this.FolderId)
+        this.checkoutStore.items.delete(this.FolderId)
     }
 }
