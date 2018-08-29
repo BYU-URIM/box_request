@@ -5,36 +5,35 @@
     margin: 0px;
     padding: 0px;
 }
-.boxlist-row button {
-    border: 0px;
-    background: transparent;
-    outline: none;
-    color: rgb(0, 120, 215);
-    padding: 0px;
-    font-size: 15px;
-    cursor: pointer;
-}
-.boxlist-row-disabled button {
-    margin: 0px;
-    padding: 0px;
-    color: gray;
-    cursor: not-allowed;
-}
-.boxlist-row-disabled p {
-    margin: 0px;
-    padding: 0px;
-    color: gray;
-    cursor: not-allowed;
+.Available {
+    font-size: 14;
+    background-color: #0072D2;
+    color: white;
+    margin-left: -16px;
 }
 
-.boxlist-row-disabled {
-    margin: 0px;
-    padding: 0px;
-    color: gray;
-    cursor: not-allowed;
+.Unavailable {
+    font-size: 14;
+    background-color: #a80000;
+    color: white;
+    margin-left: -16px;
 }
 
-.boxlist-row-createfolder p {
-    color: rgb(0, 120, 215);
-    cursor: pointer;
+.in-your-possession {
+    font-size: 14;
+    background-color: #004b1c;
+    color: white;
+    margin-left: -16px;
 }
+
+.in-checkout {
+    font-size: 14;
+    background-color: #ffb900;
+    color: white;
+    margin-left: -16px;
+}
+
+.fontBlack {
+    color: black;
+}
+

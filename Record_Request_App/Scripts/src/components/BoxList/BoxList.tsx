@@ -17,6 +17,7 @@ import { Box, DataStore } from "../../stores"
 export interface IBoxListProps {
     initializeFolderForm(): void
     ds: DataStore
+    // styleNames: string
 }
 
 export const BoxList = observer((props: IBoxListProps) => {
@@ -30,7 +31,11 @@ export const BoxList = observer((props: IBoxListProps) => {
             maxWidth: 80,
             isResizable: false,
             ariaLabel: "Operations for name",
-            onRender: (item: Box) => <p>{item.BoxId}</p>,
+            onRender: (item: Box) => {
+                return (
+                    <p className={"ms-fontWeight-semibold fontBlack"}>{item.BoxId}</p>
+                )
+            }
         },
         {
             key: "column2",
@@ -42,7 +47,7 @@ export const BoxList = observer((props: IBoxListProps) => {
             ariaLabel: "Operations for checkoutBox",
             onRender: (item: Box) => {
                 return (
-                    <p className={"ms-fontSize-sPlus ms-fontWeight-light"}>
+                    <p className={"ms-fontWeight-regular fontBlack"}>
                         {item.BoxDescription}
                     </p>
                 )
@@ -52,9 +57,10 @@ export const BoxList = observer((props: IBoxListProps) => {
 
     return (
         <div
-            className={
-                "ms-Grid-col ms-sm4 scroll-container ms-fontSize-sPlus ms-fontWeight-light"
-            }
+            // className={
+            //     "ms-Grid-col ms-sm4 scroll-container ms-fontSize-sPlus ms-fontWeight-semibold"
+            // }
+            className={"ms-Grid-col ms-sm4 scroll-container ms-fontSize-sPlus"}
         >
             {props.ds.selectedDepartment && (
                 <ScrollablePane>
@@ -95,9 +101,8 @@ export const BoxList = observer((props: IBoxListProps) => {
                                         text: `Box Status: ${
                                             props.ds.selectedBox.status
                                         }`,
-                                        style: {
-                                            fontSize: 12,
-                                        },
+                                        // tslint:disable-next-line:max-line-length
+                                       // className: classFromStatus
                                     },
                                 ]
                             }

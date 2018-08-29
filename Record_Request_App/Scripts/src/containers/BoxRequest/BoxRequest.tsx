@@ -14,7 +14,7 @@ import "./styles.scss"
 import { inject, observer } from "mobx-react"
 import { ModalTypes } from "../../models"
 import { Modal } from "office-ui-fabric-react/lib/Modal"
-import { UIStore, CheckoutStore } from "../../stores"
+import { UIStore, CheckoutStore, Box } from "../../stores"
 import { DataStore } from "../../stores/DataStore"
 
 @inject("uiStore", "checkoutStore", "dataStore")
@@ -91,6 +91,7 @@ export class BoxRequest extends React.Component<{
                                     uiStore.initializeFolderForm
                                 }
                                 ds={dataStore}
+                                // styleNames={}
                             />
 
                             <FolderList

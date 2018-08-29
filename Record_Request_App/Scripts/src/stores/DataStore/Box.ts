@@ -42,6 +42,18 @@ export class Box implements IBox, IObjectWithKey {
     @observable
     private _selectedFolder?: Folder = undefined
 
+    @observable
+    private _inCheckout?: boolean = false
+
+    // probably won't work
+    @computed
+    get inCheckout(): boolean {
+        return this._inCheckout
+    }
+    set inCheckout(_toggle: boolean) {
+        this._inCheckout = !this._inCheckout
+    }
+
     @computed
     get selectedFolder(): Folder {
         return this._selectedFolder
@@ -83,13 +95,25 @@ export class Box implements IBox, IObjectWithKey {
     }
 
     @computed
+    get boxInCart(): boolean {
+        return this.status === ItemStatusTypes.inCheckout
+    }
+
+    @computed
     get status(): ItemStatusTypes {
-        return this.CurrentLocation === String(this.DeptId)
-            ? ItemStatusTypes.checkedOutByClient
-            : this.CurrentLocation.toLowerCase().startsWith("l") &&
-              this.CurrentLocation.toLowerCase() !== "legal"
-                ? ItemStatusTypes.available
-                : ItemStatusTypes.unavailable
+        return this.inCheckout ? ItemStatusTypes.inCheckout 
+            : this.CurrentLocation === String(this.DeptId) 
+                ? ItemStatusTypes.checkedOutByClient
+                : this.CurrentLocation.toLowerCase().startsWith("l") &&
+                this.CurrentLocation.toLowerCase() !== "legal"
+                    ? ItemStatusTypes.available
+                    : ItemStatusTypes.unavailable
+    }
+
+    @computed
+    get classFromStatus(): string {
+        // tslint:disable-next-line:max-line-length
+        return this.department.selectedBox.status === "In Your Possession" ? "in-your-possession" : this.department.selectedBox.status === "In Checkout" ? "in-checkout" : this.department.selectedBox.status
     }
 
     @action
@@ -104,11 +128,13 @@ export class Box implements IBox, IObjectWithKey {
             _folder.remove()
         })
         this._root.checkoutStore.items.set(this.BoxId, this)
+        this.inCheckout = true
     }
 
     @action
     remove = () => {
         this._root.checkoutStore.items.delete(this.BoxId)
+        this.inCheckout = false
     }
 
     @action
