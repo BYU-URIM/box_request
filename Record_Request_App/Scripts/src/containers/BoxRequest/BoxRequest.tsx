@@ -105,7 +105,9 @@ export class BoxRequest extends React.Component<{
                                 commandBarStyle={
                                     this.props.dataStore.classFromFolderStatus
                                 }
-                                listStyle={ this.props.dataStore.disabledFoldersClass }
+                                listStyle={
+                                    this.props.dataStore.disabledFoldersClass
+                                }
                             />
                             <Checkout
                                 dialogMessage={uiStore.dialogMessage}

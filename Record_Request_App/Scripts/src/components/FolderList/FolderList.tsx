@@ -74,7 +74,9 @@ export const FolderList = observer((props: IFolderListProps) => {
                                         text: `Status: ${
                                             props.ds.selectedFolder.status
                                         }`,
-                                        className: `${props.commandBarStyle}-folder`,
+                                        className: `${
+                                            props.commandBarStyle
+                                        }-folder`,
                                     },
                                 ]
                             }

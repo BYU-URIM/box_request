@@ -48,11 +48,10 @@ export class DataStore {
     @computed
     get disabledFoldersClass(): string {
         if (this.selectedBox !== undefined && !this.selectedBox.addable) {
-                return "ms-fontWeight-light"
-            } else {
-                return "fontBlack ms-fontWeight-regular"
-            }
-        
+            return "ms-fontWeight-light"
+        } else {
+            return "fontBlack ms-fontWeight-regular"
+        }
     }
 
     @computed
