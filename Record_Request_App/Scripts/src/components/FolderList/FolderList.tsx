@@ -17,6 +17,8 @@ import { DataStore, Folder } from "../../stores"
 export interface IFolderListProps {
     emptyMessage: string
     ds: DataStore
+    commandBarStyle: string
+    listStyle: string
 }
 
 export const FolderList = observer((props: IFolderListProps) => {
@@ -29,41 +31,16 @@ export const FolderList = observer((props: IFolderListProps) => {
             maxWidth: 80,
             ariaLabel: "Operations for name",
             onRender: (item: Folder) => {
-                return <p>{`${item.FolderName}`}</p>
+                return (
+                    <p className={`${props.listStyle}`}>{`${
+                        item.FolderName
+                    }`}</p>
+                )
             },
         },
-        // {
-        //     key: "column2",
-        //     name: "",
-        //     fieldName: "checkoutFolder",
-        //     className: "folderrow",
-        //     minWidth: 40,
-        //     maxWidth: 150,
-        //     isResizable: true,
-        //     ariaLabel: "Operations for checkoutFolder",
-        //     onRender: (item: Folder) => {
-        //         return item.status === ItemStatusTypes.available &&
-        //             item.addable ? (
-        //             <button
-        //                 onClick={item.request}
-        //                 className={"ms-fontSize-mms-fontWeight-light"}
-        //             >
-        //                 {item.status}
-        //             </button>
-        //         ) : (
-        //             <p className="ms-fontSize-mms-fontWeight-light">
-        //                 {item.status}
-        //             </p>
-        //         )
-        //     },
-        // },
     ]
     return (
-        <div
-            className={
-                "ms-Grid-col ms-sm3 scroll-container ms-fontSize-sPlus ms-fontWeight-light"
-            }
-        >
+        <div className={"ms-Grid-col ms-sm3 scroll-container"}>
             {props.ds.selectedBox ? (
                 <ScrollablePane>
                     <DetailListHeader
@@ -97,11 +74,7 @@ export const FolderList = observer((props: IFolderListProps) => {
                                         text: `Status: ${
                                             props.ds.selectedFolder.status
                                         }`,
-                                        className:
-                                            "ms-font-s ms-fontWeight-light",
-                                        style: {
-                                            fontSize: 12,
-                                        },
+                                        className: `${props.commandBarStyle}-folder`,
                                     },
                                 ]
                             }

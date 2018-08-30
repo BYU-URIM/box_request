@@ -92,7 +92,7 @@ export class BoxRequest extends React.Component<{
                                 }
                                 ds={dataStore}
                                 styleNames={
-                                    this.props.dataStore.classFromStatus
+                                    this.props.dataStore.classFromBoxStatus
                                 }
                             />
 
@@ -102,6 +102,10 @@ export class BoxRequest extends React.Component<{
                                     "Click on a box to view its folders"
                                 }
                                 ds={dataStore}
+                                commandBarStyle={
+                                    this.props.dataStore.classFromFolderStatus
+                                }
+                                listStyle={ this.props.dataStore.disabledFoldersClass }
                             />
                             <Checkout
                                 dialogMessage={uiStore.dialogMessage}
