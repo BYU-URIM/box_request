@@ -5,30 +5,30 @@
     margin: 0px;
     padding: 0px;
 }
-.Available {
-    font-size: 14;
+.Available-box {
+    font-size: 14px;
     background-color: #0072D2;
     color: white;
     margin-left: -16px;
 }
 
-.Unavailable {
-    font-size: 14;
+.Unavailable-box {
+    font-size: 14px;
     background-color: #a80000;
     color: white;
     margin-left: -16px;
 }
 
-.in-your-possession {
-    font-size: 14;
+.in-your-possession-box {
+    font-size: 14px;
     background-color: #004b1c;
     color: white;
     margin-left: -16px;
 }
 
-.in-checkout {
-    font-size: 14;
-    background-color: #ffb900;
+.in-checkout-box {
+    font-size: 14px;
+    background-color: gray;
     color: white;
     margin-left: -16px;
 }

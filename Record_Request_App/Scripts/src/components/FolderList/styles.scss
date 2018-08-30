@@ -1,28 +1,43 @@
-.center {
-    text-align: center;
-}
 .folderrow p {
     margin: 0px;
     padding: 0px;
 
 }
-.folderrow button {
-        border: 0px;
-        background: transparent;
-        outline: none;
-        color: rgb(0, 120, 215);
-        padding: 0px;
-        font-size: 15px;
-        cursor: pointer;
-}
-
-.folderrow-disabled button {
-    margin: 0px;
-    padding: 0px;
-    color: gray;
-    cursor: not-allowed;
-}
 
 .empty-message {
     padding-top: 80px;
 }
+
+.fontBlack {
+    color: black;
+}
+
+.Available-folder {
+    font-size: 14px;
+    background-color: #0072D2;
+    color: white;
+    margin-left: -16px;
+}
+
+.Unavailable-folder {
+    font-size: 14px;
+    background-color: #a80000;
+    color: white;
+    margin-left: -16px;
+}
+
+.in-your-possession-folder {
+    font-size: 14px;
+    background-color: #004b1c;
+    color: white;
+    margin-left: -16px;
+}
+
+.in-checkout-folder {
+    font-size: 14px;
+    background-color: gray;
+    color: white;
+    margin-left: -16px;
+    visibility: hidden;
+}
+
