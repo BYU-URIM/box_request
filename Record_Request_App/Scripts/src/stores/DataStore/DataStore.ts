@@ -24,6 +24,18 @@ export class DataStore {
     }
 
     @computed
+    get classFromStatus(): string {
+        // tslint:disable-next-line:max-line-length
+        if (this.selectedBox !== undefined) {
+            return this.selectedBox.status === "In Your Possession"
+                ? "in-your-possession"
+                : this.selectedBox.status === "In Checkout"
+                    ? "in-checkout"
+                    : this.selectedBox.status
+        }
+    }
+
+    @computed
     get selectedBox(): Box {
         return this.selectedDepartment && this.selectedDepartment.selectedBox
     }

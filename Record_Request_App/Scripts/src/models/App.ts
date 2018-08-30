@@ -15,5 +15,5 @@ export enum ItemStatusTypes {
     available = "Available",
     unavailable = "Unavailable",
     checkedOutByClient = "In Your Possession",
-    inCheckout = "In Checkout"
+    inCheckout = "In Checkout",
 }

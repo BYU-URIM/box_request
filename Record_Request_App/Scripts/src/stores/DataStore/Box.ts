@@ -71,7 +71,6 @@ export class Box implements IBox, IObjectWithKey {
     @computed
     get dataFromFolders(): Array<Folder> {
         return this.folders.map(_folder => {
-            // tslint:disable-next-line:no-unused-expression
             _folder.addable
             return _folder
         })
@@ -101,11 +100,12 @@ export class Box implements IBox, IObjectWithKey {
 
     @computed
     get status(): ItemStatusTypes {
-        return this.inCheckout ? ItemStatusTypes.inCheckout 
-            : this.CurrentLocation === String(this.DeptId) 
+        return this.inCheckout
+            ? ItemStatusTypes.inCheckout
+            : this.CurrentLocation === String(this.DeptId)
                 ? ItemStatusTypes.checkedOutByClient
                 : this.CurrentLocation.toLowerCase().startsWith("l") &&
-                this.CurrentLocation.toLowerCase() !== "legal"
+                  this.CurrentLocation.toLowerCase() !== "legal"
                     ? ItemStatusTypes.available
                     : ItemStatusTypes.unavailable
     }
@@ -113,7 +113,11 @@ export class Box implements IBox, IObjectWithKey {
     @computed
     get classFromStatus(): string {
         // tslint:disable-next-line:max-line-length
-        return this.department.selectedBox.status === "In Your Possession" ? "in-your-possession" : this.department.selectedBox.status === "In Checkout" ? "in-checkout" : this.department.selectedBox.status
+        return this.department.selectedBox.status === "In Your Possession"
+            ? "in-your-possession"
+            : this.department.selectedBox.status === "In Checkout"
+                ? "in-checkout"
+                : this.department.selectedBox.status
     }
 
     @action

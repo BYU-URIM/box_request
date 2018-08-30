@@ -17,7 +17,7 @@ import { Box, DataStore } from "../../stores"
 export interface IBoxListProps {
     initializeFolderForm(): void
     ds: DataStore
-    // styleNames: string
+    styleNames: string
 }
 
 export const BoxList = observer((props: IBoxListProps) => {
@@ -33,9 +33,11 @@ export const BoxList = observer((props: IBoxListProps) => {
             ariaLabel: "Operations for name",
             onRender: (item: Box) => {
                 return (
-                    <p className={"ms-fontWeight-semibold fontBlack"}>{item.BoxId}</p>
+                    <p className={"ms-fontWeight-semibold fontBlack"}>
+                        {item.BoxId}
+                    </p>
                 )
-            }
+            },
         },
         {
             key: "column2",
@@ -101,8 +103,7 @@ export const BoxList = observer((props: IBoxListProps) => {
                                         text: `Box Status: ${
                                             props.ds.selectedBox.status
                                         }`,
-                                        // tslint:disable-next-line:max-line-length
-                                       // className: classFromStatus
+                                        className: `${props.styleNames}`,
                                     },
                                 ]
                             }

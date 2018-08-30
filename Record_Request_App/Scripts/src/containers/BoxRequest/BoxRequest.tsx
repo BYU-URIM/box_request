@@ -91,7 +91,9 @@ export class BoxRequest extends React.Component<{
                                     uiStore.initializeFolderForm
                                 }
                                 ds={dataStore}
-                                // styleNames={}
+                                styleNames={
+                                    this.props.dataStore.classFromStatus
+                                }
                             />
 
                             <FolderList
