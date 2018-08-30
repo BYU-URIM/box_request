@@ -24,8 +24,7 @@ export class DataStore {
     }
 
     @computed
-    get classFromStatus(): string {
-        // tslint:disable-next-line:max-line-length
+    get classFromBoxStatus(): string {
         if (this.selectedBox !== undefined) {
             return this.selectedBox.status === "In Your Possession"
                 ? "in-your-possession"
@@ -33,6 +32,27 @@ export class DataStore {
                     ? "in-checkout"
                     : this.selectedBox.status
         }
+    }
+
+    @computed
+    get classFromFolderStatus(): string {
+        if (this.selectedFolder !== undefined) {
+            return this.selectedFolder.status === "In Your Possession"
+                ? "in-your-possession"
+                : this.selectedFolder.status === "In Checkout"
+                    ? "in-checkout"
+                    : this.selectedFolder.status
+        }
+    }
+
+    @computed
+    get disabledFoldersClass(): string {
+        if (this.selectedBox !== undefined && !this.selectedBox.addable) {
+                return "ms-fontWeight-light"
+            } else {
+                return "fontBlack ms-fontWeight-regular"
+            }
+        
     }
 
     @computed
