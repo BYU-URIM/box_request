@@ -17,8 +17,6 @@ import { DataStore, Folder } from "../../stores"
 export interface IFolderListProps {
     emptyMessage: string
     ds: DataStore
-    commandBarStyle: string
-    listStyle: string
 }
 
 export const FolderList = observer((props: IFolderListProps) => {
@@ -32,7 +30,7 @@ export const FolderList = observer((props: IFolderListProps) => {
             ariaLabel: "Operations for name",
             onRender: (item: Folder) => {
                 return (
-                    <p className={`${props.listStyle}`}>{`${
+                    <p className={`${props.ds.cssDisabledFolders}`}>{`${
                         item.FolderName
                     }`}</p>
                 )
@@ -74,9 +72,9 @@ export const FolderList = observer((props: IFolderListProps) => {
                                         text: `Status: ${
                                             props.ds.selectedFolder.status
                                         }`,
-                                        className: `${
-                                            props.commandBarStyle
-                                        }-folder`,
+                                        className: `${props.ds.cssStatus(
+                                            props.ds.selectedFolder
+                                        )}-folder`,
                                     },
                                 ]
                             }

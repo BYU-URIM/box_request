@@ -1,4 +1,4 @@
-import { IOption, IDropdownInfo } from "../../models"
+import { IOption, IDropdownInfo, CheckoutItem } from "../../models"
 import { computed, observable, action } from "mobx"
 import { Department, Box, IDepartment, Folder } from "."
 import { RootStore } from ".."
@@ -23,30 +23,19 @@ export class DataStore {
         this._selectedDepartment = value
     }
 
-    @computed
-    get classFromBoxStatus(): string {
-        if (this.selectedBox !== undefined) {
-            return this.selectedBox.status === "In Your Possession"
+    @action
+    cssStatus(_item: CheckoutItem): string {
+        if (_item !== undefined) {
+            return _item.status === "In Your Possession"
                 ? "in-your-possession"
-                : this.selectedBox.status === "In Checkout"
+                : _item.status === "In Checkout"
                     ? "in-checkout"
-                    : this.selectedBox.status
+                    : _item.status
         }
     }
 
     @computed
-    get classFromFolderStatus(): string {
-        if (this.selectedFolder !== undefined) {
-            return this.selectedFolder.status === "In Your Possession"
-                ? "in-your-possession"
-                : this.selectedFolder.status === "In Checkout"
-                    ? "in-checkout"
-                    : this.selectedFolder.status
-        }
-    }
-
-    @computed
-    get disabledFoldersClass(): string {
+    get cssDisabledFolders(): string {
         if (this.selectedBox !== undefined && !this.selectedBox.addable) {
             return "ms-fontWeight-light"
         } else {

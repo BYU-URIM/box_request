@@ -17,7 +17,6 @@ import { Box, DataStore } from "../../stores"
 export interface IBoxListProps {
     initializeFolderForm(): void
     ds: DataStore
-    styleNames: string
 }
 
 export const BoxList = observer((props: IBoxListProps) => {
@@ -59,9 +58,6 @@ export const BoxList = observer((props: IBoxListProps) => {
 
     return (
         <div
-            // className={
-            //     "ms-Grid-col ms-sm4 scroll-container ms-fontSize-sPlus ms-fontWeight-semibold"
-            // }
             className={"ms-Grid-col ms-sm4 scroll-container ms-fontSize-sPlus"}
         >
             {props.ds.selectedDepartment && (
@@ -103,7 +99,9 @@ export const BoxList = observer((props: IBoxListProps) => {
                                         text: `Box Status: ${
                                             props.ds.selectedBox.status
                                         }`,
-                                        className: `${props.styleNames}-box`,
+                                        className: `${props.ds.cssStatus(
+                                            props.ds.selectedBox
+                                        )}-box`,
                                     },
                                 ]
                             }
