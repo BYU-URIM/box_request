@@ -1,5 +1,6 @@
 const BASE_URL = "https://urimroc.byu.edu"
-const URL_ENDPOINT = "/fmi/data/v1/databases/Records Operation Center Tables/sessions"
+const URL_ENDPOINT =
+    "/fmi/data/v1/databases/Records Operation Center Tables/sessions"
 const USERNAME = "RestAdmin"
 const PASSWORD = "URIM2019"
 
