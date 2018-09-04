@@ -20,7 +20,7 @@ export interface IFolderListProps {
 }
 
 export const FolderList = observer((props: IFolderListProps) => {
-    const columns: IColumn[] = [
+    const columns: Array<IColumn> = [
         {
             key: "column1",
             name: "Folder Name",
@@ -32,31 +32,6 @@ export const FolderList = observer((props: IFolderListProps) => {
                 return <p>{`${item.FolderName}`}</p>
             },
         },
-        // {
-        //     key: "column2",
-        //     name: "",
-        //     fieldName: "checkoutFolder",
-        //     className: "folderrow",
-        //     minWidth: 40,
-        //     maxWidth: 150,
-        //     isResizable: true,
-        //     ariaLabel: "Operations for checkoutFolder",
-        //     onRender: (item: Folder) => {
-        //         return item.status === ItemStatusTypes.available &&
-        //             item.addable ? (
-        //             <button
-        //                 onClick={item.request}
-        //                 className={"ms-fontSize-mms-fontWeight-light"}
-        //             >
-        //                 {item.status}
-        //             </button>
-        //         ) : (
-        //             <p className="ms-fontSize-mms-fontWeight-light">
-        //                 {item.status}
-        //             </p>
-        //         )
-        //     },
-        // },
     ]
     return (
         <div

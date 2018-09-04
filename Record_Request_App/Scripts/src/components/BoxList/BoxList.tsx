@@ -20,7 +20,7 @@ export interface IBoxListProps {
 }
 
 export const BoxList = observer((props: IBoxListProps) => {
-    const columns: IColumn[] = [
+    const columns: Array<IColumn> = [
         {
             key: "column1",
             name: "Box ID",

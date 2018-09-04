@@ -11,9 +11,8 @@ import {
 import "./styles.scss"
 import { DetailListHeader } from ".."
 import { observer } from "mobx-react"
-import { IFolderOrBox } from "../../models/StoreModels"
-import { CheckoutStore, Box } from "../../stores"
-import { Folder } from "../../stores/DataStore/Folder"
+import { CheckoutStore, Folder } from "../../stores"
+import { CheckoutItem } from "../../models"
 
 export interface ICheckoutProps {
     dialogMessage: string
@@ -30,15 +29,17 @@ export const Checkout = observer((props: ICheckoutProps) => {
             maxWidth: 120,
             isResizable: false,
             ariaLabel: "Operations for pendingItemRequests",
-            onRender: (item: IFolderOrBox) => (
+            onRender: (item: CheckoutItem) => (
                 <div>
-                    {item.FolderId ? (
+                    {item instanceof Folder ? (
                         <Icon iconName="FabricFolder" />
                     ) : (
                         <Icon iconName="GiftboxSolid" />
                     )}
                     <p>
-                        {item.FolderId ? `-  ${item.FolderName}` : item.BoxId}
+                        {item instanceof Folder
+                            ? `-  ${item.FolderName}`
+                            : item.BoxId}
                     </p>
                 </div>
             ),
@@ -51,9 +52,9 @@ export const Checkout = observer((props: ICheckoutProps) => {
             maxWidth: 90,
             isResizable: false,
             ariaLabel: "Operations for parentBox",
-            onRender: (item: IFolderOrBox) => (
+            onRender: (item: CheckoutItem) => (
                 <p>
-                    {item.FolderId
+                    {item instanceof Folder
                         ? `Box - ${item.BoxId}`
                         : `Dep - ${item.DeptId}`}
                 </p>
@@ -66,7 +67,7 @@ export const Checkout = observer((props: ICheckoutProps) => {
             minWidth: 40,
             isResizable: false,
             ariaLabel: "Operations for removeItem",
-            onRender: (item: Folder | Box) => (
+            onRender: (item: CheckoutItem) => (
                 <IconButton
                     iconProps={{
                         iconName: "cancel",
