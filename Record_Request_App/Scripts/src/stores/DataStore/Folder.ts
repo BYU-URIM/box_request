@@ -83,12 +83,19 @@ export class Folder implements IFolder {
     @action
     request = () => {
         this.checkoutStore.items.set(this.FolderId, this)
-        if (this.fiveOrMoreSiblingFolders)
-            this._root.uiStore.message = "five-folders"
+        this.fiveOrMoreMiddleware()
+    }
+
+    @action
+    fiveOrMoreMiddleware = () => {
+        this.fiveOrMoreSiblingFolders
+            ? (this._root.uiStore.message = "five-folders")
+            : (this._root.uiStore.message = undefined)
     }
 
     @action
     remove = () => {
         this.checkoutStore.items.delete(this.FolderId)
+        this.fiveOrMoreMiddleware()
     }
 }

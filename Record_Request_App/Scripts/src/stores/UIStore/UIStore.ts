@@ -1,9 +1,8 @@
 import { action, observable, computed } from "mobx"
-import { IFolderOrBox, IOption } from "../../models/StoreModels"
 import { ModalTypes } from "../../models"
 import { RootStore, FolderForm, RequestForm } from ".."
-import { messages } from "."
-import { Message, MessageTypes } from "./Message"
+import { messages, Message, MessageTypes } from "."
+
 export class UIStore {
     constructor(private _root: RootStore) {
         this.init()
@@ -48,11 +47,6 @@ export class UIStore {
         return
     }
 
-    @computed
-    get departmentDropdownOptions(): Array<IOption> {
-        return this._root.dataStore.userDepartmentsAsOptions
-    }
-
     @action
     clearModal = () => (this.modal = ModalTypes.none)
 
@@ -82,9 +76,7 @@ export class UIStore {
             ),
             FolderDescription: "",
         })
-        // if (!this.cartContains) {
-        //     this.checkoutStore.addToCart(this.folders[this.folders.length - 1])
-        // }
+
         this.modal = ModalTypes.none
         /* reload folders for this box so that the folderList reflects the new folder */
         this._root.dataStore.selectedBox.loadFolders()
@@ -95,41 +87,5 @@ export class UIStore {
         this._root.checkoutStore.clearCart()
         this.modal = ModalTypes.none
         this.message = "cart-submit-success"
-        // this.mBarType = MessageBarType.success
-        // this.msgBarMessage = "Thank you. Your order has been submitted."
-    }
-
-    @action
-    removeParentBox = () => {
-        this.clearMessage()
-        // this.removeFromCart(this._root.dataStore.selectedBox.BoxId)
-    }
-
-    // @action
-    // removeFromCart = (itemKey: number) =>
-    //     this._root.checkoutStore.items.delete(itemKey)
-
-    @action
-    removeChildFolders = () => {
-        if (this.countChildFolders(this._root.dataStore.selectedBox) >= 5)
-            // this.checkoutStore.addToCart(
-            //     this._root.dataStore.selectedDepartment.selectedBox
-            // )
-
-            // this._root.checkoutStore.cart.forEach(checkedItem => {
-            //     if (
-            //         checkedItem.BoxId ===
-            //         this._root.dataStore.selectedDepartment.selectedBox.BoxId
-            //     )
-            //         this.removeFromCart(checkedItem.FolderId)
-            // })
-            this.clearMessage()
-    }
-
-    @action
-    countChildFolders = (parentBox: IFolderOrBox): number => {
-        return this._root.checkoutStore.cart.filter(
-            item => item.BoxId === parentBox.BoxId
-        ).length
     }
 }
