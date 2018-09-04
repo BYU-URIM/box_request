@@ -7,15 +7,12 @@ import {
     FolderList,
     Checkout,
     MsgBar,
-    WarningDialog,
 } from "../../components"
-
-import "./styles.scss"
 import { inject, observer } from "mobx-react"
 import { ModalTypes } from "../../models"
 import { Modal } from "office-ui-fabric-react/lib/Modal"
-import { UIStore, CheckoutStore, Box } from "../../stores"
-import { DataStore } from "../../stores/DataStore"
+import { UIStore, CheckoutStore, DataStore } from "../../stores"
+import "./styles.scss"
 
 @inject("uiStore", "checkoutStore", "dataStore")
 @observer
@@ -34,13 +31,6 @@ export class BoxRequest extends React.Component<{
                             <MsgBar
                                 clearMessage={uiStore.clearMessage}
                                 message={uiStore.messageInfo}
-                            />
-                        )}
-                        {uiStore.dialogMessage.length > 0 && (
-                            <WarningDialog
-                                removeChildFolders={uiStore.removeChildFolders}
-                                removeParentBox={uiStore.removeParentBox}
-                                dialogMessage={uiStore.dialogMessage}
                             />
                         )}
                     </div>
@@ -113,7 +103,6 @@ export class BoxRequest extends React.Component<{
                                 dialogMessage={uiStore.dialogMessage}
                                 checkoutStore={checkoutStore}
                             />
-                            {/* <div className={"ms-Grid-col ms-sm1"} /> */}
                         </div>
                     </div>
                 </div>

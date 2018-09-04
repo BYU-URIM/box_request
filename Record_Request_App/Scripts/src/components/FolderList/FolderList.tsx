@@ -22,7 +22,7 @@ export interface IFolderListProps {
 }
 
 export const FolderList = observer((props: IFolderListProps) => {
-    const columns: IColumn[] = [
+    const columns: Array<IColumn> = [
         {
             key: "column1",
             name: "Folder Name",
