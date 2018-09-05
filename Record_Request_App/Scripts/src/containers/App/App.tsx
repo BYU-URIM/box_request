@@ -17,7 +17,7 @@ export class App extends React.Component<{ rootStore?: RootStore }> {
         return (
             <Fabric>
                 <div className={"ms-Grid"}>
-                    <Greeting user={rootStore.user} />
+                    <Greeting user={rootStore.userStore.user} />
                     <BoxRequest />
                     <DevTools />
                 </div>

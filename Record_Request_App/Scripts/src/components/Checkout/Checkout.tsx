@@ -81,7 +81,7 @@ export const Checkout = observer((props: ICheckoutProps) => {
     ]
     return (
         <div className={`ms-Grid-col ms-sm3`}>
-            {props.checkoutStore.cart.length > 0 && (
+            {props.checkoutStore.cartIsValid && (
                 <div>
                     <DetailListHeader title={"Checkout"} />
                     <DetailsList
@@ -103,7 +103,7 @@ export const Checkout = observer((props: ICheckoutProps) => {
                         <PrimaryButton
                             text={"Submit Request"}
                             onClick={props.checkoutStore.initializeRequestForm}
-                            disabled={props.dialogMessage.length !== 0}
+                            disabled={!props.checkoutStore.cartIsValid}
                         />
                     </div>
                 </div>

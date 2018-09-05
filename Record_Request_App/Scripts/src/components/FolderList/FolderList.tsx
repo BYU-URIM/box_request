@@ -12,11 +12,11 @@ import {
 import "./styles.scss"
 import { DetailListHeader } from ".."
 import { observer } from "mobx-react"
-import { DataStore, Folder } from "../../stores"
+import { Folder, Box } from "../../stores"
 
 export interface IFolderListProps {
     emptyMessage: string
-    ds: DataStore
+    box: Box
 }
 
 export const FolderList = observer((props: IFolderListProps) => {
@@ -39,25 +39,25 @@ export const FolderList = observer((props: IFolderListProps) => {
                 "ms-Grid-col ms-sm3 scroll-container ms-fontSize-sPlus ms-fontWeight-light"
             }
         >
-            {props.ds.selectedBox ? (
+            {props.box ? (
                 <ScrollablePane>
                     <DetailListHeader
-                        title={`Folders in Box B${props.ds.selectedBox.BoxId}`}
+                        title={`Folders in Box B${props.box.BoxId}`}
                     />
 
                     <Sticky stickyPosition={StickyPositionType.Header}>
                         <CommandBar
                             farItems={
-                                props.ds.selectedFolder && [
+                                props.box.selectedFolder && [
                                     {
                                         key: "requestBox",
                                         iconProps: {
                                             iconName: "add",
                                         },
                                         onClick:
-                                            props.ds.selectedFolder.request,
+                                            props.box.selectedFolder.request,
                                         text: "Request",
-                                        disabled: !props.ds.selectedFolder
+                                        disabled: !props.box.selectedFolder
                                             .addable,
                                         style: {
                                             fontSize: 12,
@@ -66,11 +66,11 @@ export const FolderList = observer((props: IFolderListProps) => {
                                 ]
                             }
                             items={
-                                props.ds.selectedFolder && [
+                                props.box.selectedFolder && [
                                     {
                                         key: "folderStatus",
                                         text: `Status: ${
-                                            props.ds.selectedFolder.status
+                                            props.box.selectedFolder.status
                                         }`,
                                         className:
                                             "ms-font-s ms-fontWeight-light",
@@ -84,7 +84,7 @@ export const FolderList = observer((props: IFolderListProps) => {
                     </Sticky>
                     <div>
                         <DetailsList
-                            items={props.ds.selectedBox.dataFromFolders || []}
+                            items={props.box.dataFromFolders || []}
                             columns={columns}
                             compact={true}
                             layoutMode={DetailsListLayoutMode.justified}

@@ -7,6 +7,7 @@ import { DataServiceFactory } from "./services"
 const root = document.getElementById("root")
 const rootStore = DataServiceFactory.getRootStore()
 window["rootStore"] = rootStore
+
 const init = async () => {
     await rootStore.init()
     if (rootStore.initialized)
@@ -15,7 +16,7 @@ const init = async () => {
                 rootStore={rootStore}
                 uiStore={rootStore.uiStore}
                 checkoutStore={rootStore.checkoutStore}
-                dataStore={rootStore.dataStore}
+                userStore={rootStore.userStore}
             >
                 <App />
             </Provider>,

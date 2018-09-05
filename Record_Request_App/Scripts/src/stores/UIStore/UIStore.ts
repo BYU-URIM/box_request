@@ -54,7 +54,7 @@ export class UIStore {
     initializeFolderForm = (): void => {
         this.modal = ModalTypes.create
         this.folderForm = new FolderForm(
-            this._root.dataStore.selectedBox.folders.map(_folder =>
+            this._root.userStore.user.selectedBox.folders.map(_folder =>
                 _folder.FolderName.toLowerCase()
             )
         )
@@ -69,17 +69,17 @@ export class UIStore {
     @action
     createFolder = (): void => {
         this._root.dataService.createFolder({
-            BoxId: this._root.dataStore.selectedBox.BoxId,
+            BoxId: this._root.userStore.user.selectedBox.BoxId,
             FolderName: this.folderForm.folderName,
             CurrentFolderLocation: String(
-                this._root.dataStore.selectedBox.BoxId
+                this._root.userStore.user.selectedBox.BoxId
             ),
             FolderDescription: "",
         })
 
         this.modal = ModalTypes.none
         /* reload folders for this box so that the folderList reflects the new folder */
-        this._root.dataStore.selectedBox.loadFolders()
+        this._root.userStore.user.selectedBox.loadFolders()
     }
 
     @action

@@ -1,7 +1,7 @@
-import { IBox, IFolder, User } from "../../stores"
+import { IBox, IFolder, IUser } from "../../stores"
 
 export interface IDataService {
-    fetchUser(): Promise<User>
+    fetchUser(): Promise<IUser>
     fetchBoxesByDepId(depId: number): Promise<Array<IBox>>
     fetchFoldersByBoxId(boxId: number): Promise<Array<IFolder>>
     createFolder(_folder: IFolder): Promise<void>
