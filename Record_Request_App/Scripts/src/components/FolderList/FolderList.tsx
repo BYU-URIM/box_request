@@ -30,11 +30,12 @@ export const FolderList = observer((props: IFolderListProps) => {
             ariaLabel: "Operations for name",
             onRender: (item: Folder) => {
                 return (
-                    <p className={`${props.ds.cssDisabledFolders}`}>{`${
+                    <p className="fontBlack">{`${
                         item.FolderName
                     }`}</p>
                 )
             },
+            
         },
     ]
     return (
@@ -93,9 +94,9 @@ export const FolderList = observer((props: IFolderListProps) => {
                             onRenderRow={(_props, defaultRender) => (
                                 <div
                                     key={_props.item.key}
-                                    className={"folderrow"}
+                                    className={`folderrow`}
                                 >
-                                    {defaultRender(_props)}
+                                    {defaultRender({..._props, className: `${_props.item.status}-folder-row`})}
                                 </div>
                             )}
                         />

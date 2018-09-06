@@ -19,6 +19,10 @@
     margin-left: -16px;
 }
 
+.Unavailable-box-row {
+    font-weight: 200;
+}
+
 .in-your-possession-box {
     font-size: 14px;
     background-color: #004b1c;
@@ -26,11 +30,19 @@
     margin-left: -16px;
 }
 
+.in-your-possession-box-row {
+    font-weight: 200;
+}
+
 .in-checkout-box {
     font-size: 14px;
     background-color: gray;
     color: white;
     margin-left: -16px;
+}
+
+.in-checkout-box-row {
+    font-weight: 200;
 }
 
 .fontBlack {
