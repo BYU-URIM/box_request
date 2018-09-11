@@ -67,14 +67,14 @@ export class Box implements IBox, IObjectWithKey {
 
     @computed
     get addable(): boolean {
-        return this.boxNotInCart && this.boxIsAvailable
+        return !this.boxInCart && this.boxIsAvailable
     }
 
     /* Addable Condtions */
 
     @computed
-    get boxNotInCart(): boolean {
-        return !this._root.checkoutStore.items.has(this.BoxId)
+    get boxInCart(): boolean {
+        return this._root.checkoutStore.items.has(this.BoxId)
     }
 
     @computed
@@ -84,12 +84,14 @@ export class Box implements IBox, IObjectWithKey {
 
     @computed
     get status(): ItemStatusTypes {
-        return this.CurrentLocation === String(this.DeptId)
-            ? ItemStatusTypes.checkedOutByClient
-            : this.CurrentLocation.toLowerCase().startsWith("l") &&
-              this.CurrentLocation.toLowerCase() !== "legal"
-                ? ItemStatusTypes.available
-                : ItemStatusTypes.unavailable
+        return this.boxInCart
+            ? ItemStatusTypes.inCheckout
+            : this.CurrentLocation === String(this.DeptId)
+                ? ItemStatusTypes.checkedOutByClient
+                : this.CurrentLocation.toLowerCase().startsWith("l") &&
+                  this.CurrentLocation.toLowerCase() !== "legal"
+                    ? ItemStatusTypes.available
+                    : ItemStatusTypes.unavailable
     }
 
     @action

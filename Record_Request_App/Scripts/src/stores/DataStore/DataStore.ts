@@ -1,4 +1,4 @@
-import { IOption, IDropdownInfo } from "../../models"
+import { IOption, IDropdownInfo, CheckoutItem } from "../../models"
 import { computed, observable, action } from "mobx"
 import { Department, Box, IDepartment, Folder } from "."
 import { RootStore } from ".."

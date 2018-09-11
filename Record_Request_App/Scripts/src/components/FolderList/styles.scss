@@ -1,28 +1,50 @@
-.center {
-    text-align: center;
-}
-.folderrow p {
+.folderList-row p {
     margin: 0px;
     padding: 0px;
-
-}
-.folderrow button {
-        border: 0px;
-        background: transparent;
-        outline: none;
-        color: rgb(0, 120, 215);
-        padding: 0px;
-        font-size: 15px;
-        cursor: pointer;
-}
-
-.folderrow-disabled button {
-    margin: 0px;
-    padding: 0px;
-    color: gray;
-    cursor: not-allowed;
 }
 
 .empty-message {
     padding-top: 80px;
+}
+
+.commandBar-folderList {
+    font-size: 14px;
+    margin-left: -16px;
+    cursor: default;
+}
+.Available-folder, .Available-folder:hover {
+    background-color: #0072D2;
+    color: white;
+}
+
+.Unavailable-folder, .Unavailable-folder:hover {
+    background-color: #a80000;
+    color: white;
+}
+
+.In-Your-Possession-folder, .In-Your-Possession-folder:hover {
+    background-color: #004b1c;
+    color: white;
+}
+
+.In-Checkout-folder, .In-Checkout-folder:hover {
+    background-color: gray;
+    color: white;
+}
+
+.Unavailable-folder-row {
+    font-weight: 100;
+}
+
+.In-Your-Possession-folder-row {
+    font-weight: 100;
+}
+
+.In-Checkout-folder-row {
+    font-weight: 100;
+}
+
+.Available-folder-row {
+    font-weight: 400;
+    color: black;
 }
