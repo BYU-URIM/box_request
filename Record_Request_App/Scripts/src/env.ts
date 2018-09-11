@@ -22,8 +22,4 @@ function getEnvironment(nodeEnv: string): EnvType {
     }
 }
 
-// make environment constant and publically available
-// export const ENVIRONMENT: EnvType = getEnvironment(NODE_ENV)
-console.log(NODE_ENV)
-
 export const ENVIRONMENT: EnvType = getEnvironment(NODE_ENV)
