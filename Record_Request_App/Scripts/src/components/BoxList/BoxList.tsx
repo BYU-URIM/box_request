@@ -109,7 +109,7 @@ export const BoxList = observer((props: IBoxListProps) => {
                                         text: `Box Status: ${
                                             props.dept.selectedBox.status
                                         }`,
-                                        className: `${props.ds.selectedBox.status
+                                        className: `${props.dept.selectedBox.status
                                             .split(" ")
                                             .join("-")}-box commandBar-boxList`,
                                     },
