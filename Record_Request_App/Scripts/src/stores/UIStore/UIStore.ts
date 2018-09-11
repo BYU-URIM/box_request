@@ -1,7 +1,7 @@
 import { action, observable, computed } from "mobx"
 import { ModalTypes, IDropdownInfo } from "../../models"
 import { RootStore, FolderForm, RequestForm } from ".."
-import { messages, Message, MessageTypes } from "."
+import { messages, Message, MessageTypes, BoxForm } from "."
 
 export class UIStore {
     constructor(private _root: RootStore) {
@@ -15,6 +15,9 @@ export class UIStore {
 
     @observable
     folderForm: FolderForm
+
+    @observable
+    boxForm: BoxForm
 
     @observable
     requestForm: RequestForm
@@ -48,16 +51,11 @@ export class UIStore {
             key: this._root.userStore.selectedDepartment
                 ? this._root.userStore.selectedDepartment.id
                 : 0,
-            style: "",
             placeHolder: "Departments",
         }
-        if (this._root.userStore.selectedDepartment) {
-            info.style = "ms-Grid-col ms-sm2  ms-smPush1"
-            info.title = "Your Department:"
-        } else {
-            info.style = "ms-Grid-col ms-sm4 ms-smPush4"
-            info.title = "Select one of your available departments:"
-        }
+        info.title = this._root.userStore.selectedDepartment
+            ? "Your Department:"
+            : "Select a Department:"
 
         return info
     }
@@ -73,8 +71,18 @@ export class UIStore {
 
     @action
     initializeFolderForm = (): void => {
-        this.modal = ModalTypes.create
+        this.modal = ModalTypes.folder
         this.folderForm = new FolderForm(
+            this._root.userStore.selectedBox.folders.map(_folder =>
+                _folder.FolderName.toLowerCase()
+            )
+        )
+    }
+
+    @action
+    initializeBoxForm = (): void => {
+        this.modal = ModalTypes.box
+        this.boxForm = new BoxForm(
             this._root.userStore.selectedBox.folders.map(_folder =>
                 _folder.FolderName.toLowerCase()
             )

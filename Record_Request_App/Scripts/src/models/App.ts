@@ -1,7 +1,8 @@
 export enum ModalTypes {
     warning = "warning",
     submit = "submit",
-    create = "create",
+    folder = "folder",
+    box = "box",
     none = "none",
 }
 

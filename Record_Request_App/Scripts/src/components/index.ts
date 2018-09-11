@@ -1,6 +1,7 @@
 export * from "./BoxList/BoxList"
 export * from "./Checkout/Checkout"
 export * from "./CreateFolderModal/CreateFolderModal"
+export * from "./CreateBoxModal/CreateBoxModal"
 export * from "./DepartmentDropdown/DepartmentDropdown"
 export * from "./DetailListHeader/DetailListHeader"
 export * from "./FolderList/FolderList"

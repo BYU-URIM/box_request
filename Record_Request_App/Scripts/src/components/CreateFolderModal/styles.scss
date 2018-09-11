@@ -1,11 +1,11 @@
-.create-modal-wrapper {
+.createFolder-wrapper {
     position: relative;
     min-width: 350px;
     min-height: 180px;
     padding: 10px;
 }
 
-.create-modal-header {
+.createFolder-header {
     text-align: center;
     /* close icon button */
     button {
@@ -19,13 +19,13 @@
 
 /* modal body content (form) */
 
-.create-modal-body {
+.createFolder-body {
     padding: 16px;
 }
 
 /* create-folder button */
 
-.create-modal-footer {
+.createFolder-footer {
     position: absolute;
     right: 32px;
     bottom: 32px;

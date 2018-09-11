@@ -7,6 +7,7 @@ import {
     FolderList,
     Checkout,
     MsgBar,
+    CreateBoxModal,
 } from "../../components"
 import { inject, observer } from "mobx-react"
 import { ModalTypes } from "../../models"
@@ -36,7 +37,7 @@ export class BoxRequest extends React.Component<{
                     </div>
                 </div>
                 <div className={"ms-Grid-row"}>
-                    <div className={uiStore.dropdownInfo.style}>
+                    <div className={"ms-Grid-col ms-sm4 ms-smPush4"}>
                         <DepartmentDropdown
                             handleChanged={(id: number) =>
                                 (userStore.selectedDepartment = userStore.departments.find(
@@ -45,6 +46,7 @@ export class BoxRequest extends React.Component<{
                             }
                             options={userStore.userDepartmentsAsOptions}
                             dropdownInfo={uiStore.dropdownInfo}
+                            initializeBoxForm={uiStore.initializeBoxForm}
                         />
                     </div>
                 </div>
@@ -64,7 +66,7 @@ export class BoxRequest extends React.Component<{
                                     close={uiStore.clearModal}
                                 />
                             )}
-                            {uiStore.modal === ModalTypes.create && (
+                            {uiStore.modal === ModalTypes.folder && (
                                 <CreateFolderModal
                                     modal={uiStore.modal}
                                     close={uiStore.clearModal}
@@ -72,6 +74,9 @@ export class BoxRequest extends React.Component<{
                                     folderForm={uiStore.folderForm}
                                     createFolder={() => uiStore.createFolder()}
                                 />
+                            )}
+                            {uiStore.modal === ModalTypes.box && (
+                                <CreateBoxModal name={"testing"} />
                             )}
                         </Modal>
                         <div>

@@ -20,8 +20,8 @@ export interface ICreateFolderModalProps {
 
 export const CreateFolderModal = observer((props: ICreateFolderModalProps) => {
     return (
-        <div className={"create-modal-wrapper"}>
-            <div className="create-modal-header">
+        <div className={"createFolder-wrapper"}>
+            <div className="createFolder-header">
                 <label className={"ms-font-xl"}>
                     Create Folder - Box B{props.box}
                 </label>
@@ -34,7 +34,7 @@ export const CreateFolderModal = observer((props: ICreateFolderModalProps) => {
                     }}
                 />
             </div>
-            <div className="create-modal-body">
+            <div className="createFolder-body">
                 <TextField
                     type={"text"}
                     description={"Warning: You cannot change this later."}
@@ -48,7 +48,7 @@ export const CreateFolderModal = observer((props: ICreateFolderModalProps) => {
                     errorMessage={props.folderForm.errorMessage}
                 />
             </div>
-            <div className={"create-modal-footer"}>
+            <div className={"createFolder-footer"}>
                 <PrimaryButton
                     text={"Create and Request Folder"}
                     onClick={props.createFolder}
