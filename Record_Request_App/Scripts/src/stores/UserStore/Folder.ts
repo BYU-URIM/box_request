@@ -1,5 +1,5 @@
 import { ItemStatusTypes } from "../../models"
-import { action, computed } from "mobx"
+import { action, computed, observable } from "mobx"
 import { Box } from "."
 import { RootStore } from "../RootStore"
 import { CheckoutStore } from "../CheckoutStore"
@@ -34,18 +34,18 @@ export class Folder implements IFolder, IObjectWithKey {
 
     @computed
     get addable(): boolean {
-        return this.folderNotInCart && this.folderIsAvailable
+        return !this.folderInCart && this.folderIsAvailable
     }
 
     @computed
     get status(): ItemStatusTypes {
-        if (this.CurrentFolderLocation === String(this.BoxId)) {
-            return this._box.status
-        } else if (this.CurrentFolderLocation.toLowerCase() === "legal") {
-            return ItemStatusTypes.unavailable
-        } else {
-            return ItemStatusTypes.checkedOutByClient
-        }
+        return this.folderInCart
+            ? ItemStatusTypes.inCheckout
+            : this.CurrentFolderLocation === String(this.BoxId)
+                ? this._box.status
+                : this.CurrentFolderLocation.toLowerCase() !== "legal"
+                    ? ItemStatusTypes.unavailable
+                    : ItemStatusTypes.checkedOutByClient
     }
 
     @computed
@@ -63,10 +63,9 @@ export class Folder implements IFolder, IObjectWithKey {
     /* Addable Condtions */
 
     @computed
-    get folderNotInCart(): boolean {
+    get folderInCart(): boolean {
         return (
-            this._box.boxNotInCart &&
-            !this.checkoutStore.items.has(this.FolderId)
+            this.checkoutStore.items.has(this.FolderId) || this._box.boxInCart
         )
     }
 

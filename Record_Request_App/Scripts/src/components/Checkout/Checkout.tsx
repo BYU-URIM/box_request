@@ -38,7 +38,7 @@ export const Checkout = observer((props: ICheckoutProps) => {
                     )}
                     <p>
                         {item instanceof Folder
-                            ? `-  ${item.FolderName}`
+                            ? `${item.FolderName}`
                             : item.BoxId}
                     </p>
                 </div>

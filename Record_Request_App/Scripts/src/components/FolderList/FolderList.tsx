@@ -34,11 +34,7 @@ export const FolderList = observer((props: IFolderListProps) => {
         },
     ]
     return (
-        <div
-            className={
-                "ms-Grid-col ms-sm3 scroll-container ms-fontSize-sPlus ms-fontWeight-light"
-            }
-        >
+        <div className={"ms-Grid-col ms-sm3 scroll-container"}>
             {props.box ? (
                 <ScrollablePane>
                     <DetailListHeader
@@ -72,11 +68,11 @@ export const FolderList = observer((props: IFolderListProps) => {
                                         text: `Status: ${
                                             props.box.selectedFolder.status
                                         }`,
-                                        className:
-                                            "ms-font-s ms-fontWeight-light",
-                                        style: {
-                                            fontSize: 12,
-                                        },
+                                        className: `${props.box.status
+                                            .split(" ")
+                                            .join(
+                                                "-"
+                                            )}-folder commandBar-folderList`,
                                     },
                                 ]
                             }
@@ -95,9 +91,14 @@ export const FolderList = observer((props: IFolderListProps) => {
                             onRenderRow={(_props, defaultRender) => (
                                 <div
                                     key={_props.item.key}
-                                    className={"folderrow"}
+                                    className={`folderList-row`}
                                 >
-                                    {defaultRender(_props)}
+                                    {defaultRender({
+                                        ..._props,
+                                        className: `${_props.item.status
+                                            .split(" ")
+                                            .join("-")}-folder-row`,
+                                    })}
                                 </div>
                             )}
                         />

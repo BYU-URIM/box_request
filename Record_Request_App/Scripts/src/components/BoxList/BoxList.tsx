@@ -8,6 +8,7 @@ import {
     ScrollablePane,
     Sticky,
     StickyPositionType,
+    ContextualMenuItemType,
 } from "office-ui-fabric-react"
 import "./styles.scss"
 import { DetailListHeader } from ".."
@@ -25,25 +26,39 @@ export const BoxList = observer((props: IBoxListProps) => {
             key: "column1",
             name: "Box ID",
             fieldName: "boxNumber",
-            className: "boxlist-row",
+            className: "boxList-row",
             minWidth: 40,
             maxWidth: 80,
             isResizable: false,
             ariaLabel: "Operations for name",
-            onRender: (item: Box) => <p>{item.BoxId}</p>,
+            onRender: (_box: Box) => {
+                return (
+                    <p
+                        className={`${_box.status
+                            .split(" ")
+                            .join("-")}-box-row`}
+                    >
+                        {_box.BoxId}
+                    </p>
+                )
+            },
         },
         {
             key: "column2",
             name: "Description",
-            className: "boxlist-row",
+            className: "boxList-row",
             fieldName: "checkoutBox",
             minWidth: 80,
             maxWidth: 120,
             ariaLabel: "Operations for checkoutBox",
-            onRender: (item: Box) => {
+            onRender: (_box: Box) => {
                 return (
-                    <p className={"ms-fontSize-sPlus ms-fontWeight-light"}>
-                        {item.BoxDescription}
+                    <p
+                        className={`${_box.status
+                            .split(" ")
+                            .join("-")}-box-row`}
+                    >
+                        {_box.BoxDescription}
                     </p>
                 )
             },
@@ -52,9 +67,7 @@ export const BoxList = observer((props: IBoxListProps) => {
 
     return (
         <div
-            className={
-                "ms-Grid-col ms-sm4 scroll-container ms-fontSize-sPlus ms-fontWeight-light"
-            }
+            className={"ms-Grid-col ms-sm4 scroll-container ms-fontSize-sPlus"}
         >
             {props.dept && (
                 <ScrollablePane>
@@ -96,9 +109,9 @@ export const BoxList = observer((props: IBoxListProps) => {
                                         text: `Box Status: ${
                                             props.dept.selectedBox.status
                                         }`,
-                                        style: {
-                                            fontSize: 12,
-                                        },
+                                        className: `${props.ds.selectedBox.status
+                                            .split(" ")
+                                            .join("-")}-box commandBar-boxList`,
                                     },
                                 ]
                             }
