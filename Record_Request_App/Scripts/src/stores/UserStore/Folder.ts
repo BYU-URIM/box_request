@@ -3,6 +3,7 @@ import { action, computed, observable } from "mobx"
 import { Box } from "."
 import { RootStore } from "../RootStore"
 import { CheckoutStore } from "../CheckoutStore"
+import { IObjectWithKey } from "office-ui-fabric-react"
 
 export interface IFolder {
     FolderId?: number
@@ -14,9 +15,10 @@ export interface IFolder {
     DateCreated?: string
 }
 
-export class Folder implements IFolder {
+export class Folder implements IFolder, IObjectWithKey {
     constructor(private _box: Box, _folder: IFolder, private _root: RootStore) {
         Object.assign(this, _folder)
+        this.key = _folder.FolderId
         this.checkoutStore = this._root.checkoutStore
     }
 
@@ -28,6 +30,7 @@ export class Folder implements IFolder {
     PCODate?: string
     DateCreated?: string
     checkoutStore: CheckoutStore
+    key
 
     @computed
     get addable(): boolean {

@@ -13,11 +13,11 @@ import {
 import "./styles.scss"
 import { DetailListHeader } from ".."
 import { observer } from "mobx-react"
-import { Box, DataStore } from "../../stores"
+import { Box, Department } from "../../stores"
 
 export interface IBoxListProps {
     initializeFolderForm(): void
-    ds: DataStore
+    dept: Department
 }
 
 export const BoxList = observer((props: IBoxListProps) => {
@@ -69,21 +69,22 @@ export const BoxList = observer((props: IBoxListProps) => {
         <div
             className={"ms-Grid-col ms-sm4 scroll-container ms-fontSize-sPlus"}
         >
-            {props.ds.selectedDepartment && (
+            {props.dept && (
                 <ScrollablePane>
                     <DetailListHeader title={"Boxes"} />
                     <Sticky stickyPosition={StickyPositionType.Header}>
                         <CommandBar
                             farItems={
-                                props.ds.selectedDepartment.selectedBox && [
+                                props.dept.selectedBox && [
                                     {
                                         key: "requestBox",
                                         iconProps: {
                                             iconName: "add",
                                         },
-                                        onClick: props.ds.selectedBox.request,
+                                        onClick: props.dept.selectedBox.request,
                                         text: "Request",
-                                        disabled: !props.ds.selectedBox.addable,
+                                        disabled: !props.dept.selectedBox
+                                            .addable,
                                         style: {
                                             fontSize: 12,
                                         },
@@ -102,13 +103,13 @@ export const BoxList = observer((props: IBoxListProps) => {
                                 ]
                             }
                             items={
-                                props.ds.selectedDepartment.selectedBox && [
+                                props.dept.selectedBox && [
                                     {
                                         key: "boxStatus",
                                         text: `Box Status: ${
-                                            props.ds.selectedBox.status
+                                            props.dept.selectedBox.status
                                         }`,
-                                        className: `${props.ds.selectedBox.status
+                                        className: `${props.dept.selectedBox.status
                                             .split(" ")
                                             .join("-")}-box commandBar-boxList`,
                                     },
@@ -117,7 +118,7 @@ export const BoxList = observer((props: IBoxListProps) => {
                         />
                     </Sticky>
                     <DetailsList
-                        items={props.ds.selectedDepartment.boxes || []}
+                        items={props.dept.boxes || []}
                         columns={columns}
                         layoutMode={DetailsListLayoutMode.justified}
                         checkboxVisibility={CheckboxVisibility.hidden}

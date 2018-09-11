@@ -30,6 +30,11 @@ export class CheckoutStore {
         this._items = _items
     }
 
+    @computed
+    get cartIsValid(): boolean {
+        return this.cart.length > 0
+    }
+
     @action
     clearCart = () => {
         this.items.clear()

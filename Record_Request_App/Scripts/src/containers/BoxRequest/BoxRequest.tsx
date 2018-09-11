@@ -11,18 +11,18 @@ import {
 import { inject, observer } from "mobx-react"
 import { ModalTypes } from "../../models"
 import { Modal } from "office-ui-fabric-react/lib/Modal"
-import { UIStore, CheckoutStore, DataStore } from "../../stores"
+import { UIStore, CheckoutStore, User } from "../../stores"
 import "./styles.scss"
 
-@inject("uiStore", "checkoutStore", "dataStore")
+@inject("uiStore", "checkoutStore", "userStore")
 @observer
 export class BoxRequest extends React.Component<{
     checkoutStore?: CheckoutStore
-    dataStore?: DataStore
+    userStore?: User
     uiStore?: UIStore
 }> {
     render() {
-        const { uiStore, dataStore, checkoutStore } = this.props
+        const { uiStore, userStore, checkoutStore } = this.props
         return (
             <>
                 <div className={"ms-Grid-row"}>
@@ -36,15 +36,15 @@ export class BoxRequest extends React.Component<{
                     </div>
                 </div>
                 <div className={"ms-Grid-row"}>
-                    <div className={dataStore.dropdownInfo.style}>
+                    <div className={uiStore.dropdownInfo.style}>
                         <DepartmentDropdown
                             handleChanged={(id: number) =>
-                                (dataStore.selectedDepartment = dataStore.departments.find(
+                                (userStore.selectedDepartment = userStore.departments.find(
                                     _dep => _dep.id === id
                                 ))
                             }
-                            options={dataStore.userDepartmentsAsOptions}
-                            dropdownInfo={dataStore.dropdownInfo}
+                            options={userStore.userDepartmentsAsOptions}
+                            dropdownInfo={uiStore.dropdownInfo}
                         />
                     </div>
                 </div>
@@ -68,7 +68,7 @@ export class BoxRequest extends React.Component<{
                                 <CreateFolderModal
                                     modal={uiStore.modal}
                                     close={uiStore.clearModal}
-                                    box={dataStore.selectedBox.BoxId}
+                                    box={userStore.selectedBox.BoxId}
                                     folderForm={uiStore.folderForm}
                                     createFolder={() => uiStore.createFolder()}
                                 />
@@ -80,15 +80,15 @@ export class BoxRequest extends React.Component<{
                                 initializeFolderForm={
                                     uiStore.initializeFolderForm
                                 }
-                                ds={dataStore}
+                                dept={userStore.selectedDepartment}
                             />
 
                             <FolderList
                                 emptyMessage={
-                                    dataStore.selectedDepartment &&
+                                    userStore.selectedDepartment &&
                                     "Click on a box to view its folders"
                                 }
-                                ds={dataStore}
+                                box={userStore.selectedBox}
                             />
                             <Checkout
                                 dialogMessage={uiStore.dialogMessage}
