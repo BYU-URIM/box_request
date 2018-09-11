@@ -1,49 +1,43 @@
-.center {
-    text-align: center;
-}
-.boxlist-row p {
+.boxList-row p {
     margin: 0px;
     padding: 0px;
 }
-.Available-box {
+.commandBar-boxList {
     font-size: 14px;
+    margin-left: -16px;
+    cursor: default;
+}
+.Available-box, .Available-box:hover {
     background-color: #0072D2;
     color: white;
-    margin-left: -16px;
 }
 
-.Unavailable-box {
-    font-size: 14px;
+.Unavailable-box, .Unavailable-box:hover {
     background-color: #a80000;
     color: white;
-    margin-left: -16px;
 }
 
 
-.in-your-possession-box {
-    font-size: 14px;
+.In-Your-Possession-box, .In-Your-Possession-box:hover {
     background-color: #004b1c;
     color: white;
-    margin-left: -16px;
 }
 
-.box-in-checkout-box {
-    font-size: 14px;
+.In-Checkout-box, .In-Checkout-box:hover {
     background-color: gray;
     color: white;
-    margin-left: -16px;
 }
 
 .Unavailable-box-row {
     font-weight: 100;
 }
 
-.in-your-possession-box-row {
+.In-Your-Possession-box-row {
     font-weight: 100;
 }
 
 
-.box-in-checkout-box-row {
+.In-Checkout-box-row {
     font-weight: 100;
 }
 
@@ -52,3 +46,6 @@
     color: black;
 }
 
+.command-bar-non-clickable-item {
+    cursor: default;
+}

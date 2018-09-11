@@ -1,50 +1,46 @@
-.folderrow p {
+.folderList-row p {
     margin: 0px;
     padding: 0px;
-
 }
 
 .empty-message {
     padding-top: 80px;
 }
 
-.Available-folder {
+.commandBar-folderList {
     font-size: 14px;
+    margin-left: -16px;
+    cursor: default;
+}
+.Available-folder, .Available-folder:hover {
     background-color: #0072D2;
     color: white;
-    margin-left: -16px;
 }
 
-.Unavailable-folder {
-    font-size: 14px;
+.Unavailable-folder, .Unavailable-folder:hover {
     background-color: #a80000;
     color: white;
-    margin-left: -16px;
 }
 
-.in-your-possession-folder {
-    font-size: 14px;
+.In-Your-Possession-folder, .In-Your-Possession-folder:hover {
     background-color: #004b1c;
     color: white;
-    margin-left: -16px;
 }
 
-.in-checkout-folder {
-    font-size: 14px;
+.In-Checkout-folder, .In-Checkout-folder:hover {
     background-color: gray;
     color: white;
-    margin-left: -16px;
 }
 
 .Unavailable-folder-row {
-    font-weight: 100 !important;
-}
-
-.in-your-possession-folder-row {
     font-weight: 100;
 }
 
-.in-checkout-folder-row {
+.In-Your-Possession-folder-row {
+    font-weight: 100;
+}
+
+.In-Checkout-folder-row {
     font-weight: 100;
 }
 

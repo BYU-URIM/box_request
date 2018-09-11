@@ -8,6 +8,7 @@ import {
     ScrollablePane,
     Sticky,
     StickyPositionType,
+    ContextualMenuItemType,
 } from "office-ui-fabric-react"
 import "./styles.scss"
 import { DetailListHeader } from ".."
@@ -25,26 +26,38 @@ export const BoxList = observer((props: IBoxListProps) => {
             key: "column1",
             name: "Box ID",
             fieldName: "boxNumber",
-            className: "boxlist-row",
+            className: "boxList-row",
             minWidth: 40,
             maxWidth: 80,
             isResizable: false,
             ariaLabel: "Operations for name",
             onRender: (_box: Box) => {
-                return <p className={`${_box.status}-box-row`}>{_box.BoxId}</p>
+                return (
+                    <p
+                        className={`${_box.status
+                            .split(" ")
+                            .join("-")}-box-row`}
+                    >
+                        {_box.BoxId}
+                    </p>
+                )
             },
         },
         {
             key: "column2",
             name: "Description",
-            className: "boxlist-row",
+            className: "boxList-row",
             fieldName: "checkoutBox",
             minWidth: 80,
             maxWidth: 120,
             ariaLabel: "Operations for checkoutBox",
             onRender: (_box: Box) => {
                 return (
-                    <p className={`${_box.status}-box-row`}>
+                    <p
+                        className={`${_box.status
+                            .split(" ")
+                            .join("-")}-box-row`}
+                    >
                         {_box.BoxDescription}
                     </p>
                 )
@@ -95,9 +108,9 @@ export const BoxList = observer((props: IBoxListProps) => {
                                         text: `Box Status: ${
                                             props.ds.selectedBox.status
                                         }`,
-                                        className: `${
-                                            props.ds.selectedBox.status
-                                        }-box`,
+                                        className: `${props.ds.selectedBox.status
+                                            .split(" ")
+                                            .join("-")}-box commandBar-boxList`,
                                     },
                                 ]
                             }
