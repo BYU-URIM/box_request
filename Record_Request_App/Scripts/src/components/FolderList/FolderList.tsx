@@ -70,7 +70,9 @@ export const FolderList = observer((props: IFolderListProps) => {
                                         }`,
                                         className: `${props.ds.selectedFolder.status
                                             .split(" ")
-                                            .join("-")}-folder commandBar-folderList`,
+                                            .join(
+                                                "-"
+                                            )}-folder commandBar-folderList`,
                                     },
                                 ]
                             }
