@@ -28,18 +28,13 @@ export class DataStore {
         if (_item !== undefined) {
             return _item.status === "In Your Possession"
                 ? "in-your-possession"
-                : _item.status === "In Checkout"
+                : _item.hasOwnProperty("FolderId") &&
+                  _item.status === "In Checkout"
                     ? "in-checkout"
-                    : _item.status
-        }
-    }
-
-    @computed
-    get cssDisabledFolders(): string {
-        if (this.selectedBox !== undefined && !this.selectedBox.addable) {
-            return "ms-fontWeight-light"
-        } else {
-            return "fontBlack ms-fontWeight-regular"
+                    : _item.hasOwnProperty("BoxDescription") &&
+                      _item.status === "In Checkout"
+                        ? "box-in-checkout"
+                        : _item.status
         }
     }
 
