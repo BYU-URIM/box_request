@@ -19,9 +19,6 @@
     margin-left: -16px;
 }
 
-.Unavailable-box-row {
-    font-weight: 200;
-}
 
 .in-your-possession-box {
     font-size: 14px;
@@ -30,22 +27,28 @@
     margin-left: -16px;
 }
 
-.in-your-possession-box-row {
-    font-weight: 200;
-}
-
-.in-checkout-box {
+.box-in-checkout-box {
     font-size: 14px;
     background-color: gray;
     color: white;
     margin-left: -16px;
 }
 
-.in-checkout-box-row {
-    font-weight: 200;
+.Unavailable-box-row {
+    font-weight: 100;
 }
 
-.fontBlack {
+.in-your-possession-box-row {
+    font-weight: 100;
+}
+
+
+.box-in-checkout-box-row {
+    font-weight: 100;
+}
+
+.Available-box-row {
+    font-weight: 400;
     color: black;
 }
 

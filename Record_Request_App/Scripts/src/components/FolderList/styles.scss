@@ -8,10 +8,6 @@
     padding-top: 80px;
 }
 
-.fontBlack {
-    color: black;
-}
-
 .Available-folder {
     font-size: 14px;
     background-color: #0072D2;
@@ -26,10 +22,6 @@
     margin-left: -16px;
 }
 
-.Unavailable-folder-row {
-    font-weight: 200;
-}
-
 .in-your-possession-folder {
     font-size: 14px;
     background-color: #004b1c;
@@ -37,18 +29,26 @@
     margin-left: -16px;
 }
 
-.in-your-possession-folder-row {
-    font-weight: 200;
-}
-
 .in-checkout-folder {
     font-size: 14px;
     background-color: gray;
     color: white;
     margin-left: -16px;
-    visibility: hidden;
+}
+
+.Unavailable-folder-row {
+    font-weight: 100 !important;
+}
+
+.in-your-possession-folder-row {
+    font-weight: 100;
 }
 
 .in-checkout-folder-row {
-    font-weight: 200;
+    font-weight: 100;
+}
+
+.Available-folder-row {
+    font-weight: 400;
+    color: black;
 }
