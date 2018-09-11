@@ -10,7 +10,7 @@ module.exports = function(env) {
                 warningsFilter: /export .* was not found in/,
             },
         },
-        devtool: "source-maps",
+        devtool: env.NODE_ENV === "local" ? "cheap-eval-source-maps" : "none",
         entry: "./src/main.tsx",
         output: {
             filename: "bundle.js",
