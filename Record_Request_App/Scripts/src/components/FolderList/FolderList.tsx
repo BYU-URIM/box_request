@@ -68,7 +68,7 @@ export const FolderList = observer((props: IFolderListProps) => {
                                         text: `Status: ${
                                             props.box.selectedFolder.status
                                         }`,
-                                        className: `${props.box.status
+                                        className: `${props.box.selectedFolder.status
                                             .split(" ")
                                             .join(
                                                 "-"
