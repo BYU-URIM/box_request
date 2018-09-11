@@ -20,10 +20,10 @@ export interface IBox {
 }
 
 export class Box implements IBox, IObjectWithKey {
-    constructor(_department: Department, _box: IBox, private _root: RootStore) {
-        Object.assign(this, _box)
-        this.department = _department
-        this.key = _box.BoxId.toString()
+    constructor(private _root: RootStore) {
+        this.department = this._root.userStore.selectedDepartment
+        Object.assign(this, this.department.selectedBox)
+        this.key = this.BoxId.toString()
         this.loadFolders()
     }
 

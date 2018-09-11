@@ -49,7 +49,7 @@ export class Department {
         this._boxes = []
         this._root.dataService.fetchBoxesByDepId(this.id).then(_boxes => {
             for (const _box of _boxes) {
-                this._boxes.push(new Box(this, _box, this._root))
+                this._boxes.push(new Box(this._root))
             }
         })
     }
