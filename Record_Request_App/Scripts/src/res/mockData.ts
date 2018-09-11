@@ -996,7 +996,7 @@ export const mockFolders: Array<IFolder> = [
         BoxId: 677058,
         FolderDescription:
             "Underdosing of mixed bacterial vaccines without a pertussis component, subsequent encounter",
-        CurrentFolderLocation: "677058",
+        CurrentFolderLocation: "legal",
     },
     {
         FolderId: 965328,

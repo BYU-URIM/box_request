@@ -43,7 +43,7 @@ export class Folder implements IFolder, IObjectWithKey {
             ? ItemStatusTypes.inCheckout
             : this.CurrentFolderLocation === String(this.BoxId)
                 ? this._box.status
-                : this.CurrentFolderLocation.toLowerCase() !== "legal"
+                : this.CurrentFolderLocation.toLowerCase() === "legal"
                     ? ItemStatusTypes.unavailable
                     : ItemStatusTypes.checkedOutByClient
     }
