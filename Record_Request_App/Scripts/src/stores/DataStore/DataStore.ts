@@ -23,21 +23,6 @@ export class DataStore {
         this._selectedDepartment = value
     }
 
-    @action
-    cssStatus(_item: CheckoutItem): string {
-        if (_item !== undefined) {
-            return _item.status === "In Your Possession"
-                ? "in-your-possession"
-                : _item.hasOwnProperty("FolderId") &&
-                  _item.status === "In Checkout"
-                    ? "in-checkout"
-                    : _item.hasOwnProperty("BoxDescription") &&
-                      _item.status === "In Checkout"
-                        ? "box-in-checkout"
-                        : _item.status
-        }
-    }
-
     @computed
     get selectedBox(): Box {
         return this.selectedDepartment && this.selectedDepartment.selectedBox

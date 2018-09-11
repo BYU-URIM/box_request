@@ -68,9 +68,9 @@ export const FolderList = observer((props: IFolderListProps) => {
                                         text: `Status: ${
                                             props.ds.selectedFolder.status
                                         }`,
-                                        className: `${props.ds.cssStatus(
-                                            props.ds.selectedFolder
-                                        )}-folder`,
+                                        className: `${
+                                            props.ds.selectedFolder.status
+                                        }-folder`,
                                     },
                                 ]
                             }
@@ -93,9 +93,7 @@ export const FolderList = observer((props: IFolderListProps) => {
                                 >
                                     {defaultRender({
                                         ..._props,
-                                        className: `${props.ds.cssStatus(
-                                            _props.item
-                                        )}-folder-row`,
+                                        className: `${_props.item.status}-folder-row`,
                                     })}
                                 </div>
                             )}

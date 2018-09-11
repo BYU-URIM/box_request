@@ -30,12 +30,8 @@ export const BoxList = observer((props: IBoxListProps) => {
             maxWidth: 80,
             isResizable: false,
             ariaLabel: "Operations for name",
-            onRender: (item: Box) => {
-                return (
-                    <p className={`${props.ds.cssStatus(item)}-box-row`}>
-                        {item.BoxId}
-                    </p>
-                )
+            onRender: (_box: Box) => {
+                return <p className={`${_box.status}-box-row`}>{_box.BoxId}</p>
             },
         },
         {
@@ -46,10 +42,10 @@ export const BoxList = observer((props: IBoxListProps) => {
             minWidth: 80,
             maxWidth: 120,
             ariaLabel: "Operations for checkoutBox",
-            onRender: (item: Box) => {
+            onRender: (_box: Box) => {
                 return (
-                    <p className={`${props.ds.cssStatus(item)}-box-row`}>
-                        {item.BoxDescription}
+                    <p className={`${_box.status}-box-row`}>
+                        {_box.BoxDescription}
                     </p>
                 )
             },
@@ -99,9 +95,9 @@ export const BoxList = observer((props: IBoxListProps) => {
                                         text: `Box Status: ${
                                             props.ds.selectedBox.status
                                         }`,
-                                        className: `${props.ds.cssStatus(
-                                            props.ds.selectedBox
-                                        )}-box`,
+                                        className: `${
+                                            props.ds.selectedBox.status
+                                        }-box`,
                                     },
                                 ]
                             }
