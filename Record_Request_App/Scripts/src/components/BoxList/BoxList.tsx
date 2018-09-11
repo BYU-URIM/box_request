@@ -32,7 +32,7 @@ export const BoxList = observer((props: IBoxListProps) => {
             ariaLabel: "Operations for name",
             onRender: (item: Box) => {
                 return (
-                    <p className={"ms-fontWeight-semibold fontBlack"}>
+                    <p className={`${props.ds.cssStatus(item)}-box-row`}>
                         {item.BoxId}
                     </p>
                 )
@@ -48,7 +48,7 @@ export const BoxList = observer((props: IBoxListProps) => {
             ariaLabel: "Operations for checkoutBox",
             onRender: (item: Box) => {
                 return (
-                    <p className={"ms-fontWeight-regular fontBlack"}>
+                    <p className={`${props.ds.cssStatus(item)}-box-row`}>
                         {item.BoxDescription}
                     </p>
                 )

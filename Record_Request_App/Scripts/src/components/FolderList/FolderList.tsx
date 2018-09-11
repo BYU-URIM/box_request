@@ -29,13 +29,8 @@ export const FolderList = observer((props: IFolderListProps) => {
             maxWidth: 80,
             ariaLabel: "Operations for name",
             onRender: (item: Folder) => {
-                return (
-                    <p className="fontBlack">{`${
-                        item.FolderName
-                    }`}</p>
-                )
+                return <p>{`${item.FolderName}`}</p>
             },
-            
         },
     ]
     return (
@@ -96,7 +91,12 @@ export const FolderList = observer((props: IFolderListProps) => {
                                     key={_props.item.key}
                                     className={`folderrow`}
                                 >
-                                    {defaultRender({..._props, className: `${_props.item.status}-folder-row`})}
+                                    {defaultRender({
+                                        ..._props,
+                                        className: `${props.ds.cssStatus(
+                                            _props.item
+                                        )}-folder-row`,
+                                    })}
                                 </div>
                             )}
                         />
