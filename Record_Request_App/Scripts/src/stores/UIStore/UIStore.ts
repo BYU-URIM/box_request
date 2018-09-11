@@ -1,5 +1,5 @@
 import { action, observable, computed } from "mobx"
-import { ModalTypes } from "../../models"
+import { ModalTypes, IDropdownInfo } from "../../models"
 import { RootStore, FolderForm, RequestForm } from ".."
 import { messages, Message, MessageTypes } from "."
 
@@ -41,6 +41,27 @@ export class UIStore {
         return this.messages.filter(_msg => _msg.name === this.message)[0]
     }
 
+    @computed
+    get dropdownInfo(): IDropdownInfo {
+        const info: IDropdownInfo = {
+            title: "",
+            key: this._root.userStore.selectedDepartment
+                ? this._root.userStore.selectedDepartment.id
+                : 0,
+            style: "",
+            placeHolder: "Departments",
+        }
+        if (this._root.userStore.selectedDepartment) {
+            info.style = "ms-Grid-col ms-sm2  ms-smPush1"
+            info.title = "Your Department:"
+        } else {
+            info.style = "ms-Grid-col ms-sm4 ms-smPush4"
+            info.title = "Select one of your available departments:"
+        }
+
+        return info
+    }
+
     @action
     init = async () => {
         this.initialized = true
@@ -54,7 +75,7 @@ export class UIStore {
     initializeFolderForm = (): void => {
         this.modal = ModalTypes.create
         this.folderForm = new FolderForm(
-            this._root.userStore.user.selectedBox.folders.map(_folder =>
+            this._root.userStore.selectedBox.folders.map(_folder =>
                 _folder.FolderName.toLowerCase()
             )
         )
@@ -69,17 +90,17 @@ export class UIStore {
     @action
     createFolder = (): void => {
         this._root.dataService.createFolder({
-            BoxId: this._root.userStore.user.selectedBox.BoxId,
+            BoxId: this._root.userStore.selectedBox.BoxId,
             FolderName: this.folderForm.folderName,
             CurrentFolderLocation: String(
-                this._root.userStore.user.selectedBox.BoxId
+                this._root.userStore.selectedBox.BoxId
             ),
             FolderDescription: "",
         })
 
         this.modal = ModalTypes.none
         /* reload folders for this box so that the folderList reflects the new folder */
-        this._root.userStore.user.selectedBox.loadFolders()
+        this._root.userStore.selectedBox.loadFolders()
     }
 
     @action

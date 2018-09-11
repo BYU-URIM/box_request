@@ -1,5 +1,4 @@
 export * from "./Department"
-export * from "./UserStore"
 export * from "./Box"
 export * from "./Folder"
 export * from "./User"
