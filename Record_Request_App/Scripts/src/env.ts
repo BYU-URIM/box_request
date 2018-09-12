@@ -14,11 +14,11 @@ let NODE_ENV: string
 function getEnvironment(nodeEnv: string): EnvType {
     switch (nodeEnv) {
         case "local":
-        return EnvType.LOCAL
+            return EnvType.LOCAL
         case "sharepoint":
-        return EnvType.SHAREPOINT
+            return EnvType.SHAREPOINT
         default:
-        return EnvType.LOCAL
+            return EnvType.LOCAL
     }
 }
 
