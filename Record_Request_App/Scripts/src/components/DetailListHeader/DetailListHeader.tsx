@@ -6,7 +6,7 @@ export interface IDetailListHeaderProps {
 }
 
 export const DetailListHeader = (props: IDetailListHeaderProps) => (
-    <div className={"ms-modalExample-header"}>
+    <div>
         <h2 className={"ms-font-xl center"}>{props.title}</h2>
     </div>
 )

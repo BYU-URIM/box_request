@@ -1,14 +1,14 @@
 import { action, observable, computed } from "mobx"
 import { ModalTypes, IDropdownInfo } from "../../models"
 import { RootStore, FolderForm, RequestForm } from ".."
-import { messages, Message, MessageTypes, BoxForm } from "."
+import { messages, Message, BoxForm } from "."
 
 export class UIStore {
     constructor(private _root: RootStore) {
         this.init()
     }
 
-    messages: Array<Message> = messages
+    messages = messages
 
     @observable
     initialized: boolean = false
@@ -29,20 +29,22 @@ export class UIStore {
     dialogMessage: string = ""
 
     @observable
-    private _message: MessageTypes
+    private _message: Message
 
     @computed
-    get message(): MessageTypes {
+    get message(): Message {
         return this._message
     }
-    set message(value: MessageTypes) {
-        this._message = value
+
+    set message(msg: Message) {
+        this._message = msg
+        if (msg.time > 0) setTimeout(this.clearMessage, msg.time)
     }
 
-    @computed
-    get messageInfo(): Message {
-        return this.messages.filter(_msg => _msg.name === this.message)[0]
-    }
+    // @computed
+    // get messageInfo(): Message {
+    //     return this.messages.(_msg => _msg.name === this.message)[0]
+    // }
 
     @computed
     get dropdownInfo(): IDropdownInfo {
@@ -92,7 +94,7 @@ export class UIStore {
     @action
     clearMessage = () => {
         this.dialogMessage = ""
-        this.message = undefined
+        this._message = undefined
     }
 
     @action
@@ -115,6 +117,6 @@ export class UIStore {
     submitRequest = (): void => {
         this._root.checkoutStore.clearCart()
         this.modal = ModalTypes.none
-        this.message = "cart-submit-success"
+        this.message = this.messages.Cart_Submit_Success
     }
 }

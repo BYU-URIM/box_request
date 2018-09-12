@@ -22,7 +22,7 @@ export const DepartmentDropdown = observer(
                     <>
                         <h1
                             className={
-                                "ms-Grid-Col ms-sm12 ms-font-xxl department-dropdown-center"
+                                "ms-Grid-col ms-sm8 ms-smPush4 ms-font-xxl department-dropdown-center"
                             }
                         >
                             {props.dropdownInfo.title}
@@ -34,27 +34,28 @@ export const DepartmentDropdown = observer(
                             onChanged={(item: IOption) =>
                                 props.handleChanged(item.key)
                             }
-                            className={"ms-Grid-Col ms-sm8"}
+                            className={"ms-Grid-col ms-sm8"}
                             id={"dep_dropdown"}
                             disabled={props.options.length === 1}
                         />
                     </>
                 ) : (
-                    <p className={"ms-Grid-Col ms-sm8"}>
+                    <p className={"ms-Grid-col ms-sm8"}>
                         <DocumentCardTitle
                             title={`Department: ${props.options[0].text}`}
                         />
                     </p>
                 )}
-                <PrimaryButton
-                    text={"Create New Box"}
-                    onClick={props.initializeBoxForm}
-                    disabled={!props.dropdownInfo.key}
-                    className={"ms-Grid-Col ms-sm4"}
-                    style={{
-                        color: "white",
-                    }}
-                />
+                {!!props.dropdownInfo.key && (
+                    <PrimaryButton
+                        text={"Create New Box"}
+                        onClick={props.initializeBoxForm}
+                        className={"ms-Grid-col ms-sm4"}
+                        style={{
+                            color: "white",
+                        }}
+                    />
+                )}
             </div>
         )
     }
