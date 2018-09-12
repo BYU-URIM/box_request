@@ -4,6 +4,7 @@ import { Box } from "."
 import { RootStore } from "../RootStore"
 import { CheckoutStore } from "../CheckoutStore"
 import { IObjectWithKey } from "office-ui-fabric-react"
+import { messages } from "../UIStore"
 
 export interface IFolder {
     FolderId?: number
@@ -91,8 +92,8 @@ export class Folder implements IFolder, IObjectWithKey {
     @action
     fiveOrMoreMiddleware = () => {
         this.fiveOrMoreSiblingFolders
-            ? (this._root.uiStore.message = "five-folders")
-            : (this._root.uiStore.message = undefined)
+            ? (this._root.uiStore.message = messages.Five_Folders)
+            : this._root.uiStore.clearMessage()
     }
 
     @action
