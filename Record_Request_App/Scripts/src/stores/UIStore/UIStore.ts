@@ -1,14 +1,18 @@
 import { action, observable, computed } from "mobx"
 import { ModalTypes, IDropdownInfo } from "../../models"
-import { RootStore, FolderForm, RequestForm } from ".."
+import { RootStore, FolderForm, RequestForm, FormStore } from ".."
 import { messages, Message, BoxForm } from "."
+import { FORMS } from "../../res"
+import { IFolder, User } from "../UserStore"
 
 export class UIStore {
     constructor(private _root: RootStore) {
+        this.userStore = this._root.userStore
         this.init()
     }
 
     messages = messages
+    userStore: User
 
     @observable
     initialized: boolean = false
@@ -25,6 +29,17 @@ export class UIStore {
     @observable
     modal: ModalTypes = ModalTypes.none
 
+    @computed
+    get formStore(): FormStore {
+        return new FormStore(
+            FORMS[this.modal],
+            this.modal === ModalTypes.NEW_BOX
+                ? this.userStore.selectedDepartment.createBox
+                : this.userStore.selectedBox.createFolder,
+            this.clearModal
+        )
+    }
+
     @observable
     dialogMessage: string = ""
 
@@ -38,13 +53,8 @@ export class UIStore {
 
     set message(msg: Message) {
         this._message = msg
-        if (msg.time > 0) setTimeout(this.clearMessage, msg.time)
+        setTimeout(this.clearMessage, msg.time | 8000)
     }
-
-    // @computed
-    // get messageInfo(): Message {
-    //     return this.messages.(_msg => _msg.name === this.message)[0]
-    // }
 
     @computed
     get dropdownInfo(): IDropdownInfo {
@@ -65,36 +75,25 @@ export class UIStore {
     @action
     init = async () => {
         this.initialized = true
+
         return
     }
 
     @action
-    clearModal = () => (this.modal = ModalTypes.none)
-
-    @action
-    initializeFolderForm = (): void => {
-        this.modal = ModalTypes.folder
-        this.folderForm = new FolderForm(
-            this._root.userStore.selectedBox.folders.map(_folder =>
-                _folder.FolderName.toLowerCase()
-            )
-        )
+    clearModal = () => {
+        this.modal = ModalTypes.none
     }
 
     @action
-    initializeBoxForm = (): void => {
-        this.modal = ModalTypes.box
-        this.boxForm = new BoxForm(
-            this._root.userStore.selectedBox.folders.map(_folder =>
-                _folder.FolderName.toLowerCase()
-            )
-        )
+    closeModal = () => {
+        this.message = messages[this.modal]
+        this.modal = ModalTypes.none
     }
 
     @action
     clearMessage = () => {
         this.dialogMessage = ""
-        this._message = undefined
+        this.message = undefined
     }
 
     @action

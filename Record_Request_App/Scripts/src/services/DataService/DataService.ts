@@ -6,6 +6,10 @@ export class DataService implements IDataService {
     createFolder(_folder: IFolder): Promise<void> {
         throw new Error("Method not implemented.")
     }
+
+    createBox(_box: IBox): Promise<void> {
+        throw new Error("Method not implemented.")
+    }
     /** USER/AUTH */
 
     fetchUser(): Promise<IUser> {

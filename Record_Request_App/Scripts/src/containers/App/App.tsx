@@ -20,8 +20,8 @@ export class App extends React.Component<{ rootStore?: RootStore }> {
                 <div className={"ms-Grid"}>
                     <Greeting user={rootStore.userStore} />
                     <BoxRequest />
-                    <DevTools />
                 </div>
+                <DevTools />
                 <UrimModal />
             </Fabric>
         )

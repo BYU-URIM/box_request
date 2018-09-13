@@ -8,6 +8,7 @@ import {
 import { inject, observer } from "mobx-react"
 import { UIStore, CheckoutStore, User } from "../../stores"
 import "./styles.scss"
+import { ModalTypes } from "../../models"
 
 @inject("uiStore", "checkoutStore", "userStore")
 @observer
@@ -30,14 +31,18 @@ export class BoxRequest extends React.Component<{
                             }
                             options={userStore.userDepartmentsAsOptions}
                             dropdownInfo={uiStore.dropdownInfo}
-                            initializeBoxForm={uiStore.initializeBoxForm}
+                            initializeBoxForm={() =>
+                                (uiStore.modal = ModalTypes.NEW_BOX)
+                            }
                         />
                     </div>
                 </div>
                 <div className={"ms-Grid-row box-request-row"}>
                     <div className={"ms-Grid-col ms-sm1"} />
                     <BoxList
-                        initializeFolderForm={uiStore.initializeFolderForm}
+                        initializeFolderForm={() =>
+                            (uiStore.modal = ModalTypes.NEW_FOLDER)
+                        }
                         dept={userStore.selectedDepartment}
                     />
 
