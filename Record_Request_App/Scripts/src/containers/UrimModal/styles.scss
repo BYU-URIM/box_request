@@ -1,4 +1,13 @@
-.urimModal-wrapper{
-    padding-top: 50px;
 
+.urimModal-content {
+    padding: 0px 16px;
+    margin: 0px;
+    position: relative;
+    min-width: 600px;
+    min-height: 400px;
+}
+
+.urimModal-header {
+    text-align: right;
+    zoom: 1.5;
 }

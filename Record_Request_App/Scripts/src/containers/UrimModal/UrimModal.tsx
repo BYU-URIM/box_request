@@ -3,48 +3,41 @@ import Modal from "office-ui-fabric-react/lib/Modal"
 import { inject, observer } from "mobx-react"
 import { ModalTypes } from "../../models"
 import { User, UIStore } from "../../stores"
-import {
-    SubmitModal,
-    CreateFolderModal,
-    CreateBoxModal,
-} from "../../components"
-
-@inject("uiStore", "userStore")
+import { FormControlGroup } from ".."
+import "./styles.scss"
+import { IconButton, IconType } from "office-ui-fabric-react"
+@inject("uiStore")
 @observer
 export class UrimModal extends React.Component<{
-    userStore?: User
     uiStore?: UIStore
 }> {
     render() {
-        const { uiStore, userStore } = this.props
+        const { uiStore } = this.props
 
         return (
-            <div className={"ms-Grid-row urimModal-wrapper"}>
+            <div className={"urimModal-wrapper"}>
                 <Modal
                     isOpen={uiStore.modal !== ModalTypes.none}
                     onDismiss={uiStore.clearModal}
                     isBlocking={false}
                     isDarkOverlay={false}
                 >
-                    {uiStore.modal === ModalTypes.submit && (
-                        <SubmitModal
-                            submit={uiStore.submitRequest}
-                            modal={uiStore.modal}
-                            requestForm={uiStore.requestForm}
-                            close={uiStore.clearModal}
+                    <div className="urimModal-header">
+                        <IconButton
+                            text={"Cancel"}
+                            onClick={uiStore.clearModal}
+                            iconProps={{
+                                iconName: "cancel",
+                                iconType: IconType.default,
+                            }}
                         />
-                    )}
-                    {uiStore.modal === ModalTypes.folder && (
-                        <CreateFolderModal
-                            modal={uiStore.modal}
-                            close={uiStore.clearModal}
-                            box={userStore.selectedBox.BoxId}
-                            folderForm={uiStore.folderForm}
-                            createFolder={() => uiStore.createFolder()}
-                        />
-                    )}
-                    {uiStore.modal === ModalTypes.box && (
-                        <CreateBoxModal name={"testing"} />
+                    </div>
+                    {uiStore.modal !== ModalTypes.none && (
+                        <div className={"urimModal-content"}>
+                            <FormControlGroup
+                                formStore={this.props.uiStore.formStore}
+                            />
+                        </div>
                     )}
                 </Modal>
             </div>
