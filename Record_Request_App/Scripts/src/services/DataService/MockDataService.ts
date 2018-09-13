@@ -11,6 +11,12 @@ export class MockDataService implements IDataService {
         this._folders.push({ ..._folder, FolderId: Math.random() })
         return Promise.resolve()
     }
+
+    createBox(_box: IBox): Promise<void> {
+        this._boxes.push({ ..._box, BoxId: Math.random() })
+        return Promise.resolve()
+    }
+
     fetchUser = (): Promise<IUser> => {
         return Promise.resolve(this._user)
     }

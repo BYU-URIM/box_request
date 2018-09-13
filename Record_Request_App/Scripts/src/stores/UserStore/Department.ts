@@ -1,4 +1,4 @@
-import { Box } from "."
+import { Box, IBoxForm } from "."
 import { action, observable, computed } from "mobx"
 import { RootStore } from "../RootStore"
 
@@ -49,8 +49,20 @@ export class Department {
         this._boxes = []
         this._root.dataService.fetchBoxesByDepId(this.id).then(_boxes => {
             for (const _box of _boxes) {
-                this._boxes.push(new Box(this._root))
+                this._boxes.push(new Box(this._root, _box, this))
             }
         })
+    }
+
+    @action
+    createBox = (_boxForm: IBoxForm) => {
+        this._root.dataService.createBox({
+            ..._boxForm,
+            DeptId: this.id,
+            DepartmentName: this.name,
+            BoxId: Math.random(),
+            CurrentLocation: this.id.toString(),
+        })
+        this.loadBoxes()
     }
 }

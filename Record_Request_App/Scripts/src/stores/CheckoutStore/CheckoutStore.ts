@@ -42,7 +42,7 @@ export class CheckoutStore {
 
     @action
     initializeRequestForm = (): void => {
-        this._root.uiStore.modal = ModalTypes.submit
+        this._root.uiStore.modal = ModalTypes.SUBMIT_CART
         this._root.uiStore.requestForm = new RequestForm()
     }
 }

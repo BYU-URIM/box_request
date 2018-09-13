@@ -1,14 +1,18 @@
 import { action, observable, computed } from "mobx"
 import { ModalTypes, IDropdownInfo } from "../../models"
-import { RootStore, FolderForm, RequestForm } from ".."
-import { messages, Message, MessageTypes } from "."
+import { RootStore, FolderForm, RequestForm, FormStore } from ".."
+import { messages, Message, BoxForm } from "."
+import { FORMS } from "../../res"
+import { IFolder, User } from "../UserStore"
 
 export class UIStore {
     constructor(private _root: RootStore) {
+        this.userStore = this._root.userStore
         this.init()
     }
 
-    messages: Array<Message> = messages
+    messages = messages
+    userStore: User
 
     @observable
     initialized: boolean = false
@@ -17,28 +21,39 @@ export class UIStore {
     folderForm: FolderForm
 
     @observable
+    boxForm: BoxForm
+
+    @observable
     requestForm: RequestForm
 
     @observable
     modal: ModalTypes = ModalTypes.none
 
+    @computed
+    get formStore(): FormStore {
+        return new FormStore(
+            FORMS[this.modal],
+            this.modal === ModalTypes.NEW_BOX
+                ? this.userStore.selectedDepartment.createBox
+                : this.userStore.selectedBox.createFolder,
+            this.clearModal
+        )
+    }
+
     @observable
     dialogMessage: string = ""
 
     @observable
-    private _message: MessageTypes
+    private _message: Message
 
     @computed
-    get message(): MessageTypes {
+    get message(): Message {
         return this._message
     }
-    set message(value: MessageTypes) {
-        this._message = value
-    }
 
-    @computed
-    get messageInfo(): Message {
-        return this.messages.filter(_msg => _msg.name === this.message)[0]
+    set message(msg: Message) {
+        this._message = msg
+        setTimeout(this.clearMessage, msg.time | 8000)
     }
 
     @computed
@@ -48,16 +63,11 @@ export class UIStore {
             key: this._root.userStore.selectedDepartment
                 ? this._root.userStore.selectedDepartment.id
                 : 0,
-            style: "",
             placeHolder: "Departments",
         }
-        if (this._root.userStore.selectedDepartment) {
-            info.style = "ms-Grid-col ms-sm2  ms-smPush1"
-            info.title = "Your Department:"
-        } else {
-            info.style = "ms-Grid-col ms-sm4 ms-smPush4"
-            info.title = "Select one of your available departments:"
-        }
+        info.title = this._root.userStore.selectedDepartment
+            ? "Your Department:"
+            : "Select a Department:"
 
         return info
     }
@@ -65,20 +75,19 @@ export class UIStore {
     @action
     init = async () => {
         this.initialized = true
+
         return
     }
 
     @action
-    clearModal = () => (this.modal = ModalTypes.none)
+    clearModal = () => {
+        this.modal = ModalTypes.none
+    }
 
     @action
-    initializeFolderForm = (): void => {
-        this.modal = ModalTypes.create
-        this.folderForm = new FolderForm(
-            this._root.userStore.selectedBox.folders.map(_folder =>
-                _folder.FolderName.toLowerCase()
-            )
-        )
+    closeModal = () => {
+        this.message = messages[this.modal]
+        this.modal = ModalTypes.none
     }
 
     @action
@@ -107,6 +116,6 @@ export class UIStore {
     submitRequest = (): void => {
         this._root.checkoutStore.clearCart()
         this.modal = ModalTypes.none
-        this.message = "cart-submit-success"
+        this.message = this.messages.Cart_Submit_Success
     }
 }

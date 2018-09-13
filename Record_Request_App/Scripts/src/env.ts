@@ -14,16 +14,12 @@ let NODE_ENV: string
 function getEnvironment(nodeEnv: string): EnvType {
     switch (nodeEnv) {
         case "local":
-        return EnvType.LOCAL
+            return EnvType.LOCAL
         case "sharepoint":
-        return EnvType.SHAREPOINT
+            return EnvType.SHAREPOINT
         default:
-        return EnvType.LOCAL
+            return EnvType.LOCAL
     }
 }
-
-// make environment constant and publically available
-// export const ENVIRONMENT: EnvType = getEnvironment(NODE_ENV)
-console.log(NODE_ENV)
 
 export const ENVIRONMENT: EnvType = getEnvironment(NODE_ENV)

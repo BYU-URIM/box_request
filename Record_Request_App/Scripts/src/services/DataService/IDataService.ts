@@ -5,4 +5,5 @@ export interface IDataService {
     fetchBoxesByDepId(depId: number): Promise<Array<IBox>>
     fetchFoldersByBoxId(boxId: number): Promise<Array<IFolder>>
     createFolder(_folder: IFolder): Promise<void>
+    createBox(_box: IBox): Promise<void>
 }

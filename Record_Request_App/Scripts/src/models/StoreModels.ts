@@ -8,7 +8,6 @@ export interface IOption {
 export interface IDropdownInfo {
     title: string
     key: number
-    style: string
     placeHolder: string
 }
 

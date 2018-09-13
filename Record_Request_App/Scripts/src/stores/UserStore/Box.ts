@@ -1,6 +1,6 @@
 import { ItemStatusTypes } from "../../models"
 import { action, observable, computed } from "mobx"
-import { Folder } from "./Folder"
+import { Folder, IFolderForm, IFolder } from "./Folder"
 import { RootStore } from ".."
 import { Department } from "."
 import { IObjectWithKey } from "office-ui-fabric-react"
@@ -19,10 +19,21 @@ export interface IBox {
     ToBeArchived?: string
 }
 
+export interface IBoxForm {
+    BoxDescription: string
+    BeginDate?: string
+    EndDate?: string
+    ReviewDate?: string
+    PERM?: string
+    College?: string
+    RetentionPeriod?: string
+    ToBeArchived?: string
+}
+
 export class Box implements IBox, IObjectWithKey {
-    constructor(private _root: RootStore) {
-        this.department = this._root.userStore.selectedDepartment
-        Object.assign(this, this.department.selectedBox)
+    constructor(private _root: RootStore, _box: IBox, _department: Department) {
+        this.department = _department
+        Object.assign(this, _box)
         this.key = this.BoxId.toString()
         this.loadFolders()
     }
@@ -123,5 +134,17 @@ export class Box implements IBox, IObjectWithKey {
                     this._folders.push(new Folder(this, _folder, this._root))
                 }
             })
+    }
+
+    @action
+    createFolder = (_folderForm: IFolder) => {
+        console.log("submitting")
+
+        this._root.dataService.createFolder({
+            BoxId: this.BoxId,
+            CurrentFolderLocation: this.CurrentLocation,
+            ..._folderForm,
+        })
+        this.loadFolders()
     }
 }
