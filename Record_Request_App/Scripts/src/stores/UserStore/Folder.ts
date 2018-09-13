@@ -16,6 +16,10 @@ export interface IFolder {
     DateCreated?: string
 }
 
+export interface IFolderForm {
+    FolderName: string
+    FolderDescription: string
+}
 export class Folder implements IFolder, IObjectWithKey {
     constructor(private _box: Box, _folder: IFolder, private _root: RootStore) {
         Object.assign(this, _folder)
