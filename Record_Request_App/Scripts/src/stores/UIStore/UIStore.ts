@@ -84,12 +84,6 @@ export class UIStore {
         this.form = FormTypes.none
     }
 
-    // @action
-    // closeModal = () => {
-    //     this.message = messages[this.form]
-    //     this.form = FormTypes.none
-    // }
-
     @action
     clearMessage = () => {
         this.dialogMessage = ""
