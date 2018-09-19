@@ -1,5 +1,5 @@
 import { action, observable, computed } from "mobx"
-import { ModalTypes, IDropdownInfo } from "../../models"
+import { FormTypes, IDropdownInfo } from "../../models"
 import { RootStore, FolderForm, RequestForm, FormStore } from ".."
 import { messages, Message, BoxForm } from "."
 import { FORMS } from "../../res"
@@ -27,16 +27,16 @@ export class UIStore {
     requestForm: RequestForm
 
     @observable
-    modal: ModalTypes = ModalTypes.none
+    form: FormTypes = FormTypes.none
 
     @computed
     get formStore(): FormStore {
         return new FormStore(
-            FORMS[this.modal],
-            this.modal === ModalTypes.NEW_BOX
+            FORMS[this.form],
+            this.form === FormTypes.NEW_BOX
                 ? this.userStore.selectedDepartment.createBox
                 : this.userStore.selectedBox.createFolder,
-            this.clearModal
+            this.closeForm
         )
     }
 
@@ -53,7 +53,7 @@ export class UIStore {
 
     set message(msg: Message) {
         this._message = msg
-        setTimeout(this.clearMessage, msg.time | 8000)
+        // setTimeout(this.clearMessage, msg.time | 8000)
     }
 
     @computed
@@ -80,15 +80,15 @@ export class UIStore {
     }
 
     @action
-    clearModal = () => {
-        this.modal = ModalTypes.none
+    closeForm = () => {
+        this.form = FormTypes.none
     }
 
-    @action
-    closeModal = () => {
-        this.message = messages[this.modal]
-        this.modal = ModalTypes.none
-    }
+    // @action
+    // closeModal = () => {
+    //     this.message = messages[this.form]
+    //     this.form = FormTypes.none
+    // }
 
     @action
     clearMessage = () => {
@@ -107,7 +107,7 @@ export class UIStore {
             FolderDescription: "",
         })
 
-        this.modal = ModalTypes.none
+        this.form = FormTypes.none
         /* reload folders for this box so that the folderList reflects the new folder */
         this._root.userStore.selectedBox.loadFolders()
     }
@@ -115,7 +115,7 @@ export class UIStore {
     @action
     submitRequest = (): void => {
         this._root.checkoutStore.clearCart()
-        this.modal = ModalTypes.none
+        this.form = FormTypes.none
         this.message = this.messages.Cart_Submit_Success
     }
 }

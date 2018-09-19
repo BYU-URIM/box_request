@@ -1,5 +1,4 @@
-export enum ModalTypes {
-    warning = "warning",
+export enum FormTypes {
     SUBMIT_CART = "SUBMIT_CART",
     NEW_FOLDER = "NEW_FOLDER",
     NEW_BOX = "NEW_BOX",
