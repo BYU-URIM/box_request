@@ -98,8 +98,6 @@ export class SpDataService implements IDataService {
             }
         )
         const data = await response.json()
-        console.log(this.boxesResponseParse(data.response.data))
-
         return this.boxesResponseParse(data.response.data)
     }
 
