@@ -40,11 +40,11 @@ export const DepartmentDropdown = observer(
                         />
                     </>
                 ) : (
-                    <p className={"ms-Grid-col ms-sm8"}>
+                    <div className={"ms-Grid-col ms-sm8"}>
                         <DocumentCardTitle
                             title={`Department: ${props.options[0].text}`}
                         />
-                    </p>
+                    </div>
                 )}
                 {!!props.dropdownInfo.key && (
                     <PrimaryButton
