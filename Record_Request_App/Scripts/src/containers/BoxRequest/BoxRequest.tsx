@@ -25,9 +25,9 @@ export class BoxRequest extends React.Component<{
                     <div className={"ms-Grid-col ms-sm4 ms-smPush4"}>
                         <DepartmentDropdown
                             handleChanged={(id: number) =>
-                                (userStore.selectedDepartment = userStore.departments.find(
+                                (userStore.departments.find(
                                     _dep => _dep.id === id
-                                ))
+                                ).select())
                             }
                             options={userStore.userDepartmentsAsOptions}
                             dropdownInfo={uiStore.dropdownInfo}

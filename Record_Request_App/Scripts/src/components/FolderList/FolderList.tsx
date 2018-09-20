@@ -23,19 +23,19 @@ export const FolderList = observer((props: IFolderListProps) => {
     const columns: Array<IColumn> = [
         {
             key: "column1",
-            name: "Folder Name",
-            fieldName: "FolderName",
+            name: "Folder Description",
+            fieldName: "FolderDescription",
             minWidth: 60,
             maxWidth: 80,
-            ariaLabel: "Operations for name",
+            ariaLabel: "Operations for Description",
             onRender: (item: Folder) => {
-                return <p>{`${item.FolderName}`}</p>
+                return <p>{`${item.FolderDescription}`}</p>
             },
         },
     ]
     return (
         <div className={"ms-Grid-col ms-sm3 scroll-container"}>
-            {props.box ? (
+            {props.box && props.box.folders.length ? (
                 <ScrollablePane>
                     <DetailListHeader
                         title={`Folders in Box B${props.box.BoxId}`}
@@ -106,7 +106,15 @@ export const FolderList = observer((props: IFolderListProps) => {
                 </ScrollablePane>
             ) : (
                 <div className={"empty-message"}>
-                    {<DetailListHeader title={props.emptyMessage} />}
+                    {
+                        <DetailListHeader
+                            title={
+                                props.box
+                                    ? "This box has no folders"
+                                    : props.emptyMessage
+                            }
+                        />
+                    }
                 </div>
             )}
         </div>
