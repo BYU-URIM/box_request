@@ -7,8 +7,9 @@ test("Tests if box has folders", () => {
     _rootStore.init().then(() => {
         const box = new Box(
             _rootStore,
-            mockData.boxes[0],
-            _rootStore.userStore.departments[0]
+            mockData[0].fieldData,
+            _rootStore.userStore.departments[0],
+            mockData[0].portalData.Folders
         )
         expect(box.folders.length > 0).toBe(true)
     })
