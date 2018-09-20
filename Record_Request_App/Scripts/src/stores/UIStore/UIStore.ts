@@ -97,22 +97,6 @@ export class UIStore {
     }
 
     @action
-    createFolder = (): void => {
-        this._root.dataService.createFolder({
-            BoxId: this._root.userStore.selectedBox.BoxId,
-            FolderName: this.folderForm.folderName,
-            CurrentFolderLocation: String(
-                this._root.userStore.selectedBox.BoxId
-            ),
-            FolderDescription: "",
-        })
-
-        this.modal = ModalTypes.none
-        /* reload folders for this box so that the folderList reflects the new folder */
-        this._root.userStore.selectedBox.loadFolders()
-    }
-
-    @action
     submitRequest = (): void => {
         this._root.checkoutStore.clearCart()
         this.modal = ModalTypes.none
