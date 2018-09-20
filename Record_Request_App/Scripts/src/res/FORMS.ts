@@ -8,7 +8,7 @@ export const FORMS: {
         fields: [
             {
                 label: "Folder Name*",
-                fieldName: "FolderName",
+                fieldName: "FolderDescription",
                 placeholder: "i.e. Jared",
                 description: "Warning: You cannot change this later.",
                 type: "text",
