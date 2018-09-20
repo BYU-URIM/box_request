@@ -13,10 +13,21 @@ export interface IBox {
     BeginDate?: string
     EndDate?: string
     ReviewDate?: string
+    DateCreated?: string
+    ArchivedDate?: string
+    DestroyedDate?: string
+    RecordCategoryId?: string
+    DestructionBatch?: string
+    RetentionCategory?: string
     PERM?: string
     College?: string
     RetentionPeriod?: string
     ToBeArchived?: string
+    PCODate?: string
+    Function?: string
+    PERMReviewPeriod?: string
+    LastCheckoutDate?: string
+    Folders?: Array<IFolder>
 }
 
 export interface IBoxForm {
@@ -31,11 +42,16 @@ export interface IBoxForm {
 }
 
 export class Box implements IBox, IObjectWithKey {
-    constructor(private _root: RootStore, _box: IBox, _department: Department) {
+    constructor(
+        private _root: RootStore,
+        _box: IBox,
+        _department: Department,
+        _folders: Array<IFolder>
+    ) {
         this.department = _department
         Object.assign(this, _box)
+        this.loadFolders(_folders)
         this.key = this.BoxId.toString()
-        this.loadFolders()
     }
 
     department: Department
@@ -125,26 +141,24 @@ export class Box implements IBox, IObjectWithKey {
     }
 
     @action
-    loadFolders = () => {
+    loadFolders = (_folderData: Array<IFolder>) => {
         this._folders = []
-        this._root.dataService
-            .fetchFoldersByBoxId(this.BoxId)
-            .then(_folders => {
-                for (const _folder of _folders) {
-                    this._folders.push(new Folder(this, _folder, this._root))
-                }
-            })
+        this.dataToFolders(_folderData)
     }
 
     @action
-    createFolder = (_folderForm: IFolder) => {
-        console.log("submitting")
+    dataToFolders = (_folders: Array<IFolder>) => {
+        _folders.forEach(_folder =>
+            this._folders.push(new Folder(this, _folder, this._root))
+        )
+    }
 
+    @action
+    createFolder = _folderForm => {
         this._root.dataService.createFolder({
             BoxId: this.BoxId,
             CurrentFolderLocation: this.CurrentLocation,
             ..._folderForm,
         })
-        this.loadFolders()
     }
 }
