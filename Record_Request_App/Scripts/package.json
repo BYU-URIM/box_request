@@ -13,8 +13,8 @@
         "lint:syles": "ts-node --project ./tsconfig.test.json ./tasks/lint-styles.ts",
         "docz:dev": "docz dev",
         "docz:build": "docz build",
-        "sp:proxyServer": "node ./config/server.js",
-        "fmp:serve": "node ./server/server.js"
+        "sp:proxyServer": "node ./server/sp-server.js",
+        "fmp:serve": "node ./server/fmp-server.js"
     },
     "author": "",
     "license": "MIT",
