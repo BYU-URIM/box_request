@@ -1,13 +1,9 @@
-import {
-    IDataService,
-    IBoxesResponse,
-    IBoxResponse,
-    DepartmentData,
-} from "./IDataService"
-import { mockUser, mockData, STRINGS, IDataResponse } from "../../res"
+import { IDataService, IBoxesResponse, DepartmentData } from "./IDataService"
+import { mockUser, mockData, IDataResponse } from "../../res"
 import { IUser, IBox, IFolder } from "../../stores"
 import { sp } from "@pnp/sp-addinhelpers"
 import { Web } from "@pnp/sp"
+import { ConfigStrings } from "../../models"
 
 export class SpDataService implements IDataService {
     _user: IUser = mockUser
@@ -55,17 +51,33 @@ export class SpDataService implements IDataService {
                 headers: {
                     Accept: "application/json;odata=verbose",
                 },
-                baseUrl: STRINGS.APP_WEB_URL,
+                baseUrl: ConfigStrings.APP_WEB_URL,
             },
         })
         return sp.web
     }
 
-    createFolder(_folder: IFolder): Promise<void> {
-        this._data
-            .find(e => e.fieldData.BoxId === _folder.BoxId)
-            .portalData.Folders.push({ ..._folder, FolderId: Math.random() })
-        return Promise.resolve()
+    async createFolder(_folder: IFolder): Promise<void> {
+        console.log(_folder)
+
+        const token = await this.login()
+        const response = await fetch(
+            `${ConfigStrings.FM_PROXY_URL}${
+                ConfigStrings.FM_DATABASE
+            }/layouts/${ConfigStrings.FM_LAYOUTS.FOLDER_DETAILS}/records`,
+            {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    fieldData: _folder,
+                }),
+            }
+        )
+        const data = await response.json()
+        return data
     }
 
     createBox(_box: IBox): Promise<void> {
@@ -79,9 +91,9 @@ export class SpDataService implements IDataService {
     fetchDepartmentData = async (_deptId: number): Promise<DepartmentData> => {
         const token = await this.login()
         const response = await fetch(
-            `${STRINGS.FM_PROXY_URL}${STRINGS.FM_DATABASE}/layouts/${
-                STRINGS.FM_LAYOUTS.BOX_DETAILS
-            }/_find`,
+            `${ConfigStrings.FM_PROXY_URL}${
+                ConfigStrings.FM_DATABASE
+            }/layouts/${ConfigStrings.FM_LAYOUTS.BOX_DETAILS}/_find`,
             {
                 method: "POST",
                 headers: {
@@ -104,9 +116,9 @@ export class SpDataService implements IDataService {
     fetchFoldersByBoxId = async (_boxId: number): Promise<Array<IFolder>> => {
         const token = await this.login()
         const response = await fetch(
-            `${STRINGS.FM_PROXY_URL}${STRINGS.FM_DATABASE}/layouts/${
-                STRINGS.FM_LAYOUTS.FOLDER_DETAILS
-            }/records`,
+            `${ConfigStrings.FM_PROXY_URL}${
+                ConfigStrings.FM_DATABASE
+            }/layouts/${ConfigStrings.FM_LAYOUTS.FOLDER_DETAILS}/records`,
             {
                 method: "GET",
                 headers: {
@@ -125,9 +137,9 @@ export class SpDataService implements IDataService {
         const token = await this.login()
 
         const response = await fetch(
-            `${STRINGS.FM_PROXY_URL}${STRINGS.FM_DATABASE}/layouts/${
-                STRINGS.FM_LAYOUTS.FOLDER_DETAILS
-            }/_find`,
+            `${ConfigStrings.FM_PROXY_URL}${
+                ConfigStrings.FM_DATABASE
+            }/layouts/${ConfigStrings.FM_LAYOUTS.FOLDER_DETAILS}/_find`,
             {
                 method: "POST",
                 headers: {
@@ -155,7 +167,9 @@ export class SpDataService implements IDataService {
 
     login = async () => {
         const data = await fetch(
-            "http://localhost:3000/fmi/data/v1/databases/Records%20Operation%20Center/sessions/",
+            `http://localhost:3000/fmi/data/v1/databases/${
+                ConfigStrings.FM_DATABASE
+            }/sessions/`,
             {
                 method: "POST",
                 headers: {
