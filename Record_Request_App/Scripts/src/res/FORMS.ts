@@ -7,19 +7,12 @@ export const FORMS: {
     NEW_FOLDER: {
         fields: [
             {
-                label: "Folder Name*",
+                label: "Folder Description*",
                 fieldName: "FolderDescription",
                 placeholder: "i.e. Jared",
                 description: "Warning: You cannot change this later.",
                 type: "text",
-            },
-            {
-                label: "Folder Description*",
-                fieldName: "FolderDescription",
-                placeholder: "i.e This folder contains Jared's records",
-                description: "Warning: You cannot change this later.",
-                type: "text",
-            },
+            }
         ],
         options: {
             title: "Create New Folder",
@@ -31,7 +24,7 @@ export const FORMS: {
             {
                 label: "Box Description*",
                 description: "Warning: You cannot change this later.",
-                fieldName: "FolderDescription",
+                fieldName: "BoxDescription",
                 type: "textarea",
             },
         ],

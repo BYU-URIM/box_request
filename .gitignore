@@ -262,3 +262,4 @@ __pycache__/
 Record_Request_App/Scripts/backup.txt
 Record_Request_App/Scripts/.vscode/
 Record_Request_App/Scripts/config/dev/proxy-server/private.json
+Record_Request_App/Scripts/dist/

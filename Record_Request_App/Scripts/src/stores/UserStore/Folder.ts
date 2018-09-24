@@ -19,7 +19,6 @@ export interface IFolder {
 }
 
 export interface IFolderForm {
-    FolderName: string
     FolderDescription: string
 }
 export class Folder implements IFolder, IObjectWithKey {

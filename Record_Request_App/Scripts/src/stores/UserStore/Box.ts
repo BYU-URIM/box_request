@@ -157,7 +157,7 @@ export class Box implements IBox, IObjectWithKey {
     createFolder = _folderForm => {
         this._root.dataService.createFolder({
             BoxId: this.BoxId,
-            CurrentFolderLocation: this.CurrentLocation,
+            CurrentFolderLocation: this.BoxId,
             ..._folderForm,
         })
     }

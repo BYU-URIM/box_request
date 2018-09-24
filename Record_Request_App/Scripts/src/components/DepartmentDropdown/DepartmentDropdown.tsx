@@ -51,9 +51,7 @@ export const DepartmentDropdown = observer(
                         text={"Create New Box"}
                         onClick={props.initializeBoxForm}
                         className={"ms-Grid-col ms-sm4"}
-                        style={{
-                            color: "white",
-                        }}
+                        style={{ color: "white" }}
                     />
                 )}
             </div>
