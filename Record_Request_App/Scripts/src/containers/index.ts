@@ -1,2 +1,5 @@
 export * from "./App/App"
 export * from "./BoxRequest/BoxRequest"
+export * from "./Form/Form"
+export * from "./Message/Message"
+export * from "./UrimModal/UrimModal"

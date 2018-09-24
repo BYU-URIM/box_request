@@ -1,9 +1,8 @@
-import { DataServiceFactory, MockDataService } from "../src/services"
+import { MockDataService } from "../src/services"
 import { RootStore } from "../src/stores"
-import { mockUser } from "../src/res"
 
 const getRootStore = (): RootStore => {
-    const _rootStore = new RootStore(mockUser, new MockDataService())
+    const _rootStore = new RootStore(new MockDataService())
     _rootStore.init()
     return _rootStore
 }

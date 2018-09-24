@@ -14,7 +14,6 @@ export interface IUser {
 export class User implements IUser {
     constructor(private _root: RootStore) {
         Object.assign(this, this._root.userInfo)
-        this.init()
     }
 
     @observable

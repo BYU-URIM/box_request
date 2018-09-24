@@ -1,9 +1,12 @@
 export enum ModalTypes {
     warning = "warning",
-    submit = "submit",
-    create = "create",
+    SUBMIT_CART = "SUBMIT_CART",
+    NEW_FOLDER = "NEW_FOLDER",
+    NEW_BOX = "NEW_BOX",
     none = "none",
 }
+
+// export type URIM_MODALS = "WARNING" | "SUBMIT" | "NEW_FOLDER" | "NEW_BOX" | "NONE"
 
 // export enum ItemStatusTypes {
 //     none = "none",

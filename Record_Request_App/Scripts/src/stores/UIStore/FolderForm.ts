@@ -7,18 +7,18 @@ export class FolderForm {
     constructor(private _existingNames: Array<string>) {}
 
     @computed
-    get folderName(): string {
+    get folderDescription(): string {
         return this._folderInput
     }
-    set folderName(_newName: string) {
-        this._folderInput = _newName.trim()
+    set folderDescription(_newDescription: string) {
+        this._folderInput = _newDescription.trim()
     }
 
     @computed
     get errorMessage(): string {
         return this.inputIsValid
             ? undefined
-            : this.folderName.length > 50
+            : this.folderDescription.length > 50
                 ? "The new folder name must be less than 50 characters."
                 : "Please use a Folder Name that does not already exist."
     }
@@ -26,8 +26,8 @@ export class FolderForm {
     @computed
     get inputIsValid(): boolean {
         return (
-            this.folderName.length < 50 &&
-            !this._existingNames.includes(this.folderName.toLowerCase())
+            this.folderDescription.length < 50 &&
+            !this._existingNames.includes(this.folderDescription.toLowerCase())
         )
     }
 }

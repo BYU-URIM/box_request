@@ -1,27 +1,56 @@
-import { IDataService } from "./IDataService"
-import { mockUser, mockBoxes, mockFolders } from "../../res"
+import {
+    IDataService,
+    IBoxesResponse,
+    IFolderResponse,
+    DepartmentData,
+} from "./IDataService"
+import { mockUser, mockData } from "../../res"
 import { IUser, IBox, IFolder } from "../../stores"
 
 export class MockDataService implements IDataService {
     _user: IUser = mockUser
-    _boxes: Array<IBox> = mockBoxes
-    _folders: Array<IFolder> = mockFolders
+    _data: Array<IBoxesResponse> = mockData
+
+    boxesResponseParse = (_boxes: Array<IBoxesResponse>): DepartmentData => {
+        const cleanedBoxes: Array<IBoxesResponse> = JSON.parse(
+            JSON.stringify(_boxes)
+                .split("Folders::")
+                .join("")
+                .split("Departments::")
+                .join("")
+                .split("RetentionSchedule::")
+                .join("")
+        )
+        return cleanedBoxes.map(_box => ({
+            ..._box.fieldData,
+            ..._box.portalData,
+        }))
+    }
 
     createFolder(_folder: IFolder): Promise<void> {
-        this._folders.push({ ..._folder, FolderId: Math.random() })
+        this._data
+            .find(e => e.fieldData.BoxId === _folder.BoxId)
+            .portalData.Folders.push(_folder as IFolderResponse)
         return Promise.resolve()
     }
+
+    createBox(_box: IBox): Promise<void> {
+        // this._data.push({
+        //     fieldData: _box,
+        //     portalData: { Folders: [] },
+        // })
+        return Promise.resolve()
+    }
+
     fetchUser = (): Promise<IUser> => {
         return Promise.resolve(this._user)
     }
 
-    fetchBoxesByDepId = (_depId: number): Promise<Array<IBox>> => {
-        return Promise.resolve(this._boxes.filter(box => box.DeptId === _depId))
+    fetchDepartmentData = (_depId: number): Promise<DepartmentData> => {
+        return Promise.resolve(this.boxesResponseParse(this._data))
     }
 
-    fetchFoldersByBoxId = (_boxId: number): Promise<Array<IFolder>> => {
-        return Promise.resolve(
-            this._folders.filter(folder => folder.BoxId === _boxId)
-        )
+    login = async () => {
+        return Promise.resolve("")
     }
 }

@@ -8,9 +8,8 @@ export class RootStore {
     userInfo: IUser
     userStore: User
     dataService: IDataService
-    constructor(_user: IUser, _dataService: IDataService) {
+    constructor(_dataService: IDataService) {
         this.dataService = _dataService
-        this.userInfo = _user
     }
 
     @observable
@@ -18,6 +17,7 @@ export class RootStore {
 
     @action
     async init(): Promise<void> {
+        this.userInfo = await this.dataService.fetchUser()
         if (!this.initialized) {
             this.checkoutStore = new CheckoutStore(this)
             this.userStore = new User(this)

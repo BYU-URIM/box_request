@@ -6,7 +6,6 @@ initializeIcons()
 export const rootStore: RootStore = DataServiceFactory.getRootStore()
 const init = async () => {
     await rootStore.init()
-    await rootStore.uiStore.initializeFolderForm()
     await rootStore.checkoutStore.initializeRequestForm()
 }
 init()

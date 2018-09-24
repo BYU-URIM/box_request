@@ -1,32 +1,40 @@
 import { ItemStatusTypes } from "../../models"
-import { action, computed, observable } from "mobx"
+import { action, computed } from "mobx"
 import { Box } from "."
 import { RootStore } from "../RootStore"
 import { CheckoutStore } from "../CheckoutStore"
 import { IObjectWithKey } from "office-ui-fabric-react"
+import { messages } from "../UIStore"
 
 export interface IFolder {
-    FolderId?: number
-    FolderName: string
-    BoxId: number
+    BoxId?: number
+    FolderId?: number | string
+    DeptId?: number
+    BoxDescription?: string
     FolderDescription: string
     CurrentFolderLocation: string
+    LastCheckoutDate?: string
     PCODate?: string
     DateCreated?: string
 }
 
+export interface IFolderForm {
+    FolderName: string
+    FolderDescription: string
+}
 export class Folder implements IFolder, IObjectWithKey {
     constructor(private _box: Box, _folder: IFolder, private _root: RootStore) {
         Object.assign(this, _folder)
         this.key = _folder.FolderId
         this.checkoutStore = this._root.checkoutStore
     }
-
+    DeptId?: number
+    LastCheckoutDate?: string
+    BoxDescription?: string
     FolderId: number
-    FolderName: string
     BoxId: number
-    FolderDescription: string
-    CurrentFolderLocation: string
+    FolderDescription: string = "No description available"
+    CurrentFolderLocation: string = ""
     PCODate?: string
     DateCreated?: string
     checkoutStore: CheckoutStore
@@ -39,13 +47,15 @@ export class Folder implements IFolder, IObjectWithKey {
 
     @computed
     get status(): ItemStatusTypes {
-        return this.folderInCart
-            ? ItemStatusTypes.inCheckout
-            : this.CurrentFolderLocation === String(this.BoxId)
-                ? this._box.status
-                : this.CurrentFolderLocation.toLowerCase() === "legal"
-                    ? ItemStatusTypes.unavailable
-                    : ItemStatusTypes.checkedOutByClient
+        return this._box.status !== ItemStatusTypes.available
+            ? this._box.status
+            : this.folderInCart
+                ? ItemStatusTypes.inCheckout
+                : this.CurrentFolderLocation === String(this.BoxId)
+                    ? this._box.status
+                    : this.CurrentFolderLocation.toLowerCase().startsWith("l")
+                        ? ItemStatusTypes.unavailable
+                        : ItemStatusTypes.checkedOutByClient
     }
 
     @computed
@@ -91,8 +101,8 @@ export class Folder implements IFolder, IObjectWithKey {
     @action
     fiveOrMoreMiddleware = () => {
         this.fiveOrMoreSiblingFolders
-            ? (this._root.uiStore.message = "five-folders")
-            : (this._root.uiStore.message = undefined)
+            ? (this._root.uiStore.message = messages.Five_Folders)
+            : this._root.uiStore.clearMessage()
     }
 
     @action
