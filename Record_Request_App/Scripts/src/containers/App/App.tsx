@@ -3,7 +3,7 @@ import { initializeIcons } from "@uifabric/icons"
 import { Fabric } from "office-ui-fabric-react"
 import { RootStore } from "../../stores"
 import { inject, observer } from "mobx-react"
-import { BoxRequest, UrimModal, Message } from ".."
+import { BoxRequest, FormModal, Message } from ".."
 import { Greeting } from "../../components"
 import DevTools from "mobx-react-devtools"
 import "./styles.scss"
@@ -22,7 +22,7 @@ export class App extends React.Component<{ rootStore?: RootStore }> {
                     <BoxRequest />
                 </div>
                 <DevTools />
-                <UrimModal />
+                <FormModal />
             </Fabric>
         )
     }
