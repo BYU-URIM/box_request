@@ -14,6 +14,7 @@ export class Department {
     }
     id: number
     name: string
+
     @observable
     private _boxes: Array<Box> = []
 
@@ -45,13 +46,14 @@ export class Department {
     }
 
     @action
-    loadBoxes = () => {
+    loadBoxes = async () => {
+        this._root.userStore.loading = true
         this._boxes = []
-        this._root.dataService.fetchDepartmentData(this.id).then(_boxes => {
-            for (const _box of _boxes) {
-                this._boxes.push(new Box(this._root, _box, this, _box.Folders))
-            }
-        })
+        const res = await this._root.dataService.fetchDepartmentData(this.id)
+        for (const _box of await res) {
+            this._boxes.push(new Box(this._root, _box, this, _box.Folders))
+        }
+        this._root.userStore.loading = false
     }
 
     @action

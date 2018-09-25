@@ -40,7 +40,6 @@ export class SpDataService implements IDataService {
                 .split("RetentionSchedule::")
                 .join("")
         )
-        console.log({ ...cleanedBoxes.fieldData, ...cleanedBoxes.portalData })
 
         return { ...cleanedBoxes.fieldData, ...cleanedBoxes.portalData }
     }

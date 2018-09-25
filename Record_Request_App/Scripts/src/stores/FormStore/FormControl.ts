@@ -21,6 +21,7 @@ export interface IFormControl {
     choices?: Array<string>
     onText?: string
     offText?: string
+    autoFocus?: boolean
 }
 
 export class FormControl implements IFormControl {

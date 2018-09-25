@@ -12,6 +12,7 @@ export const FORMS: {
                 placeholder: "i.e. Jared",
                 description: "Warning: You cannot change this later.",
                 type: "text",
+                autoFocus: true,
             },
         ],
         options: {

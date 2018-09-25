@@ -24,6 +24,18 @@ export class User implements IUser {
     email: string
     Id: string
 
+    @observable
+    private _loading: boolean = false
+
+    @computed
+    get loading(): boolean {
+        return this._loading
+    }
+
+    set loading(value: boolean) {
+        this._loading = value
+    }
+
     @computed
     get userDepartmentsAsOptions(): Array<IOption> {
         return this.departments.map((_department: IDepartment) => ({

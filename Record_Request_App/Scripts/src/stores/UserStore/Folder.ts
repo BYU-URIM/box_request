@@ -51,8 +51,6 @@ export class Folder implements IFolder, IObjectWithKey {
 
     @computed
     get status(): ItemStatusTypes {
-        console.log(this.CurrentFolderLocation, String(this.BoxId))
-
         return this.CurrentFolderLocation === String(this.BoxId)
             ? this._box.status
             : this._box.status !== ItemStatusTypes.available
