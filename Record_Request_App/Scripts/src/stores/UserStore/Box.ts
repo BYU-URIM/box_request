@@ -161,7 +161,7 @@ export class Box implements IBox, IObjectWithKey {
     createFolder = async _folderForm => {
         const res = await this._root.dataService.createFolder({
             BoxId: this.BoxId,
-            CurrentFolderLocation: this.BoxId,
+            CurrentFolderLocation: String(this.BoxId),
             ..._folderForm,
         })
         this.addFolder(res)
