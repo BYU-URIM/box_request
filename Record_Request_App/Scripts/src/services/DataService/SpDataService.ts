@@ -187,12 +187,6 @@ export class SpDataService implements IDataService {
                             DeptId: `=${_deptId}`,
                         },
                     ],
-                    // sort: [
-                    //     {
-                    //         fieldName: "title",
-                    //         sortOrder: "ascend",
-                    //     },
-                    // ],
                 }),
             }
         )

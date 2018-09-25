@@ -27,11 +27,8 @@ export class MockDataService implements IDataService {
         }))
     }
 
-    createFolder(_folder: IFolder): Promise<IFolder> {
-        this._data
-            .find(e => e.fieldData.BoxId === _folder.BoxId)
-            .portalData.Folders.push(_folder)
-        return
+    async createFolder(_folder: IFolder): Promise<IFolder> {
+        return Promise.resolve(_folder)
     }
 
     createBox(_box: IBox): Promise<void> {
