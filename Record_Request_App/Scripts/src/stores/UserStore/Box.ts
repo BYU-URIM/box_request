@@ -113,11 +113,10 @@ export class Box implements IBox, IObjectWithKey {
     get status(): ItemStatusTypes {
         return this.boxInCart
             ? ItemStatusTypes.inCheckout
-            : this.CurrentLocation === String(this.DeptId)
-                ? ItemStatusTypes.checkedOutByClient
-                : this.CurrentLocation.toLowerCase().startsWith("l") &&
-                  this.CurrentLocation.toLowerCase() !== "legal"
-                    ? ItemStatusTypes.available
+            : this.CurrentLocation.toLowerCase().startsWith("l")
+                ? ItemStatusTypes.available
+                : this.CurrentLocation.toLowerCase().startsWith("d")
+                    ? ItemStatusTypes.checkedOutByClient
                     : ItemStatusTypes.unavailable
     }
 
@@ -143,22 +142,28 @@ export class Box implements IBox, IObjectWithKey {
     @action
     loadFolders = (_folderData: Array<IFolder>) => {
         this._folders = []
-        this.dataToFolders(_folderData)
+        this.addFolders(_folderData)
     }
 
     @action
-    dataToFolders = (_folders: Array<IFolder>) => {
+    addFolder = (_folder: IFolder) => {
+        this._folders.push(new Folder(this, _folder, this._root))
+    }
+
+    @action
+    addFolders = (_folders: Array<IFolder>) => {
         _folders.forEach(_folder =>
             this._folders.push(new Folder(this, _folder, this._root))
         )
     }
 
     @action
-    createFolder = _folderForm => {
-        this._root.dataService.createFolder({
+    createFolder = async _folderForm => {
+        const res = await this._root.dataService.createFolder({
             BoxId: this.BoxId,
             CurrentFolderLocation: this.BoxId,
             ..._folderForm,
         })
+        this.addFolder(res)
     }
 }

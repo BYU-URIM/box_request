@@ -7,12 +7,14 @@ import { IObjectWithKey } from "office-ui-fabric-react"
 import { messages } from "../UIStore"
 
 export interface IFolder {
-    BoxId?: number
-    FolderId?: number | string
-    DeptId?: number
-    BoxDescription?: string
+    FolderId: number | string
     FolderDescription: string
     CurrentFolderLocation: string
+    BoxId?: number
+    DeptId?: number
+    BoxDescription?: string
+    recordId?: string
+    modId?: string
     LastCheckoutDate?: string
     PCODate?: string
     DateCreated?: string
@@ -27,18 +29,20 @@ export class Folder implements IFolder, IObjectWithKey {
         this.key = _folder.FolderId
         this.checkoutStore = this._root.checkoutStore
     }
-    DeptId?: number
-    LastCheckoutDate?: string
-    BoxDescription?: string
+    DeptId: number
+    BoxDescription: string
     FolderId: number
     BoxId: number
     FolderDescription: string = "No description available"
     CurrentFolderLocation: string = ""
+    LastCheckoutDate?: string
     PCODate?: string
     DateCreated?: string
-    checkoutStore: CheckoutStore
+    recordId?: string
+    modId?: string
     key
 
+    checkoutStore: CheckoutStore
     @computed
     get addable(): boolean {
         return !this.folderInCart && this.folderIsAvailable
@@ -46,15 +50,15 @@ export class Folder implements IFolder, IObjectWithKey {
 
     @computed
     get status(): ItemStatusTypes {
+        console.log(this)
+
         return this._box.status !== ItemStatusTypes.available
             ? this._box.status
             : this.folderInCart
                 ? ItemStatusTypes.inCheckout
-                : this.CurrentFolderLocation === String(this.BoxId)
+                : this.CurrentFolderLocation === String(this._box.BoxId)
                     ? this._box.status
-                    : this.CurrentFolderLocation.toLowerCase().startsWith("l")
-                        ? ItemStatusTypes.unavailable
-                        : ItemStatusTypes.checkedOutByClient
+                    : ItemStatusTypes.checkedOutByClient
     }
 
     @computed

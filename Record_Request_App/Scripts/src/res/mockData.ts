@@ -1,5 +1,5 @@
 import { IUser, IBox, IFolder } from "../stores"
-import { IBoxesResponse } from "../services"
+import { IBoxResponse } from "../services"
 export const mockUser: IUser = {
     name: "Greg Anderson",
     Id: "12345",
@@ -10,15 +10,7 @@ export const mockUser: IUser = {
         { id: 5556, name: "Department of Science" },
     ],
 }
-export interface IDataResponse {
-    fieldData: IBox
-    portalData: {
-        Folders: Array<IFolder>
-    }
-    recordId?: string
-    modId?: string
-}
-export const mockData: Array<IBoxesResponse> = [
+export const mockData: Array<IBoxResponse> = [
     {
         fieldData: {
             BoxId: 5000,
