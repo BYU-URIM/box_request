@@ -3,8 +3,6 @@ name: Checkout
 ---
 import { Checkout } from "./Checkout"
 import { Playground, PropsTable } from "docz"
-import { sessionStore, requestStore, requestState } from "../../docz"
-import { mockBoxes, mockFolders } from "../../res/index"
 
 # Checkout
 
@@ -13,18 +11,8 @@ import { mockBoxes, mockFolders } from "../../res/index"
 ### This component is used to display the items the user would like to request.
 
 <Playground>
-    {requestState.addToCart(mockBoxes[0].BoxIdBarCode)}
-    <Checkout
-        classNames={"ms-Grid-col ms-sm3"}
-        initializeRequestForm={
-            requestStore.initializeRequestForm
-        }
-        cart={requestState.cart}
-        dialogMessage={requestState.dialogMessage}
-        removeFromCart={item =>
-            requestState.removeFromCart(item)
-        }
-    />
+    <div>hi</div>
+
 </Playground>
 
 ## Props Interface

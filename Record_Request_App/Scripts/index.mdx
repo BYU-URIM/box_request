@@ -1,6 +1,30 @@
-# Configuring local environment
+---
+name: Wiki
+route: /
+order: 1
+---
+# Wiki
 
-## Running locally
+## Ideas and Conecpts
+
+### Models
+
+---
+
+#### Department, Box, Folder
+
+##### Status
+Status is based on location of the item. With Folders it can also be based off of the location of the parent box IF the folder's current location is the box.
+
+if the current location begins with an 'L', the item is available.
+
+if the current location begins with a 'D', the item is checked out to a Department (which could be a different department from the one it belongs to i.e. the legal department can check out boxes from anywhere.)
+
+if there is no Location, the status is pending because the box has been submitted for creation by the department, but not yet physically created by the department. When the box is physically created by a courier, the location will be set indicating that it should be a candidate for checkout.
+
+## Configuring local environment
+
+### Running locally
 
 Running locally lets you develop without any data from sharepoint or filemaker, just using mock data.
 
@@ -10,11 +34,11 @@ From the root of the project, run:
     yarn run dev:local
 ```
 
-## Running with sharepointProxy
+### Running with sharepointProxy
 
 Running with a sharepoint proxy server allows us to access sharepoint api for whichever site the app was installed on as well as credentials.  This will also use a node proxy server for proxying requests to FileMaker.  This option option starts a proxy server for Sharepoint, a proxy server for FileMaker, and serves the webpack build.
 
-### Important steps to run
+#### Important steps to run
 
 -   You must be connected to BYU internet for the filemaker server to work correctly
 -   You must generate credentials for Sharepoint, this is done by running `yarn run sp:proxyServer` and entering your credentials. 
