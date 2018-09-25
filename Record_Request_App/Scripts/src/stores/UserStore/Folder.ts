@@ -10,7 +10,7 @@ export interface IFolder {
     FolderId: number | string
     FolderDescription: string
     CurrentFolderLocation: string
-    BoxId?: number
+    BoxId: number
     DeptId?: number
     BoxDescription?: string
     recordId?: string
@@ -26,6 +26,7 @@ export interface IFolderForm {
 export class Folder implements IFolder, IObjectWithKey {
     constructor(private _box: Box, _folder: IFolder, private _root: RootStore) {
         Object.assign(this, _folder)
+        this.BoxId = _box.BoxId
         this.key = _folder.FolderId
         this.checkoutStore = this._root.checkoutStore
     }
@@ -45,19 +46,19 @@ export class Folder implements IFolder, IObjectWithKey {
     checkoutStore: CheckoutStore
     @computed
     get addable(): boolean {
-        return !this.folderInCart && this.folderIsAvailable
+        return !this.inCart && this.available
     }
 
     @computed
     get status(): ItemStatusTypes {
-        console.log(this)
+        console.log(this.CurrentFolderLocation, String(this.BoxId))
 
-        return this._box.status !== ItemStatusTypes.available
+        return this.CurrentFolderLocation === String(this.BoxId)
             ? this._box.status
-            : this.folderInCart
-                ? ItemStatusTypes.inCheckout
-                : this.CurrentFolderLocation === String(this._box.BoxId)
-                    ? this._box.status
+            : this._box.status !== ItemStatusTypes.available
+                ? this._box.status
+                : this.inCart
+                    ? ItemStatusTypes.inCheckout
                     : ItemStatusTypes.checkedOutByClient
     }
 
@@ -76,18 +77,15 @@ export class Folder implements IFolder, IObjectWithKey {
     /* Addable Condtions */
 
     @computed
-    get folderInCart(): boolean {
+    get inCart(): boolean {
         return (
-            this.checkoutStore.items.has(this.FolderId) || this._box.boxInCart
+            this.checkoutStore.items.has(this.FolderId) || this._box.inCheckout
         )
     }
 
     @computed
-    get folderIsAvailable(): boolean {
-        return (
-            this._box.boxIsAvailable &&
-            this.status === ItemStatusTypes.available
-        )
+    get available(): boolean {
+        return this._box.available && this.status === ItemStatusTypes.available
     }
 
     @action

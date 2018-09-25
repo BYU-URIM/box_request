@@ -4,7 +4,6 @@ name: BoxList
 
 import { BoxList } from "./BoxList"
 import { Playground, PropsTable } from "docz"
-import { sessionStore, requestStore, requestState } from "../../docz"
 
 # Box List
 
@@ -13,33 +12,8 @@ import { sessionStore, requestStore, requestState } from "../../docz"
 ### This component is used to display boxes unique to the selected department.
 
 <Playground>
-    <BoxList
-        initializeFolderForm={
-            requestStore.initializeFolderForm
-        }
-        checkoutStatus={item =>
-            requestStore.determineItemStatus(item)
-        }
-        classNames={
-            "ms-Grid-col ms-sm4 scroll-container"
-        }
-        selectedBoxId={
-            requestState.box
-                ? requestState.box.BoxIdBarCode
-                : 0
-        }
-        requestState={requestState}
-        addToCart={item => requestState.addToCart(item)}
-        box={requestState.box}
-        dialogMessage={requestState.dialogMessage}
-        sortBoxes={requestState.sortBoxes}
-        cartContains={item =>
-            requestState.cartContains(item)
-        }
-        canAddItemToCart={item =>
-            requestStore.canAddItemToCart(item)
-        }
-    />
+    <div>hi</div>
+
 </Playground>
 
 ## Props Interface
