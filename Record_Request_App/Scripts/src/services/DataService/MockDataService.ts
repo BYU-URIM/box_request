@@ -12,7 +12,7 @@ export class MockDataService implements IDataService {
     _data: Array<IBoxResponse> = mockData
 
     boxesResponseParse = (_boxes: Array<IBoxResponse>): DepartmentData => {
-        const cleanedBoxes: Array<IBoxResponse> = JSON.parse(
+        let cleanedBoxes: Array<IBoxResponse> = JSON.parse(
             JSON.stringify(_boxes)
                 .split("Folders::")
                 .join("")
@@ -39,8 +39,13 @@ export class MockDataService implements IDataService {
         return Promise.resolve(this._user)
     }
 
-    fetchDepartmentData = (_depId: number): Promise<DepartmentData> => {
-        return Promise.resolve(this.boxesResponseParse(this._data))
+    fetchDepartmentData = async (_depId: number): Promise<DepartmentData> => {
+        const res: Promise<DepartmentData> = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(this.boxesResponseParse(this._data))
+            }, 1000)
+        })
+        return res
     }
 
     login = async () => {
