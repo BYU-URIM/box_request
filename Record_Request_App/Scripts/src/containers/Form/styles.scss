@@ -2,16 +2,29 @@
     text-align: center;
 }
 
-.form-wrapper {
+.form-header {
+    padding: 2px 16px;
+}
+
+.form-body {
+    padding: 2px 16px;
     text-align: left;
+    margin: 8px;
+}
+
+.form-footer {
+    padding: 2px 16px;
+    text-align: right;
+}
+
+.form-content {
+    position: relative;
+    margin: auto;
+    padding: 0;
 }
 
 .formControl-styles {
-    padding: 8px;
+    padding: 0px;
+    margin: 0px;
 }
 
-.form-submit {
-    position: absolute;
-    right: 32px;
-    bottom: 32px;
-}

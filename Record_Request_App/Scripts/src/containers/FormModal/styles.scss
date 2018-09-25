@@ -1,13 +1,16 @@
-
-.urimModal-content {
+.formModal-content {
     padding: 0px 16px;
-    margin: 0px;
+    margin: 8px;
     position: relative;
     min-width: 600px;
-    min-height: 400px;
 }
 
-.urimModal-header {
+.formModal-header {
     text-align: right;
     zoom: 1.5;
+}
+
+.formModal-body {
+    padding: 0px;
+    margin: 0px;
 }

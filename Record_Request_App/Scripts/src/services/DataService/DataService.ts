@@ -1,9 +1,9 @@
 import { IDataService } from "."
 import { IFolder, IUser, IBox } from "../../stores"
-import { DepartmentData } from "./IDataService"
+import { DepartmentData, BoxData } from "./IDataService"
 
 export class DataService implements IDataService {
-    createFolder(_folder: IFolder): Promise<void> {
+    createFolder(_folder: IFolder): Promise<IFolder> {
         throw new Error("Method not implemented.")
     }
 

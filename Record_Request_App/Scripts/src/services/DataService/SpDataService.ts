@@ -1,5 +1,10 @@
-import { IDataService, IBoxesResponse, DepartmentData } from "./IDataService"
-import { mockUser, mockData, IDataResponse } from "../../res"
+import {
+    IDataService,
+    IBoxResponse,
+    DepartmentData,
+    BoxData,
+} from "./IDataService"
+import { mockUser, mockData } from "../../res"
 import { IUser, IBox, IFolder } from "../../stores"
 import { sp } from "@pnp/sp-addinhelpers"
 import { Web } from "@pnp/sp"
@@ -7,10 +12,10 @@ import { ConfigStrings } from "../../models"
 
 export class SpDataService implements IDataService {
     _user: IUser = mockUser
-    _data: Array<IDataResponse> = mockData
+    _data: Array<IBoxResponse> = mockData
 
-    boxesResponseParse = (_boxes: Array<IBoxesResponse>): DepartmentData => {
-        const cleanedBoxes: Array<IBoxesResponse> = JSON.parse(
+    boxesResponseParser = (_boxes: Array<IBoxResponse>): DepartmentData => {
+        const cleanedBoxes: Array<IBoxResponse> = JSON.parse(
             JSON.stringify(_boxes)
                 .split("Folders::")
                 .join("")
@@ -24,6 +29,22 @@ export class SpDataService implements IDataService {
             ..._box.portalData,
         }))
     }
+
+    boxResponseParser = (_box: IBoxResponse): BoxData => {
+        const cleanedBoxes: IBoxResponse = JSON.parse(
+            JSON.stringify(_box)
+                .split("Folders::")
+                .join("")
+                .split("Departments::")
+                .join("")
+                .split("RetentionSchedule::")
+                .join("")
+        )
+        console.log({ ...cleanedBoxes.fieldData, ...cleanedBoxes.portalData })
+
+        return { ...cleanedBoxes.fieldData, ...cleanedBoxes.portalData }
+    }
+
     fetchUser = (): Promise<IUser> => {
         return this.fetchSpUser()
     }
@@ -57,9 +78,7 @@ export class SpDataService implements IDataService {
         return sp.web
     }
 
-    async createFolder(_folder: IFolder): Promise<void> {
-        console.log(_folder)
-
+    async createFolder(_folder: IFolder): Promise<IFolder> {
         const token = await this.login()
         const response = await fetch(
             `${ConfigStrings.FM_PROXY_URL}${
@@ -76,8 +95,24 @@ export class SpDataService implements IDataService {
                 }),
             }
         )
-        const data = await response.json()
-        return data
+        const folderResponse = await response.json()
+        const newFolderRes = await fetch(
+            `${ConfigStrings.FM_PROXY_URL}${
+                ConfigStrings.FM_DATABASE
+            }/layouts/${ConfigStrings.FM_LAYOUTS.FOLDER_DETAILS}/records/${
+                folderResponse.response.recordId
+            }`,
+            {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+            }
+        )
+        const newFolder = await newFolderRes.json()
+
+        return newFolder.response.data[0].fieldData
     }
 
     createBox(_box: IBox): Promise<void> {
@@ -110,7 +145,7 @@ export class SpDataService implements IDataService {
             }
         )
         const data = await response.json()
-        return this.boxesResponseParse(data.response.data)
+        return this.boxesResponseParser(data.response.data)
     }
 
     fetchFoldersByBoxId = async (_boxId: number): Promise<Array<IFolder>> => {
