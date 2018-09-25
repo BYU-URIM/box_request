@@ -94,28 +94,28 @@ export class Box implements IBox, IObjectWithKey {
 
     @computed
     get addable(): boolean {
-        return !this.boxInCart && this.boxIsAvailable
+        return !this.inCheckout && this.available
     }
 
     /* Addable Condtions */
 
     @computed
-    get boxInCart(): boolean {
+    get inCheckout(): boolean {
         return this._root.checkoutStore.items.has(this.BoxId)
     }
 
     @computed
-    get boxIsAvailable(): boolean {
+    get available(): boolean {
         return this.status === ItemStatusTypes.available
     }
 
     @computed
     get status(): ItemStatusTypes {
-        return this.boxInCart
+        return this.inCheckout
             ? ItemStatusTypes.inCheckout
             : this.CurrentLocation.toLowerCase().startsWith("l")
                 ? ItemStatusTypes.available
-                : this.CurrentLocation.toLowerCase().startsWith("d")
+                : this.CurrentLocation === `D${this.BoxId}`
                     ? ItemStatusTypes.checkedOutByClient
                     : ItemStatusTypes.unavailable
     }
