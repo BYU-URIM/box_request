@@ -31,7 +31,7 @@ export const DepartmentDropdown = observer(
                             placeHolder={props.dropdownInfo.placeHolder}
                             options={props.options}
                             selectedKey={props.dropdownInfo.key}
-                            onChanged={(item: IOption) =>
+                            onChange={(e, item: IOption) =>
                                 props.handleChanged(item.key)
                             }
                             className={"ms-Grid-col ms-sm8"}
