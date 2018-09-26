@@ -11,7 +11,6 @@ import {
     Label,
 } from "office-ui-fabric-react"
 import { FormStore } from "../../stores"
-
 import "./styles.scss"
 
 export interface IFormControlGroupProps {
@@ -44,27 +43,35 @@ export class FormControlGroup extends React.Component<IFormControlGroupProps> {
                                     <TextField
                                         className={"formControl-styles"}
                                         key={index}
-                                        onChanged={(newVal: string) =>
+                                        {...{
+                                            ...formControl,
+                                            value: formControl.value.toString(),
+                                        }}
+                                        onChange={(e, val) =>
                                             props.formStore.updateFormField(
                                                 formControl.fieldName,
-                                                newVal
+                                                val
                                             )
                                         }
+                                        validateOnLoad={false}
+                                        validateOnFocusOut={true}
                                         underlined={true}
-                                        errorMessage={
-                                            props.formStore.validation[
-                                                formControl.fieldName
-                                            ]
+                                        onGetErrorMessage={() =>
+                                            formControl.errorMessage
                                         }
-                                        {...formControl}
                                     />
                                 )
                             } else if (formControl.type === "datetime") {
                                 return (
                                     <DatePicker
                                         className={"formControl-styles"}
+                                        {...formControl}
+                                        value={
+                                            new Date(
+                                                formControl.value.toString()
+                                            )
+                                        }
                                         key={index}
-                                        value={new Date(formControl.value)}
                                         highlightSelectedMonth={true}
                                         onSelectDate={newVal =>
                                             props.formStore.updateFormField(
@@ -72,7 +79,6 @@ export class FormControlGroup extends React.Component<IFormControlGroupProps> {
                                                 newVal.toLocaleDateString()
                                             )
                                         }
-                                        {...formControl}
                                     />
                                 )
                             } else if (formControl.type === "toggle") {
@@ -80,7 +86,7 @@ export class FormControlGroup extends React.Component<IFormControlGroupProps> {
                                     <Toggle
                                         className={"formControl-styles"}
                                         key={index}
-                                        onChanged={(checked: boolean) =>
+                                        onChange={(e, checked: boolean) =>
                                             props.formStore.updateFormField(
                                                 formControl.fieldName,
                                                 checked
@@ -94,7 +100,10 @@ export class FormControlGroup extends React.Component<IFormControlGroupProps> {
                                     <Dropdown
                                         className={"formControl-styles"}
                                         key={index}
-                                        onChanged={(option: IDropdownOption) =>
+                                        onChange={(
+                                            e,
+                                            option: IDropdownOption
+                                        ) =>
                                             props.formStore.updateFormField(
                                                 formControl.fieldName,
                                                 option.text
@@ -111,7 +120,7 @@ export class FormControlGroup extends React.Component<IFormControlGroupProps> {
                                                 text: choice,
                                             })
                                         )}
-                                        selectedKey={formControl.value}
+                                        selectedKey={Number(formControl.value)}
                                     />
                                 )
                             } else if (formControl.type === "textarea") {
@@ -119,7 +128,7 @@ export class FormControlGroup extends React.Component<IFormControlGroupProps> {
                                     <TextField
                                         className={"formControl-styles"}
                                         key={index}
-                                        onChanged={(newVal: string) =>
+                                        onChange={(e, newVal: string) =>
                                             props.formStore.updateFormField(
                                                 formControl.fieldName,
                                                 newVal
@@ -131,25 +140,10 @@ export class FormControlGroup extends React.Component<IFormControlGroupProps> {
                                             ]
                                         }
                                         multiline={true}
-                                        {...formControl}
-                                    />
-                                )
-                            } else if (formControl.type === "checkbox") {
-                                return (
-                                    <Checkbox
-                                        className={"formControl-styles"}
-                                        key={index}
-                                        checked={formControl.value}
-                                        onChange={(
-                                            e: React.FormEvent<HTMLElement>,
-                                            isChecked: boolean
-                                        ) =>
-                                            props.formStore.updateFormField(
-                                                formControl.fieldName,
-                                                String(isChecked)
-                                            )
-                                        }
-                                        {...formControl}
+                                        {...{
+                                            ...formControl,
+                                            value: formControl.value.toString(),
+                                        }}
                                     />
                                 )
                             } else {
@@ -167,6 +161,7 @@ export class FormControlGroup extends React.Component<IFormControlGroupProps> {
                         <PrimaryButton
                             text={props.formStore.options.submitLabel}
                             onClick={props.formStore.submit}
+                            disabled={!!props.formStore.validation}
                         />
                     </div>
                 )}
