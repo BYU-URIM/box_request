@@ -5,7 +5,6 @@ import {
     IDropdownOption,
     DatePicker,
     Dropdown,
-    Checkbox,
     PrimaryButton,
     Toggle,
     Label,
@@ -134,10 +133,10 @@ export class FormControlGroup extends React.Component<IFormControlGroupProps> {
                                                 newVal
                                             )
                                         }
-                                        errorMessage={
-                                            props.formStore.validation[
-                                                formControl.fieldName
-                                            ]
+                                        validateOnLoad={false}
+                                        validateOnFocusOut={true}
+                                        onGetErrorMessage={() =>
+                                            formControl.errorMessage
                                         }
                                         multiline={true}
                                         {...{

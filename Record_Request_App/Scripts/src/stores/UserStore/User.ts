@@ -1,7 +1,7 @@
 import { IDepartment, Department, Box, Folder } from "."
 import { RootStore } from ".."
 import { observable, computed, action } from "mobx"
-import { IOption } from "../../models"
+import { IOption, FormTypes } from "../../models"
 
 export interface IUser {
     name: string

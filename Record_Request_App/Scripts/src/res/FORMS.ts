@@ -13,6 +13,7 @@ export const FORMS: {
                 description: "Warning: You cannot change this later.",
                 type: "text",
                 autoFocus: true,
+                maxLength: 5,
             },
         ],
         options: {
@@ -27,6 +28,7 @@ export const FORMS: {
                 description: "Warning: You cannot change this later.",
                 fieldName: "BoxDescription",
                 type: "textarea",
+                autoFocus: true,
             },
         ],
         options: {

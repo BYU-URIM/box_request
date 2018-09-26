@@ -1,9 +1,9 @@
 import { action, observable, computed } from "mobx"
 import { FormTypes, IDropdownInfo } from "../../models"
-import { RootStore, FolderForm, RequestForm, FormStore } from ".."
-import { messages, Message, BoxForm } from "."
+import { RootStore, RequestForm, FormStore } from ".."
+import { messages, Message } from "."
 import { FORMS } from "../../res"
-import { IFolder, User } from "../UserStore"
+import { User } from "../UserStore"
 
 export class UIStore {
     constructor(private _root: RootStore) {
@@ -16,12 +16,6 @@ export class UIStore {
 
     @observable
     initialized: boolean = false
-
-    @observable
-    folderForm: FolderForm
-
-    @observable
-    boxForm: BoxForm
 
     @observable
     requestForm: RequestForm

@@ -6,8 +6,8 @@ export const mockUser: IUser = {
     email: "email@gmail.com",
     username: "greggy",
     departments: [
-        { id: 5555, name: "Department of Aerophysics" },
-        { id: 5556, name: "Department of Science" },
+        { id: 154, name: "Graduate Studies" },
+        { id: 267, name: "Statistical Research" },
     ],
 }
 export const mockData: Array<IBoxResponse> = [
