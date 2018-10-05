@@ -12,9 +12,16 @@ module.exports = function(env) {
         },
         devtool: "inline-source-maps",
         entry: "./src/main.tsx",
+        optimization: {
+            removeAvailableModules: false,
+            removeEmptyChunks: false,
+            splitChunks: false,
+        },
+
         output: {
             filename: "bundle.js",
             path: path.join(__dirname, "dist"),
+            pathinfo: false,
         },
         module: {
             rules: [
