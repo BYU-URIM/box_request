@@ -19,7 +19,7 @@ export class BoxRequest extends React.Component<{
 }> {
     render() {
         const { uiStore, userStore, checkoutStore } = this.props
-        return (
+        return userStore.loading ? null : (
             <>
                 <div className={"ms-Grid-row"}>
                     <div className={"ms-Grid-col ms-sm4 ms-smPush4"}>
