@@ -1,7 +1,7 @@
 import { computed, observable, action } from "mobx"
 import { FormTypes, CheckoutItem } from "../../models"
 import { RootStore } from "../RootStore"
-import { RequestForm, Folder } from ".."
+import { Folder } from ".."
 
 export class CheckoutStore {
     constructor(private _root: RootStore) {}
@@ -43,6 +43,5 @@ export class CheckoutStore {
     @action
     initializeRequestForm = (): void => {
         this._root.uiStore.form = FormTypes.SUBMIT_CART
-        this._root.uiStore.requestForm = new RequestForm()
     }
 }

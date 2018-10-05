@@ -12,7 +12,7 @@ export class MockDataService implements IDataService {
     _data: Array<IBoxResponse> = mockData
 
     boxesResponseParse = (_boxes: Array<IBoxResponse>): DepartmentData => {
-        let cleanedBoxes: Array<IBoxResponse> = JSON.parse(
+        const cleanedBoxes: Array<IBoxResponse> = JSON.parse(
             JSON.stringify(_boxes)
                 .split("Folders::")
                 .join("")

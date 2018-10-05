@@ -2,17 +2,18 @@ import * as React from "react"
 import Modal from "office-ui-fabric-react/lib/Modal"
 import { inject, observer } from "mobx-react"
 import { FormTypes } from "../../models"
-import { User, UIStore } from "../../stores"
+import { UIStore, User } from "../../stores"
 import { FormControlGroup } from ".."
 import { IconButton, IconType } from "office-ui-fabric-react"
 import "./styles.scss"
-@inject("uiStore")
+@inject("uiStore", "userStore")
 @observer
 export class FormModal extends React.Component<{
     uiStore?: UIStore
+    userStore?: User
 }> {
     render() {
-        const { uiStore } = this.props
+        const { uiStore, userStore } = this.props
 
         return (
             <Modal
@@ -35,7 +36,8 @@ export class FormModal extends React.Component<{
                 {uiStore.form !== FormTypes.none && (
                     <div className={"formModal-body"}>
                         <FormControlGroup
-                            formStore={this.props.uiStore.formStore}
+                            uiStore={this.props.uiStore}
+                            userStore={userStore}
                         />
                     </div>
                 )}

@@ -26,7 +26,7 @@ export class RootStore {
             await this.uiStore.init()
             await this.userStore.init().then(() => {
                 this.userStore.departments[0].select()
-                
+
                 // this.uiStore.form = FormTypes.NEW_FOLDER
             })
 

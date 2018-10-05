@@ -1,7 +1,7 @@
 import * as React from "react"
 import { UIStore } from "../../stores"
 import { inject, observer } from "mobx-react"
-import { MessageBar, MessageBarButton } from "office-ui-fabric-react"
+import { MessageBar } from "office-ui-fabric-react"
 import "./styles.scss"
 
 @inject("uiStore")

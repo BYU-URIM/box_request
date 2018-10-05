@@ -1,8 +1,7 @@
 import { action, observable, computed } from "mobx"
 import { FormTypes, IDropdownInfo } from "../../models"
-import { RootStore, RequestForm, FormStore } from ".."
+import { RootStore } from ".."
 import { messages, Message } from "."
-import { FORMS } from "../../res"
 import { User } from "../UserStore"
 
 export class UIStore {
@@ -18,21 +17,7 @@ export class UIStore {
     initialized: boolean = false
 
     @observable
-    requestForm: RequestForm
-
-    @observable
     form: FormTypes = FormTypes.none
-
-    @computed
-    get formStore(): FormStore {
-        return new FormStore(
-            FORMS[this.form],
-            this.form === FormTypes.NEW_BOX
-                ? this.userStore.selectedDepartment.createBox
-                : this.userStore.selectedBox.createFolder,
-            this.closeForm
-        )
-    }
 
     @observable
     dialogMessage: string = ""

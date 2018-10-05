@@ -7,10 +7,10 @@ import { IObjectWithKey } from "office-ui-fabric-react"
 import { messages } from "../UIStore"
 
 export interface IFolder {
-    FolderId: number | string
+    FolderId?: number | string
     FolderDescription: string
-    CurrentFolderLocation: string
     BoxId: number
+    CurrentFolderLocation?: string
     DeptId?: number
     BoxDescription?: string
     recordId?: string
@@ -23,6 +23,7 @@ export interface IFolder {
 export interface IFolderForm {
     FolderDescription: string
 }
+
 export class Folder implements IFolder, IObjectWithKey {
     constructor(private _box: Box, _folder: IFolder, private _root: RootStore) {
         Object.assign(this, _folder)

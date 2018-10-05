@@ -1,19 +1,18 @@
 import * as React from "react"
 import { observer } from "mobx-react"
-import {
-    TextField,
-    IDropdownOption,
-    DatePicker,
-    Dropdown,
-    PrimaryButton,
-    Toggle,
-    Label,
-} from "office-ui-fabric-react"
-import { FormStore } from "../../stores"
+import { PrimaryButton, Label, TextField } from "office-ui-fabric-react"
+import { UIStore, FormStore, User } from "../../stores"
+import Form, {
+    FieldTemplateProps,
+    ObjectFieldTemplateProps,
+    WidgetProps,
+    Widget,
+} from "react-jsonschema-form"
 import "./styles.scss"
 
 export interface IFormControlGroupProps {
-    formStore: FormStore
+    uiStore: UIStore
+    userStore: User
 }
 
 @observer
@@ -23,148 +22,90 @@ export class FormControlGroup extends React.Component<IFormControlGroupProps> {
     }
 
     render() {
-        const props = this.props
+        const { uiStore, userStore } = this.props
+        const formStore = new FormStore(uiStore.form, userStore)
         return (
-            <div className="form-content">
+            <div className="form-content ms-font-m">
                 <div className={"form-header"}>
                     <Label className={"ms-font-xl form-title"}>
-                        {props.formStore.options.title}
+                        {formStore.schema.title}
                     </Label>
                 </div>
                 <div className={"form-body"}>
-                    {props.formStore &&
-                        props.formStore.fields.map((formControl, index) => {
-                            if (
-                                formControl.type === "text" ||
-                                formControl.type === "number"
-                            ) {
-                                return (
-                                    <TextField
-                                        className={"formControl-styles"}
-                                        key={index}
-                                        {...{
-                                            ...formControl,
-                                            value: formControl.value.toString(),
-                                        }}
-                                        onChange={(e, val) =>
-                                            props.formStore.updateFormField(
-                                                formControl.fieldName,
-                                                val
-                                            )
-                                        }
-                                        validateOnLoad={false}
-                                        validateOnFocusOut={true}
-                                        underlined={true}
-                                        onGetErrorMessage={() =>
-                                            formControl.errorMessage
-                                        }
-                                    />
-                                )
-                            } else if (formControl.type === "datetime") {
-                                return (
-                                    <DatePicker
-                                        className={"formControl-styles"}
-                                        {...formControl}
-                                        value={
-                                            new Date(
-                                                formControl.value.toString()
-                                            )
-                                        }
-                                        key={index}
-                                        highlightSelectedMonth={true}
-                                        onSelectDate={newVal =>
-                                            props.formStore.updateFormField(
-                                                formControl.fieldName,
-                                                newVal.toLocaleDateString()
-                                            )
-                                        }
-                                    />
-                                )
-                            } else if (formControl.type === "toggle") {
-                                return (
-                                    <Toggle
-                                        className={"formControl-styles"}
-                                        key={index}
-                                        onChange={(e, checked: boolean) =>
-                                            props.formStore.updateFormField(
-                                                formControl.fieldName,
-                                                checked
-                                            )
-                                        }
-                                        {...formControl}
-                                    />
-                                )
-                            } else if (formControl.type === "choice") {
-                                return (
-                                    <Dropdown
-                                        className={"formControl-styles"}
-                                        key={index}
-                                        onChange={(
-                                            e,
-                                            option: IDropdownOption
-                                        ) =>
-                                            props.formStore.updateFormField(
-                                                formControl.fieldName,
-                                                option.text
-                                            )
-                                        }
-                                        errorMessage={
-                                            props.formStore.validation[
-                                                formControl.fieldName
-                                            ]
-                                        }
-                                        options={formControl.choices.map(
-                                            choice => ({
-                                                key: choice,
-                                                text: choice,
-                                            })
-                                        )}
-                                        selectedKey={Number(formControl.value)}
-                                    />
-                                )
-                            } else if (formControl.type === "textarea") {
-                                return (
-                                    <TextField
-                                        className={"formControl-styles"}
-                                        key={index}
-                                        onChange={(e, newVal: string) =>
-                                            props.formStore.updateFormField(
-                                                formControl.fieldName,
-                                                newVal
-                                            )
-                                        }
-                                        validateOnLoad={false}
-                                        validateOnFocusOut={true}
-                                        onGetErrorMessage={() =>
-                                            formControl.errorMessage
-                                        }
-                                        multiline={true}
-                                        {...{
-                                            ...formControl,
-                                            value: formControl.value.toString(),
-                                        }}
-                                    />
-                                )
-                            } else {
-                                return (
-                                    <div key={index}>
-                                        unrecognized form control type
-                                    </div>
-                                )
-                            }
-                        })}
-                </div>
-
-                {props.formStore && (
-                    <div className={"form-footer"}>
+                    <Form
+                        {...formStore}
+                        widgets={Widgets}
+                        FieldTemplate={CustomFieldTemplate}
+                        ObjectFieldTemplate={CustomObjectFieldTemplate}
+                        showErrorList={false}
+                        liveValidate={true}
+                    >
                         <PrimaryButton
-                            text={props.formStore.options.submitLabel}
-                            onClick={props.formStore.submit}
-                            disabled={!!props.formStore.validation}
+                            className={"form-submit-button"}
+                            text={"Submit"}
+                            type={"submit"}
                         />
-                    </div>
-                )}
+                    </Form>
+                </div>
             </div>
         )
     }
+}
+
+const CustomFieldTemplate = (props: FieldTemplateProps) => {
+    return (
+        <div className={props.classNames}>
+            {props.description}
+            {props.children}
+            {props.help}
+        </div>
+    )
+}
+
+const CustomObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
+    return (
+        <div>
+            <div className={"ms-Grid-row"}>
+                {props.properties.map(prop => (
+                    <div
+                        className="col-lg-2 col-md-4 col-sm-6 col-xs-12"
+                        key={prop.content.key}
+                    >
+                        {prop.content}
+                    </div>
+                ))}
+            </div>
+            {props.description}
+        </div>
+    )
+}
+
+interface IWidgets {
+    [name: string]: Widget
+}
+
+const Widgets: IWidgets = {
+    text: (props: WidgetProps & FieldTemplateProps) => (
+        <TextField
+            label={props.label}
+            onChange={(e, v) => {
+                props.onChange(v)
+            }}
+            underlined={true}
+            errorMessage={(props.rawErrors && props.rawErrors[0]) || ""}
+        />
+    ),
+    textarea: (props: WidgetProps & FieldTemplateProps) => (
+        <TextField
+            label={props.label}
+            onChange={(e, v) => {
+                props.onChange(v)
+            }}
+            multiline={true}
+            errorMessage={(props.rawErrors && props.rawErrors[0]) || ""}
+        />
+    ),
+    button: (props: WidgetProps & FieldTemplateProps) => (
+        <PrimaryButton label={props.label} />
+    ),
 }
