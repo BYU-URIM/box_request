@@ -1,9 +1,8 @@
 import * as React from "react"
 import Modal from "office-ui-fabric-react/lib/Modal"
 import { inject, observer } from "mobx-react"
-import { FormTypes } from "../../models"
-import { UIStore, User } from "../../stores"
-import { FormControlGroup } from ".."
+import { UIStore, User, FormTypes } from "../../stores"
+import { UrimForm } from ".."
 import { IconButton, IconType } from "office-ui-fabric-react"
 import "./styles.scss"
 @inject("uiStore", "userStore")
@@ -35,8 +34,8 @@ export class FormModal extends React.Component<{
                 </div>
                 {uiStore.form !== FormTypes.none && (
                     <div className={"formModal-body"}>
-                        <FormControlGroup
-                            uiStore={this.props.uiStore}
+                        <UrimForm
+                            uiStore={uiStore}
                             userStore={userStore}
                         />
                     </div>
