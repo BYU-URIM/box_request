@@ -1,6 +1,5 @@
-import { Box, IBoxForm, IFolder } from "."
 import { action, observable, computed } from "mobx"
-import { RootStore } from "../RootStore"
+import { RootStore, Box } from ".."
 
 export interface IDepartment {
     name: string

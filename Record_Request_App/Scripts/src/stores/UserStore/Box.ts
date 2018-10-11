@@ -1,9 +1,8 @@
-import { ItemStatusTypes } from "../../models"
 import { action, observable, computed } from "mobx"
-import { Folder, IFolder, IFolderForm } from "./Folder"
+import { Folder, IFolder, IFolderForm, Department } from "."
 import { RootStore } from ".."
-import { Department } from "."
 import { IObjectWithKey } from "office-ui-fabric-react"
+import { ItemStatusTypes } from "./User"
 export interface IBox {
     BoxId: number
     BoxDescription: string

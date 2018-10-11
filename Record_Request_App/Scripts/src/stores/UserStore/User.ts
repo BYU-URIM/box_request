@@ -1,7 +1,10 @@
-import { IDepartment, Department, Box, Folder } from "."
-import { RootStore } from ".."
+import { IDepartment, Department, Box, Folder, RootStore } from ".."
 import { observable, computed, action } from "mobx"
-import { IOption, FormTypes } from "../../models"
+
+export interface IOption {
+    key: number
+    text: string
+}
 
 export interface IUser {
     name: string
@@ -9,6 +12,12 @@ export interface IUser {
     email: string
     Id: string
     departments: Array<IDepartment>
+}
+export enum ItemStatusTypes {
+    available = "Available",
+    unavailable = "Unavailable",
+    checkedOutByClient = "In Your Possession",
+    inCheckout = "In Checkout",
 }
 
 export class User implements IUser {
@@ -34,14 +43,6 @@ export class User implements IUser {
 
     set loading(value: boolean) {
         this._loading = value
-    }
-
-    @computed
-    get userDepartmentsAsOptions(): Array<IOption> {
-        return this.departments.map((_department: IDepartment) => ({
-            key: _department.id,
-            text: `${_department.id} - ${_department.name}`,
-        }))
     }
 
     @observable
