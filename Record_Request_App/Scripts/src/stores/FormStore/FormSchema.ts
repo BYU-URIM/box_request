@@ -41,7 +41,10 @@ export const FORMS: IForms = {
                 "ui:autofocus": true,
             },
         },
-        submit: FormUtils.logOnSubmit,
+        submit: (e, user) =>
+            user.selectedDepartment.selectedBox.createFolder(
+                e.formData as IFolderForm
+            ),
     },
     NEW_BOX: {
         schema: {
