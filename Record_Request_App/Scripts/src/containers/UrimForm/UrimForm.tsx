@@ -1,6 +1,12 @@
 import * as React from "react"
 import { observer } from "mobx-react"
-import { PrimaryButton, Label, TextField } from "office-ui-fabric-react"
+import {
+    PrimaryButton,
+    Label,
+    TextField,
+    Toggle,
+    Checkbox,
+} from "office-ui-fabric-react"
 import { UIStore, FormStore, User } from "../../stores"
 import Form, {
     FieldTemplateProps,
@@ -16,7 +22,7 @@ export interface IFormControlGroupProps {
 }
 
 @observer
-export class FormControlGroup extends React.Component<IFormControlGroupProps> {
+export class UrimForm extends React.Component<IFormControlGroupProps> {
     constructor(props: IFormControlGroupProps) {
         super(props)
     }
@@ -55,7 +61,6 @@ export class FormControlGroup extends React.Component<IFormControlGroupProps> {
 const CustomFieldTemplate = (props: FieldTemplateProps) => {
     return (
         <div className={props.classNames}>
-            {props.description}
             {props.children}
             {props.help}
         </div>
@@ -64,21 +69,15 @@ const CustomFieldTemplate = (props: FieldTemplateProps) => {
 
 const CustomObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
     return (
-        <div>
-            <div className={"ms-Grid-row"}>
-                {props.properties.map(prop => (
-                    <div
-                        className="col-lg-2 col-md-4 col-sm-6 col-xs-12"
-                        key={prop.content.key}
-                    >
-                        {prop.content}
-                    </div>
-                ))}
-            </div>
-            {props.description}
+        <div className={"ms-Grid-row"}>
+            {props.properties.map(prop => (
+                <div key={prop.content.key}>{prop.content}</div>
+            ))}
         </div>
     )
 }
+
+const CustomToggle = (props: WidgetProps) => <Toggle {...props.options} />
 
 interface IWidgets {
     [name: string]: Widget
@@ -91,6 +90,7 @@ const Widgets: IWidgets = {
             onChange={(e, v) => {
                 props.onChange(v)
             }}
+            autoFocus={props.autofocus}
             underlined={true}
             errorMessage={(props.rawErrors && props.rawErrors[0]) || ""}
         />
@@ -101,6 +101,7 @@ const Widgets: IWidgets = {
             onChange={(e, v) => {
                 props.onChange(v)
             }}
+            autoFocus={props.autofocus}
             multiline={true}
             errorMessage={(props.rawErrors && props.rawErrors[0]) || ""}
         />
@@ -108,4 +109,12 @@ const Widgets: IWidgets = {
     button: (props: WidgetProps & FieldTemplateProps) => (
         <PrimaryButton label={props.label} />
     ),
+    checkbox: (props: WidgetProps & FieldTemplateProps) => (
+        <Checkbox
+            className={"form-checkbox"}
+            label={props.label}
+            onChange={(e, v) => props.onChange(v)}
+        />
+    ),
+    customToggle: CustomToggle,
 }
