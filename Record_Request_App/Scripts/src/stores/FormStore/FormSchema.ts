@@ -2,7 +2,7 @@ import { JSONSchema6 } from "json-schema"
 
 import { UiSchema, IChangeEvent, Field, Widget } from "react-jsonschema-form"
 
-import { User, IFolderForm } from ".."
+import { UserStore, IFolderForm } from ".."
 import { FormUtils } from "./FormUtils"
 
 export interface IFields {
@@ -13,7 +13,7 @@ export interface IFormConfig {
     schema: JSONSchema6
     uiSchema?: UiSchema
     fields?: IFields
-    submit: (e: IChangeEvent<{}>, user: User) => void
+    submit: (e: IChangeEvent<{}>, user: UserStore) => void
 }
 export interface IForms {
     NEW_FOLDER: IFormConfig

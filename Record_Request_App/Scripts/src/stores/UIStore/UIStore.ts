@@ -1,5 +1,5 @@
 import { action, observable, computed } from "mobx"
-import { RootStore, User, FormTypes, IOption, IDepartment } from ".."
+import { RootStore, UserStore, FormTypes, IOption, IDepartment } from ".."
 
 import { messages, Message } from "."
 

@@ -7,7 +7,7 @@ import {
     Toggle,
     Checkbox,
 } from "office-ui-fabric-react"
-import { UIStore, FormStore, User } from "../../stores"
+import { UIStore, FormStore, UserStore } from "../../stores"
 import Form, {
     FieldTemplateProps,
     ObjectFieldTemplateProps,
@@ -18,7 +18,7 @@ import "./styles.scss"
 
 export interface IFormControlGroupProps {
     uiStore: UIStore
-    userStore: User
+    userStore: UserStore
 }
 
 @observer

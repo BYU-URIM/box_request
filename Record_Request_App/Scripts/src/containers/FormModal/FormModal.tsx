@@ -1,7 +1,7 @@
 import * as React from "react"
 import Modal from "office-ui-fabric-react/lib/Modal"
 import { inject, observer } from "mobx-react"
-import { UIStore, User, FormTypes } from "../../stores"
+import { UIStore, UserStore, FormTypes } from "../../stores"
 import { UrimForm } from ".."
 import { IconButton, IconType } from "office-ui-fabric-react"
 import "./styles.scss"
@@ -9,7 +9,7 @@ import "./styles.scss"
 @observer
 export class FormModal extends React.Component<{
     uiStore?: UIStore
-    userStore?: User
+    userStore?: UserStore
 }> {
     render() {
         const { uiStore, userStore } = this.props
@@ -34,10 +34,7 @@ export class FormModal extends React.Component<{
                 </div>
                 {uiStore.form !== FormTypes.none && (
                     <div className={"formModal-body"}>
-                        <UrimForm
-                            uiStore={uiStore}
-                            userStore={userStore}
-                        />
+                        <UrimForm uiStore={uiStore} userStore={userStore} />
                     </div>
                 )}
             </Modal>

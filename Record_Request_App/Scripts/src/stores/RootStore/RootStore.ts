@@ -1,12 +1,12 @@
 import { action, observable, runInAction } from "mobx"
 import { IDataService } from "../../services"
-import { UIStore, CheckoutStore, IUser, User } from ".."
+import { UIStore, CheckoutStore, IUser, UserStore } from ".."
 
 export class RootStore {
     uiStore: UIStore
     checkoutStore: CheckoutStore
     userInfo: IUser
-    userStore: User
+    userStore: UserStore
     dataService: IDataService
     constructor(_dataService: IDataService) {
         this.dataService = _dataService
@@ -20,7 +20,7 @@ export class RootStore {
         this.userInfo = await this.dataService.fetchUser()
         if (!this.initialized) {
             this.checkoutStore = new CheckoutStore(this)
-            this.userStore = new User(this)
+            this.userStore = new UserStore(this)
             this.uiStore = new UIStore(this)
             await this.userStore.init()
 
