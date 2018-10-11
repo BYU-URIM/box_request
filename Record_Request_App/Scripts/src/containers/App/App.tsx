@@ -1,15 +1,15 @@
 import * as React from "react"
 import { initializeIcons } from "@uifabric/icons"
 import { Fabric } from "office-ui-fabric-react"
-import { RootStore, UIStore } from "../../stores"
+import { RootStore } from "../../stores"
 import { inject, observer } from "mobx-react"
-import { BoxRequest, FormModal, Message } from ".."
+import { BoxRequest, FormModal, Message, Loading } from ".."
 import { Greeting } from "../../components"
 import DevTools from "mobx-react-devtools"
 import "./styles.scss"
-import { LoadingLockout } from "../LoadingLockout/LoadingLockout"
 
 initializeIcons()
+
 @inject("rootStore")
 @observer
 export class App extends React.Component<{ rootStore?: RootStore }> {
@@ -18,16 +18,13 @@ export class App extends React.Component<{ rootStore?: RootStore }> {
         return (
             <Fabric>
                 <Message />
-                {rootStore.userStore.loading === true ? (
-                    <LoadingLockout />
-                ) : (
-                    <div className={"ms-Grid"}>
-                        <Greeting user={rootStore.userStore} />
-                        <BoxRequest />
-                    </div>
-                )}
-                <DevTools />
+                <div className={"ms-Grid"}>
+                    <Greeting user={rootStore.userStore} />
+                    <BoxRequest />
+                </div>
+                <Loading />
                 <FormModal />
+                {/* delete in production */} <DevTools />
             </Fabric>
         )
     }

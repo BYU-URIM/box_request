@@ -1,9 +1,8 @@
-import { ItemStatusTypes } from "../../models"
 import { action, observable, computed } from "mobx"
-import { Folder, IFolderForm, IFolder } from "./Folder"
+import { Folder, IFolder, IFolderForm, Department } from "."
 import { RootStore } from ".."
-import { Department } from "."
 import { IObjectWithKey } from "office-ui-fabric-react"
+import { ItemStatusTypes } from "./User"
 export interface IBox {
     BoxId: number
     BoxDescription: string
@@ -158,12 +157,13 @@ export class Box implements IBox, IObjectWithKey {
     }
 
     @action
-    createFolder = async _folderForm => {
+    createFolder = async (_formData: IFolderForm) => {
         const res = await this._root.dataService.createFolder({
             BoxId: this.BoxId,
             CurrentFolderLocation: String(this.BoxId),
-            ..._folderForm,
+            ..._formData,
         })
         this.addFolder(res)
+        this._root.uiStore.closeForm()
     }
 }

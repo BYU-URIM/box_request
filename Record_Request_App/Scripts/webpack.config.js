@@ -10,11 +10,18 @@ module.exports = function(env) {
                 warningsFilter: /export .* was not found in/,
             },
         },
-        devtool: "source-maps",
+        devtool: "inline-source-maps",
         entry: "./src/main.tsx",
+        optimization: {
+            removeAvailableModules: false,
+            removeEmptyChunks: false,
+            splitChunks: false,
+        },
+
         output: {
             filename: "bundle.js",
             path: path.join(__dirname, "dist"),
+            pathinfo: false,
         },
         module: {
             rules: [

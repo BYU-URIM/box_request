@@ -1,16 +1,12 @@
-import { ItemStatusTypes } from "../../models"
 import { action, computed } from "mobx"
-import { Box } from "."
-import { RootStore } from "../RootStore"
-import { CheckoutStore } from "../CheckoutStore"
+import { RootStore, messages, ItemStatusTypes, Box } from ".."
 import { IObjectWithKey } from "office-ui-fabric-react"
-import { messages } from "../UIStore"
 
 export interface IFolder {
-    FolderId: number | string
+    FolderId?: number | string
     FolderDescription: string
-    CurrentFolderLocation: string
     BoxId: number
+    CurrentFolderLocation?: string
     DeptId?: number
     BoxDescription?: string
     recordId?: string
@@ -23,12 +19,12 @@ export interface IFolder {
 export interface IFolderForm {
     FolderDescription: string
 }
+
 export class Folder implements IFolder, IObjectWithKey {
     constructor(private _box: Box, _folder: IFolder, private _root: RootStore) {
         Object.assign(this, _folder)
         this.BoxId = _box.BoxId
         this.key = _folder.FolderId
-        this.checkoutStore = this._root.checkoutStore
     }
     DeptId: number
     BoxDescription: string
@@ -43,7 +39,6 @@ export class Folder implements IFolder, IObjectWithKey {
     modId?: string
     key
 
-    checkoutStore: CheckoutStore
     @computed
     get addable(): boolean {
         return !this.inCart && this.available
@@ -62,7 +57,7 @@ export class Folder implements IFolder, IObjectWithKey {
 
     @computed
     get siblingFoldersInCart(): Array<Folder> {
-        return this.checkoutStore.folders.filter(_item => {
+        return this._root.checkoutStore.folders.filter(_item => {
             return _item.BoxId === this.BoxId
         })
     }
@@ -77,7 +72,8 @@ export class Folder implements IFolder, IObjectWithKey {
     @computed
     get inCart(): boolean {
         return (
-            this.checkoutStore.items.has(this.FolderId) || this._box.inCheckout
+            this._root.checkoutStore.items.has(this.FolderId) ||
+            this._box.inCheckout
         )
     }
 
@@ -93,7 +89,7 @@ export class Folder implements IFolder, IObjectWithKey {
 
     @action
     request = () => {
-        this.checkoutStore.items.set(this.FolderId, this)
+        this._root.checkoutStore.items.set(this.FolderId, this)
         this.fiveOrMoreMiddleware()
     }
 
@@ -106,7 +102,7 @@ export class Folder implements IFolder, IObjectWithKey {
 
     @action
     remove = () => {
-        this.checkoutStore.items.delete(this.FolderId)
+        this._root.checkoutStore.items.delete(this.FolderId)
         this.fiveOrMoreMiddleware()
     }
 }

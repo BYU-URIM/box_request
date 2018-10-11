@@ -22,8 +22,8 @@ export class RootStore {
             this.checkoutStore = new CheckoutStore(this)
             this.userStore = new User(this)
             this.uiStore = new UIStore(this)
-            await this.uiStore.init()
             await this.userStore.init()
+
             runInAction(() => (this.initialized = true))
         }
     }
