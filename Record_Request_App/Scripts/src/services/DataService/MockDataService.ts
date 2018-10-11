@@ -47,5 +47,4 @@ export class MockDataService implements IDataService {
         })
         return res
     }
-
 }

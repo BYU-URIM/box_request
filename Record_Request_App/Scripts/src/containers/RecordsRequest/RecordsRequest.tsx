@@ -6,15 +6,15 @@ import {
     Checkout,
 } from "../../components"
 import { inject, observer } from "mobx-react"
-import { UIStore, CheckoutStore, User, FormTypes } from "../../stores"
+import { UIStore, CheckoutStore, UserStore, FormTypes } from "../../stores"
 import { Pivot, PivotItem, Label } from "office-ui-fabric-react"
 import "./styles.scss"
 
 @inject("uiStore", "checkoutStore", "userStore")
 @observer
-export class BoxRequest extends React.Component<{
+export class RecordsRequest extends React.Component<{
     checkoutStore?: CheckoutStore
-    userStore?: User
+    userStore?: UserStore
     uiStore?: UIStore
 }> {
     render() {

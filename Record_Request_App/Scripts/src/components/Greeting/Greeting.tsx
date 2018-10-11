@@ -1,9 +1,9 @@
 import * as React from "react"
 import "./styles.scss"
-import { User } from "../../stores"
+import { UserStore } from "../../stores"
 
 export interface IGreetingProps {
-    user: User
+    user: UserStore
 }
 
 export const Greeting = (props: IGreetingProps) => (

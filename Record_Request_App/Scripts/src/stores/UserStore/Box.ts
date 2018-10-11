@@ -2,7 +2,7 @@ import { action, observable, computed } from "mobx"
 import { Folder, IFolder, IFolderForm, Department } from "."
 import { RootStore } from ".."
 import { IObjectWithKey } from "office-ui-fabric-react"
-import { ItemStatusTypes } from "./User"
+import { ItemStatusTypes } from "./UserStore"
 export interface IBox {
     BoxId: number
     BoxDescription: string

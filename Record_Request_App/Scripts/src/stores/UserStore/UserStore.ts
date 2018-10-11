@@ -20,7 +20,7 @@ export enum ItemStatusTypes {
     inCheckout = "In Checkout",
 }
 
-export class User implements IUser {
+export class UserStore implements IUser {
     constructor(private _root: RootStore) {
         Object.assign(this, this._root.userInfo)
     }

@@ -1,5 +1,5 @@
 export * from "./App/App"
-export * from "./BoxRequest/BoxRequest"
+export * from "./RecordsRequest/RecordsRequest"
 export * from "./UrimForm/UrimForm"
 export * from "./Message/Message"
 export * from "./FormModal/FormModal"
