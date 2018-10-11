@@ -11,8 +11,7 @@ import {
 import "./styles.scss"
 import { DetailListHeader } from ".."
 import { observer } from "mobx-react"
-import { CheckoutStore, Folder } from "../../stores"
-import { CheckoutItem } from "../../models"
+import { CheckoutStore, Folder, CheckoutItem } from "../../stores"
 
 export interface ICheckoutProps {
     dialogMessage: string
