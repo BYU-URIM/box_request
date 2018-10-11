@@ -1,12 +1,8 @@
 import * as React from "react"
-import {
-    Dropdown,
-    DocumentCardTitle,
-    PrimaryButton,
-} from "office-ui-fabric-react"
-import "./styles.scss"
+import { Dropdown, Label } from "office-ui-fabric-react"
 import { observer } from "mobx-react"
-import { IOption, IDropdownInfo } from "../../models"
+import { IOption, IDropdownInfo } from "../../stores"
+import "./styles.scss"
 export interface IDepartmentDropdownProps {
     handleChanged(key: number): void
     options: Array<IOption>
@@ -19,40 +15,29 @@ export const DepartmentDropdown = observer(
         return (
             <div className={"ms-Grid-row"}>
                 {props.options.length !== 1 ? (
-                    <>
-                        <h1
-                            className={
-                                "ms-Grid-col ms-sm8 ms-smPush4 ms-font-xxl department-dropdown-center"
-                            }
-                        >
-                            {props.dropdownInfo.title}
-                        </h1>
-                        <Dropdown
-                            placeHolder={props.dropdownInfo.placeHolder}
-                            options={props.options}
-                            selectedKey={props.dropdownInfo.key}
-                            onChange={(e, item: IOption) =>
-                                props.handleChanged(item.key)
-                            }
-                            className={"ms-Grid-col ms-sm8"}
-                            id={"dep_dropdown"}
-                            disabled={props.options.length === 1}
-                        />
-                    </>
+                    <Dropdown
+                        placeHolder={props.dropdownInfo.placeHolder}
+                        options={props.options}
+                        selectedKey={props.dropdownInfo.key}
+                        onChange={(e, item: IOption) =>
+                            props.handleChanged(item.key)
+                        }
+                        label={props.dropdownInfo.title}
+                        styles={{
+                            label: {
+                                fontSize: "21px",
+                                fontWeight: "100",
+                            },
+                        }}
+                        id={"dep_dropdown"}
+                        disabled={props.options.length === 1}
+                    />
                 ) : (
                     <div className={"ms-Grid-col ms-sm8"}>
-                        <DocumentCardTitle
-                            title={`Department: ${props.options[0].text}`}
-                        />
+                        <Label className={"ms-font-xl"}>
+                            Your Department: {props.options[0].text}
+                        </Label>
                     </div>
-                )}
-                {!!props.dropdownInfo.key && (
-                    <PrimaryButton
-                        text={"Create New Box"}
-                        onClick={props.initializeBoxForm}
-                        className={"ms-Grid-col ms-sm4"}
-                        style={{ color: "white" }}
-                    />
                 )}
             </div>
         )
