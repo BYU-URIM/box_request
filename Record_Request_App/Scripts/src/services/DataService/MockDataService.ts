@@ -48,7 +48,4 @@ export class MockDataService implements IDataService {
         return res
     }
 
-    login = async () => {
-        return Promise.resolve("")
-    }
 }

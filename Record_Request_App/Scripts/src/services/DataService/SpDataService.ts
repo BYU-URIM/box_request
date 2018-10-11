@@ -8,7 +8,7 @@ import { mockUser, mockData } from "../../res"
 import { IUser, IBox, IFolder } from "../../stores"
 import { sp } from "@pnp/sp-addinhelpers"
 import { Web } from "@pnp/sp"
-import { ConfigStrings } from "../../models"
+import { ConfigStrings } from "../../env"
 
 export class SpDataService implements IDataService {
     _user: IUser = mockUser
@@ -193,7 +193,7 @@ export class SpDataService implements IDataService {
         return data.response.data.map(_box => ({ ..._box.fieldData }))
     }
 
-    login = async () => {
+    private login = async () => {
         const data = await fetch(
             `http://localhost:3000/fmi/data/v1/databases/${
                 ConfigStrings.FM_DATABASE

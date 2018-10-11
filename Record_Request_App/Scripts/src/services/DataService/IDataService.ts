@@ -5,7 +5,6 @@ export interface IDataService {
     fetchDepartmentData(depId: number): Promise<DepartmentData>
     createFolder(_folder: IFolder): Promise<IFolder>
     createBox(_box: IBox): Promise<void>
-    login(): Promise<string>
 }
 
 export type DepartmentData = Array<IBox & IPortalData>
