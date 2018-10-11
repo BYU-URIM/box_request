@@ -1,7 +1,7 @@
 import { computed, observable, action } from "mobx"
-import { FormTypes, CheckoutItem } from "../../models"
-import { RootStore } from "../RootStore"
-import { Folder } from ".."
+import { Folder, Box, FormTypes, RootStore } from ".."
+
+export type CheckoutItem = Box | Folder
 
 export class CheckoutStore {
     constructor(private _root: RootStore) {}

@@ -1,17 +1,17 @@
 import { action, observable, computed } from "mobx"
-import { FormTypes, IDropdownInfo } from "../../models"
-import { RootStore } from ".."
-import { messages, Message } from "."
-import { User } from "../UserStore"
+import { RootStore, User, FormTypes, IOption, IDepartment } from ".."
 
+import { messages, Message } from "."
+
+export interface IDropdownInfo {
+    title: string
+    key: number
+    placeHolder: string
+}
 export class UIStore {
-    constructor(private _root: RootStore) {
-        this.userStore = this._root.userStore
-        this.init()
-    }
+    constructor(private _root: RootStore) {}
 
     messages = messages
-    userStore: User
 
     @observable
     initialized: boolean = false
@@ -32,7 +32,6 @@ export class UIStore {
 
     set message(msg: Message) {
         this._message = msg
-        // setTimeout(this.clearMessage, msg.time | 8000)
     }
 
     @computed
@@ -51,11 +50,14 @@ export class UIStore {
         return info
     }
 
-    @action
-    init = async () => {
-        this.initialized = true
-
-        return
+    @computed
+    get userDepartmentsAsOptions(): Array<IOption> {
+        return this._root.userInfo.departments.map(
+            (_department: IDepartment) => ({
+                key: _department.id,
+                text: `${_department.id} - ${_department.name}`,
+            })
+        )
     }
 
     @action
