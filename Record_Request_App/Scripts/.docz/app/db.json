@@ -258,6 +258,38 @@
           "value": "Props Interface"
         }
       ]
+    },
+    "src/stores/CheckoutStore/readme.mdx": {
+      "name": "CheckoutStore",
+      "id": "657d8272fef31016461d5c464a3627f0",
+      "filepath": "src/stores/CheckoutStore/readme.mdx",
+      "link": null,
+      "slug": "src-stores-checkout-store-readme",
+      "route": "/src-stores-checkout-store-readme",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "checkoutstore",
+          "value": "CheckoutStore"
+        },
+        {
+          "depth": 2,
+          "slug": "store",
+          "value": "Store"
+        },
+        {
+          "depth": 3,
+          "slug": "this-store-contains-the-functions-that-run-behind-the-scenes-of-the-checkout-view-items-carted-show-up-here-and-are-ordered-based-on-item-id-these-functions-can-also-call-the-checkout-form-in-addition-to-submitting-the-items-for-request-in-the-checkout",
+          "value": "This store contains the functions that run behind the scenes of the checkout view. Items carted show up here and are ordered based on item ID. These functions can also call the checkout form in addition to submitting the items for request in the checkout."
+        },
+        {
+          "depth": 2,
+          "slug": "props-interface",
+          "value": "Props Interface"
+        }
+      ]
     }
   }
 }

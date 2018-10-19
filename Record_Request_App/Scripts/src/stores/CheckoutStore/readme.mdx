@@ -1,35 +1,53 @@
-import { computed, observable, action } from "mobx"
-import { Folder, Box, FormTypes, RootStore } from ".."
+---
+name: CheckoutStore
+---
 
-export type CheckoutItem = Box | Folder
+import { CheckoutStore } from "./CheckoutStore"
+import { Playground, PropsTable } from "docz"
 
-export class CheckoutStore {
-    constructor(private _root: RootStore) {}
+# CheckoutStore
+
+## Store
+
+### This store contains the functions that run behind the scenes of the checkout view. 
+
+Items in checkout show up here and are ordered based on item ID. These functions can also call the checkout form in addition to submitting items for request in the checkout.
+
+## Functions
+
+### Observable
+
+```javascript
 /* 
 Items are placed into a map object, for ease of working with two different objects--folders and boxes.
 */
-    @observable
-    private _items: Map<number, CheckoutItem> = observable.map()
+private _items: Map<number, CheckoutItem> = observable.map()
+```
+
+### Computed
+
+```javascript
+
 /*
     This function sorts the list items by box ID; if item is a folder, it's sorted by its parent box ID.
 */
-    @computed
     get cart(): Array<CheckoutItem> {
         return Array.from(this.items.values()).sort((a, b) => a.BoxId - b.BoxId)
     }
+
 /*
     Returns the folders from the list of items in checkout.
 */    
-    @computed
+
     get folders(): Array<Folder> {
         return this.cart.filter((_item: CheckoutItem) => {
             return _item instanceof Folder
         }) as Array<Folder>
     }
+
 /*
     Returns all items in checkout.
 */
-    @computed
     get items(): Map<number, CheckoutItem> {
         return this._items
     }
@@ -39,25 +57,31 @@ Items are placed into a map object, for ease of working with two different objec
     set items(_items: Map<number, CheckoutItem>) {
         this._items = _items
     }
+
 /*
     Controls whether or not the cart can be submitted dependent on whether or not there's an item in the cart.
 */
-    @computed
     get cartIsValid(): boolean {
         return this.cart.length > 0
     }
+```
+
+### Action
+
+```javascript
 /*
     Clears the map object, removing all items from the cart.
-*/ 
-    @action
+*/    
     clearCart = () => {
         this.items.clear()
     }
+
 /*
     Calls the form for Submit Cart that requests special delivery instructions.
 */
-    @action
     initializeRequestForm = (): void => {
         this._root.uiStore.form = FormTypes.SUBMIT_CART
     }
-}
+```
+
+<PropsTable of={CheckoutStore} />
