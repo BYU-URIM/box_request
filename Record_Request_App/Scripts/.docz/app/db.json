@@ -258,6 +258,38 @@
           "value": "Props Interface"
         }
       ]
+    },
+    "src/stores/CheckoutStore/readme.mdx": {
+      "name": "CheckoutStore",
+      "id": "657d8272fef31016461d5c464a3627f0",
+      "filepath": "src/stores/CheckoutStore/readme.mdx",
+      "link": null,
+      "slug": "src-stores-checkout-store-readme",
+      "route": "/src-stores-checkout-store-readme",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "checkout-store",
+          "value": "Checkout Store"
+        },
+        {
+          "depth": 2,
+          "slug": "store",
+          "value": "Store"
+        },
+        {
+          "depth": 3,
+          "slug": "this-store-is-used-to-manage-the-functions-getters-and-setters-that-pertain-to-the-cart-list",
+          "value": "This store is used to manage the functions, getters, and setters that pertain to the Cart List."
+        },
+        {
+          "depth": 2,
+          "slug": "props-interface",
+          "value": "Props Interface"
+        }
+      ]
     }
   }
 }

@@ -13,4 +13,6 @@ export const imports = {
     import(/* webpackPrefetch: true, webpackChunkName: "src-components-folder-list-readme" */ 'src/components/FolderList/readme.mdx'),
   'src/components/Greeting/readme.mdx': () =>
     import(/* webpackPrefetch: true, webpackChunkName: "src-components-greeting-readme" */ 'src/components/Greeting/readme.mdx'),
+  'src/stores/CheckoutStore/readme.mdx': () =>
+    import(/* webpackPrefetch: true, webpackChunkName: "src-stores-checkout-store-readme" */ 'src/stores/CheckoutStore/readme.mdx'),
 }
