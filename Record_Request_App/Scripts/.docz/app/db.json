@@ -27,8 +27,8 @@
         },
         {
           "depth": 2,
-          "slug": "ideas-and-conecpts",
-          "value": "Ideas and Conecpts"
+          "slug": "ideas-and-concepts",
+          "value": "Ideas and Concepts"
         },
         {
           "depth": 3,
@@ -281,13 +281,8 @@
         },
         {
           "depth": 3,
-          "slug": "this-store-is-used-to-manage-the-functions-getters-and-setters-that-pertain-to-the-cart-list",
-          "value": "This store is used to manage the functions, getters, and setters that pertain to the Cart List."
-        },
-        {
-          "depth": 2,
-          "slug": "props-interface",
-          "value": "Props Interface"
+          "slug": "functions-for-the-cart-display",
+          "value": "Functions for the Cart Display"
         }
       ]
     },
@@ -303,8 +298,8 @@
       "headings": [
         {
           "depth": 1,
-          "slug": "root-store",
-          "value": "Root Store"
+          "slug": "form-store",
+          "value": "Form Store"
         },
         {
           "depth": 2,
@@ -313,13 +308,8 @@
         },
         {
           "depth": 3,
-          "slug": "we-are-using-json-forms-formstore-allows-easy-access-to-create-new-forms-based-on-these-schemas",
-          "value": "We are using JSON Forms. FormStore allows easy access to create new forms based on these schemas."
-        },
-        {
-          "depth": 2,
-          "slug": "props-interface",
-          "value": "Props Interface"
+          "slug": "we-are-using-json-forms",
+          "value": "We are using JSON Forms."
         }
       ]
     },
@@ -347,11 +337,60 @@
           "depth": 3,
           "slug": "this-is-the-base-store-where-you-can-access-all-other-stores",
           "value": "This is the base store where you can access all other stores."
+        }
+      ]
+    },
+    "src/stores/UIStore/readme.mdx": {
+      "name": "UIStore",
+      "id": "2a3b9637cecd22b32035355e5394d005",
+      "filepath": "src/stores/UIStore/readme.mdx",
+      "link": null,
+      "slug": "src-stores-ui-store-readme",
+      "route": "/src-stores-ui-store-readme",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "ui-store",
+          "value": "UI Store"
         },
         {
           "depth": 2,
-          "slug": "props-interface",
-          "value": "Props Interface"
+          "slug": "store",
+          "value": "Store"
+        },
+        {
+          "depth": 3,
+          "slug": "message-bars-forms-dropdown-menu",
+          "value": "Message Bars, Forms, Dropdown Menu"
+        }
+      ]
+    },
+    "src/stores/UserStore/readme.mdx": {
+      "name": "UserStore",
+      "id": "27a2233ad6dea77b7da3fd03e9538409",
+      "filepath": "src/stores/UserStore/readme.mdx",
+      "link": null,
+      "slug": "src-stores-user-store-readme",
+      "route": "/src-stores-user-store-readme",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "user-store",
+          "value": "User Store"
+        },
+        {
+          "depth": 2,
+          "slug": "store",
+          "value": "Store"
+        },
+        {
+          "depth": 3,
+          "slug": "hierarchy",
+          "value": "Hierarchy"
         }
       ]
     }
