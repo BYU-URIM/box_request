@@ -57,11 +57,13 @@ export class UserStore implements IUser {
         this._selectedDepartment = value
     }
 
+    // Gain access to a box inside the currently selected department.
     @computed
     get selectedBox(): Box {
         return this.selectedDepartment && this.selectedDepartment.selectedBox
     }
 
+    // Gain access to a folder by going through its parent box and then the selected department.
     @computed
     get selectedFolder(): Folder {
         return (
@@ -71,6 +73,7 @@ export class UserStore implements IUser {
         )
     }
 
+    // Selects the only department if the user doesn't have more than one department (in which case no departments are selected and the user must choose a department).
     @action
     init = async () => {
         this.departments = []
@@ -79,6 +82,7 @@ export class UserStore implements IUser {
             this.selectedDepartment = this.departments[0]
     }
 
+    // Obtains only the departments useable/accessible by the user.
     @action
     loadDepartments = async (): Promise<void> => {
         this.departments = []

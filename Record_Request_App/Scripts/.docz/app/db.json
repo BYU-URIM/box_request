@@ -290,6 +290,70 @@
           "value": "Props Interface"
         }
       ]
+    },
+    "src/stores/FormStore/readme.mdx": {
+      "name": "FormStore",
+      "id": "6380f00bd23fd7cadbaaf48ece15a6cd",
+      "filepath": "src/stores/FormStore/readme.mdx",
+      "link": null,
+      "slug": "src-stores-form-store-readme",
+      "route": "/src-stores-form-store-readme",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "root-store",
+          "value": "Root Store"
+        },
+        {
+          "depth": 2,
+          "slug": "store",
+          "value": "Store"
+        },
+        {
+          "depth": 3,
+          "slug": "we-are-using-json-forms-formstore-allows-easy-access-to-create-new-forms-based-on-these-schemas",
+          "value": "We are using JSON Forms. FormStore allows easy access to create new forms based on these schemas."
+        },
+        {
+          "depth": 2,
+          "slug": "props-interface",
+          "value": "Props Interface"
+        }
+      ]
+    },
+    "src/stores/RootStore/readme.mdx": {
+      "name": "RootStore",
+      "id": "291deb63995d26fcf103d9518761558c",
+      "filepath": "src/stores/RootStore/readme.mdx",
+      "link": null,
+      "slug": "src-stores-root-store-readme",
+      "route": "/src-stores-root-store-readme",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "root-store",
+          "value": "Root Store"
+        },
+        {
+          "depth": 2,
+          "slug": "store",
+          "value": "Store"
+        },
+        {
+          "depth": 3,
+          "slug": "this-is-the-base-store-where-you-can-access-all-other-stores",
+          "value": "This is the base store where you can access all other stores."
+        },
+        {
+          "depth": 2,
+          "slug": "props-interface",
+          "value": "Props Interface"
+        }
+      ]
     }
   }
 }

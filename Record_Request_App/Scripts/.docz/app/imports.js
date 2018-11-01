@@ -15,4 +15,12 @@ export const imports = {
     import(/* webpackPrefetch: true, webpackChunkName: "src-components-greeting-readme" */ 'src/components/Greeting/readme.mdx'),
   'src/stores/CheckoutStore/readme.mdx': () =>
     import(/* webpackPrefetch: true, webpackChunkName: "src-stores-checkout-store-readme" */ 'src/stores/CheckoutStore/readme.mdx'),
+  'src/stores/FormStore/readme.mdx': () =>
+    import(/* webpackPrefetch: true, webpackChunkName: "src-stores-form-store-readme" */ 'src/stores/FormStore/readme.mdx'),
+  'src/stores/RootStore/readme.mdx': () =>
+    import(/* webpackPrefetch: true, webpackChunkName: "src-stores-root-store-readme" */ 'src/stores/RootStore/readme.mdx'),
+  'src/stores/UIStore/readme.mdx': () =>
+    import(/* webpackPrefetch: true, webpackChunkName: "src-stores-ui-store-readme" */ 'src/stores/UIStore/readme.mdx'),
+  'src/stores/UserStore/readme.mdx': () =>
+    import(/* webpackPrefetch: true, webpackChunkName: "src-stores-user-store-readme" */ 'src/stores/UserStore/readme.mdx'),
 }

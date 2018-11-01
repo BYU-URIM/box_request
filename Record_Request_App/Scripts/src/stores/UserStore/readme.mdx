@@ -1,0 +1,18 @@
+---
+name: UserStore
+---
+
+import { UserStore } from "./UserStore"
+import { Playground, PropsTable } from "docz"
+
+# User Store
+
+## Store
+
+### Hierarchy
+
+This store gains access to the user, department, boxes, and folders and is accessed in that order. The user object encompasses everything beneath it. Through the user, you can access the user's departments. Through the departments, you can access boxes assigned to that department; through the boxes, you can access the folders.
+
+Some decisions are made here depending on whether or not the user has access to more than one department.
+
+A user cannot see or access departments that they do not have access to.
