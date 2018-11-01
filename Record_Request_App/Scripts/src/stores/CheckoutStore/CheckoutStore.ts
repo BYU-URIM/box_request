@@ -5,12 +5,15 @@ export type CheckoutItem = Box | Folder
 
 export class CheckoutStore {
     constructor(private _root: RootStore) {}
-
-    // items is a map object used to store items in the checkout cart 
+/* 
+Items are placed into a map object, for ease of working with two different objects--folders and boxes.
+*/
     @observable
     private _items: Map<number, CheckoutItem> = observable.map()
 
-    // the cart function sorts the cart items by id, starting from smallest to greatest id number
+/*
+    This function sorts the list items by box ID; if item is a folder, it's sorted by its parent box ID.
+*/
     @computed
     get cart(): Array<CheckoutItem> {
         return Array.from(this.items.values()).sort((a, b) => a.BoxId - b.BoxId)
@@ -23,17 +26,23 @@ export class CheckoutStore {
             return _item instanceof Folder
         }) as Array<Folder>
     }
-
+/*
+    Returns all items in checkout.
+*/
     @computed
     get items(): Map<number, CheckoutItem> {
         return this._items
     }
-
+/*
+    Sets the items in checkout.
+*/
     set items(_items: Map<number, CheckoutItem>) {
         this._items = _items
     }
 
-    // the cart is only visible when an item has been added to it
+/*
+    Controls whether or not the cart can be submitted dependent on whether or not there's an item in the cart.
+*/    
     @computed
     get cartIsValid(): boolean {
         return this.cart.length > 0
