@@ -3,6 +3,8 @@ name: DepartmentDropdown
 ---
 import { DepartmentDropdown } from "./DepartmentDropdown"
 import { Playground, PropsTable } from "docz"
+import { ddP } from "./documentationData"
+import { initializeIcons } from "@uifabric/icons"
 
 # DepartmentDropdown
 
@@ -11,9 +13,102 @@ import { Playground, PropsTable } from "docz"
 ### This component is used to select the user's department. Boxes that appear in the BoxList component depend on which department is selected.
 
 <Playground>
-    <div>hi</div>
+    <div>
+        <DepartmentDropdown
+            handleChanged={ddP.handleChanged}
+            options={[
+                {
+                    key: 45123,
+                    text: "45123 - The Man Department"
+                },
+                {
+                    key: 12345,
+                    text: "12345 - The Woman Department"
+                }
+            ]}
+            dropdownInfo={ddP.dropdownInfo}
+            initializeBoxForm={ddP.initializeBoxForm}
+        />
+    </div>
 </Playground>
+
+*Hint: If the playground above doesn't show code after line 11, click on the empty space below line 11.*
 
 ## Props Interface
 
 <PropsTable of={DepartmentDropdown} /> 
+
+## Department Dropdown Props Explained
+
+You can easily see what the options must look like *(in our code for the actual application, we automated the process because we have a lot of departments and weren't going to hardcode them)*, and can even edit the names of the departments if you'd like! They'll change in the playground component. Changing the keys will break it in this example, though.
+
+The following props are coded below. These can't be changed; they're more to give you an example of values you need to put into the handleChanged, dropdownInfo, and initializeBoxForm.
+
+### ddP.handleChanged
+
+---
+
+```javascript
+const departments:IDepartment[] = [
+    {
+        name: "The Man Department",
+        id: 45123,
+    },
+    {
+        name: "The Woman Department",
+        id: 12345
+    }
+]
+
+let selectedDep = {
+    id: 45123
+}
+
+const handleChanged = (id) => {
+    if (departments.find(_dep => _dep.id === id)) {
+    selectedDep = id
+    }
+} 
+```
+
+handleChanged takes the id of the input *(the new department being selected)* and finds the same id in the array of available departments. When it finds that id, it sets that id to the new selected department.
+
+### ddP.options
+
+---
+
+For the options, you just need an array of departments that have attributes of **name** and **id**.
+
+### ddP.dropdownInfo
+
+---
+
+```javascript
+let selectedDep = {
+    id: 45123
+}
+
+function dropdownInfo(): IDropdownInfo {
+    const info: IDropdownInfo = {
+        title: "",
+        key: selectedDep ? selectedDep.id : 0,
+        placeHolder: "Departments",
+    }
+    info.title = selectedDep ? "Your Department:" : "Select a Department"
+
+    return info
+}
+```
+
+dropdownInfo is used to decide if the user has 1 or more available departments. If they have more than one department, then they're given a dropdown list. Otherwise, they get a simple header.
+
+### ddP.initializeBoxForm
+
+---
+
+```javascript
+const boxForm = () => (uiStore.form = FormTypes.NEW_BOX)
+```
+
+initializeBoxForm accesses the stores to open a form window where the user can request to create a new a box or boxes. The function needs to return an existing FormType.
+
