@@ -131,38 +131,6 @@
         }
       ]
     },
-    "src/components/Greeting/readme.mdx": {
-      "name": "Greeting",
-      "id": "2ea332b7fc3b607f6be1972d33997963",
-      "filepath": "src/components/Greeting/readme.mdx",
-      "link": null,
-      "slug": "src-components-greeting-readme",
-      "route": "/src-components-greeting-readme",
-      "order": 0,
-      "menu": null,
-      "headings": [
-        {
-          "depth": 1,
-          "slug": "greeting",
-          "value": "Greeting"
-        },
-        {
-          "depth": 2,
-          "slug": "component",
-          "value": "Component"
-        },
-        {
-          "depth": 3,
-          "slug": "this-component-is-used-to-let-the-user-know-they-are-logged-in",
-          "value": "This component is used to let the user know they are logged in."
-        },
-        {
-          "depth": 2,
-          "slug": "props-interface-for-greeting",
-          "value": "Props Interface for Greeting"
-        }
-      ]
-    },
     "src/components/DepartmentDropdown/readme.mdx": {
       "name": "DepartmentDropdown",
       "id": "e64e90b4ce08718fbb15739dee2dad7f",
@@ -189,19 +157,61 @@
           "value": "This component is used to select the user's department. Boxes that appear in the BoxList component depend on which department is selected."
         },
         {
-          "depth": 4,
+          "depth": 2,
+          "slug": "props-interface",
+          "value": "Props Interface"
+        },
+        {
+          "depth": 2,
+          "slug": "department-dropdown-props-explained",
+          "value": "Department Dropdown Props Explained"
+        },
+        {
+          "depth": 3,
           "slug": "ddphandlechanged",
           "value": "ddP.handleChanged"
         },
         {
-          "depth": 4,
+          "depth": 3,
+          "slug": "ddpoptions",
+          "value": "ddP.options"
+        },
+        {
+          "depth": 3,
           "slug": "ddpdropdowninfo",
           "value": "ddP.dropdownInfo"
         },
         {
-          "depth": 4,
+          "depth": 3,
           "slug": "ddpinitializeboxform",
           "value": "ddP.initializeBoxForm"
+        }
+      ]
+    },
+    "src/components/DetailListHeader/readme.mdx": {
+      "name": "DetailListHeader",
+      "id": "15a7c4f3de94091622a66a989d0a7156",
+      "filepath": "src/components/DetailListHeader/readme.mdx",
+      "link": null,
+      "slug": "src-components-detail-list-header-readme",
+      "route": "/src-components-detail-list-header-readme",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "detaillistheader",
+          "value": "DetailListHeader"
+        },
+        {
+          "depth": 2,
+          "slug": "component",
+          "value": "Component"
+        },
+        {
+          "depth": 3,
+          "slug": "this-component-is-used-as-a-title-for-the-boxlist-folderview-and-checkout-components",
+          "value": "This component is used as a title for the BoxList, FolderView, and Checkout components"
         },
         {
           "depth": 2,
@@ -242,20 +252,20 @@
         }
       ]
     },
-    "src/components/DetailListHeader/readme.mdx": {
-      "name": "DetailListHeader",
-      "id": "15a7c4f3de94091622a66a989d0a7156",
-      "filepath": "src/components/DetailListHeader/readme.mdx",
+    "src/components/Greeting/readme.mdx": {
+      "name": "Greeting",
+      "id": "2ea332b7fc3b607f6be1972d33997963",
+      "filepath": "src/components/Greeting/readme.mdx",
       "link": null,
-      "slug": "src-components-detail-list-header-readme",
-      "route": "/src-components-detail-list-header-readme",
+      "slug": "src-components-greeting-readme",
+      "route": "/src-components-greeting-readme",
       "order": 0,
       "menu": null,
       "headings": [
         {
           "depth": 1,
-          "slug": "detaillistheader",
-          "value": "DetailListHeader"
+          "slug": "greeting",
+          "value": "Greeting"
         },
         {
           "depth": 2,
@@ -264,13 +274,13 @@
         },
         {
           "depth": 3,
-          "slug": "this-component-is-used-as-a-title-for-the-boxlist-folderview-and-checkout-components",
-          "value": "This component is used as a title for the BoxList, FolderView, and Checkout components"
+          "slug": "this-component-is-used-to-let-the-user-know-they-are-logged-in",
+          "value": "This component is used to let the user know they are logged in."
         },
         {
           "depth": 2,
-          "slug": "props-interface",
-          "value": "Props Interface"
+          "slug": "props-interface-for-greeting",
+          "value": "Props Interface for Greeting"
         }
       ]
     },
@@ -355,33 +365,6 @@
         }
       ]
     },
-    "src/stores/UserStore/readme.mdx": {
-      "name": "UserStore",
-      "id": "27a2233ad6dea77b7da3fd03e9538409",
-      "filepath": "src/stores/UserStore/readme.mdx",
-      "link": null,
-      "slug": "src-stores-user-store-readme",
-      "route": "/src-stores-user-store-readme",
-      "order": 0,
-      "menu": null,
-      "headings": [
-        {
-          "depth": 1,
-          "slug": "user-store",
-          "value": "User Store"
-        },
-        {
-          "depth": 2,
-          "slug": "store",
-          "value": "Store"
-        },
-        {
-          "depth": 3,
-          "slug": "hierarchy",
-          "value": "Hierarchy"
-        }
-      ]
-    },
     "src/stores/UIStore/readme.mdx": {
       "name": "UIStore",
       "id": "2a3b9637cecd22b32035355e5394d005",
@@ -406,6 +389,33 @@
           "depth": 3,
           "slug": "message-bars-forms-dropdown-menu",
           "value": "Message Bars, Forms, Dropdown Menu"
+        }
+      ]
+    },
+    "src/stores/UserStore/readme.mdx": {
+      "name": "UserStore",
+      "id": "27a2233ad6dea77b7da3fd03e9538409",
+      "filepath": "src/stores/UserStore/readme.mdx",
+      "link": null,
+      "slug": "src-stores-user-store-readme",
+      "route": "/src-stores-user-store-readme",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "user-store",
+          "value": "User Store"
+        },
+        {
+          "depth": 2,
+          "slug": "store",
+          "value": "Store"
+        },
+        {
+          "depth": 3,
+          "slug": "hierarchy",
+          "value": "Hierarchy"
         }
       ]
     }

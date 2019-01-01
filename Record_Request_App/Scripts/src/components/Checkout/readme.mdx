@@ -10,11 +10,24 @@ import { Playground, PropsTable } from "docz"
 
 ### This component is used to display the items the user would like to request.
 
-<Playground>
-    <div>hi</div>
-
-</Playground>
-
 ## Props Interface
 
 <PropsTable of={Checkout} /> 
+
+## Checkout Props Explained
+
+### dialogMessage
+
+```javascript
+dialogMessage={uiStore.dialogMessage}
+```
+
+The purpose of this property is to engage the Message Bar to notify the user that the cart was successfully or unsuccessfully submitted.
+
+### checkoutStore
+
+```javascript
+checkoutStore={checkoutStore}
+```
+
+This property contains most of the information pertinant to the Checkout component. It is an object of the CheckoutStore class that has a list of all items that have been added to the cart; it also sorts those by the item's Box ID. It contains a method that hides the component if no items are in the cart, another method to clear the cart after the cart has been submitted, and a method to open up the Submit Cart form. 
