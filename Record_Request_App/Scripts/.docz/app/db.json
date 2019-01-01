@@ -27,8 +27,8 @@
         },
         {
           "depth": 2,
-          "slug": "ideas-and-conecpts",
-          "value": "Ideas and Conecpts"
+          "slug": "ideas-and-concepts",
+          "value": "Ideas and Concepts"
         },
         {
           "depth": 3,
@@ -160,6 +160,31 @@
           "depth": 2,
           "slug": "props-interface",
           "value": "Props Interface"
+        },
+        {
+          "depth": 2,
+          "slug": "department-dropdown-props-explained",
+          "value": "Department Dropdown Props Explained"
+        },
+        {
+          "depth": 3,
+          "slug": "ddphandlechanged",
+          "value": "ddP.handleChanged"
+        },
+        {
+          "depth": 3,
+          "slug": "ddpoptions",
+          "value": "ddP.options"
+        },
+        {
+          "depth": 3,
+          "slug": "ddpdropdowninfo",
+          "value": "ddP.dropdownInfo"
+        },
+        {
+          "depth": 3,
+          "slug": "ddpinitializeboxform",
+          "value": "ddP.initializeBoxForm"
         }
       ]
     },
@@ -254,8 +279,143 @@
         },
         {
           "depth": 2,
-          "slug": "props-interface",
-          "value": "Props Interface"
+          "slug": "props-interface-for-greeting",
+          "value": "Props Interface for Greeting"
+        }
+      ]
+    },
+    "src/stores/CheckoutStore/readme.mdx": {
+      "name": "CheckoutStore",
+      "id": "657d8272fef31016461d5c464a3627f0",
+      "filepath": "src/stores/CheckoutStore/readme.mdx",
+      "link": null,
+      "slug": "src-stores-checkout-store-readme",
+      "route": "/src-stores-checkout-store-readme",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "checkout-store",
+          "value": "Checkout Store"
+        },
+        {
+          "depth": 2,
+          "slug": "store",
+          "value": "Store"
+        },
+        {
+          "depth": 3,
+          "slug": "functions-for-the-cart-display",
+          "value": "Functions for the Cart Display"
+        }
+      ]
+    },
+    "src/stores/FormStore/readme.mdx": {
+      "name": "FormStore",
+      "id": "6380f00bd23fd7cadbaaf48ece15a6cd",
+      "filepath": "src/stores/FormStore/readme.mdx",
+      "link": null,
+      "slug": "src-stores-form-store-readme",
+      "route": "/src-stores-form-store-readme",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "form-store",
+          "value": "Form Store"
+        },
+        {
+          "depth": 2,
+          "slug": "store",
+          "value": "Store"
+        },
+        {
+          "depth": 3,
+          "slug": "we-are-using-json-forms",
+          "value": "We are using JSON Forms."
+        }
+      ]
+    },
+    "src/stores/RootStore/readme.mdx": {
+      "name": "RootStore",
+      "id": "291deb63995d26fcf103d9518761558c",
+      "filepath": "src/stores/RootStore/readme.mdx",
+      "link": null,
+      "slug": "src-stores-root-store-readme",
+      "route": "/src-stores-root-store-readme",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "root-store",
+          "value": "Root Store"
+        },
+        {
+          "depth": 2,
+          "slug": "store",
+          "value": "Store"
+        },
+        {
+          "depth": 3,
+          "slug": "this-is-the-base-store-where-you-can-access-all-other-stores",
+          "value": "This is the base store where you can access all other stores."
+        }
+      ]
+    },
+    "src/stores/UIStore/readme.mdx": {
+      "name": "UIStore",
+      "id": "2a3b9637cecd22b32035355e5394d005",
+      "filepath": "src/stores/UIStore/readme.mdx",
+      "link": null,
+      "slug": "src-stores-ui-store-readme",
+      "route": "/src-stores-ui-store-readme",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "ui-store",
+          "value": "UI Store"
+        },
+        {
+          "depth": 2,
+          "slug": "store",
+          "value": "Store"
+        },
+        {
+          "depth": 3,
+          "slug": "message-bars-forms-dropdown-menu",
+          "value": "Message Bars, Forms, Dropdown Menu"
+        }
+      ]
+    },
+    "src/stores/UserStore/readme.mdx": {
+      "name": "UserStore",
+      "id": "27a2233ad6dea77b7da3fd03e9538409",
+      "filepath": "src/stores/UserStore/readme.mdx",
+      "link": null,
+      "slug": "src-stores-user-store-readme",
+      "route": "/src-stores-user-store-readme",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "user-store",
+          "value": "User Store"
+        },
+        {
+          "depth": 2,
+          "slug": "store",
+          "value": "Store"
+        },
+        {
+          "depth": 3,
+          "slug": "hierarchy",
+          "value": "Hierarchy"
         }
       ]
     }

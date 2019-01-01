@@ -11,11 +11,26 @@ import { Playground, PropsTable } from "docz"
 
 ### This component is used to display boxes unique to the selected department.
 
-<Playground>
-    <div>hi</div>
-
-</Playground>
+There is a button in this component that adds boxes to checkout. If a box is already checked out by another department or currently checked out by the user's department, a red box will show up stating that the box is unavailable. If a box is currently in the checkout, a gray box will appear stating that the box is In Checkout. Otherwise, there will be a blue box stating that the box is Available.
 
 ## Props Interface
 
 <PropsTable of={BoxList} />
+
+## BoxList Props Explained
+
+### initializeFolderForm
+
+```javascript
+const folderForm = () => (uiStore.form = FormTypes.NEW_FOLDER)
+```
+
+initializeFolderForm accesses the stores to open a form window where the user can request to create a new a folder or folders. The function needs to return an existing FormType.
+
+### dept
+
+```javascript
+dept={userStore.selectedDepartment}
+```
+
+dept is an object created from the Department class. In order for the BoxList componenet to work, it needs to grab the User, and from the user it accesses that user's departments. The department selected from the dropdown menu will then enter the BoxList component as the dept property. The selected department has a list of boxes that will then be displayed in the component. 

@@ -3,6 +3,7 @@ name: Greeting
 ---
 import { Greeting } from "./Greeting"
 import { Playground, PropsTable } from "docz"
+import { user } from "./documentationData"
 
 # Greeting
 
@@ -11,9 +12,26 @@ import { Playground, PropsTable } from "docz"
 ### This component is used to let the user know they are logged in.
 
 <Playground>
-<div>hi</div>
+    <div>
+        <Greeting user={user}/>
+    </div>
 </Playground>
 
-## Props Interface
+## Props Interface for Greeting
 
 <PropsTable of={Greeting} /> 
+
+The user property has the following attributes: 
+- name
+- username
+- email
+- Id
+- departments.
+
+You can play with this component by deleting "user" in the playground and replacing it with a variable like:
+
+```javascript
+testName = {name: "Jarod Smith"}
+```
+
+That will allow you to customize the displayed name (you can copy and paste that code and replace the user variable).

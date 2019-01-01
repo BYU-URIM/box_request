@@ -15,6 +15,7 @@ export class RootStore {
     @observable
     public initialized: boolean = false
 
+    // Grabs user info and allows access to all other stores.
     @action
     async init(): Promise<void> {
         this.userInfo = await this.dataService.fetchUser()

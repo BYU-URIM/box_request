@@ -10,10 +10,27 @@ import { Playground, PropsTable } from "docz"
 
 ### This component is used to show the list of folders inside of a single box.  From here, you can request individual folders to checkout.  If there is no selected box, then it will show its empty message.
 
-<Playground>
-<div>hi</div>
-</Playground>
-
 ## Props Interface
 
 <PropsTable of={FolderList} /> 
+
+## FolderList Props Explained
+
+### emptyMessage
+
+```javascript
+emptyMessage={
+    userStore.selectedDepartment &&
+    "Click on a box to view its folders"
+}
+```
+
+For some reason, we included this property when we probably don't need it. It's used in conditional rendering to determine whether or not to tell the user the box doesn't have folders or not. If the box has no folders, a coded string stating "This box has no folders" will appear. If the box does contain folders, the emptyMessage property will be used instead. But I don't see why we wouldn't just a hard-coded empty string for this rather than tracking a variable.
+
+### box
+
+```javascript
+box={userStore.selectedBox}
+```
+
+This property is an object from the Box Class. It's populated from its parent Department and User. The folders are dependent on the box object that the user has selected so that only folders contained within that specific box will show in the FolderList component. 
