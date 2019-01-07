@@ -38,10 +38,11 @@ export const FolderList = observer((props: IFolderListProps) => {
             {props.box && props.box.folders.length ? (
                 <ScrollablePane>
                     <DetailListHeader
-                        title={`Folders in Box B${props.box.BoxId}`}
+                        title={`Folders in Box ${props.box.BoxId}`}
                     />
 
                     <Sticky stickyPosition={StickyPositionType.Header}>
+                        {console.log(props.box.selectedFolder)}
                         <CommandBar
                             farItems={
                                 props.box.selectedFolder && [
