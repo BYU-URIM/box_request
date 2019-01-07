@@ -42,7 +42,6 @@ export const FolderList = observer((props: IFolderListProps) => {
                     />
 
                     <Sticky stickyPosition={StickyPositionType.Header}>
-                        {console.log(props.box.selectedFolder)}
                         <CommandBar
                             farItems={
                                 props.box.selectedFolder && [
