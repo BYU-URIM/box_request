@@ -20,7 +20,7 @@ export class UIStore {
     @observable
     form: FormTypes = FormTypes.none
 
-    // Enables a pop-up bar if its value is not empty.
+    // Enables a pop-up message bar if its value is not empty.
     @observable
     dialogMessage: string = ""
 
