@@ -21,6 +21,9 @@ export interface IForms {
     SUBMIT_CART: IFormConfig
 }
 
+/*
+    Forms are created and defined here using JSON Schema Forms. To most easily understand schemas, UIs, and other properties, it's probably best to visit their documentation.
+*/
 export const FORMS: IForms = {
     NEW_FOLDER: {
         schema: {
@@ -28,6 +31,7 @@ export const FORMS: IForms = {
             title: "Folder Form",
             required: ["FolderDescription"],
             properties: {
+                // This is where you'd add form components, like toggles and textfields
                 FolderDescription: {
                     type: "string",
                     maxLength: 50,
