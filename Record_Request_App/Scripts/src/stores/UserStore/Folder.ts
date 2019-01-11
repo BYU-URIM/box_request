@@ -20,6 +20,9 @@ export interface IFolderForm {
     FolderDescription: string
 }
 
+/* 
+    Creating folders requires access to boxes
+*/
 export class Folder implements IFolder, IObjectWithKey {
     constructor(private _box: Box, _folder: IFolder, private _root: RootStore) {
         Object.assign(this, _folder)
@@ -38,12 +41,16 @@ export class Folder implements IFolder, IObjectWithKey {
     recordId?: string
     modId?: string
     key
-
+/*
+    An item is addable if it isn't in checkout and is available.
+*/
     @computed
     get addable(): boolean {
         return !this.inCart && this.available
     }
-
+/*
+    Status has slightly different logic for folders than for boxes.
+*/
     @computed
     get status(): ItemStatusTypes {
         return this.CurrentFolderLocation === String(this.BoxId)
@@ -54,14 +61,18 @@ export class Folder implements IFolder, IObjectWithKey {
                     ? ItemStatusTypes.inCheckout
                     : ItemStatusTypes.checkedOutByClient
     }
-
+/*
+    This is used to count how many folders of the same box are checked out
+*/
     @computed
     get siblingFoldersInCart(): Array<Folder> {
         return this._root.checkoutStore.folders.filter(_item => {
             return _item.BoxId === this.BoxId
         })
     }
-
+/*
+    Triggers and can be used as a conditional (like having a message bar pop up) when 5 or more folders from the same box area added to checkout.
+*/
     @computed
     get fiveOrMoreSiblingFolders(): boolean {
         return this.siblingFoldersInCart.length > 4
@@ -92,14 +103,18 @@ export class Folder implements IFolder, IObjectWithKey {
         this._root.checkoutStore.items.set(this.FolderId, this)
         this.fiveOrMoreMiddleware()
     }
-
+/*
+    This causes a message bar to display when there are 5 or more folders in the same box checked out.
+*/
     @action
     fiveOrMoreMiddleware = () => {
         this.fiveOrMoreSiblingFolders
             ? (this._root.uiStore.message = messages.Five_Folders)
             : this._root.uiStore.clearMessage()
     }
-
+/*
+    This removes the message and message bar.
+*/
     @action
     remove = () => {
         this._root.checkoutStore.items.delete(this.FolderId)

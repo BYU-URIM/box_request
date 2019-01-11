@@ -1,6 +1,8 @@
 import { MessageBarType } from "office-ui-fabric-react"
 
-// The Message class determines what the pop-up message bar will look like, what the message will be, etc.
+/*
+    The Message class determines what the pop-up message bar will look like, what the message will be, etc.
+*/
 export class Message {
     name: string
     text: string
@@ -12,7 +14,9 @@ export class Message {
     }
 }
 
-// I don't know what the point of using an interface here is. Shouldn't the class do the job of the interface?
+/*
+    I don't know what the point of using an interface here is. Shouldn't the class do the job of the interface?
+*/
 export interface IMessage {
     name: string
     text: string
@@ -22,7 +26,7 @@ export interface IMessage {
 }
 
 /* 
-We have several different instances of the Message class that we'll be using. They need a name we can easily refer to in the code to identify the message we want, text for the message that will appear on screen, and a message bar type in order to use the Microsoft UI styles 
+    We have several different instances of the Message class that we'll be using. They need a name we can easily refer to in the code to identify the message we want, text for the message that will appear on screen, and a message bar type in order to use the Microsoft UI styles 
 */
 
 export const messages = {

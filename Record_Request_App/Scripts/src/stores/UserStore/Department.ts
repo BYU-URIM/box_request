@@ -5,7 +5,9 @@ export interface IDepartment {
     name: string
     id: number
 }
-
+/*
+Departments are created from the Department class, but must be obtained from accessing the User and determining what Departments the User belongs to.
+*/
 export class Department {
     constructor(private _root: RootStore, _department: IDepartment) {
         Object.assign(this, _department)
@@ -25,7 +27,9 @@ export class Department {
             return _box
         })
     }
-
+/*
+    Selecting a box changes the User View so we can see folders within a specific box
+*/
     @observable
     private _selectedBox?: Box = undefined
 
