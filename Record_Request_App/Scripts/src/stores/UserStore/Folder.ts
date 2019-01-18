@@ -46,20 +46,20 @@ export class Folder implements IFolder, IObjectWithKey {
 */
     @computed
     get addable(): boolean {
-        return !this.inCart && this.available
+        return !this.inCheckout && this.available
     }
 /*
     Status has slightly different logic for folders than for boxes.
 */
     @computed
     get status(): ItemStatusTypes {
-        return this.CurrentFolderLocation === String(this.BoxId)
-            ? this._box.status
-            : this._box.status !== ItemStatusTypes.available
-                ? this._box.status
-                : this.inCart
-                    ? ItemStatusTypes.inCheckout
-                    : ItemStatusTypes.checkedOutByClient
+        return this.CurrentFolderLocation !== String(this.BoxId)
+            ? ItemStatusTypes.checkedOutByClient
+            : this.inCheckout
+                ? ItemStatusTypes.inCheckout
+                : this.CurrentFolderLocation === String(this.BoxId)
+                    ? this._box.status
+                    : this._box.status // maybe make this unavailable, would be a bug if it didn't work
     }
 /*
     This is used to count how many folders of the same box are checked out
@@ -81,7 +81,7 @@ export class Folder implements IFolder, IObjectWithKey {
     /* Addable Condtions */
 
     @computed
-    get inCart(): boolean {
+    get inCheckout(): boolean {
         return (
             this._root.checkoutStore.items.has(this.FolderId) ||
             this._box.inCheckout
