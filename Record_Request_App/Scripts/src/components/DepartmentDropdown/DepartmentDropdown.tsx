@@ -16,7 +16,7 @@ export const DepartmentDropdown = observer(
             <div className={"ms-Grid-row"}>
                 {props.options.length !== 1 ? (
                     <Dropdown
-                        placeholder={props.dropdownInfo.placeHolder}
+                        placeHolder={props.dropdownInfo.placeHolder}
                         options={props.options}
                         selectedKey={props.dropdownInfo.key}
                         onChange={(e, item: IOption) =>
