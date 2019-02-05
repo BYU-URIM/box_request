@@ -8,8 +8,8 @@ export class DataServiceFactory {
             ENVIRONMENT && ENVIRONMENT === EnvType.LOCAL
                 ? new MockDataService()
                 : ENVIRONMENT === EnvType.SHAREPOINT_PROXY
-                    ? new SpDataService()
-                    : new DataService()
+                ? new SpDataService()
+                : new DataService()
         return new RootStore(ds)
     }
 }
