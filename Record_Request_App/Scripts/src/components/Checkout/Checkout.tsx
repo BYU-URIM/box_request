@@ -31,7 +31,7 @@ export const Checkout = observer((props: ICheckoutProps) => {
             onRender: (item: CheckoutItem) => (
                 <div>
                     {item instanceof Folder ? (
-                        <Icon iconName="FabricFolder" className={"icon"}  />
+                        <Icon iconName="FabricFolder" className={"icon"} />
                     ) : (
                         <Icon iconName="GiftboxSolid" className={"icon"} />
                     )}
