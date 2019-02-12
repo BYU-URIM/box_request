@@ -4,6 +4,7 @@ import {
     BoxList,
     FolderList,
     Checkout,
+    Form,
 } from "../../components"
 import { inject, observer } from "mobx-react"
 import { UIStore, CheckoutStore, UserStore, FormTypes } from "../../stores"
@@ -73,6 +74,14 @@ export class RecordsRequest extends React.Component<{
                             </PivotItem>
                             <PivotItem linkText="Submit Records">
                                 <div className={"ms-Grid-col ms-sm1"} />
+                                <Form
+                                    detail={
+                                        "How many boxes would you like to create?"
+                                    }
+                                    initializeBoxForm={() =>
+                                        (uiStore.form = FormTypes.NEW_BOX)
+                                    }
+                                />
                             </PivotItem>
                         </Pivot>
                     </div>

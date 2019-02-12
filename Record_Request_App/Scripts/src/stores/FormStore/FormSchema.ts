@@ -58,12 +58,17 @@ export const FORMS: IForms = {
             properties: {
                 BoxDescription: {
                     type: "string",
-                    maxLength: 5,
+                    maxLength: 50,
                     title: "Box Description",
                 },
             },
+            description: "Describes the contents of the box.",
         },
-        uiSchema: {},
+        uiSchema: {
+            BoxDescription: {
+                "ui:autofocus": true,
+            },
+        },
         fields: {},
         submit: FormUtils.logOnSubmit,
     },
