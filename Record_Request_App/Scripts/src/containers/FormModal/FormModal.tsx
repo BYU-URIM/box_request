@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 import Modal from "office-ui-fabric-react/lib/Modal"
 import { inject, observer } from "mobx-react"
 import { UIStore, UserStore, FormTypes } from "../../stores"
@@ -19,7 +19,7 @@ export class FormModal extends React.Component<{
                 isOpen={uiStore.form !== FormTypes.none}
                 onDismiss={uiStore.closeForm}
                 isBlocking={false}
-                isDarkOverlay={false}
+                isDarkOverlay={true}
                 containerClassName={"formModal-content"}
             >
                 <div className="formModal-header">

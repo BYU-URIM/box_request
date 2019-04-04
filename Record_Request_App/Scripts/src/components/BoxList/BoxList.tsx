@@ -8,7 +8,8 @@ import {
     ScrollablePane,
     Sticky,
     StickyPositionType,
-    ContextualMenuItemType,
+    SelectionMode,
+    DetailsRow,
 } from "office-ui-fabric-react"
 import "./styles.scss"
 import { DetailListHeader } from ".."
@@ -118,14 +119,26 @@ export const BoxList = observer((props: IBoxListProps) => {
                         />
                     </Sticky>
                     <DetailsList
-                        items={props.dept.boxes || []}
+                        items={props.dept.boxes}
                         columns={columns}
                         layoutMode={DetailsListLayoutMode.justified}
                         checkboxVisibility={CheckboxVisibility.hidden}
+                        selectionMode={SelectionMode.single}
                         compact={true}
-                        onActiveItemChanged={(_box: Box) => {
-                            _box.select()
+                        rowElementEventMap={[
+                            {
+                                eventName: "onClick",
+                                callback: () => console.log("here"),
+                            },
+                        ]}
+                        onRenderRow={(_props, defRender) => {
+                            return (
+                                <div onClick={_props.item.select}>
+                                    {defRender(_props)}
+                                </div>
+                            )
                         }}
+                        initialFocusedIndex={0}
                     />
                 </ScrollablePane>
             )}

@@ -4,7 +4,7 @@ import { Fabric } from "office-ui-fabric-react"
 import { RootStore } from "../../stores"
 import { inject, observer } from "mobx-react"
 import { RecordsRequest, FormModal, Message, Loading } from ".."
-import { Greeting } from "../../components"
+import { Greeting } from "../../components/Greeting/Greeting"
 import DevTools from "mobx-react-devtools"
 import "./styles.scss"
 
@@ -24,10 +24,9 @@ export class App extends React.Component<{ rootStore?: RootStore }> {
                 </div>
                 <Loading />
                 <FormModal />
-                {/* delete in production */} <DevTools />
+                {/* delete in production */}
+                {/* <DevTools /> */}
             </Fabric>
         )
     }
 }
-
-export default App

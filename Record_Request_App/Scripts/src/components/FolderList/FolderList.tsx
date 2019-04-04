@@ -85,13 +85,11 @@ export const FolderList = observer((props: IFolderListProps) => {
                             compact={true}
                             layoutMode={DetailsListLayoutMode.justified}
                             checkboxVisibility={CheckboxVisibility.hidden}
-                            onActiveItemChanged={(_folder: Folder) =>
-                                _folder.select()
-                            }
                             onRenderRow={(_props, defaultRender) => (
                                 <div
                                     key={_props.item.key}
                                     className={`folderList-row`}
+                                    onClick={_props.item.select}
                                 >
                                     {defaultRender({
                                         ..._props,

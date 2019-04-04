@@ -4,7 +4,7 @@
     "description": "",
     "scripts": {
         "dev:local": "webpack-dev-server --env.NODE_ENV=local --mode=development --hints=off",
-        "dev:sharepoint": "webpack --watch --env.NODE_ENV=sharepoint",
+        "dev:sharepoint": " npm run sp:proxyServer & webpack --watch --mode=development --env.NODE_ENV=sharepoint",
         "dev:sharepointProxy": "npm run fmp:serve & npm run sp:proxyServer & webpack --watch --env.NODE_ENV=sharepointProxy --mode=development",
         "build": "webpack --env.NODE_ENV=sharepoint",
         "build:production": "webpack --env.Node_ENV=sharepoint --optimize-minimize",
@@ -23,8 +23,8 @@
         "@types/cors": "^2.8.4",
         "@types/express": "^4.16.0",
         "@types/jest": "^23.3.1",
-        "@types/react": "^16.3.14",
-        "@types/react-dom": "^16.0.5",
+        "@types/react": "^16.8.2",
+        "@types/react-dom": "^16.8.0",
         "@types/react-jsonschema-form": "^1.0.10",
         "@types/request": "^2.47.1",
         "@types/shelljs": "^0.8.0",
@@ -54,7 +54,7 @@
         "tslint-config-prettier": "^1.17.0",
         "tslint-plugin-prettier": "^2.0.1",
         "tslint-react": "^3.6.0",
-        "typescript": "^3.0.3",
+        "typescript": "^3.3.1",
         "webpack": "^4.12.0",
         "webpack-cli": "^3.1.0",
         "webpack-dev-server": "^3.1.14"
@@ -67,9 +67,9 @@
         "@pnp/sp-addinhelpers": "^1.2.1",
         "mobx": "^5.5.0",
         "mobx-react": "^5.2.3",
-        "office-ui-fabric-react": "^6.43.0",
-        "react": "^16.3.2",
-        "react-dom": "^16.3.2",
+        "office-ui-fabric-react": "^6.135.0",
+        "react": "^16.8.1",
+        "react-dom": "^16.8.1",
         "react-jsonschema-form": "^1.0.5"
     },
     "jest": {
@@ -77,7 +77,14 @@
             "^.+\\.tsx?$": "ts-jest"
         },
         "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(tsx?)$",
-        "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
+        "moduleFileExtensions": [
+            "ts",
+            "tsx",
+            "js",
+            "jsx",
+            "json",
+            "node"
+        ],
         "testURL": "http://localhost"
     },
     "husky": {
