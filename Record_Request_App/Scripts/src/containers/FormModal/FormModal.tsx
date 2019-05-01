@@ -15,6 +15,11 @@ export class FormModal extends React.Component<{
         const { uiStore, userStore } = this.props
 
         return (
+            /**
+             * TODO: get rid of this ts-ignore
+             */
+
+            /* @ts-ignore */
             <Modal
                 isOpen={uiStore.form !== FormTypes.none}
                 onDismiss={uiStore.closeForm}

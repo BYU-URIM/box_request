@@ -1,24 +1,23 @@
-import { IDepartmentDropdownProps } from "./DepartmentDropdown";
-import { UIStore, IDepartment, IOption, IDropdownInfo, FormTypes } from "../../stores";
+import { IDepartment, IOption, IDropdownInfo, FormTypes } from "../../stores"
 
 let selectedDep = {
-    id: 45123
+    id: 45123,
 }
 
 let form = ""
 
-const departments:IDepartment[] = [
+const departments: IDepartment[] = [
     {
         name: "The Man Department",
         id: 45123,
     },
     {
         name: "The Woman Department",
-        id: 12345
-    }
+        id: 12345,
+    },
 ]
 
-const handleChanged = (id) => {
+const handleChanged = id => {
     if (departments.find(_dep => _dep.id === id)) {
         selectedDep = id
     }
@@ -27,12 +26,12 @@ const handleChanged = (id) => {
 const options: Array<IOption> = [
     {
         key: 45123,
-        text: "45123 - The Man Department"
+        text: "45123 - The Man Department",
     },
     {
         key: 12345,
-        text: "12345 - The Woman Department"
-    }
+        text: "12345 - The Woman Department",
+    },
 ]
 
 function dropdownInfo(): IDropdownInfo {
@@ -40,6 +39,7 @@ function dropdownInfo(): IDropdownInfo {
         title: "",
         key: selectedDep ? selectedDep.id : 0,
         placeHolder: "Departments",
+        onChange: console.log,
     }
     info.title = selectedDep ? "Your Department:" : "Select a Department"
 
@@ -49,10 +49,10 @@ function dropdownInfo(): IDropdownInfo {
 const boxForm = () => (form = FormTypes.NEW_BOX)
 
 export const ddP = {
-    handleChanged: handleChanged,
-    options: options,
-    dropdownInfo: dropdownInfo,
-    initializeBoxForm: boxForm
+    handleChanged,
+    options,
+    dropdownInfo,
+    initializeBoxForm: boxForm,
 }
 
 export default ddP

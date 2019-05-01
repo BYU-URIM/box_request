@@ -22,14 +22,13 @@ export class Department {
     @computed
     get boxes(): Array<Box> {
         return this._boxes.map(_box => {
-            // tslint:disable-next-line:no-unused-expression
+            /* this de-reference is necessary to re-cache _box.addable */
+            /* tslint:disable-next-line:no-unused-expression */
             _box.addable
             return _box
         })
     }
-/*
-    Selecting a box changes the User View so we can see folders within a specific box
-*/
+
     @observable
     private _selectedBox?: Box = undefined
 

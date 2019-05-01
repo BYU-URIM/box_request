@@ -41,9 +41,6 @@ export interface IBoxForm {
 }
 
 export class Box implements IBox, IObjectWithKey {
-/*
-    Before we can create a box, we need access access the department, which we get from RootStore and further upstream.
-*/
     constructor(
         private _root: RootStore,
         _box: IBox,
@@ -64,9 +61,7 @@ export class Box implements IBox, IObjectWithKey {
     DeptId: number
     BoxDescription: string
     key: string
-/*
-    Here we have functions to help us track the folders within the box - is a box within this box selected? Is a folder within this box being requested for checkout?
-*/
+
     @observable
     private _folders: Array<Folder> = []
 
@@ -81,9 +76,7 @@ export class Box implements IBox, IObjectWithKey {
     set selectedFolder(_folder: Folder) {
         this._selectedFolder = _folder
     }
-/*
-    We need a list of the folders in a box so we can display it for the user.
-*/
+
     @computed
     get folders(): Array<Folder> {
         return this._folders
@@ -92,7 +85,8 @@ export class Box implements IBox, IObjectWithKey {
     @computed
     get dataFromFolders(): Array<Folder> {
         return this.folders.map(_folder => {
-            // tslint:disable-next-line:no-unused-expression
+            /* this de-reference is necessary to re-cache _folder.addable */
+            /* tslint:disable-next-line:no-unused-expression */
             _folder.addable
             return _folder
         })
@@ -102,10 +96,6 @@ export class Box implements IBox, IObjectWithKey {
     get addable(): boolean {
         return !this.inCheckout && this.available
     }
-
-/* 
-    Addable Condtions 
-*/
 
     @computed
     get inCheckout(): boolean {
@@ -122,10 +112,10 @@ export class Box implements IBox, IObjectWithKey {
         return this.inCheckout
             ? ItemStatusTypes.inCheckout
             : this.CurrentLocation.toLowerCase().startsWith("l")
-                ? ItemStatusTypes.available
-                : this.CurrentLocation === `D${this.BoxId}`
-                    ? ItemStatusTypes.checkedOutByClient
-                    : ItemStatusTypes.unavailable
+            ? ItemStatusTypes.available
+            : this.CurrentLocation === `D${this.BoxId}`
+            ? ItemStatusTypes.checkedOutByClient
+            : ItemStatusTypes.unavailable
     }
 
     @action
@@ -133,9 +123,7 @@ export class Box implements IBox, IObjectWithKey {
         this.selectedFolder = undefined
         this.department.selectedBox = this
     }
-/*
-    If a box is selected, and some of it's folders had been previously selected, remove those folders from checkout and replace it with the recently selected parent box.
-*/
+
     @action
     request = () => {
         this.folders.forEach(_folder => {
@@ -166,9 +154,7 @@ export class Box implements IBox, IObjectWithKey {
             this._folders.push(new Folder(this, _folder, this._root))
         )
     }
-/*
-    Uses the input from the user obtained from the Folder Form to create a new folder and push it into the system.
-*/
+
     @action
     createFolder = async (_formData: IFolderForm) => {
         const res = await this._root.dataService.createFolder({

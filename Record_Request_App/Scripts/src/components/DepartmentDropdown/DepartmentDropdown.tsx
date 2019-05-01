@@ -4,7 +4,6 @@ import { observer } from "mobx-react"
 import { IOption, IDropdownInfo } from "../../stores"
 import "./styles.scss"
 export interface IDepartmentDropdownProps {
-    handleChanged(key: number): void
     options: Array<IOption>
     dropdownInfo: IDropdownInfo
     initializeBoxForm(): void
@@ -16,12 +15,13 @@ export const DepartmentDropdown = observer(
             <div className={"ms-Grid-row"}>
                 {props.options.length !== 1 ? (
                     <Dropdown
-                        placeholder={props.dropdownInfo.placeholder}
+                        className={"ms-Grid-col ms-sm4 ms-smPush4"}
+                        placeholder={props.dropdownInfo.placeHolder}
                         options={props.options}
                         selectedKey={props.dropdownInfo.key}
-                        onChange={(e, item: IOption) =>
-                            props.handleChanged(item.key)
-                        }
+                        onChange={(e, item: IOption) => {
+                            props.dropdownInfo.onChange(item.key)
+                        }}
                         label={props.dropdownInfo.title}
                         styles={{
                             label: {

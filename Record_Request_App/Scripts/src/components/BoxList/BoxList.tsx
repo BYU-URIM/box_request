@@ -9,7 +9,6 @@ import {
     Sticky,
     StickyPositionType,
     SelectionMode,
-    DetailsRow,
 } from "office-ui-fabric-react"
 import "./styles.scss"
 import { DetailListHeader } from ".."
@@ -86,9 +85,6 @@ export const BoxList = observer((props: IBoxListProps) => {
                                         text: "Request",
                                         disabled: !props.dept.selectedBox
                                             .addable,
-                                        style: {
-                                            fontSize: 12,
-                                        },
                                     },
                                     {
                                         key: "createFolder",
@@ -97,9 +93,6 @@ export const BoxList = observer((props: IBoxListProps) => {
                                         },
                                         onClick: props.initializeFolderForm,
                                         text: "New Folder",
-                                        style: {
-                                            fontSize: 12,
-                                        },
                                     },
                                 ]
                             }

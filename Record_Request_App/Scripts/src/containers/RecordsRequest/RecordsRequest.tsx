@@ -9,6 +9,7 @@ import { inject, observer } from "mobx-react"
 import { UIStore, CheckoutStore, UserStore, FormTypes } from "../../stores"
 import { Pivot, PivotItem, Label } from "office-ui-fabric-react"
 import "./styles.scss"
+import { Loading } from "../Loading/Loading"
 
 @inject("uiStore", "checkoutStore", "userStore")
 @observer
@@ -19,39 +20,26 @@ export class RecordsRequest extends React.Component<{
 }> {
     render() {
         const { uiStore, userStore, checkoutStore } = this.props
-        return userStore.loading ? null : (
+        return userStore.loading ? (
+            <Loading />
+        ) : (
             <>
-                <div className={"ms-Grid-row"}>
-                    <div className={"ms-Grid-col ms-sm4 ms-smPush4"}>
-                        <DepartmentDropdown
-                            handleChanged={(id: number) =>
-                                userStore.departments
-                                    .find(_dep => _dep.id === id)
-                                    .select()
-                            }
-                            options={uiStore.userDepartmentsAsOptions}
-                            dropdownInfo={uiStore.dropdownInfo}
-                            initializeBoxForm={() =>
-                                (uiStore.form = FormTypes.NEW_BOX)
-                            }
-                        />
-                    </div>
-                </div>
+                <DepartmentDropdown
+                    options={uiStore.userDepartmentsAsOptions}
+                    dropdownInfo={uiStore.dropdownInfo}
+                    initializeBoxForm={() => (uiStore.form = FormTypes.NEW_BOX)}
+                />
                 {userStore.selectedDepartment && (
                     <div className={"ms-Grid-row box-request-row"}>
                         <Pivot
+                            className={"ms-Grid-col ms-sm12"}
                             styles={{
                                 root: {
-                                    display: "block",
                                     textAlign: "center",
-                                    marginBottom: "32px",
                                 },
                             }}
-                            onLinkClick={(a, b) => {
-                                console.log(a, b)
-                            }}
                         >
-                            <PivotItem linkText="Request Records">
+                            <PivotItem headerText="Request Records">
                                 <div className={"ms-Grid-col ms-sm1"} />
                                 <BoxList
                                     initializeFolderForm={() =>
@@ -71,7 +59,7 @@ export class RecordsRequest extends React.Component<{
                                     checkoutStore={checkoutStore}
                                 />{" "}
                             </PivotItem>
-                            <PivotItem linkText="Submit Records">
+                            <PivotItem headerText="Submit Records">
                                 <div className={"ms-Grid-col ms-sm1"} />
                             </PivotItem>
                         </Pivot>
