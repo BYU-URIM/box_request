@@ -1,8 +1,8 @@
-var path = require("path")
-var webpack = require("webpack")
+const path = require("path")
+const webpack = require("webpack")
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin")
 
-module.exports = function(env) {
+module.exports = (env, { mode }) => {
     return {
         devServer: {
             contentBase: "dist",
@@ -12,26 +12,30 @@ module.exports = function(env) {
         },
         devtool: "inline-source-maps",
         entry: "./src/main.tsx",
-        optimization: {
-            removeAvailableModules: false,
-            removeEmptyChunks: false,
-            splitChunks: false,
-        },
+        optimization:
+            mode === "production"
+                ? {
+                      removeAvailableModules: false,
+                      removeEmptyChunks: false,
+                      splitChunks: false,
+                  }
+                : {
+                      removeAvailableModules: false,
+                      removeEmptyChunks: true,
+                      splitChunks: {
+                          chunks: "all",
+                      },
+                  },
 
-        output: {
-            filename: "bundle.js",
-            path: path.join(__dirname, "dist"),
-            pathinfo: false,
-        },
         module: {
             rules: [
                 {
-                    test: /\.tsx?$/,
-                    loader: "ts-loader",
                     exclude: /node_modules/,
+                    loader: "ts-loader",
                     options: {
                         transpileOnly: true,
                     },
+                    test: /\.tsx?$/,
                 },
                 {
                     test: /\.scss$/,
@@ -39,8 +43,10 @@ module.exports = function(env) {
                 },
             ],
         },
-        resolve: {
-            extensions: [".tsx", ".ts", ".js", ".jsx"],
+        output: {
+            filename: "bundle.js",
+            path: path.join(__dirname, "dist"),
+            pathinfo: false,
         },
         plugins: [
             new webpack.DefinePlugin({
@@ -48,5 +54,8 @@ module.exports = function(env) {
             }),
             new ForkTsCheckerWebpackPlugin({ checkSyntacticErrors: true }),
         ],
+        resolve: {
+            extensions: [".tsx", ".ts", ".js", ".jsx"],
+        },
     }
 }
