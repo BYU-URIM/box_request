@@ -9,20 +9,33 @@
         "noLib": false,
         "jsx": "react",
         "outDir": "dist",
-        "lib": ["es2017", "dom"],
+        "lib": [
+            "es2017",
+            "dom"
+        ],
         "moduleResolution": "node",
         "emitDecoratorMetadata": true,
         "sourceMap": true,
         "strictNullChecks": false,
-        "types": ["node", "jest"],
-        "allowSyntheticDefaultImports": true
+        "types": [
+            "node",
+            "jest"
+        ],
+        "allowSyntheticDefaultImports": true,
+        "incremental": true,
     },
-    "exclude": ["node_modules", "**/node_modules/*", "static", "dist"],
+    "exclude": [
+        "node_modules",
+        "**/node_modules/*",
+        "static",
+        "dist"
+    ],
     "include": [
         "src/**/*",
         "test/**/*",
         "res/**/*",
         "sp_config/**/*",
-        "scripts/**/*"
+        "scripts/**/*",
+        "stories/**/*"
     ]
 }

@@ -1,6 +1,6 @@
 {
     "defaultSeverity": "error",
-    "extends": ["tslint:latest", "tslint-react", "tslint-config-prettier"],
+    "extends": ["tslint:latest", "tslint-react", "tslint-immutable", "tslint-config-prettier"],
     "jsRules": {},
     "rules": {
         "quotemark": false,
@@ -19,7 +19,6 @@
         "object-literal-sort-keys": false,
         "curly": false,
         "no-consecutive-blank-lines": [true, 2],
-        "no-string-literal": false,
         "class-name": false,
         "variable-name": false,
         "no-namespace": false,
@@ -31,7 +30,13 @@
         "no-any": true,
         "no-implicit-dependencies": false,
         "no-unused-expression": true,
-        "prettier": [true, "./.prettierrc", { "editorconfig": false }]
+        "prettier": [true, "./.prettierrc", { "editorconfig": false }],
+        "cyclomatic-complexity": [true, 10],
+        "no-unnecessary-callback-wrapper": true,
+        "no-string-throw": true,
+        "no-string-literal": true,
+        "no-invalid-template-strings": true,
+        "no-inferrable-types": false
     },
     "exclude": ["node_modules", "**/node_modules/*", "static", "dist"],
     "rulesDirectory": ["tslint-plugin-prettier"]

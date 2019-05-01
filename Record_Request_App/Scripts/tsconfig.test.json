@@ -9,12 +9,20 @@
     "noLib": false,
     "jsx": "react",
     "outDir": "dist",
-    "lib": ["dom", "es2017"],
-    "types": ["node"],
+    "lib": [
+      "dom",
+      "es6",
+      "es7",
+      "esnext"
+    ],
+    "types": [
+      "node"
+    ],
     "moduleResolution": "node",
     "sourceMap": true,
     "allowSyntheticDefaultImports": true,
-    "strictNullChecks": false
+    "strictNullChecks": false,
+    "incremental": true
   },
   "exclude": [
     "node_modules",
@@ -23,8 +31,8 @@
     "dist"
   ],
   "include": [
-      "src/**/*",
-      "test/**/*",
-      "tasks/**/*"
-    ]
+    "src/**/*",
+    "test/**/*",
+    "tasks/**/*"
+  ]
 }
