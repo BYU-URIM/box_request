@@ -7,7 +7,6 @@ export enum EnvType {
 
 // gloabal variable set at build time through build script
 // passed in through webpack plugin
-// tslint:disable-next-line:prefer-const
 declare const NODE_ENV: string
 
 // associates NODE_ENV string to Environment enum and checks for any uncrecognized NODE_ENV string
